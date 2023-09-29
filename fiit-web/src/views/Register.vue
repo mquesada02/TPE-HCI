@@ -14,6 +14,6 @@
 </template>
 
 <script setup>
-    import LogIn from '@/components/LogIn.vue';
-    import Navbar from '@/components/Registrarse.vue';
+    import Navbar from '@/components/Navbar.vue';
+    import Registrarse from '@/components/Registrarse.vue';
 </script>

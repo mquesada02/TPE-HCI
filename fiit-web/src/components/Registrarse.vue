@@ -1,8 +1,10 @@
 <template>
-  <v-sheet width="1000" class="mx-auto" color="white">
-    <p class="text-h3 text-left drop-shadow-lg my-10 ml-5" >
+  <v-sheet  width="1000" class="mx-auto" color="white" rounded="lg">
+  
+    <p class="text-h3 text-center mt-5 ml-5 mb-7" >
              Registrarse
         </p>
+        <div/>
         <v-form fast-fail @submit.prevent>
         <v-row>
         <v-col cols="12" md="6">
@@ -41,7 +43,7 @@
             label="Contraseña"
             v-model="contraseña" 
             variant="underlined"
-            class="text-field-center"
+            class="text-field-center mr-8"
             :rules="passwordRules">
         </v-text-field>
         
@@ -49,7 +51,7 @@
             label="Apellido"
             v-model="apellido"
             variant="underlined"
-            class="text-field-center"
+            class="text-field-center mr-8"
             :rules="apellidoRules">
          </v-text-field>
          
@@ -57,7 +59,7 @@
             label="Fecha de Nacimiento" 
              v-model="FechadeNacimiento"
              variant="underlined"
-             class="text-field-center"
+             class="text-field-center mr-8"
              :rules="fechaRules">
         </v-text-field>
          
@@ -65,13 +67,15 @@
             label="Peso" 
              v-model="peso"
              variant="underlined"
-             class="text-field-center"
+             class="text-field-center mr-8"
              :rules="pesoRules">
         </v-text-field>
         </v-col>
         </v-row>
-        <p class="drop-shadow-lg text-center"> ¿Ya tienes cuenta? Inicia sesión</p>
-      <v-btn color="secondary" type="submit">Registrarse</v-btn>
+         <p class="drop-shadow-lg text-h7 text-center mb-5"> ¿Ya tienes cuenta? <u>Inicia sesión</u></p>
+         <div class="d-flex flex-column align-center mb-8">
+         <v-btn color="secondary" type="submit" class="text-center mb-8">Registrarse</v-btn>
+         </div>
     </v-form>
   </v-sheet>
 </template>
