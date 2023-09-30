@@ -1,7 +1,7 @@
 <template>
   <v-sheet  width="1000" class="mx-auto" color="white" rounded="lg">
   
-    <p class="text-h3 text-center mt-5 ml-5 mb-7" >
+    <p class="pt-6 text-h3 text-center ml-5 mb-7 font-weight-bold" >
              Registrarse
         </p>
         <div/>

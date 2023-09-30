@@ -1,10 +1,10 @@
 <template>
-    <v-sheet
+    <v-sheet color="surface"
       class="mx-auto"
       elevation="8"
       max-width="100%"
     >
-    <p class="pl-3 pt-3 text-h4 font-weight-medium">Destacadas</p>
+    <p class="pl-3 pt-3 text-h4 font-weight-medium">{{ title }}</p>
       <v-slide-group
         v-model="model"
         class="pa-4"
@@ -16,28 +16,21 @@
           :key="img"
           v-slot="{ isSelected, toggle, selectedClass }"
         >
-          <v-card
-            color="bg-secondary"
-            :class="['ma-4', selectedClass]"
-            height="100"
-            width="200"
-            @click="toggle"
-          >
-            <v-img :src="img" cover/>
-          </v-card>
+          <ExcersiveCard :img="img.src" :title="img.title" :selected-class="selectedClass" :toggle="toggle"/>
+
         </v-slide-group-item>
       </v-slide-group>
     </v-sheet>
 </template>
 
-<style scoped>
-    .custom-class {
-        background: rgb(var(--v-theme-secondary));
-    }
-</style>
-
 <script setup>
     import { defineProps } from 'vue';
-    const props = defineProps(['imgs']);
-    const imgs = props.imgs.map((img) => new URL('../assets/img/' + img, import.meta.url).href);
+    import ExcersiveCard from './ExcersiveCard.vue';
+
+    const props = defineProps(['title','imgs']);
+    const title = props.title;
+    const imgs = props.imgs;
+    for (let i = 0; i < imgs.length; i++) {
+      imgs[i].src = new URL('../assets/img/ejercicios/' + imgs[i].src, import.meta.url).href;
+    }
 </script>

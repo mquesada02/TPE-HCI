@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar absolute class="bg-primary">
+    <v-app-bar absolute color="primary">
         <!-- Router Link HERE-->
         <v-img grow rounded="0" src="@/assets/img/fiit-logo.png" href="/" />
         <!-- END -->
@@ -14,9 +14,4 @@
     </v-app-bar>
 </template>
 
-<style scoped>
-    .custom-class {
-        background: rgb(var(--v-theme-primary));
-    }
-</style>
 

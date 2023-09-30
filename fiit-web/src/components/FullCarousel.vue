@@ -1,3 +1,5 @@
+<!-- faltan correcciones. NO usar-->
+
 <template>
     <v-carousel>
         <v-carousel-item v-for="(img, index) in imgs" :key="index" :src="img" cover />
