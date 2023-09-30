@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <Register/>
+      <InicioSesion />
     </v-main>
   </v-app>
 </template>
