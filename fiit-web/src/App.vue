@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <InicioSesion />
+      <Navbar />
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
@@ -11,4 +12,5 @@
   import InicioSesion from '@/views/InicioSesion.vue'
   import Search from '@/views/Search.vue'
   import Register from '@/views/Register.vue'
+  import Navbar from './components/Navbar.vue';
 </script>

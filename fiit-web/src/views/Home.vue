@@ -1,6 +1,6 @@
 <template>
   <v-app id="home">
-    <Navbar />
+    
     <v-main color="background">
       <v-container>
           <v-img src="@/assets/img/blurred-homepage-bg.png" class="align-center">

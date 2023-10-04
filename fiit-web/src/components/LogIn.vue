@@ -18,7 +18,7 @@
      ></v-text-field>
     <p class="drop-shadow-lg  text-center my-4">
              ¿No tenes cuenta? 
-             <v-btn type="submit" color="secondary">Registrate</v-btn> 
+             <v-btn type="submit" color="secondary" to="/register">Registrate</v-btn> 
     </p>
     <v-btn variant="outlined" type="submit" block class="text-center"> Iniciar Sesión </v-btn>
     </v-container>

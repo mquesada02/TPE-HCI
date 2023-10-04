@@ -1,6 +1,5 @@
 <template>
   <v-app>
-  <Navbar />
   <v-img src="@/assets/img/blurred-homepage-bg.png" class="align-center">
     <v-container fill-height>
       <v-row align="center" justify="center">

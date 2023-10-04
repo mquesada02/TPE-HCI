@@ -72,7 +72,7 @@
         </v-text-field>
         </v-col>
         </v-row>
-         <p class="drop-shadow-lg text-h7 text-center mb-5"> ¿Ya tienes cuenta? <u>Inicia sesión</u></p>
+         <p class="drop-shadow-lg text-h7 text-center mb-5"> ¿Ya tienes cuenta? <router-link to="/login">Inicia sesión</router-link></p>
          <div class="d-flex flex-column align-center mb-8">
          <v-btn color="secondary" type="submit" class="text-center mb-8">Registrarse</v-btn>
          </div>

@@ -1,6 +1,5 @@
 <template>
     <v-app id="searchScreen">
-        <Navbar />
         <SearchBar />
     </v-app>
 </template>
