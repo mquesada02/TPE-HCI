@@ -1,35 +1,37 @@
 <template>
-    <v-app-bar class="bg-secondary">
+    <v-sheet class="d-flex flex-row" color="secondary">
         <v-text-field 
+        class="search_box"
+        bg-color="lighter"
         label="Buscar"
         append-inner-icon="magnify"></v-text-field>
 
-        <v-selects grow>
-            <v-select label="Musculo"
-            :items="['Abdominales', 'Biceps', 'Cuádriceps', 'Espalda', 'Glúteos', 'Gemelos', 'Isquiotibiales', 'Hombro', 'Pectoral', 'Triceps']"
-            variant="solo-filled"
-            ></v-select>
+        <filter-button :items="musculoItems" label="Músculo"></filter-button>
 
-            <v-select label="Intensidad"
-            :items="['Baja', 'Media', 'Alta']"
-            variant="solo-filled"
-            ></v-select>
+        <filter-button :items="intensidadItems" label="Intensidad"></filter-button>
 
-            <v-select label="Objetivo"
-            :items="['Fuerza', 'Bajar de peso', 'Flexibilidad', 'Ganar músculo']"
-            variant="solo-filled"
-            ></v-select>
+        <filter-button :items="objetivoItems" label="Objetivo"></filter-button>
 
-            <v-select label="Material"
-            :items="['Sin material', 'Máquinas', 'Pesas', 'Banda elástica', 'Soga']"
-            variant="solo-filled"
-            ></v-select>
-        </v-selects>
-    </v-app-bar>
+        <filter-button :items="materialItems" label="Material"></filter-button>
+
+    </v-sheet>
 </template>
 
+<script setup>
+    import FilterButton from '@/components/FilterButton.vue';
+    const musculoItems = ['Abdominales', 'Biceps', 'Cuádriceps', 'Espalda', 'Glúteos', 'Gemelos', 'Isquiotibiales', 'Hombro', 'Pectoral', 'Triceps'];
+    const intensidadItems = ['Baja', 'Media', 'Alta'];
+    const objetivoItems = ['Fuerza', 'Bajar de peso', 'Flexibilidad', 'Ganar músculo'];
+    const materialItems = ['Sin material', 'Máquinas', 'Pesas', 'Banda elástica', 'Soga'];
+</script>
+
 <style scoped>
-    .custom-class {
-        background: rgb(var(--v-theme-secondary));
+    .search_box{
+        width: 30%;
+        padding: 10px;
+    }
+    .filter{
+        width: 5%;
+        padding: 10px;
     }
 </style>

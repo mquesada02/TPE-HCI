@@ -1,7 +1,6 @@
 <template>
-    <v-sheet color="surface"
+    <v-sheet color="background"
       class="mx-auto"
-      elevation="8"
       max-width="100%"
     >
     <p class="pl-3 pt-3 text-h4 font-weight-medium">{{ title }}</p>
