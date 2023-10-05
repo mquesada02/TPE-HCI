@@ -1,0 +1,19 @@
+<template>
+    <p class="pl-3 pt-3 text-h4 font-weight-medium">{{ title }}</p>
+    <v-row>
+    v-for="img in imgs"
+          :key="img"
+    <ExcersiveCard :img="img.src" :title="img.title" />
+    </v-row>       
+</template>
+
+<script setup>
+    import { defineProps } from 'vue';
+    import ExcersiveCard from './ExcersiveCard.vue';
+    const props = defineProps(['title','imgs']);
+    const title = props.title;
+    const imgs = props.imgs;
+    for (let i = 0; i < imgs.length; i++) {
+      imgs[i].src = new URL('../assets/img/ejercicios/' + imgs[i].src, import.meta.url).href;
+    }
+</script>
