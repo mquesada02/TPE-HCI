@@ -13,4 +13,5 @@
   import Search from '@/views/Search.vue'
   import Register from '@/views/Register.vue'
   import Navbar from './components/Navbar.vue';
+  import Favs from '@/views/Favorites.vue'
 </script>

@@ -17,12 +17,14 @@ import  Home  from '@/views/Home.vue'
 import InicioSesion from '@/views/InicioSesion.vue'
 import Register from '@/views/Register.vue'
 import Search from '@/views/Search.vue'
+import Favs from '@/views/favorites.vue'
 
 const routes = [
     { path: '/', component: Home },
     { path: '/login', component: InicioSesion },
     { path: '/register', component: Register},
-    { path: '/search', component: Search}
+    { path: '/search', component: Search},
+    { path: '/favourites', component: Favs}
   ]
   
 
