@@ -1,10 +1,10 @@
 <template>
     <p class="pl-3 pt-3 text-h4 font-weight-medium">{{ title }}</p>
     <v-row>
-    v-for="img in imgs"
-          :key="img"
-    <ExcersiveCard :img="img.src" :title="img.title" />
-    </v-row>       
+      <template v-for="img in imgs">
+        <ExcersiveCard :img="img.src" :title="img.title" />
+      </template>
+    </v-row>      
 </template>
 
 <script setup>
