@@ -2,8 +2,8 @@
     <p class="pl-3 pt-10 text-h4 font-weight-medium">
         Mis favoritos:
     </p>
-    <div v-for="product in items">
-      <p>{{product.title}}</p>
+    <div v-for="product in displayedItems()">
+        <ExcersiveCard :img="product.src" :title="product.title" />
     </div>
     <div class="text-center">
     <v-container>
@@ -33,7 +33,7 @@ export default {
     return {
       paginationData: {
         currentPage: 1, //no tiene q decir un numero, tiene decir la q se ese usando
-        itemsPerPage: 2, 
+        itemsPerPage: 2,  //se tiene q cambiar a 10, esto es solo de testeo
         totalPages: 15, //en realidad el numero total de páginas debe ser medido por cuantas rutinas tiene la persona, osea la api
       },
     };
@@ -48,7 +48,7 @@ export default {
   methods: {
     changePage(page) {
       this.paginationData.currentPage = page;
-      //tiene q cambiar cuando hay un click
+      //tiene q cambiar cuando hay un click sobre el v-pagging
     },
   },
 };
