@@ -26,8 +26,6 @@
 </template>
 
 <script>
-const props = defineProps(['items'])
-const items = props.items
 export default {
   data() {
     return {

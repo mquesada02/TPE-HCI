@@ -12,25 +12,25 @@ import { createApp } from 'vue'
 
 // Plugins
 import { registerPlugins } from '@/plugins'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import  Home  from '@/views/Home.vue'
 import InicioSesion from '@/views/InicioSesion.vue'
 import Register from '@/views/Register.vue'
 import Search from '@/views/Search.vue'
-import Favs from '@/views/favorites.vue'
+import Favourites from '@/views/Favorites.vue'
 
 const routes = [
     { path: '/', component: Home },
     { path: '/login', component: InicioSesion },
     { path: '/register', component: Register},
     { path: '/search', component: Search},
-    { path: '/favourites', component: Favs}
+    { path: '/favourites', component: Favourites}
   ]
   
 
 const router = createRouter({
     // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     routes, // short for `routes: routes`
 })
 
