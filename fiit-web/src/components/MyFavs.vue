@@ -8,7 +8,8 @@
         <v-col cols="5">
           <v-container class="max-width">
             <v-pagination
-            :length="2"
+            :length=2                     
+            @page-clicl="changePage"
             ></v-pagination>
           </v-container>
         </v-col>
@@ -16,6 +17,8 @@
     </v-container>
   </div>
 </template>
+//en length no va 2, va totalPages, pero no le gusta
+
 
 <script>
 import Card from "@/components/ExcersiveCard.vue";
@@ -28,7 +31,7 @@ const allCards = [                                                              
     { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
     { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
 ];                               
-let currentPage = 1;
+let currentPage = 1;  //comienzo siempre en la primera
 const itemsPerPage = 5; // Numero random, hay q ver q queda mejor
 const totalPages = Math.ceil(allCards.length / itemsPerPage); //no va 10, va allCards.length
 const showThisCards = {} //computed(() => {                                                  NO LE GUSTAAAA
@@ -36,5 +39,8 @@ const showThisCards = {} //computed(() => {                                     
  //const endIndex = startIndex + itemsPerPage;
  //return allCards.slice(startIndex, endIndex);
 //});
+const changePage = (page) => {
+    currentPage=page;            //esto deberia actualizar currentPage, pero inchequeable
+};
 
 </script>
