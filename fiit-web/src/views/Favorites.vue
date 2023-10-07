@@ -3,7 +3,7 @@
     <v-main color="background">
       <v-container>
         <FavsRec title="Recientes" :imgs="recientes"/>
-        <Myfavs items="items"/>
+        <Myfavs :allCards="items"/>
       </v-container>
     </v-main>
   </v-app>
