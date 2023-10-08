@@ -4,7 +4,7 @@
     <v-container fill-height>
       <v-row align="center" justify="center">
         <v-col cols="12">
-          <Registrarse />
+          <Register />
         </v-col>
       </v-row>
     </v-container>
@@ -13,6 +13,5 @@
 </template>
 
 <script setup>
-    import Navbar from '@/components/Navbar.vue';
-    import Registrarse from '@/components/Registrarse.vue';
+    import Register from '@/components/Register.vue';
 </script>

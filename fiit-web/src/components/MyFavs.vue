@@ -20,10 +20,9 @@
 //en length no va 2, va totalPages, pero no le gusta
 
 
-<script>
+<script setup>
 import Card from "@/components/ExcersiveCard.vue";
-import { defineProps } from 'vue';
-const props = defineProps('allCards');
+const props = defineProps(['allCards']);
 const allCards = [                                                               //si lo igualo a props.allCards tira pantallos en blanco
 { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
     { src: 'abductores.jpg', title: 'Abductores' },

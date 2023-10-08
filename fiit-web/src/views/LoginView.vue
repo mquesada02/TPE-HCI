@@ -14,7 +14,6 @@
 
 <script setup>
     import LogIn from '@/components/LogIn.vue';
-    import Navbar from '@/components/Navbar.vue';
 </script>
 
-coment: fijar el cuadro al medio, emprolijar el cuadro 
+<!-- fijar el cuadro al medio, emprolijar el cuadro  -->

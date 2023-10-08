@@ -4,7 +4,7 @@
       <v-row align="center" justify="center">
         <v-col cols="4">
         <container >
-          <Perfil />
+          <Profile />
           </container>
         </v-col>
         <v-col cols="2">
@@ -22,8 +22,7 @@
 
 <script setup>
 
-    import Perfil from '@/components/Perfil.vue';
-    import FullCarousel from '@/components/FullCarousel.vue';
+  import Profile from '@/components/Profile.vue';
   import SmallCarousel from '@/components/SmallCarousel.vue';
 
  const destacadas = [

@@ -13,18 +13,18 @@ import { createApp } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 import { createRouter, createWebHistory } from 'vue-router'
-import  Home  from '@/views/Home.vue'
-import InicioSesion from '@/views/InicioSesion.vue'
-import Register from '@/views/Register.vue'
-import Search from '@/views/Search.vue'
-import Favourites from '@/views/Favorites.vue'
+import HomeView from '@/views/HomeView.vue'
+import LoginView from '@/views/LoginView.vue'
+import RegisterView from '@/views/RegisterView.vue'
+import SearchView from '@/views/SearchView.vue'
+import FavouritesView from '@/views/FavoritesView.vue'
 
 const routes = [
-    { path: '/', component: Home },
-    { path: '/login', component: InicioSesion },
-    { path: '/register', component: Register},
-    { path: '/search', component: Search},
-    { path: '/favourites', component: Favourites}
+    { path: '/', component: HomeView },
+    { path: '/login', component: LoginView },
+    { path: '/register', component: RegisterView},
+    { path: '/search', component: SearchView},
+    { path: '/favourites', component: FavouritesView}
   ]
   
 
