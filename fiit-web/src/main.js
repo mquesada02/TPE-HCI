@@ -13,6 +13,9 @@ import { createApp } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 import { createRouter, createWebHistory } from 'vue-router'
+import { createPinia } from 'pinia'
+
+// Views
 import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
@@ -35,9 +38,11 @@ const router = createRouter({
 })
 
 const app = createApp(App)
+const pinia = createPinia()
 
 registerPlugins(app)
 
 app.use(router)
+app.use(pinia)
 
 app.mount('#app')
