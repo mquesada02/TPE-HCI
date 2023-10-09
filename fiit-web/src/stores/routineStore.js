@@ -4,7 +4,7 @@ import { ref } from "vue";
 export const useRoutineStore = defineStore('routine', () => {
    
     /*
-        Prototype of an ExerciseObject:
+        Prototype of class Exercise:
 
         name: String,
         img: String,
@@ -13,14 +13,14 @@ export const useRoutineStore = defineStore('routine', () => {
 
         ----------------------------------------------
 
-        Prototype of a ExercisePairObject:
+        Prototype of class MultipleExercisePair:
 
-        exercise: ExerciseObject,
+        exercises: ExerciseObject[],
         series: int
 
         ----------------------------------------------
 
-        Prototype of a RoutineObject:
+        Prototype of class Routine:
 
         name: String,
         img: String,
@@ -29,9 +29,9 @@ export const useRoutineStore = defineStore('routine', () => {
         intensity: String,
         materials: String[],
         privacy: String // (bool public or private),
-        warmup: ExercisePairObject,
-        exercises: ExercisePairObject[],
-        cooling: ExercisePairObject
+        warmup: MultipleExercisePair,
+        exercises: MultipleExercisePair[],
+        cooling: MultipleExercisePair
     
     */
     class Exercise {
@@ -90,38 +90,6 @@ export const useRoutineStore = defineStore('routine', () => {
         }
     }
 
-    class ExercisePair {
-        //Fields
-        #exercise;
-        #series;
-
-        // Constructor
-        constructor(exercise, series = 1) {
-            if (!(exercise instanceof Exercise && typeof series === 'number'))
-                throw new Error('Illegal arguments');
-            else {
-                this.#exercise = exercise;
-                this.#series = series;
-            }
-        }
-
-        // Getters
-        getExercise() {
-            return this.#exercise;
-        }
-        getSeries() {
-            return this.#series;
-        }
-
-        // Setters
-        setExercise(exercise) {
-            if (exercise instanceof Exercise) this.#exercise = exercise;
-        }
-        setSeries(series) {
-            if (typeof series === 'number') this.#series = series;
-        }
-    }
-
     class MultipleExercisePair {
         //Fields
         #exercises;
@@ -177,9 +145,9 @@ export const useRoutineStore = defineStore('routine', () => {
                 typeof intensity === 'string' &&
                 materials.isArray() && /* no valida el tipo */
                 typeof privacy === 'string' &&
-                warmup instanceof ExercisePair &&
+                warmup instanceof MultipleExercisePair &&
                 exercises.isArray() && /* no valida el tipo */
-                cooling instanceof ExercisePair;
+                cooling instanceof MultipleExercisePair;
        }
 
        // Constructor
@@ -287,9 +255,9 @@ export const useRoutineStore = defineStore('routine', () => {
         'seconds'
     );
 
-    const warmupPair = new ExercisePair(warmupExercise, 2);
-    const exercisePair = new ExercisePair(exerciseExercise, 3);
-    const coolingPair = new ExercisePair(coolingExercise, 1);
+    const warmupPair = new MultipleExercisePair([warmupExercise], 2);
+    const exercisePair = new MultipleExercisePair([exerciseExercise], 3);
+    const coolingPair = new MultipleExercisePair([coolingExercise], 1);
 
     const multipleExercisePair1 = new MultipleExercisePair([exerciseExercise, exerciseExercise], 3);
     const multipleExercisePair2 = new MultipleExercisePair([exerciseExercise], 5);
