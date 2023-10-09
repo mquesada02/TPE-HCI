@@ -97,7 +97,7 @@ export const useRoutineStore = defineStore('routine', () => {
 
         // Constructor
         constructor(exercises, series = 1) {
-            if (!(exercises.isArray() && typeof series === 'number'))
+            if (!(/*exercises.isArray() && */typeof series === 'number'))
                 throw new Error('Illegal arguments');
             else {
                 this.#exercises = exercises;
@@ -115,7 +115,7 @@ export const useRoutineStore = defineStore('routine', () => {
 
         // Setters
         setExercise(exercises) {
-            if (exercise.isArray()) this.#exercises = exercises;
+            /*if (exercises.isArray())*/ this.#exercises = exercises;
         }
         setSeries(series) {
             if (typeof series === 'number') this.#series = series;
@@ -141,12 +141,12 @@ export const useRoutineStore = defineStore('routine', () => {
                 typeof name === 'string' &&
                 typeof img === 'string' &&
                 typeof desc === 'string' &&
-                muscles.isArray() && /* no valida el tipo */
+                /*muscles.isArray() && */ /* no valida el tipo */
                 typeof intensity === 'string' &&
-                materials.isArray() && /* no valida el tipo */
+                /*materials.isArray() && */ /* no valida el tipo */
                 typeof privacy === 'string' &&
                 warmup instanceof MultipleExercisePair &&
-                exercises.isArray() && /* no valida el tipo */
+                /* exercises.isArray() && */ /* no valida el tipo */
                 cooling instanceof MultipleExercisePair;
        }
 
@@ -211,13 +211,13 @@ export const useRoutineStore = defineStore('routine', () => {
                 if (typeof desc === 'string') this.#desc = desc;
             }
             setMuscles(muscles) {
-                if (muscles.isArray()) this.#muscles = muscles;
+                /*if (muscles.isArray())*/ this.#muscles = muscles;
             }
             setIntensity(intensity) {
                 if (typeof intensity === 'string') this.#intensity = intensity;
             }
             setMaterials(materials) {
-                if (materials.isArray()) this.#materials = materials;
+                /*if (materials.isArray())*/ this.#materials = materials;
             }
             setPrivacy(privacy) {
                 if (typeof privacy === 'string') this.#privacy = privacy;
@@ -226,13 +226,14 @@ export const useRoutineStore = defineStore('routine', () => {
                 if (warmup instanceof ExercisePair) this.#warmup = warmup;
             }
             setExercises(exercises) {
-                if (exercises.isArray()) this.#exercises = exercises;
+                /*if (exercises.isArray()) */ this.#exercises = exercises;
             }
             setCooling(cooling) {
                 if (cooling instanceof ExercisePair) this.#cooling = cooling;
             }
 
     }
+    /*
 
     const warmupExercise = new Exercise(
         'exampleExercise',
@@ -256,7 +257,6 @@ export const useRoutineStore = defineStore('routine', () => {
     );
 
     const warmupPair = new MultipleExercisePair([warmupExercise], 2);
-    const exercisePair = new MultipleExercisePair([exerciseExercise], 3);
     const coolingPair = new MultipleExercisePair([coolingExercise], 1);
 
     const multipleExercisePair1 = new MultipleExercisePair([exerciseExercise, exerciseExercise], 3);
@@ -274,7 +274,7 @@ export const useRoutineStore = defineStore('routine', () => {
         [multipleExercisePair1, multipleExercisePair2],
         coolingPair
     );
-    
+    */
     // states
     
     const routines = ref([
