@@ -21,13 +21,15 @@ import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import SearchView from '@/views/SearchView.vue'
 import FavouritesView from '@/views/FavoritesView.vue'
+import ProfileView from '@/views/ProfileView.vue'
 
 const routes = [
     { path: '/', component: HomeView },
     { path: '/login', component: LoginView },
     { path: '/register', component: RegisterView},
     { path: '/search', component: SearchView},
-    { path: '/favourites', component: FavouritesView}
+    { path: '/favourites', component: FavouritesView},
+    { path: '/profile', component: ProfileView}
   ]
   
 
@@ -42,7 +44,5 @@ const pinia = createPinia()
 
 registerPlugins(app)
 
-app.use(router)
-app.use(pinia)
-
+app.use(router).use(pinia)
 app.mount('#app')

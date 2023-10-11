@@ -5,33 +5,33 @@
              Registrarse
         </p>
         <div/>
-        <v-form fast-fail @submit.prevent>
+        <v-form fast-fail @submit.prevent="onSubmit">
         <v-row>
         <v-col cols="12" md="6">
          <v-text-field
-            v-model="email"
+            v-model:model-value="email"
             label="Correo electrónico"
             variant="underlined"
             class="text-field-center ml-8"
-            :rules="EMailRules">
+            :rules="emailRules">
         </v-text-field>
         <v-text-field
             label="Nombre" 
-            v-model="nombre"
+            v-model:model-value="name"
             variant="underlined"
             class="text-field-center ml-8"
             :rules="nombreRules">
         </v-text-field>
         <v-text-field
             label="Nombre de Usuario" 
-             v-model="nombreDeUsuario"
+            v-model:model-value="user"
              variant="underlined"
              class="text-field-center ml-8"
              :rules="usuarioRules">
         </v-text-field>
         <v-text-field
-            label="Altura" 
-             v-model="altura"
+            label="Altura (m)" 
+            v-model:model-value="height"
              variant="underlined"
              class="text-field-center ml-8"
              :rules="alturaRules">
@@ -41,7 +41,8 @@
         <v-col cols="12" md="6">
          <v-text-field
             label="Contraseña"
-            v-model="contraseña" 
+            type="password"
+            v-model:model-value="pass" 
             variant="underlined"
             class="text-field-center mr-8"
             :rules="passwordRules">
@@ -49,7 +50,7 @@
         
         <v-text-field
             label="Apellido"
-            v-model="apellido"
+            v-model:model-value="surname"
             variant="underlined"
             class="text-field-center mr-8"
             :rules="apellidoRules">
@@ -57,15 +58,15 @@
          
          <v-text-field
             label="Fecha de Nacimiento" 
-             v-model="FechadeNacimiento"
+            v-model:model-value="birth"
              variant="underlined"
              class="text-field-center mr-8"
              :rules="fechaRules">
         </v-text-field>
          
          <v-text-field
-            label="Peso" 
-             v-model="peso"
+            label="Peso (kg)" 
+            v-model:model-value="weight"
              variant="underlined"
              class="text-field-center mr-8"
              :rules="pesoRules">
@@ -79,20 +80,41 @@
     </v-form>
   </v-sheet>
 </template>
+
+<script setup>
+
+  import { ref } from 'vue';
+  import { useUserStore } from '@/stores/userStore';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
+
+  const email = ref('');
+  const pass = ref('');
+  const name = ref('');
+  const surname = ref('');
+  const user = ref('');
+  const birth = ref('');
+  const height =  ref('');
+  const weight = ref('');
+
+  const userStore = useUserStore();
+  
+
+  
+  const onSubmit = () => {
+    const successfullRegister = userStore.register(email.value, pass.value, name.value, surname.value, user.value, birth.value, height.value, weight.value);
+    if(successfullRegister){
+      router.push('/');
+    }
+  };
+
+
+</script>
+
 <script>
+
 export default {
-  data() {
-    return {
-      email: '',
-      contrasena: '',
-      nombre: '',
-      apellido: '',
-      nombreDeUsuario: '',
-      fechaDeNacimiento: '',
-      altura: '',
-      peso: '',
-    };
-  },
   computed: {
     emailRules() {
       return [
@@ -145,13 +167,7 @@ export default {
       },
     ];
   },
-},
-methods: {
-  getDiasEnMes(anio, mes) {
-    // Esta función devuelve la cantidad de días en un mes específico.
-    return new Date(anio, mes, 0).getDate();
-  },
-    alturaRules() {
+  alturaRules() {
     return [
       (v) => {
         if (!v) {
@@ -159,7 +175,7 @@ methods: {
         }
 
         const alturaNum = parseFloat(v);
-        if (isNaN(alturaNum) || alturaNum < 0 || alturaNum > 2.5) {
+        if (isNaN(alturaNum) || alturaNum < 0 || alturaNum > 250) {
           return 'Ingrese una altura valida';
         }
 
@@ -174,6 +190,12 @@ methods: {
         (v) => v >= 0 && v <= 500 || 'El peso debe estar entre 0 y 500',
       ];
     },
+},
+methods: {
+  getDiasEnMes(anio, mes) {
+    // Esta función devuelve la cantidad de días en un mes específico.
+    return new Date(anio, mes, 0).getDate();
+  },
   },
 };
 </script>

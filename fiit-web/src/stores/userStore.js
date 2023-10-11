@@ -1,9 +1,10 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
 export const useUserStore = defineStore('user', () => {
     // states
     const users = ref([
-        {
+        /*{
             user: '',
             password: '',
             email: '',
@@ -15,13 +16,17 @@ export const useUserStore = defineStore('user', () => {
             favourites: [],
             routines: [],
         }
+        */
     ]);
+
+    const currentUser = ref(null);
     const logInStatus = ref(false);
 
     // getters
     const getUsers = () => users.value;
     
-    const getUser = (user) => {users.value.find(u => u.user === user)};
+    const getUser = (user) => {getUsers().find( u => u.user === user)};
+    const getUserByEmail = (email) => {users.value.find(u => u.email === email)};
     const getUserFavourites = (user) => {users.value.find(u => u.user === user).favourites};
     const getUserRoutines = (user) => {users.value.find(u => u.user === user).routines};
 
@@ -30,10 +35,13 @@ export const useUserStore = defineStore('user', () => {
     // actions
     function logIn(user, pass) {
         const u = getUser(user);
-        if (u && u.password === pass)
+        if (u && u.password === pass) {
             logInStatus.value = true; 
-        else 
-            console.log("Usuario o contraseña incorrecta.");  
+            return true;
+        } else {
+            console.log("Usuario o contraseña incorrecta."); 
+            return false;
+        } 
     }
 
     function register(email, pass, name, surname, user, birthday, height, weight) {
@@ -52,8 +60,11 @@ export const useUserStore = defineStore('user', () => {
                 routines: [],
             });
             logInStatus.value = true;
+            console.log('Registro completo.')
+            return true;
         } else {
             console.log("Ese usuario ya existe.");
+            return false;
         }
     }
 
@@ -130,6 +141,7 @@ export const useUserStore = defineStore('user', () => {
         // getters
         getUsers,
         getUser,
+        getUserByEmail,
         getUserFavourites,
         getUserRoutines,
         getLogInStatus,
