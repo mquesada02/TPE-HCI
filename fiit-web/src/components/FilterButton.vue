@@ -3,7 +3,7 @@
         bg-color="lighter"
         :label="props.label"
         :items="props.items"
-        variant="solo-filled"
+        
     ></v-select>
 </template>
 
@@ -15,5 +15,6 @@
     .filter{
         width: 5%;
         padding: 10px;
+        padding-bottom: 0px;
     }
 </style>

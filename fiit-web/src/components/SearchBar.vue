@@ -1,5 +1,5 @@
 <template>
-    <v-sheet class="d-flex flex-row" color="secondary">
+    <v-sheet class="d-flex" color="secondary">
         <v-text-field 
         class="search_box"
         bg-color="lighter"
@@ -28,10 +28,8 @@
 <style scoped>
     .search_box{
         width: 30%;
+        vertical-align: center;
         padding: 10px;
-    }
-    .filter{
-        width: 5%;
-        padding: 10px;
+        padding-bottom: 0px;
     }
 </style>

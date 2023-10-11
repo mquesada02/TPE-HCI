@@ -22,7 +22,7 @@ export default createVuetify({
           surface: '#212121',
           primary: '#DD2C00',
           secondary: '#FF8A65',
-          lighter: 'FFCCBC',
+          lighter: '#FFCCBC',
           error: '#E90000',
           info: '#F55E3D',
           success: '#4CAF50',
