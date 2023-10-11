@@ -12,32 +12,9 @@ import { createApp } from 'vue'
 
 // Plugins
 import { registerPlugins } from '@/plugins'
-import { createRouter, createWebHistory } from 'vue-router'
 import { createPinia } from 'pinia'
 
-// Views
-import HomeView from '@/views/HomeView.vue'
-import LoginView from '@/views/LoginView.vue'
-import RegisterView from '@/views/RegisterView.vue'
-import SearchView from '@/views/SearchView.vue'
-import FavouritesView from '@/views/FavoritesView.vue'
-import ProfileView from '@/views/ProfileView.vue'
-
-const routes = [
-    { path: '/', component: HomeView },
-    { path: '/login', component: LoginView },
-    { path: '/register', component: RegisterView},
-    { path: '/search', component: SearchView},
-    { path: '/favourites', component: FavouritesView},
-    { path: '/profile', component: ProfileView}
-  ]
-  
-
-const router = createRouter({
-    // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
-    history: createWebHistory(),
-    routes, // short for `routes: routes`
-})
+import router from './router'
 
 const app = createApp(App)
 const pinia = createPinia()
