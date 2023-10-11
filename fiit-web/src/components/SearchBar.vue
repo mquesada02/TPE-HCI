@@ -19,10 +19,14 @@
 
 <script setup>
     import FilterButton from '@/components/FilterButton.vue';
-    const musculoItems = ['Abdominales', 'Biceps', 'Cuádriceps', 'Espalda', 'Glúteos', 'Gemelos', 'Isquiotibiales', 'Hombro', 'Pectoral', 'Triceps'];
-    const intensidadItems = ['Baja', 'Media', 'Alta'];
-    const objetivoItems = ['Fuerza', 'Bajar de peso', 'Flexibilidad', 'Ganar músculo'];
-    const materialItems = ['Sin material', 'Máquinas', 'Pesas', 'Banda elástica', 'Soga'];
+    import { useRoutineStore } from '@/stores/routineStore';
+
+    const routineStore = useRoutineStore();
+
+    const musculoItems = routineStore.getMuscles();
+    const intensidadItems = routineStore.getIntensity();
+    const objetivoItems = routineStore.getGoal();
+    const materialItems = routineStore.getMaterial();
 </script>
 
 <style scoped>

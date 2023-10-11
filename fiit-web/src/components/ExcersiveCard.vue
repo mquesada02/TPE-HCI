@@ -12,7 +12,6 @@
 </template>
 
 <script setup>
-    import { defineProps } from 'vue';
     const props = defineProps(['img','title', 'selectedClass', 'toggle']);
     const img = props.img;
     const cardTitle = props.title;

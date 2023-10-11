@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-    import { defineProps } from 'vue';
     import ExcersiveCard from './ExcersiveCard.vue';
     const props = defineProps(['title','imgs']);
     const title = props.title;

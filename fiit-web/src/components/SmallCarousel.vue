@@ -5,7 +5,7 @@
     >
     <p class="pl-3 pt-3 text-h4 font-weight-medium">{{ title }}</p>
       <v-slide-group
-        v-model="model"
+        
         class="pa-4"
         selected-class="bg-success"
         show-arrows
@@ -23,7 +23,6 @@
 </template>
 
 <script setup>
-    import { defineProps } from 'vue';
     import ExcersiveCard from './ExcersiveCard.vue';
 
     const props = defineProps(['title','imgs']);

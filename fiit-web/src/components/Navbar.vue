@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar absolute color="primary">
+    <v-app-bar fixed="top" color="primary">
         <!-- Router Link HERE-->
         <v-img grow rounded="0" src="@/assets/img/fiit-logo.png" href="/">
             

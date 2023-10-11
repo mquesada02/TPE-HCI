@@ -1,5 +1,5 @@
 <template>
-  <v-sheet width="300" class="mx-auto" rounded color="white">
+  <v-sheet width="550" class="mx-auto" rounded color="white">
     <v-form fast-fail @submit.prevent>
     <p class="pt-4 font-weight-bold text-h4 text-center drop-shadow-lg mb-4" >
              Iniciar Sesión

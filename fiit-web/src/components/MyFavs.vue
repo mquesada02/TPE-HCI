@@ -2,52 +2,44 @@
     <p class="pl-3 pt-10 text-h4 font-weight-medium">
         Mis favoritos:
     </p>
-    <div v-for="product in displayedItems()">
-        <ExcersiveCard :img="product.src" :title="product.title" />
-    </div>
     <div class="text-center">
     <v-container>
       <v-row justify="center">
-        <v-col cols="4">
+        <v-col cols="5">
           <v-container class="max-width">
             <v-pagination
-            v-model="paginationData.currentPage"
-            :length="paginationData.totalPages"
-            @input="changePage"
+            :length=2                     
+            @page-clicl="changePage"
             ></v-pagination>
           </v-container>
         </v-col>
       </v-row>
     </v-container>
   </div>
-    <div class="text-center">
-        
-    </div>
 </template>
+//en length no va 2, va totalPages, pero no le gusta
 
-<script>
-export default {
-  data() {
-    return {
-      paginationData: {
-        currentPage: 1, //no tiene q decir un numero, tiene decir la q se ese usando
-        itemsPerPage: 2,  //se tiene q cambiar a 10, esto es solo de testeo
-        totalPages: 15, //en realidad el numero total de páginas debe ser medido por cuantas rutinas tiene la persona, osea la api
-      },
-    };
-  },
-  computed: {
-    displayedItems() {
-      const startIndex = (this.paginationData.currentPage - 1) * this.paginationData.itemsPerPage;
-      const endIndex = startIndex + this.paginationData.itemsPerPage;
-      return this.items.slice(startIndex, endIndex);
-    },
-  },
-  methods: {
-    changePage(page) {
-      this.paginationData.currentPage = page;
-      //tiene q cambiar cuando hay un click sobre el v-pagging
-    },
-  },
+
+<script setup>
+import Card from "@/components/ExcersiveCard.vue";
+const props = defineProps(['allCards']);
+const allCards = [                                                               //si lo igualo a props.allCards tira pantallos en blanco
+{ src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+    { src: 'abductores.jpg', title: 'Abductores' },
+    { src: 'dominadas.jpg', title: 'Dominadas' },
+    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
+    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
+];                               
+let currentPage = 1;  //comienzo siempre en la primera
+const itemsPerPage = 5; // Numero random, hay q ver q queda mejor
+const totalPages = Math.ceil(allCards.length / itemsPerPage); //no va 10, va allCards.length
+const showThisCards = {} //computed(() => {                                                  NO LE GUSTAAAA
+ // const startIndex = (currentPage - 1) * itemsPerPage;
+ //const endIndex = startIndex + itemsPerPage;
+ //return allCards.slice(startIndex, endIndex);
+//});
+const changePage = (page) => {
+    currentPage=page;            //esto deberia actualizar currentPage, pero inchequeable
 };
+
 </script>
