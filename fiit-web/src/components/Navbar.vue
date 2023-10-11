@@ -8,7 +8,7 @@
         <v-tabs grow >
             <v-tab append-icon="mdi-home" to="/" text="Inicio" />
             <v-tab append-icon="mdi-plus" to="newRoutine" text="Crear rutina"/>
-            <v-tab append-icon="mdi-folder" :to="myRoutines" text="Mis rutinas"/>
+            <v-tab append-icon="mdi-folder" to="myRoutines" text="Mis rutinas"/>
             <v-tab append-icon="mdi-heart" to="favourites" text="Favoritos"/>
             <v-tab append-icon="mdi-magnify" to="search" text="Búsqueda"/>
             <v-tab v-if="!user.getLogInStatus()" append-icon="mdi-account" to="login" text="Iniciar Sesión"/>
@@ -19,12 +19,9 @@
 
 <script setup>
     import { useUserStore } from '@/stores/userStore'
-    const user = useUserStore()
 
-    const myRoutines = user.getLogInStatus() ? "myRoutines" : "login";
-    
+
+    const user = useUserStore();
 
 
 </script>
-
-
