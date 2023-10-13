@@ -8,6 +8,7 @@ import SearchView from '@/views/SearchView.vue'
 import FavouritesView from '@/views/FavoritesView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import VerifyEmailView from '@/views/VerifyEmailView.vue'
 
 const routes = [
     { 
@@ -39,6 +40,11 @@ const routes = [
     path: '/profile', 
     name:'profile', 
     component: ProfileView 
+    },
+    {
+    path: '/verify',
+    name: 'verify',
+    component: VerifyEmailView
     },
     { 
     path: '/:pathMatch(.*)*',

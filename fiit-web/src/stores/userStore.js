@@ -25,10 +25,12 @@ export const useUserStore = defineStore('user', () => {
     async function getUsers() {
         try {
             let data = await fetchUsers();
+            return data;
         } catch(error) {
             console.log(`Unexpected error: ${error.message}`);
         }
-        return data;
+        return [];
+        
     }
 
     // USER
@@ -50,10 +52,11 @@ export const useUserStore = defineStore('user', () => {
     async function getUserFavourites() {
         try {
             let data = await fetchUserFavorites();
+            return data;
         } catch(error) {
             console.log(`Unexpected error: ${error.message}`);
         }
-        return data;
+        return null;
     }
 
     // CURRENT ROUTINES
@@ -69,10 +72,11 @@ export const useUserStore = defineStore('user', () => {
     async function getCurrentRoutines() {
         try {
             let data = await fetchCurrentRoutines();
+            return data;
         } catch(error) {
             console.log(`Unexpected error: ${error.message}`);
         }
-        return data;
+        return null;
     }
 
     // CURRENT USER
@@ -91,10 +95,11 @@ export const useUserStore = defineStore('user', () => {
         } else {
             try {
                 let data = await fetchCurrentUser();
+                return data;
             } catch(error) {
                 console.log(`Unexpected error: ${error.message}`);
             }
-            return data;
+            return null;
         }
     }
 
@@ -117,7 +122,7 @@ export const useUserStore = defineStore('user', () => {
         }
 
         try {
-            await fetch('http://localhost:8080/users/current', init)
+            await fetch('http://localhost:8080/api/users/current', init)
         } catch(error) {
             console.log(`Unexpected error: ${error.message}`);
         }
@@ -129,7 +134,7 @@ export const useUserStore = defineStore('user', () => {
             method: 'DELETE',
         }
         try {
-            await fetch('http://localhost:8080/users/current', init)
+            await fetch('http://localhost:8080/api/users/current', init)
         } catch(error) {
             console.log(`Unexpected error: ${error.message}`);   
         }
@@ -138,6 +143,33 @@ export const useUserStore = defineStore('user', () => {
     
 
     // actions
+
+    async function verifyEmail(email, code) {
+        var info = {
+            email: email,
+            code: code
+        }
+        var init = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify(info)
+        }
+        try {
+            let response = await fetch('http://localhost:8080/api/users/verify_email', init)
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            } else {
+                console.log("Email verificado correctamente.");
+                return true;
+            }
+        } catch(error) {
+            console.log("Código incorrecto.");
+            return false;
+        }
+    }
+
     async function fetchLogIn(user, pass) {
         var log = {
             username : user,
@@ -153,25 +185,29 @@ export const useUserStore = defineStore('user', () => {
         }
 
         try {
-            await fetch('http://localhost:8080/users/login', init) // returns token
-            return true;
+            let response = await fetch('http://localhost:8080/api/users/login', init) // returns token
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            } else {
+                console.log("Usuario logueado correctamente.");
+            }
+            return response.json();
         } catch (error) {
-            console.log(`Unexpected error: ${error.message}`);
+            console.log("Usuario y/o contraseña incorrectos.");
             return false;
         }
+        
     }
 
 
     async function logIn(user, pass) {
 
-        let success = await fetchLogIn(user, pass);
-        if (success) {
+        let data = await fetchLogIn(user, pass);
+        if (data) {
             logInStatus.value = true;
-            // currentUser.value = await getUser(user); // asumiendo que el login hace put del current
-            // postCurrentUser(user);
-            // redirect
+            localStorage.setItem("token",data);
         }
-        return success;
+        return data;
     }
 
     async function fetchLogOut() {
@@ -183,7 +219,7 @@ export const useUserStore = defineStore('user', () => {
         }
 
         try {
-            await fetch('http://localhost:8080/users/logout', init) 
+            await fetch('http://localhost:8080/api/users/logout', init) 
             return true;
         } catch (error) {
             console.log(`Unexpected error: ${error.message}`);
@@ -203,46 +239,45 @@ export const useUserStore = defineStore('user', () => {
     async function fetchRegister(email, pass, name, surname, user, birthdate, height, weight) {
         let [day, month, year] = birthdate.split('-');
 
+        var info = {
+            username: user,
+            password: pass,
+            firstName: name,
+            lastName: surname,
+            gender: 'other',
+            birthdate: new Date(+year,+month,+day).valueOf(),
+            email: email,
+            phone: '',
+            avatarUrl: '',
+            metadata: null
+        };
+
         var init = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
             },
-            body: {
-                username: user,
-                password: pass,
-                firstName: name,
-                lastName: surname,
-                gender: null,
-                birthdate: new Date(+year,+month,+day).valueOf(),
-                email: email,
-                phone: null,
-                avatarUrl: null,
-                metadata: null
-            }
+            body: JSON.stringify(info)
         }
 
         try {
-            await fetch('http://localhost:8080/users', init) 
-            return true;
+            let response = await fetch('http://localhost:8080/api/users', init)
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            } else {
+                console.log("Usuario creado correctamente.");
+                localStorage.setItem('email',email);
+                return true;
+            }
         } catch (error) {
             console.log(`Unexpected error: ${error.message}`);
-            return false;
         }
+        return false;
 
     }
 
     async function register(email, pass, name, surname, user, birthdate, height, weight) {
-        let u = await getUser(user);
-        if (!u) {
-            let success = await fetchRegister(email, pass, name, surname, user, birthdate, height, weight);
-            if (success) {
-                // send mail verification
-            }
-        } else {
-            console.log("Ese usuario ya existe.");
-            return false;
-        }
+        return await fetchRegister(email, pass, name, surname, user, birthdate, height, weight);
     }
 
     async function modifyCurrentUser(name,surname,birthdate,height,weight) {
@@ -288,6 +323,7 @@ export const useUserStore = defineStore('user', () => {
         deleteCurrentUser,
 
         // actions
+        verifyEmail,
         logIn,
         logOut,
         register,

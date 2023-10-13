@@ -30,7 +30,7 @@
              :rules="usuarioRules">
         </v-text-field>
         <v-text-field
-            label="Altura (m)" 
+            label="Altura (cm)" 
             v-model:model-value="height"
              variant="underlined"
              class="text-field-center ml-8"
@@ -102,10 +102,10 @@
   
 
   
-  const onSubmit = () => {
-    const successfullRegister = userStore.register(email.value, pass.value, name.value, surname.value, user.value, birth.value, height.value, weight.value);
+  async function onSubmit () {
+    const successfullRegister = await userStore.register(email.value, pass.value, name.value, surname.value, user.value, birth.value, height.value, weight.value);
     if(successfullRegister){
-      router.push('/');
+      router.push('/verify');
     }
   };
 
