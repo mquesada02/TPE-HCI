@@ -8,6 +8,7 @@ import SearchView from '@/views/SearchView.vue'
 import FavouritesView from '@/views/FavoritesView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import RutinesView from '@/views/RutinesView.vue'
 
 const routes = [
     { 
@@ -39,6 +40,11 @@ const routes = [
     path: '/profile', 
     name:'profile', 
     component: ProfileView 
+    },
+    {
+      path: '/myRoutines',
+      name: 'rutines',
+      component: RutinesView
     },
     { 
     path: '/:pathMatch(.*)*',

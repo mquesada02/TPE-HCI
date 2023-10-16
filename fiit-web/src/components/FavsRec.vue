@@ -7,6 +7,10 @@
     </v-row>      
 </template>
 
+
+//NO CONTROLA CUANTO RECIBE DESDE LA API
+//SE ASUME Q LA API RECIENTES SOLO MANDA LOS ÚLTIMOS 5
+
 <script setup>
     import ExcersiveCard from './ExcersiveCard.vue';
     const props = defineProps(['title','imgs']);
