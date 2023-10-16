@@ -1,10 +1,11 @@
 <template>
     <v-app id="rutines">
       <v-main color="background">
-        <v-container>
-          <FavsRec v-if="1===2" title="Recientes" :imgs="recientes"/>
-
-          <v-btn color="secondary" to=" /">Crear nueva rutina +</v-btn>
+        <v-container class="pt-15">
+          <v-row align="center" justify="center">
+            <v-btn  size="x-large" variant="outlined" color="secondary" to=" /">Crear nueva rutina +</v-btn>
+          </v-row>
+          <h1 class="pt-5">Mis rutinas:</h1>
           <Myfavs :items="recientes"/>
         </v-container>
       </v-main>

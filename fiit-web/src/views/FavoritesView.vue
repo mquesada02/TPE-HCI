@@ -3,7 +3,7 @@
     <v-main color="background">
       <v-container>
         <FavsRec title="Recientes" :imgs="recientes"/>
-        <h1>Mis favoritos:</h1>
+        <h1 class="pt-5">Mis favoritos:</h1>
         <Myfavs :items="recientes2"/>
       </v-container>
     </v-main>
@@ -17,15 +17,20 @@
     { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
     { src: 'abductores.jpg', title: 'Abductores' },
     { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
+    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' }
   ];
   const recientes2 = [
     { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
     { src: 'abductores.jpg', title: 'Abductores' },
     { src: 'dominadas.jpg', title: 'Dominadas' },
     { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
+    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' },
+    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+    { src: 'abductores.jpg', title: 'Abductores' },
+    { src: 'dominadas.jpg', title: 'Dominadas' },
+    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+    { src: 'abductores.jpg', title: 'Abductores' },
+    { src: 'dominadas.jpg', title: 'Dominadas' },
   ];
 </script>
 
