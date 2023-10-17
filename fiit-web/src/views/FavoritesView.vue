@@ -3,7 +3,8 @@
     <v-main color="background">
       <v-container>
         <FavsRec title="Recientes" :imgs="recientes"/>
-        <Myfavs :allCards="items"/>
+        <h1 class="pt-5">Mis favoritos:</h1>
+        <Myfavs :items="recientes2"/>
       </v-container>
     </v-main>
   </v-app>
@@ -13,18 +14,25 @@
     import FavsRec from '@/components/FavsRec.vue';
     import Myfavs from '@/components/MyFavs.vue';
     const recientes = [
-  { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
     { src: 'abductores.jpg', title: 'Abductores' },
     { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
+    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' }
   ];
-   const items = [  //copie lo mismo q en recientes, pero deberia ir lo q diga la api 
-   { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+  const recientes2 = [
+    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
     { src: 'abductores.jpg', title: 'Abductores' },
     { src: 'dominadas.jpg', title: 'Dominadas' },
     { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
-   ];
+    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' },
+    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+    { src: 'abductores.jpg', title: 'Abductores' },
+    { src: 'dominadas.jpg', title: 'Dominadas' },
+    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+    { src: 'abductores.jpg', title: 'Abductores' },
+    { src: 'dominadas.jpg', title: 'Dominadas' },
+  ];
 </script>
+
+
 

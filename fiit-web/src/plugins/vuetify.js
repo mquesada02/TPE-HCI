@@ -10,6 +10,7 @@ import 'vuetify/styles'
 
 // Composables
 import { createVuetify } from 'vuetify'
+import { VDataIterator } from 'vuetify/labs/VDataIterator'
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
@@ -33,5 +34,8 @@ export default createVuetify({
   },
   icons: {
     defaultSet: 'mdi',
+  },
+  components: {
+    VDataIterator,
   },
 })

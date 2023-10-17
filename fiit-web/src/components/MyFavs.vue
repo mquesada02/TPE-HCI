@@ -1,45 +1,67 @@
 <template>
-    <p class="pl-3 pt-10 text-h4 font-weight-medium">
-        Mis favoritos:
-    </p>
-    <div class="text-center">
-    <v-container>
-      <v-row justify="center">
-        <v-col cols="5">
-          <v-container class="max-width">
-            <v-pagination
-            :length=2                     
-            @page-clicl="changePage"
-            ></v-pagination>
-          </v-container>
+  <v-data-iterator
+    v-model:items-per-page="itemsPerPage"
+    v-model:page="page"
+    :items="items"
+    :search="search"
+    :sort-by="sortBy"
+  >
+    <template v-slot:no-data>
+      <v-alert class="ma-2" type="warning">No results</v-alert>
+    </template>
+
+    <template v-slot:default="{items}" >
+      <v-row>
+        <v-col
+          v-for="item in items"
+          :key="item"
+          cols="4"
+          sm="6"
+          md="4"
+          lg="3"
+        >
+          <ExcersiveCard :title="item.raw.title" :img="item.raw.src"></ExcersiveCard>
         </v-col>
       </v-row>
-    </v-container>
-  </div>
+    </template>
+
+    <template v-slot:footer>
+    <div class="d-flex align-center justify-space-around pa-4">
+        <v-spacer></v-spacer>
+        <span class="mr-4 grey--text">
+          Page {{ page }} of {{ numberOfPages }}
+        </span>
+        <v-btn icon size="small" @click="prevPage">
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn icon size="small" class="ml-2" @click="nextPage">
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+    </div>
+    </template>
+  </v-data-iterator>
 </template>
-//en length no va 2, va totalPages, pero no le gusta
 
 
 <script setup>
-import Card from "@/components/ExcersiveCard.vue";
-const props = defineProps(['allCards']);
-const allCards = [                                                               //si lo igualo a props.allCards tira pantallos en blanco
-{ src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
-];                               
-let currentPage = 1;  //comienzo siempre en la primera
-const itemsPerPage = 5; // Numero random, hay q ver q queda mejor
-const totalPages = Math.ceil(allCards.length / itemsPerPage); //no va 10, va allCards.length
-const showThisCards = {} //computed(() => {                                                  NO LE GUSTAAAA
- // const startIndex = (currentPage - 1) * itemsPerPage;
- //const endIndex = startIndex + itemsPerPage;
- //return allCards.slice(startIndex, endIndex);
-//});
-const changePage = (page) => {
-    currentPage=page;            //esto deberia actualizar currentPage, pero inchequeable
-};
-
+  import ExcersiveCard from './ExcersiveCard.vue';
+  import { computed, ref } from 'vue'
+  const props = defineProps(['items'])
+  const items = props.items;
+  for (let i = 0; i < items.length; i++) {
+      items[i].src = new URL('../assets/img/ejercicios/' + items[i].src, import.meta.url).href;
+    }
+  const itemsPerPage = ref(8)
+  const page = ref(1)
+  const numberOfPages = computed(() => {
+    return Math.ceil(props.items.length / itemsPerPage.value)
+  })
+  function nextPage () {
+    if (page.value + 1 <= numberOfPages.value) page.value += 1
+  }
+  function prevPage () {
+    if (page.value - 1 >= 1) page.value -= 1
+  }
+  
 </script>
+

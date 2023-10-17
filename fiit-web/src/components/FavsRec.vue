@@ -1,11 +1,20 @@
 <template>
-    <p class="pl-3 pt-3 text-h4 font-weight-medium">{{ title }}</p>
-    <v-row>
-      <template v-for="img in imgs">
+    <p class="pt-5 text-h4 font-weight-medium">{{ title }}</p>
+    <v-row class="pt-2">
+      <v-col 
+        v-for="img in imgs"
+        cols="4"
+        sm="6"
+        md="4"
+        lg="3">
         <ExcersiveCard :img="img.src" :title="img.title" />
-      </template>
+      </v-col>
     </v-row>      
 </template>
+
+
+//NO CONTROLA CUANTO RECIBE DESDE LA API
+//SE ASUME Q LA API RECIENTES SOLO MANDA LOS ÚLTIMOS 4
 
 <script setup>
     import ExcersiveCard from './ExcersiveCard.vue';

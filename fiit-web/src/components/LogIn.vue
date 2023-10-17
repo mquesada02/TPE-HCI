@@ -20,15 +20,16 @@
 
 <script setup>
   import { useUserStore } from '@/stores/userStore';
-  import { ref, computed } from 'vue';
+  import { ref } from 'vue';
+  import router from '@/router';
 
   const userStore = useUserStore();
 
   const user = ref('');
   const password = ref('');
 
-  const onSubmit = () => {
-    const successfullLogin = userStore.logIn(user.value, password.value);
+  async function onSubmit () {
+    const successfullLogin = await userStore.logIn(user.value, password.value);
     if(successfullLogin){
       router.push('/');
     }
