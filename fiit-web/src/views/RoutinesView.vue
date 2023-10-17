@@ -13,8 +13,7 @@
   </template>
   
   <script setup>
-      import FavsRec from '@/components/FavsRec.vue';
-      import Myfavs from '@/components/MyFavs.vue';
+      import Myfavs from '@/components/RoutineIter.vue';
       const recientes = [
     { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
     { src: 'abductores.jpg', title: 'Abductores' },
