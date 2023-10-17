@@ -2,12 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // Views
 import HomeView from '@/views/HomeView.vue'
-import LoginView from '@/views/LoginView.vue'
-import RegisterView from '@/views/RegisterView.vue'
 import SearchView from '@/views/SearchView.vue'
 import FavouritesView from '@/views/FavoritesView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import NotFoundView from '@/views/NotFoundView.vue'
 import RoutinesView from '@/views/RoutinesView.vue'
 import VerifyEmailView from '@/views/VerifyEmailView.vue'
 
@@ -20,12 +17,12 @@ const routes = [
     { 
     path: '/login', 
     name:'login', 
-    component: LoginView 
+    component: () => import('@/views/LoginView.vue')
     },
     { 
     path: '/register', 
     name:'register', 
-    component: RegisterView 
+    component: () => import('@/views/Register.vue')
     },
     { 
     path: '/search', 
@@ -55,7 +52,7 @@ const routes = [
     { 
     path: '/:pathMatch(.*)*',
     name: 'notfound',
-    component: NotFoundView 
+    component: () => import('@/views/NotFoundView.vue') //pagina poco frecuente -> optimizacion (no es necesario tenerla desde un principio)
     }
   ]
 

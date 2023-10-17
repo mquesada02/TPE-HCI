@@ -1,5 +1,5 @@
 <template>
-    <v-sheet class="d-flex" color="secondary">
+    <v-sheet class="search_bar" color="secondary">
         <v-text-field 
         class="search_box"
         bg-color="lighter"
@@ -32,8 +32,12 @@
 <style scoped>
     .search_box{
         width: 30%;
-        vertical-align: center;
         padding: 10px;
         padding-bottom: 0px;
+    }
+
+    .search_bar{
+        display: flex;
+        justify-content: space-between;
     }
 </style>
