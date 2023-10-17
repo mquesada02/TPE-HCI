@@ -7,6 +7,7 @@ import FavouritesView from '@/views/FavoritesView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import RoutinesView from '@/views/RoutinesView.vue'
 import VerifyEmailView from '@/views/VerifyEmailView.vue'
+import OneRoutineView from '@/views/OneRoutineView.vue'
 
 const routes = [
     { 
@@ -48,6 +49,11 @@ const routes = [
       path: '/myRoutines',
       name: 'rutines',
       component: RoutinesView
+    },
+    {
+      path: '/newRoutine',
+      name: 'pruebita',
+      component: OneRoutineView
     },
     { 
     path: '/:pathMatch(.*)*',
