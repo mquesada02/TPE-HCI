@@ -19,19 +19,25 @@
 </template>
 
 <script setup>
-  import { useUserStore } from '@/stores/userStore';
   import { ref } from 'vue';
   import router from '@/router';
+  import { useUserStore } from '@/stores/userStore';
+  import { Credentials } from '@/api/user.js';
 
   const userStore = useUserStore();
-
   const user = ref('');
   const password = ref('');
 
   async function onSubmit () {
-    const successfullLogin = await userStore.logIn(user.value, password.value);
-    if(successfullLogin){
+    try {
+      const credentials = new Credentials(user.value, password.value);
+      await userStore.login(credentials, true);
       router.push('/');
+    } catch (error) {
+      alert(error.description);
+      if (error.code === 8) {
+        router.push('/verify')
+      }
     }
   };
   
