@@ -1,5 +1,5 @@
 <template color="lighter">
-    <div style="background-color: #FFCCBC;">
+    <div style="background-color: #FFCCBC;" class="rounded-template">
         <v-row>
             <v-col cols="4"><h1 style="color: black;">Puntuación:</h1></v-col>
             <div class="d-flex align-center justify-center flex-column">
@@ -54,3 +54,11 @@
         punt: 3 }),
   }
 </script>
+
+<style scoped>
+.rounded-template {
+  border-radius: 10px; /* Adjust the radius as needed */
+  background-color: #f0f0f0; /* Set the background color */
+  padding: 20px; /* Add padding to your template */
+}
+</style>

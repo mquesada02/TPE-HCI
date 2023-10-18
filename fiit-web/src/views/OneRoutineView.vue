@@ -16,10 +16,9 @@
                 </div>
             </v-col>
             <v-col class="ma-15">
-                <MiniExercice/>
-                <MiniExercice/>
-                <MiniExercice/>
-                <MiniExercice/>
+                <div class="pt-4">
+                  <ExcerciceScroller/>
+                </div>
             </v-col>
         </v-row>
     </div>
@@ -30,7 +29,8 @@
 //al igual q la foto
 //en vez de muchos miniExcerise seria un v-for q recorre la info de la api sobre q ej estan en esta rutina
 
+
 <script setup>
-import RoutineInfo from '@/components/RoutineInfo.vue';
-import MiniExercice from '@/components/MiniExercice.vue';
+    import RoutineInfo from '@/components/RoutineInfo.vue';
+    import ExcerciceScroller from '@/components/ExcerciceScroller.vue';
 </script>
