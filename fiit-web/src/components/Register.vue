@@ -86,6 +86,7 @@
   import { ref } from 'vue';
   import { useUserStore } from '@/stores/userStore';
   import { useRouter } from 'vue-router';
+  import { Credentials, UserInfo } from '@/api/user.js';
 
   const router = useRouter();
 
@@ -100,12 +101,14 @@
 
   const userStore = useUserStore();
   
-
-  
   async function onSubmit () {
-    const successfullRegister = await userStore.register(email.value, pass.value, name.value, surname.value, user.value, birth.value, height.value, weight.value);
-    if(successfullRegister){
-      router.push('/verify');
+    try {
+      const credentials = new Credentials(user.value, pass.value);
+      const userInfo = new UserInfo(name.value, surname.value, email.value, birth.value, height.value, weight.value);
+      await userStore.register(credentials,userInfo);
+      router.push('/verify')
+    } catch (error) {
+      alert(error.description);
     }
   };
 
