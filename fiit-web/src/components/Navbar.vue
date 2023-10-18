@@ -19,9 +19,5 @@
 
 <script setup>
     import { useUserStore } from '@/stores/userStore'
-
-
     const user = useUserStore();
-
-
 </script>

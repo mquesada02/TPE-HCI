@@ -2,7 +2,7 @@
   <v-app id="home">
     
     <v-main color="background">
-      <v-container>
+
           <v-img src="@/assets/img/blurred-homepage-bg.png" class="align-center">
             <p class="text-h1 font-weight-bold text-center drop-shadow-lg">
               CONCENTRACIÓN
@@ -10,7 +10,7 @@
               ENTRENAMIENTO
             </p>
           </v-img>
-      </v-container>
+
       <v-container>
         <SmallCarousel title="Destacadas" :imgs="destacadas"/>
         <SmallCarousel title="Recientes" :imgs="recientes"/>
