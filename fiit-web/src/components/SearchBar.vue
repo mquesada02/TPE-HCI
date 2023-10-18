@@ -1,25 +1,27 @@
 <template>
-    <v-sheet class="search_bar" color="secondary">
+    <div class="search_bar" color="secondary">
         <v-text-field 
         class="search_box"
         bg-color="lighter"
         label="Buscar"
         append-inner-icon="magnify"></v-text-field>
 
-        <filter-button :items="musculoItems" label="Músculo"></filter-button>
+        <filters-menu />
+        <!-- <filter-button :items="musculoItems" label="Músculo"></filter-button>
 
         <filter-button :items="intensidadItems" label="Intensidad"></filter-button>
 
         <filter-button :items="objetivoItems" label="Objetivo"></filter-button>
 
-        <filter-button :items="materialItems" label="Material"></filter-button>
+        <filter-button :items="materialItems" label="Material"></filter-button> -->
 
-    </v-sheet>
+        </div>
 </template>
 
 <script setup>
     import FilterButton from '@/components/FilterButton.vue';
     import { useRoutineStore } from '@/stores/routineStore';
+import FiltersMenu from './FiltersMenu.vue';
 
     const routineStore = useRoutineStore();
 
@@ -37,7 +39,14 @@
     }
 
     .search_bar{
+        align-self: center;
+        width: 80%;
+        max-width: 500px;
         display: flex;
         justify-content: space-between;
+    }
+
+    filters-menu{
+        vertical-align: center;
     }
 </style>

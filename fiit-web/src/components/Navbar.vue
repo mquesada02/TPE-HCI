@@ -11,7 +11,7 @@
             <v-tab append-icon="mdi-folder" to="/myRoutines" text="Mis rutinas"/>
             <v-tab append-icon="mdi-heart" to="/favourites" text="Favoritos"/>
             <v-tab append-icon="mdi-magnify" to="/search" text="Búsqueda"/>
-            <v-tab v-if="!user.getLogInStatus()" append-icon="mdi-account" to="/login" text="Iniciar Sesión"/>
+            <v-tab v-if="!user.isLoggedIn" append-icon="mdi-account" to="/login" text="Iniciar Sesión"/>
             <v-tab v-else append-icon="mdi-account" to="/profile" text="Perfil"/>
         </v-tabs>
     </v-app-bar>
