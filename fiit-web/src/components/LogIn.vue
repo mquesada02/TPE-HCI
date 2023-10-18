@@ -8,11 +8,12 @@
         <v-text-field type="text" v-model:model-value="user" label="Usuario" :rules="userRequired"></v-text-field>
 
         <v-text-field type="password" v-model:model-value="password" label="Contraseña" :rules="passwordRequired"></v-text-field>
+        <v-checkbox v-model="remember" label="Recuérdame"></v-checkbox>
         <p class="drop-shadow-lg  text-center my-4">
           ¿No tenes cuenta?
           <v-btn color="secondary" to="/register">Registrate</v-btn>
         </p>
-        <v-btn variant="outlined" type="submit" block class="text-center"> Iniciar Sesión </v-btn>
+        <v-btn variant="outlined" :loading="loading" type="submit" block class="text-center"> Iniciar Sesión </v-btn>
       </v-container>
     </v-form>
   </v-sheet>
@@ -25,19 +26,28 @@
   import { Credentials } from '@/api/user.js';
 
   const userStore = useUserStore();
+  const remember = ref(false);
   const user = ref('');
   const password = ref('');
+
+  const params = new URLSearchParams(location.search);
+  user.value = params.get("user");
+
+  const loading = ref(false);
 
   async function onSubmit () {
     try {
       const credentials = new Credentials(user.value, password.value);
-      await userStore.login(credentials, true);
+      loading.value = true;
+      await userStore.login(credentials, remember);
       router.push('/');
     } catch (error) {
       alert(error.description);
       if (error.code === 8) {
         router.push('/verify')
       }
+    } finally {
+      loading.value = false;
     }
   };
   

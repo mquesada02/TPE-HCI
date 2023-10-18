@@ -23,7 +23,7 @@
         <p  align="center" class="myParagraph"> Edad:42</p>
         <p  align="center" class="myParagraph"> Peso:70</p>
         <div class="d-flex flex-column align-center mb-4">
-         <v-btn color="secondary" type="submit" class="text-center mt-8">Cerrar Sesion</v-btn>
+         <v-btn color="secondary" type="submit" @click="logOut" class="text-center mt-8">Cerrar Sesion</v-btn>
          </div>
       
    
@@ -32,6 +32,24 @@
   </v-sheet>
   </v-container>
 </template>
+
+<script setup>
+  import router from '@/router';
+  import { useUserStore } from '@/stores/userStore';
+
+  const userStore = useUserStore();
+
+  async function logOut () {
+    try {
+      await userStore.logout();
+      router.push('/');
+    } catch (error) {
+      alert(error.description);
+    }
+  };
+
+</script>
+
 <style>
 .myParagraph {
   font-size: 27px;
