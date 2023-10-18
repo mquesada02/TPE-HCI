@@ -25,7 +25,7 @@
                     </v-col>
                     <v-col>
                         <div class="pt-8 ml-16">
-                        <v-btn size="large" icon="mdi-check-circle"></v-btn>
+                        <v-btn size="large" icon="mdi-play"></v-btn>
                         </div>
                     </v-col>
                 </v-row>
@@ -39,8 +39,8 @@
 //Al igual q el nombre de item.name
 //Al igual q la dirección a la q debe redireccionar cada play
 
-  <script>
-    //const props = defineProps(['itemss']);
-    //const itemss = props.itemss;
+  <script setup>
+    const props = defineProps(['itemss']);
+    const itemss = props.itemss;
   </script>
 

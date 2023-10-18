@@ -23,11 +23,17 @@
 
     const email = ref('');
     const code = ref('');
+    const user = ref('');
 
+    const params = new URLSearchParams(location.search);
+    code.value = params.get("code");
+    email.value = params.get("email");
+    user.value = params.get("user");
+    
     async function onSubmit () {
     try {
       await userStore.verifyEmail(email.value, code.value);
-      router.push('/login');
+      router.push('/login?user=' + user.value);
     } catch (error){
       alert(error.description);
     }

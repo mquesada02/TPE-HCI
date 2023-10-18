@@ -8,7 +8,8 @@ class UserApi {
     }
 
     static async register(credentials, userInfo) {
-        console.log({ ...credentials, ...userInfo })
+        console.log({credentials,userInfo});
+        console.log({...credentials,...userInfo});
         return await Api.post(UserApi.getUrl(), false, { ...credentials, ...userInfo });
     }
 

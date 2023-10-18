@@ -25,6 +25,10 @@ export const useUserStore = defineStore('user', () => {
         Api.token = newToken;
     }
 
+    function setUser(newUser) {
+        user.value = newUser;
+    }
+
     function updateToken(token, rememberMe) {
         if (rememberMe) {
             localStorage.setItem(SECURITY_TOKEN_KEY, token);
@@ -56,6 +60,7 @@ export const useUserStore = defineStore('user', () => {
             return user.value;
 
         const result = await UserApi.get();
+        setUser(result);
     }
 
     return {

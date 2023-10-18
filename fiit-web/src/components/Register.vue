@@ -16,13 +16,6 @@
             :rules="emailRules">
         </v-text-field>
         <v-text-field
-            label="Nombre" 
-            v-model:model-value="name"
-            variant="underlined"
-            class="text-field-center ml-8"
-            :rules="nombreRules">
-        </v-text-field>
-        <v-text-field
             label="Nombre de Usuario" 
             v-model:model-value="user"
              variant="underlined"
@@ -30,23 +23,31 @@
              :rules="usuarioRules">
         </v-text-field>
         <v-text-field
+            label="Contraseña"
+            type="password"
+            v-model:model-value="pass" 
+            variant="underlined"
+            class="text-field-center ml-8"
+            :rules="passwordRules">
+        </v-text-field>
+        <!-- <v-text-field
             label="Altura (cm)" 
             v-model:model-value="height"
              variant="underlined"
              class="text-field-center ml-8"
              :rules="alturaRules">
-        </v-text-field>
+        </v-text-field> -->
         </v-col>
 
         <v-col cols="12" md="6">
-         <v-text-field
-            label="Contraseña"
-            type="password"
-            v-model:model-value="pass" 
+          <v-text-field
+            label="Nombre" 
+            v-model:model-value="name"
             variant="underlined"
             class="text-field-center mr-8"
-            :rules="passwordRules">
+            :rules="nombreRules">
         </v-text-field>
+         
         
         <v-text-field
             label="Apellido"
@@ -64,18 +65,18 @@
              :rules="fechaRules">
         </v-text-field>
          
-         <v-text-field
+         <!-- <v-text-field
             label="Peso (kg)" 
             v-model:model-value="weight"
              variant="underlined"
              class="text-field-center mr-8"
              :rules="pesoRules">
-        </v-text-field>
+        </v-text-field> -->
         </v-col>
         </v-row>
          <p class="drop-shadow-lg text-h7 text-center mb-5"> ¿Ya tienes cuenta? <router-link to="/login">Inicia sesión</router-link></p>
          <div class="d-flex flex-column align-center mb-8">
-         <v-btn color="secondary" type="submit" class="text-center mb-8">Registrarse</v-btn>
+         <v-btn color="secondary" :loading="loading"  type="submit" class="text-center mb-8">Registrarse</v-btn>
          </div>
     </v-form>
   </v-sheet>
@@ -99,16 +100,21 @@
   const height =  ref('');
   const weight = ref('');
 
+  const loading = ref(false);
+
   const userStore = useUserStore();
-  
   async function onSubmit () {
     try {
       const credentials = new Credentials(user.value, pass.value);
       const userInfo = new UserInfo(name.value, surname.value, email.value, birth.value, height.value, weight.value);
+      loading.value = true;
       await userStore.register(credentials,userInfo);
-      router.push('/verify')
+      
+      router.push('/verify?email=' + email.value + '&user=' + user.value );
     } catch (error) {
       alert(error.description);
+    } finally {
+      loading.value = false;
     }
   };
 

@@ -6,7 +6,7 @@
                 <v-row>
                     <div class="pt-5">
                     <v-img
-                        width="610"
+                        width="500"
                         src="https://cdn.vuetifyjs.com/images/parallax/material.jpg" 
                         cover/>
                     </div>

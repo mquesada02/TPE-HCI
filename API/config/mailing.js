@@ -25,7 +25,7 @@ module.exports = {
                     <strong>Your code is <span style="color: #fc987e;"><%CODE%></span></strong>
                 </h1>
             </div>`,
-        confirmationLink: 'http://localhost:8080/verification?user=<%USER_ID%>&code=<%CODE%>',
+        confirmationLink: 'http://localhost:3000/verify?email=<%EMAIL%>&code=<%CODE%>&user=<%USERNAME%>',
         codeExpirationInterval: 24 * 60 * 60 * 1000
     }
 }
