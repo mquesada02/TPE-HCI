@@ -5,7 +5,6 @@
                 <v-rating
                 v-model="dif"
                 class="ma-2"
-                :item-labels="['Facil', '', '', '', 'Dificil']"
                 item-label-position="top"
                 style="color: black;"
                 ></v-rating>
@@ -14,7 +13,7 @@
         <div class="pt-8 d-flex align-center justify-center flex-column">
         <v-row> 
             <div v-if="false">
-                <v-btn color="secondary"> Eliminar de favoritos 
+                <v-btn color="secondary"> 
                     <v-rating
                         hover
                         :length="1"
@@ -28,7 +27,7 @@
                 </v-btn>
             </div>
             <div v-else>
-                <v-btn color="secondary"> Agregar a favoritos 
+                <v-btn color="secondary"> 
                     <v-rating
                         hover
                         :length="1"

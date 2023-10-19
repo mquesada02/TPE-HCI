@@ -10,6 +10,7 @@ import VerifyEmailView from '@/views/VerifyEmailView.vue'
 import OneRoutineView from '@/views/OneRoutineView.vue'
 import ExercicesView from '@/views/ExercicesView'
 import ExerciceView from '@/views/ExerciceView'
+import CreatRoutineView from '@/views/CreateRoutineView.vue'
 
 const routes = [
     { 
@@ -70,7 +71,7 @@ const routes = [
     {
       path: '/addRoutine',
       name: 'addRoutine',
-      component: () => import('@/views/NotFoundView.vue') //pagina poco frecuente -> optimizacion (no es necesario tenerla desde un principio)
+      component: CreatRoutineView
     },
     { 
     path: '/:pathMatch(.*)*',

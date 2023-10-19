@@ -29,7 +29,7 @@
     <div class="d-flex align-center justify-space-around pa-4">
         <v-spacer></v-spacer>
         <span class="mr-4 grey--text">
-          Page {{ page }} of {{ numberOfPages }}
+          Página {{ page }} de {{ numberOfPages }}
         </span>
         <v-btn icon size="small" @click="prevPage">
           <v-icon>mdi-chevron-left</v-icon>
