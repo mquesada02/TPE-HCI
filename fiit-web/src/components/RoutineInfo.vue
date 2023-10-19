@@ -1,32 +1,19 @@
 <template color="lighter">
     <div style="background-color: #FFCCBC;" class="rounded-template">
-        <v-row>
-            <v-col cols="4"><h1 style="color: black;">Puntuación:</h1></v-col>
-            <div class="d-flex align-center justify-center flex-column">
+        <div class="pt-8 d-flex align-center justify-center flex-column">
+            <v-row>
                 <v-rating
-                v-model="punt"
+                v-model="dif"
                 class="ma-2"
-                :item-labels="[':(', '', '', '', 'Me encanto']"
+                :item-labels="['Facil', '', '', '', 'Dificil']"
                 item-label-position="top"
                 style="color: black;"
                 ></v-rating>
-            </div>
-        </v-row>
-        <v-row>
-            <v-col cols="4"><h1 style="color: black;">Dificultad:</h1></v-col>
-                    <div class="d-flex align-center justify-center flex-column">
-                        <v-rating
-                        v-model="dif"
-                        class="ma-2"
-                        :item-labels="['facil', '', '', '', 'dificil']"
-                        item-label-position="top"
-                        style="color: black;"
-                        ></v-rating>
-                    </div>
-        </v-row>
+            </v-row>
+        </div>
         <div class="pt-8 d-flex align-center justify-center flex-column">
         <v-row> 
-            <v-btn color="secondary">Agregar a favoritos 
+            <v-btn color="secondary"> Agregar a favoritos 
                 <v-rating
                     hover
                     :length="1"
@@ -38,8 +25,15 @@
                     clearable/>
             </v-btn>
         </v-row>
-        <v-row class="pt-5">
-            <v-btn color="secondary">Compartir</v-btn>
+        <v-row>
+            <v-col>
+               <h1 style="color: black;">Duración:  </h1> 
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+               <h1 style="color: black;">Musculos a trabajar: </h1> 
+            </v-col>
         </v-row>
         </div>  
     </div>

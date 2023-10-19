@@ -7,7 +7,7 @@
         sm="6"
         md="4"
         lg="3">
-        <ExcersiveCard :img="img.src" :title="img.title" />
+        <RoutineCard :img="img.src" :title="img.title" :favState="true"/>
       </v-col>
     </v-row>      
 </template>
@@ -17,7 +17,7 @@
 //SE ASUME Q LA API RECIENTES SOLO MANDA LOS ÚLTIMOS 4
 
 <script setup>
-    import ExcersiveCard from './ExcersiveCard.vue';
+    import RoutineCard from './RoutineCard.vue';
     const props = defineProps(['title','imgs']);
     const title = props.title;
     const imgs = props.imgs;
