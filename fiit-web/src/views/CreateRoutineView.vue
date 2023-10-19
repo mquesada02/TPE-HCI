@@ -1,12 +1,38 @@
 <template>
     <v-card color="background">
-      <v-tabs grow
-        v-model="tab"
-      >
-        <v-tab value="one">Descriptción</v-tab>
-        <v-tab value="two">Entrada en calor</v-tab>
-        <v-tab value="three">Ejercitación</v-tab>
-        <v-tab value="four">Enfriamiento</v-tab>
+      <v-tabs grow v-model="tab">
+        <v-tab value="one">Descripción 
+            <div v-if="false">
+                <v-icon icon="mdi-checkbox-marked"/>
+            </div>
+            <div v-else>
+                <v-icon icon="mdi-checkbox-marked" color="completed"/>
+            </div>
+        </v-tab>
+        <v-tab value="two">Entrada en calor
+            <div v-if="false">
+                <v-icon icon="mdi-checkbox-marked"/>
+            </div>
+            <div v-else>
+                <v-icon icon="mdi-checkbox-marked" color="completed"/>
+            </div>
+        </v-tab>
+        <v-tab value="three">Ejercitación
+            <div v-if="false">
+                <v-icon icon="mdi-checkbox-marked"/>
+            </div>
+            <div v-else>
+                <v-icon icon="mdi-checkbox-marked" color="completed"/>
+            </div>
+        </v-tab>
+        <v-tab value="four">Enfriamiento
+            <div v-if="false">
+                <v-icon icon="mdi-checkbox-marked"/>
+            </div>
+            <div v-else>
+                <v-icon icon="mdi-checkbox-marked" color="completed"/>
+            </div>
+        </v-tab>
       </v-tabs>
       <v-card-text>
         <v-window v-model="tab">
@@ -14,14 +40,13 @@
                 <Desc></Desc>
             </v-window-item>
             <v-window-item value="two">
-                Two
+               <PrePostWorkout></PrePostWorkout>
             </v-window-item>
-    
             <v-window-item value="three">
-                Three
+                <Workout></Workout>
             </v-window-item>
             <v-window-item value="four">
-                Four
+                <PrePostWorkout></PrePostWorkout>
             </v-window-item>
         </v-window>
       </v-card-text>
@@ -35,6 +60,13 @@ data: () => ({
 }),
 }
 </script>
+
 <script setup>
 import Desc from '@/components/Description.vue';
+import Workout from '@/components/Workout.vue';
+import PrePostWorkout from '@/components/PrePostWorkout.vue';
+/*
+faltan cuatro variabls boolean, q se crean a partir de la api
+seran true si ya se completo la info de la pestaña
+*/
 </script>

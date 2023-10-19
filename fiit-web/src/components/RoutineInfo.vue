@@ -1,7 +1,10 @@
 <template color="lighter">
     <div style="background-color: #FFCCBC;" class="rounded-template">
+        <h1 style="color: black;"> Descripción...... </h1>
         <div class="pt-8 d-flex align-center justify-center flex-column">
-            <v-row>
+        <v-row> 
+            <v-col>
+                <v-row>
                 <v-rating
                 v-model="dif"
                 class="ma-2"
@@ -9,46 +12,54 @@
                 style="color: black;"
                 ></v-rating>
             </v-row>
-        </div>
-        <div class="pt-8 d-flex align-center justify-center flex-column">
-        <v-row> 
-            <div v-if="false">
-                <v-btn color="secondary"> 
-                    <v-rating
-                        hover
-                        :length="1"
-                        :size="32"
-                        :model-value="1"
-                        active-color="primary"
-                        empty-icon="mdi-heart-outline"
-                        half-icon="mdi-heart-half-full"
-                        full-icon="mdi-heart"
-                        clearable/>
-                </v-btn>
-            </div>
-            <div v-else>
-                <v-btn color="secondary"> 
-                    <v-rating
-                        hover
-                        :length="1"
-                        :size="32"
-                        active-color="primary"
-                        empty-icon="mdi-heart-outline"
-                        half-icon="mdi-heart-half-full"
-                        full-icon="mdi-heart"
-                        clearable/>
-                </v-btn>
-            </div>
+            </v-col>
+            <v-col>
+                <div v-if="false">
+                    <v-btn color="secondary"> 
+                        <v-rating
+                            hover
+                            :length="1"
+                            :size="32"
+                            :model-value="1"
+                            active-color="primary"
+                            empty-icon="mdi-heart-outline"
+                            half-icon="mdi-heart-half-full"
+                            full-icon="mdi-heart"
+                            clearable/>
+                    </v-btn>
+                </div>
+                <div v-else>
+                    <v-btn color="secondary"> 
+                        <v-rating
+                            hover
+                            :length="1"
+                            :size="32"
+                            active-color="primary"
+                            empty-icon="mdi-heart-outline"
+                            half-icon="mdi-heart-half-full"
+                            full-icon="mdi-heart"
+                            clearable/>
+                    </v-btn>
+                </div>
+            </v-col>
         </v-row>
         <v-row>
             <v-col>
                <h1 style="color: black;">Duración:  </h1> 
+            </v-col>
+            <v-col>
+               <h1 style="color: black;">Materiales: </h1> 
             </v-col>
         </v-row>
         <v-row>
             <v-col>
                <h1 style="color: black;">Musculos a trabajar: </h1> 
             </v-col>
+            <v-col>
+               <h1 style="color: black;">Intensidad: </h1> 
+            </v-col>
+        </v-row>
+        <v-row>
         </v-row>
         </div>  
     </div>
