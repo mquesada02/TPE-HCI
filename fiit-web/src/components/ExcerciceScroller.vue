@@ -25,7 +25,7 @@
                     </v-col>
                     <v-col>
                         <div class="pt-8 ml-16">
-                        <v-btn size="large" icon="mdi-play"></v-btn>
+                        <v-btn size="large" icon="mdi-play" to="/oneExercice"></v-btn>
                         </div>
                     </v-col>
                 </v-row>
