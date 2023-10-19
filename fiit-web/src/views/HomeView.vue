@@ -2,15 +2,15 @@
   <v-app id="home">
     
     <v-main color="background">
-      <v-container>
+
           <v-img src="@/assets/img/blurred-homepage-bg.png" class="align-center">
-            <p class="text-h1 font-weight-bold text-center drop-shadow-lg">
-              CONCENTRACIÓN
-              ADAPTACIÓN
-              ENTRENAMIENTO
+            <p class="text-h3 text-xl-h1 text-lg-h1 text-md-h1 text-sm-h2 font-weight-bold text-center drop-shadow-lg">
+              CONCENTRACIÓN<br/>
+              ADAPTACIÓN<br/>
+              ENTRENAMIENTO<br/>
             </p>
           </v-img>
-      </v-container>
+
       <v-container>
         <SmallCarousel title="Destacadas" :imgs="destacadas"/>
         <SmallCarousel title="Recientes" :imgs="recientes"/>
@@ -21,8 +21,6 @@
 </template>
 
 <script setup>
-  import Navbar from '@/components/Navbar.vue';
-  import FullCarousel from '@/components/FullCarousel.vue';
   import SmallCarousel from '@/components/SmallCarousel.vue';
 
   const destacadas = [

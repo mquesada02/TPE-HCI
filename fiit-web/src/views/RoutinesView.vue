@@ -1,6 +1,10 @@
 <template>
     <v-app id="rutines">
       <v-main color="background">
+        <v-tabs grow >
+            <v-tab append-icon="mdi-home" to="/" text="Inicio" />
+            <v-tab append-icon="mdi-plus" to="/newRoutine" text="Crear rutina"/>
+        </v-tabs>
         <v-container class="pt-15">
           <v-row align="center" justify="center">
             <v-btn  size="x-large" variant="outlined" color="secondary" to=" /">Crear nueva rutina <v-icon icon="mdi-plus" size="x-large"></v-icon></v-btn>

@@ -8,5 +8,13 @@
 </template>
 
 <script setup>
-  import Navbar from './components/Navbar.vue';
+  import { onBeforeMount } from 'vue';
+  import Navbar from '@/components/Navbar.vue';
+  import { useUserStore } from '@/stores/userStore';
+
+  onBeforeMount(() => {
+    const userStore = useUserStore();
+    userStore.initialize();
+
+  })
 </script>

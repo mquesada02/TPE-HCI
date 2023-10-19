@@ -6,6 +6,7 @@
       </p>
       <p class="text-center">Ingrese el código de verificación obtenido por email.</p>
       <v-container>
+        <v-text-field type="text" v-model:model-value="email" label="Email"></v-text-field>
         <v-text-field type="text" v-model:model-value="code" label="Código de verificación"></v-text-field>
         <v-btn variant="outlined" type="submit" block class="text-center"> Validar código </v-btn>
       </v-container>
@@ -20,13 +21,22 @@
 
     const userStore = useUserStore();
 
+    const email = ref('');
     const code = ref('');
+    const user = ref('');
 
+    const params = new URLSearchParams(location.search);
+    code.value = params.get("code");
+    email.value = params.get("email");
+    user.value = params.get("user");
+    
     async function onSubmit () {
-
-    const successVerify = await userStore.verifyEmail(localStorage.getItem('email').toString(), code.value);
-    if(successVerify){
-      router.push('/');
+    try {
+      await userStore.verifyEmail(email.value, code.value);
+      router.push('/login?user=' + user.value);
+    } catch (error){
+      alert(error.description);
     }
+    
   };
 </script>
