@@ -67,6 +67,11 @@ const routes = [
       name: 'oneExercice',
       component: ExerciceView
     },
+    {
+      path: '/addRoutine',
+      name: 'addRoutine',
+      component: () => import('@/views/NotFoundView.vue') //pagina poco frecuente -> optimizacion (no es necesario tenerla desde un principio)
+    },
     { 
     path: '/:pathMatch(.*)*',
     name: 'notfound',
