@@ -6,7 +6,7 @@
         <!-- END -->
         <v-tabs grow >
             <v-tab v-show="!tooSmall" append-icon="mdi-home" to="/" text="Inicio" />
-            <v-tab v-show="!tooSmall" append-icon="mdi-plus" to="/newRoutine" text="Crear rutina"/>
+            <v-tab v-show="!tooSmall" append-icon="mdi-plus" to="/:pathMatch(.*)*" text="Crear rutina"/>
             <v-tab v-show="!tooSmall" append-icon="mdi-folder" to="/myRoutines" text="Mis rutinas"/>
             <v-tab v-show="!tooSmall" append-icon="mdi-heart" to="/favourites" text="Favoritos"/>
             <v-tab v-show="!tooSmall" append-icon="mdi-magnify" to="/search" text="Búsqueda"/>
@@ -14,7 +14,7 @@
             <v-tab v-show="!tooSmall" v-else append-icon="mdi-account" to="/profile" text="Perfil"/>
 
             <v-tab v-show="tooSmall" append-icon="mdi-home" to="/" />
-            <v-tab v-show="tooSmall" append-icon="mdi-plus" to="/newRoutine"/>
+            <v-tab v-show="tooSmall" append-icon="mdi-plus" to="/:pathMatch(.*)*"/>
             <v-tab v-show="tooSmall" append-icon="mdi-folder" to="/myRoutines"/>
             <v-tab v-show="tooSmall" append-icon="mdi-heart" to="/favourites"/>
             <v-tab v-show="tooSmall" append-icon="mdi-magnify" to="/search"/>
