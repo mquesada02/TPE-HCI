@@ -13,17 +13,33 @@
         </div>
         <div class="pt-8 d-flex align-center justify-center flex-column">
         <v-row> 
-            <v-btn color="secondary"> Agregar a favoritos 
-                <v-rating
-                    hover
-                    :length="1"
-                    :size="32"
-                    active-color="primary"
-                    empty-icon="mdi-heart-outline"
-                    half-icon="mdi-heart-half-full"
-                    full-icon="mdi-heart"
-                    clearable/>
-            </v-btn>
+            <div v-if="false">
+                <v-btn color="secondary"> Eliminar de favoritos 
+                    <v-rating
+                        hover
+                        :length="1"
+                        :size="32"
+                        :model-value="1"
+                        active-color="primary"
+                        empty-icon="mdi-heart-outline"
+                        half-icon="mdi-heart-half-full"
+                        full-icon="mdi-heart"
+                        clearable/>
+                </v-btn>
+            </div>
+            <div v-else>
+                <v-btn color="secondary"> Agregar a favoritos 
+                    <v-rating
+                        hover
+                        :length="1"
+                        :size="32"
+                        active-color="primary"
+                        empty-icon="mdi-heart-outline"
+                        half-icon="mdi-heart-half-full"
+                        full-icon="mdi-heart"
+                        clearable/>
+                </v-btn>
+            </div>
         </v-row>
         <v-row>
             <v-col>
@@ -45,10 +61,18 @@
   export default {
     data: () => ({ 
         dif: 3, 
-        punt: 3 }),
+        punt: 3, 
+    }),
   }
 </script>
+<script setup>
+    import { computed } from 'vue';
+    const props = defineProps(['favState'])
+    const isFav = computed(() => {
+        
+    }) 
 
+</script>
 <style scoped>
 .rounded-template {
   border-radius: 10px; /* Adjust the radius as needed */
