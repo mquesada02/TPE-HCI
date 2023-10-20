@@ -8,6 +8,9 @@ import ProfileView from '@/views/ProfileView.vue'
 import RoutinesView from '@/views/RoutinesView.vue'
 import VerifyEmailView from '@/views/VerifyEmailView.vue'
 import OneRoutineView from '@/views/OneRoutineView.vue'
+import ExercicesView from '@/views/ExercicesView'
+import ExerciceView from '@/views/ExerciceView'
+import CreatRoutineView from '@/views/CreateRoutineView.vue'
 
 const routes = [
     { 
@@ -52,8 +55,23 @@ const routes = [
     },
     {
       path: '/newRoutine',
-      name: 'pruebita',
+      name: 'oneRoutine',
       component: OneRoutineView
+    },
+    {
+      path: '/myExercices',
+      name: 'exercices',
+      component: ExercicesView
+    },
+    {
+      path: '/oneExercice',
+      name: 'oneExercice',
+      component: ExerciceView
+    },
+    {
+      path: '/addRoutine',
+      name: 'addRoutine',
+      component: CreatRoutineView
     },
     { 
     path: '/:pathMatch(.*)*',

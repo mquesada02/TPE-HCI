@@ -1,45 +1,65 @@
 <template color="lighter">
     <div style="background-color: #FFCCBC;" class="rounded-template">
-        <v-row>
-            <v-col cols="4"><h1 style="color: black;">Puntuación:</h1></v-col>
-            <div class="d-flex align-center justify-center flex-column">
+        <h1 style="color: black;"> Descripción...... </h1>
+        <div class="pt-8 d-flex align-center justify-center flex-column">
+        <v-row> 
+            <v-col>
+                <v-row>
                 <v-rating
-                v-model="punt"
+                v-model="dif"
                 class="ma-2"
-                :item-labels="[':(', '', '', '', 'Me encanto']"
                 item-label-position="top"
                 style="color: black;"
                 ></v-rating>
-            </div>
+            </v-row>
+            </v-col>
+            <v-col>
+                <div v-if="false">
+                    <v-btn color="secondary"> 
+                        <v-rating
+                            hover
+                            :length="1"
+                            :size="32"
+                            :model-value="1"
+                            active-color="primary"
+                            empty-icon="mdi-heart-outline"
+                            half-icon="mdi-heart-half-full"
+                            full-icon="mdi-heart"
+                            clearable/>
+                    </v-btn>
+                </div>
+                <div v-else>
+                    <v-btn color="secondary"> 
+                        <v-rating
+                            hover
+                            :length="1"
+                            :size="32"
+                            active-color="primary"
+                            empty-icon="mdi-heart-outline"
+                            half-icon="mdi-heart-half-full"
+                            full-icon="mdi-heart"
+                            clearable/>
+                    </v-btn>
+                </div>
+            </v-col>
         </v-row>
         <v-row>
-            <v-col cols="4"><h1 style="color: black;">Dificultad:</h1></v-col>
-                    <div class="d-flex align-center justify-center flex-column">
-                        <v-rating
-                        v-model="dif"
-                        class="ma-2"
-                        :item-labels="['facil', '', '', '', 'dificil']"
-                        item-label-position="top"
-                        style="color: black;"
-                        ></v-rating>
-                    </div>
+            <v-col>
+               <h1 style="color: black;">Duración:  </h1> 
+            </v-col>
+            <v-col>
+               <h1 style="color: black;">Materiales: </h1> 
+            </v-col>
         </v-row>
-        <div class="pt-8 d-flex align-center justify-center flex-column">
-        <v-row> 
-            <v-btn color="secondary">Agregar a favoritos 
-                <v-rating
-                    hover
-                    :length="1"
-                    :size="32"
-                    active-color="primary"
-                    empty-icon="mdi-heart-outline"
-                    half-icon="mdi-heart-half-full"
-                    full-icon="mdi-heart"
-                    clearable/>
-            </v-btn>
+        <v-row>
+            <v-col>
+               <h1 style="color: black;">Musculos a trabajar: </h1> 
+            </v-col>
+            <v-col>
+               <h1 style="color: black;">Intensidad: </h1> 
+            </v-col>
         </v-row>
-        <v-row class="pt-5">
-            <v-btn color="secondary">Compartir</v-btn>
+        <v-row>
         </v-row>
         </div>  
     </div>
@@ -51,10 +71,18 @@
   export default {
     data: () => ({ 
         dif: 3, 
-        punt: 3 }),
+        punt: 3, 
+    }),
   }
 </script>
+<script setup>
+    import { computed } from 'vue';
+    const props = defineProps(['favState'])
+    const isFav = computed(() => {
+        
+    }) 
 
+</script>
 <style scoped>
 .rounded-template {
   border-radius: 10px; /* Adjust the radius as needed */

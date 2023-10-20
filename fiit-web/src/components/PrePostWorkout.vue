@@ -1,0 +1,51 @@
+<template>
+   <div class="text-right">
+        <v-btn
+            color="secondary"
+            @click="dialog = true"
+            >
+            <v-icon icon="mdi-information" size="x-large"></v-icon>
+        </v-btn>
+        <v-dialog
+            v-model="dialog"
+            width="auto"
+        >
+        <v-card>
+            <v-card-text>
+            Para completar esta sección se tiene que 
+            </v-card-text>
+            <v-card-actions>
+            <v-btn color="primary" block @click="dialog = false">Close</v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-dialog>
+    </div>
+    <Cicle :title="props.title" :items="recientes" />
+</template> 
+
+<script>
+  export default {
+    data () {
+      return {
+        dialog: false,
+      }
+    },
+  }
+</script>
+
+<script setup>
+    import Cicle from '@/components/Cicle.vue';
+    const props = defineProps(['title']);
+    const recientes = [
+    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+    { src: 'abductores.jpg', title: 'Abductores' },
+    { src: 'dominadas.jpg', title: 'Dominadas' },
+    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
+    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' },
+    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
+    { src: 'abductores.jpg', title: 'Abductores' },
+    { src: 'dominadas.jpg', title: 'Dominadas' },
+    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
+    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
+  ];
+</script>

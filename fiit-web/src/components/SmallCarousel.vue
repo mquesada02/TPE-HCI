@@ -15,7 +15,7 @@
           :key="img"
           v-slot="{ isSelected, toggle, selectedClass }"
         >
-          <ExcersiveCard :img="img.src" :title="img.title" :selected-class="selectedClass" :toggle="toggle"/>
+          <RoutineCard :img="img.src" :title="img.title" :selected-class="selectedClass" :toggle="toggle"/>
 
         </v-slide-group-item>
       </v-slide-group>
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-    import ExcersiveCard from './ExcersiveCard.vue';
+    import RoutineCard from './RoutineCard.vue';
 
     const props = defineProps(['title','imgs']);
     const title = props.title;

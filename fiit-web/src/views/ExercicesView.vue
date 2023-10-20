@@ -6,18 +6,15 @@
             <v-tab  to="/myExercices" text="Mis ejercicios"/>
         </v-tabs>
         <v-container class="pt-15">
-          <v-row align="center" justify="center">
-            <v-btn  size="x-large" variant="outlined" color="secondary" to="/description">Crear nueva rutina <v-icon icon="mdi-plus" size="x-large"></v-icon></v-btn>
-          </v-row>
-          <h1 class="pt-5">Mis rutinas:</h1>
-          <MyRout :items="recientes"/>
+          <h1 class="pt-5">Mis ejercicios:</h1>
+          <myExercices :items="recientes"/>
         </v-container>
       </v-main>
     </v-app>
   </template>
   
   <script setup>
-      import MyRout from '@/components/RoutineIter.vue';
+      import myExercices from '@/components/ExcerciceIter.vue';
       const recientes = [
     { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
     { src: 'abductores.jpg', title: 'Abductores' },
@@ -31,4 +28,3 @@
     { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
   ];
   </script>
-
