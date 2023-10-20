@@ -20,7 +20,9 @@
         </v-card>
         </v-dialog>
     </div>
-    <Cicle :title="props.title" :items="recientes" />
+    <div class="pt-5">
+      <Cicle :title="aa" type="true"/>
+    </div>
 </template> 
 
 <script>

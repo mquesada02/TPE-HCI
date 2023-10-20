@@ -1,76 +1,104 @@
 <template>
-    <div class="pt-5">
-        <v-card color="lighter">
-            <div class="pt-10 ml-5">
-                <v-row>
-                    <h1>Ciclo {{ props.title }}</h1>
-                    <div class="text-right">
-                        <v-row>
-                        <h1>Series:</h1> 
-                        <v-text-field 
-                        class="series" 
-                        />
-                        </v-row>
-                    </div>
-                </v-row>
+    <v-app>
+        <div v-if="type">
+        <v-app-bar app>
+            <v-toolbar-title class="size">
+                Ciclo
+                <span>{{ title }}</span>
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <div class="pt-6 mr-4">
+                <v-text-field
+                    v-model="numberOfSeries"
+                    outlined
+                    dense>
+                <template v-slot:prepend>
+                <span class="size">Series:</span>
+                </template>
+                </v-text-field>
             </div>
-        <v-divider></v-divider>
-            <v-row
-                v-for="item in items"
-                :key="item"
-                cols="4"
-                sm="6"
-                md="4"
-                lg="3"
-                >
-                <ExcersiveCard :title="item.raw.title" :img="item.raw.src"></ExcersiveCard>
-            </v-row>
-        <v-divider></v-divider>
-        <div class="ml-10">
-            <v-btn color="secondary" @click="dialog = true">
-                <v-icon icon="mdi-plus" size="x-large"></v-icon>
-            </v-btn>
-            <v-dialog v-model="dialog" width="auto">
-            <v-card>
-                <v-card-actions>
-                    <v-row>
-                        <v-btn>Buscar ejercicio</v-btn>
-                        <v-btn>Crear ejercicio</v-btn>
-                    </v-row>
-                    <v-row>
-                    <v-btn color="primary" block @click="dialog = false">Close</v-btn>
-                    </v-row>
-                </v-card-actions>
-            </v-card>
-            </v-dialog>
+        </v-app-bar>
         </div>
-        </v-card>
-    </div>
+        <div v-else>
+            <v-app-bar app>
+                <v-toolbar-title class="size">
+                    <div class="pt-6">
+                    <v-text-field
+                        outlined
+                        dense>
+                    <template v-slot:prepend>
+                    <span class="size">Ciclo:</span>
+                    </template>
+                    </v-text-field>
+                </div>
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <div class="pt-6 mr-4">
+                    <v-text-field
+                        v-model="numberOfSeries"
+                        outlined
+                        dense>
+                    <template v-slot:prepend>
+                    <span class="size">Series:</span>
+                    </template>
+                    </v-text-field>
+                </div>
+            </v-app-bar>
+        </div>
+
+
+
+        
+        <v-row justify="center" align="center" >
+                <div class="size text-center mr-5">Añadir ejercicio</div>
+                <v-btn
+                    color="secondary"
+                    @click="dialog = true"
+                    >
+                    <v-icon icon="mdi-plus" size="x-large"></v-icon>
+                </v-btn>
+                <v-dialog
+                    v-model="dialog"
+                    width="auto"
+                >
+                <v-card>
+                    <v-card-text>
+                    <v-btn>Crear ejercicio</v-btn>
+                    <v-btn>Buscar ejercicio</v-btn>
+                    </v-card-text>
+                    <v-card-actions>
+                    <v-btn color="primary" block @click="dialog = false">Close</v-btn>
+                    </v-card-actions>
+                </v-card>
+                </v-dialog>
+        </v-row>
+    </v-app>
 </template>
 
+
+AAA NO FUNCIONA EL PROPS DEL TITULO NI EL DE TYPE
+EL ESPACIO DEL MEDIO ES PARA EL V-FOR Q MUESTRA LOS EJERCICIOS AGREGADOS
+
 <script setup>
-    import ExcersiveCard from './ExcersiveCard.vue';
-    const props = defineProps(['title', 'items']);
-    const items = props.items;
-    for (let i = 0; i < items.length; i++) {
-        items[i].src = new URL('../assets/img/ejercicios/' + items[i].src, import.meta.url).href;
-      }
+    import { defineProps } from 'vue'
+    const props = defineProps(['title', 'type'])
+    const title = props.title
+    const type = props.type
 </script>
-
-
-<style scoped>
-    .series{
-        width: 10%;
-        padding-bottom: 20px;
-    }
-</style>
 
 <script>
-  export default {
-    data () {
-      return {
+    export default {
+    data() {
+        return {
+        numberOfSeries: 0,
         dialog: false,
-      }
+        };
     },
-  }
+    };
 </script>
+
+<style scoped>
+    .size {
+    font-size: 25px;
+    }
+</style>

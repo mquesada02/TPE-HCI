@@ -10,7 +10,7 @@
             </div>
         </v-tab>
         <v-tab value="two">Entrada en calor
-            <div v-if="false">
+            <div v-if="true">
                 <v-icon icon="mdi-checkbox-marked"/>
             </div>
             <div v-else>
@@ -18,7 +18,7 @@
             </div>
         </v-tab>
         <v-tab value="three">Ejercitación
-            <div v-if="false">
+            <div v-if="true">
                 <v-icon icon="mdi-checkbox-marked"/>
             </div>
             <div v-else>
@@ -26,7 +26,7 @@
             </div>
         </v-tab>
         <v-tab value="four">Enfriamiento
-            <div v-if="false">
+            <div v-if="true">
                 <v-icon icon="mdi-checkbox-marked"/>
             </div>
             <div v-else>
