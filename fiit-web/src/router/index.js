@@ -11,6 +11,7 @@ import OneRoutineView from '@/views/OneRoutineView.vue'
 import ExercicesView from '@/views/ExercicesView'
 import ExerciceView from '@/views/ExerciceView'
 import CreatRoutineView from '@/views/CreateRoutineView.vue'
+import CreateExerciceView from '@/views/CreateExerciceView'
 
 const routes = [
     { 
@@ -72,6 +73,11 @@ const routes = [
       path: '/addRoutine',
       name: 'addRoutine',
       component: CreatRoutineView
+    },
+    {
+      path: '/addEx',
+      name: 'addEx',
+      component: CreateExerciceView
     },
     { 
     path: '/:pathMatch(.*)*',

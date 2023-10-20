@@ -63,7 +63,7 @@
                 >
                 <v-card>
                     <v-card-text>
-                    <v-btn>Crear ejercicio</v-btn>
+                    <v-btn to="/addEx">Crear ejercicio</v-btn>
                     <v-btn>Buscar ejercicio</v-btn>
                     </v-card-text>
                     <v-card-actions>
