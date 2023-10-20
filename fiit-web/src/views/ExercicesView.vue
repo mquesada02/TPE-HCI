@@ -6,6 +6,10 @@
             <v-tab  to="/myExercices" text="Mis ejercicios"/>
         </v-tabs>
         <v-container class="pt-15">
+          <v-row align="center" justify="center">
+            <v-btn  size="x-large" variant="outlined" color="secondary" to="/addEx">Crear nuevo ejercicio<v-icon icon="mdi-plus" size="x-large">
+            </v-icon></v-btn>
+          </v-row>
           <h1 class="pt-5">Mis ejercicios:</h1>
           <myExercices :items="recientes"/>
         </v-container>

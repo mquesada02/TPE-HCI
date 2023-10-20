@@ -1,27 +1,48 @@
 <template>
-  <v-row class="ml-8 pt-5">
-      <v-btn
-        color="secondary"
-        @click="dialog = true"
-      >
-      <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
-      </v-btn>
-      <v-dialog
-          v-model="dialog"
-          width="auto"
-      >
-      <v-card>
-          <v-card-actions>
-          <v-btn color="primary" block @click="dialog = false" to="/addRoutine">Si usted vuelve a la creación de rutina perdera el progreso de este ejercicio</v-btn>
-          </v-card-actions>
-      </v-card>
-      </v-dialog>
-  </v-row>
+  <div v-if="from">
+    <v-row class="ml-8 pt-5">
+        <v-btn
+          color="secondary"
+          @click="dialog = true"
+        >
+        <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
+        </v-btn>
+        <v-dialog
+            v-model="dialog"
+            width="auto"
+        >
+        <v-card>
+            <v-card-actions>
+            <v-btn color="primary" block @click="dialog = false" to="/addRoutine">Si usted vuelve a la creación de rutina perdera el progreso de este ejercicio</v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-dialog>
+    </v-row>
+  </div>  
+  <div v-else>
+    <v-row class="ml-8 pt-5">
+        <v-btn
+          color="secondary"
+          @click="dialog = true"
+        >
+        <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
+        </v-btn>
+        <v-dialog
+            v-model="dialog"
+            width="auto"
+        >
+        <v-card>
+            <v-card-actions>
+            <v-btn color="primary" block @click="dialog = false" to="/myExercices">Si usted vuelve al buscador de ejercicios perdera el progreso de este ejercicio</v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-dialog>
+    </v-row>
+  </div>
 <h1 class="mt-8 mb-4 ml-8">Crear Ejercicio</h1>
 <v-row>
 <v-col cols="6">
     <v-sheet color="secondary" width="600" height="125" class="mt-4 mb-2 mx-auto" rounded="lg">
-
      <v-textarea
             v-model:model-value="nombre"
             label="Nombre ejercicio:"
@@ -30,9 +51,7 @@
             rows="4">
         </v-textarea>
     </v-sheet>
-    
     <v-sheet color="secondary" width="600" height="175" class="mt-4 mb-2 mx-auto" rounded="lg">
-
      <v-textarea
             v-model:model-value="musculos"
             label="Músculos que trabaja:"
@@ -88,9 +107,10 @@
  </v-container>
 </v-col>
 </v-row>
-
 </template>
 
+FROM tiene q ser una variable definida por la api, sera true cuando uno entre al CreateExercice desde el crearRutina
+y sera false cuando uno entre desde el buscador de rutinas
 
 <script>
 export default {

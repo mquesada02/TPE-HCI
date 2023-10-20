@@ -13,6 +13,7 @@
         <v-card>
             <v-card-text>
               Aunque recomendamos altamente que usted lo haga, no es necesario agregar ejercicios en esta sección.
+              Además cada ejercicio creado necesita tener marcado al cantidad de segundos o las repeticiones.
             </v-card-text>
             <v-card-actions>
             <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>

@@ -22,12 +22,30 @@
         </v-dialog>
     </div>
     <v-form>
-        <v-text-field
-        class="pt-5"
-        hide-details
-        label="Nombre de la rutina:"
-        single-line
-        ></v-text-field>
+        <v-row>
+            <v-col>
+                <v-text-field
+                class="pt-11"
+                hide-details
+                label="Nombre de la rutina:"
+                single-line
+                ></v-text-field>
+            </v-col>
+            <v-col >
+                <v-container>
+                    <v-file-input
+                    label="Foto de la rutina"
+                    v-model="foto"
+                    class="mt-8 mx-auto">
+                    </v-file-input>
+                    <v-image
+                    v-if="foto"
+                    :src="foto"
+                    height="200px">
+                    </v-image>
+                </v-container>
+            </v-col>
+        </v-row>
         <v-divider></v-divider>
         <v-textarea
         counter

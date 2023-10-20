@@ -12,7 +12,8 @@
         >
         <v-card>
             <v-card-text>
-            Para completar esta sección se tiene que añadir minimo un ejercició, el nombre del ciclo y la cantidad de series
+            Para completar esta sección se tiene que añadir minimo un ejercició, el nombre del ciclo y la cantidad de series. 
+            Además cada ejercicio necesita tener marcado al cantidad de segundos o las repeticiones.
             </v-card-text>
             <v-card-actions>
             <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
