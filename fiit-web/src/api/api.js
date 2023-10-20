@@ -41,7 +41,7 @@ export class Api {
     }
 
     static async get(url, secure) {
-        return await fetch(url, secure);
+        return await Api.fetch(url, secure);
     }
 
     static async post(url, secure, data) {

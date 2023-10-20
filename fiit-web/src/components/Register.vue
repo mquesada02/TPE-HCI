@@ -79,15 +79,17 @@
          <v-btn color="secondary" :loading="loading"  type="submit" class="text-center mb-8">Registrarse</v-btn>
          </div>
     </v-form>
+    <AlertSnackbar />
   </v-sheet>
 </template>
 
 <script setup>
 
-  import { ref } from 'vue';
+  import { ref, provide } from 'vue';
   import { useUserStore } from '@/stores/userStore';
   import { useRouter } from 'vue-router';
   import { Credentials, UserInfo } from '@/api/user.js';
+  import AlertSnackbar from './AlertSnackbar.vue';
 
   const router = useRouter();
 
@@ -99,6 +101,11 @@
   const birth = ref('');
   const height =  ref('');
   const weight = ref('');
+
+  const snackbar = ref(false)
+  const text = ref('');
+  provide('snackbar', snackbar);
+  provide('text', text);
 
   const loading = ref(false);
 
@@ -112,7 +119,8 @@
       
       router.push('/verify?email=' + email.value + '&user=' + user.value );
     } catch (error) {
-      alert(error.description);
+      text.value = error.description;
+      snackbar.value = true;
     } finally {
       loading.value = false;
     }

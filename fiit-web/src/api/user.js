@@ -1,6 +1,6 @@
 import { Api } from "@/api/api.js";
 
-export { UserApi, Credentials, UserInfo }
+export { UserApi, Credentials, UserInfo, UserInfoWithAvatar }
 
 class UserApi {
     static getUrl(slug) {
@@ -8,8 +8,6 @@ class UserApi {
     }
 
     static async register(credentials, userInfo) {
-        console.log({credentials,userInfo});
-        console.log({...credentials,...userInfo});
         return await Api.post(UserApi.getUrl(), false, { ...credentials, ...userInfo });
     }
 
@@ -32,6 +30,14 @@ class UserApi {
     static async get() {
         return await Api.get(UserApi.getUrl('current'), true);
     }
+
+    static async getRoutines() {
+        return await Api.get(UserApi.getUrl('current/routines'), true);
+    }
+
+    static async modifyCurrent(userInfo) {
+        return await Api.put(UserApi.getUrl('current'), true, userInfo);
+    }
 }
 
 class Credentials {
@@ -46,12 +52,19 @@ class UserInfo {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = 'other';
-        this.birth = birth; // revisar el formato
+        this.birth = birth; 
         this.email = email;
         this.phone = ''
         this.avatarUrl = ''
         this.metadata = {
             height, weight
         }
+    }
+}
+
+class UserInfoWithAvatar extends UserInfo {
+    constructor(firstName, lastName, email, birth, height, weight, avatarUrl) {
+        super(firstName, lastName, email, birth, height, weight);
+        this.avatarUrl = avatarUrl;
     }
 }

@@ -1,28 +1,13 @@
 <template>
   <v-app>
-    <v-container fill-height>
-      <v-row align="center" justify="center">
-        <v-col cols="4">
-        <container >
-          <Profile />
-          </container>
-        </v-col>
-        <v-col cols="2">
-        </v-col>
-        <v-col cols="6">
-        <container >
-           <SmallCarousel title="Mis rutinas:" :imgs="destacadas"/>
-        <SmallCarousel title="Favoritas:" :imgs="recientes"/>
-        </container>
-        </v-col>
-      </v-row>
-    </v-container>
+    <ProfileCard />
   </v-app>
 </template>
 
 <script setup>
 
   import Profile from '@/components/Profile.vue';
+import ProfileCard from '@/components/ProfileCard.vue';
   import SmallCarousel from '@/components/SmallCarousel.vue';
 
  const destacadas = [

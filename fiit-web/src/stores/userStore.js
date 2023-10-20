@@ -61,6 +61,15 @@ export const useUserStore = defineStore('user', () => {
 
         const result = await UserApi.get();
         setUser(result);
+        return result;
+    }
+
+    async function modifyCurrentUser(userInfo) {
+        await UserApi.modifyCurrent(userInfo);
+    }
+
+    async function getCurrentRoutines() {
+        return UserApi.getRoutines();
     }
 
     return {
@@ -70,7 +79,9 @@ export const useUserStore = defineStore('user', () => {
         verifyEmail,
         login,
         logout,
-        getCurrentUser
+        getCurrentUser,
+        modifyCurrentUser,
+        getCurrentRoutines
 
     }
 });

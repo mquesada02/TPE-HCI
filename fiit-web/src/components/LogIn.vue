@@ -16,7 +16,9 @@
         <v-btn variant="outlined" :loading="loading" type="submit" block class="text-center"> Iniciar Sesión </v-btn>
       </v-container>
     </v-form>
+    <AlertSnackbar />
   </v-sheet>
+  
 </template>
 
 <script setup>
@@ -24,11 +26,18 @@
   import router from '@/router';
   import { useUserStore } from '@/stores/userStore';
   import { Credentials } from '@/api/user.js';
+  import AlertSnackbar from '@/components/AlertSnackbar.vue';
+import { provide } from 'vue';
 
   const userStore = useUserStore();
   const remember = ref(false);
   const user = ref('');
   const password = ref('');
+
+  const snackbar = ref(false)
+  const text = ref('');
+  provide('snackbar', snackbar);
+  provide('text', text);
 
   const params = new URLSearchParams(location.search);
   user.value = params.get("user");
@@ -42,7 +51,8 @@
       await userStore.login(credentials, remember);
       router.push('/');
     } catch (error) {
-      alert(error.description);
+      text.value = error.description;
+      snackbar.value = true;
       if (error.code === 8) {
         router.push('/verify')
       }
