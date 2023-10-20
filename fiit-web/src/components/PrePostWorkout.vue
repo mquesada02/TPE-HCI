@@ -12,10 +12,10 @@
         >
         <v-card>
             <v-card-text>
-            Para completar esta sección se tiene que 
+              Aunque recomendamos altamente que usted lo haga, no es necesario agregar ejercicios en esta sección.
             </v-card-text>
             <v-card-actions>
-            <v-btn color="primary" block @click="dialog = false">Close</v-btn>
+            <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
             </v-card-actions>
         </v-card>
         </v-dialog>

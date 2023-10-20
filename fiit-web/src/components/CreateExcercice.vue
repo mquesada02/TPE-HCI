@@ -1,6 +1,23 @@
 <template>
-
-    <h1 class="mt-8 mb-4 ml-8">Crear Ejercicio</h1>
+  <v-row class="ml-8 pt-5">
+      <v-btn
+        color="secondary"
+        @click="dialog = true"
+      >
+      <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
+      </v-btn>
+      <v-dialog
+          v-model="dialog"
+          width="auto"
+      >
+      <v-card>
+          <v-card-actions>
+          <v-btn color="primary" block @click="dialog = false" to="/addRoutine">Si usted vuelve a la creación de rutina perdera el progreso de este ejercicio</v-btn>
+          </v-card-actions>
+      </v-card>
+      </v-dialog>
+  </v-row>
+<h1 class="mt-8 mb-4 ml-8">Crear Ejercicio</h1>
 <v-row>
 <v-col cols="6">
     <v-sheet color="secondary" width="600" height="125" class="mt-4 mb-2 mx-auto" rounded="lg">
@@ -102,6 +119,10 @@ export default {
     return [(v) => !!v || 'Subir una foto es obligatorio'];
   },
 },
-  
+data () {
+      return {
+        dialog: false,
+      }
+    },
 };
 </script>

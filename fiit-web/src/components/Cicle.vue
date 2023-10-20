@@ -45,10 +45,9 @@
                 </div>
             </v-app-bar>
         </div>
-
-
-
-        
+        <div class="pt-15">
+            <AadEx/>
+        </div>
         <v-row justify="center" align="center" >
                 <div class="size text-center mr-5">Añadir ejercicio</div>
                 <v-btn
@@ -78,9 +77,11 @@
 
 AAA NO FUNCIONA EL PROPS DEL TITULO NI EL DE TYPE
 EL ESPACIO DEL MEDIO ES PARA EL V-FOR Q MUESTRA LOS EJERCICIOS AGREGADOS
+EN EL ADDEX EN REALIDAD VA UN V-FOR Q USA EL ARRAY Q RECIBA ESTE CICLO EN ESPECIFICO
 
 <script setup>
     import { defineProps } from 'vue'
+    import AadEx from '@/components/AddExCard.vue'
     const props = defineProps(['title', 'type'])
     const title = props.title
     const type = props.type

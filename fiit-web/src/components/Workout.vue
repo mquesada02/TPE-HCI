@@ -20,7 +20,6 @@
         </v-card>
         </v-dialog>
     </div>
-    <addEx/>
     <v-app>
       <v-container fluid>
         <div>
