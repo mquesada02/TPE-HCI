@@ -136,8 +136,7 @@ data: () => ({
         onProcess.value = true;
         /* primero creamos la rutina */
         try {
-            const res = await routineStore.newRoutine(routineName.value, routineDescription.value, estado.value, dificultad.value, muscles.value, goals.value, materials.value, goals.value, materials.value, routineImg.value);
-            console.log(res);
+            const res = await routineStore.newRoutine(routineName.value, routineDescription.value, estado.value, dificultad.value, muscles.value, goals.value, materials.value, routineImg.value);
         } catch(error) {
             text.value = error.description;
             snackbar.value = true;

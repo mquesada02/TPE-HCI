@@ -7,13 +7,6 @@ export const useRoutineStore = defineStore('routine', () => {
     const routines = ref([]);
     const userRoutines = ref([]);
     const exercises = ref([]);
-   
-    async function retrieveRoutines() {
-        if (routines.value || routines.value.length === 0) {
-            routines.value = await RoutineApi.getRoutines();
-        }
-       return routines.value;
-    }
 
     const muscles = [
         'Abdominales', 'Biceps', 'Cuádriceps', 'Espalda', 'Glúteos',
@@ -39,9 +32,21 @@ export const useRoutineStore = defineStore('routine', () => {
     const getMaterial = () => { return material }
 
     async function newRoutine(name, detail, state, intensity, muscles, goals, materials, img) {
+        console.log(img);
         const metadata = {muscles, goals, materials, img}
         const difficulty = intensity === 'Baja' ? 'rookie' : intensity === 'Media' ? 'intermediate' : 'expert'
         return await RoutineApi.createRoutine(name, detail, state, difficulty, metadata);
+    }
+
+    async function retrieveRoutines() {
+        if (routines.value || routines.value.length === 0) {
+            routines.value = await RoutineApi.getRoutines();
+        }
+       return routines.value;
+    }
+
+    async function retrieveRoutineById(id) {
+        return await RoutineApi.getRoutineById(id);
     }
 
     return {
@@ -54,6 +59,7 @@ export const useRoutineStore = defineStore('routine', () => {
         getGoal,
         getMaterial,
         newRoutine,
+        retrieveRoutineById,
         retrieveRoutines,
     }
 });

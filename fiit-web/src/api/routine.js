@@ -16,6 +16,10 @@ class RoutineApi {
         return Api.post(RoutineApi.getUrl(), true, {name: name, detail: detail, isPublic: state, difficulty: difficulty, metadata: metadata});
     }
 
+    static async getRoutineById(id){
+        return Api.get(RoutineApi.getUrl(id),true);
+    }
+
 }
 
 

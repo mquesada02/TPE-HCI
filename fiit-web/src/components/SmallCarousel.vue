@@ -15,7 +15,7 @@
           :key="img"
           v-slot="{ isSelected, toggle, selectedClass }"
         >
-          <RoutineCard :img="img.src" :title="img.title" :selected-class="selectedClass" :toggle="toggle"/>
+          <RoutineCard :img="img.src" :title="img.title" :id="img.id" :selected-class="selectedClass" :toggle="toggle"/>
 
         </v-slide-group-item>
       </v-slide-group>

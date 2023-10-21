@@ -22,19 +22,17 @@
 
 <script setup>
   import SmallCarousel from '@/components/SmallCarousel.vue';
-  import { useRoutineStore } from '@/stores/routineStore';
   import { useUserStore } from '@/stores/userStore';
-import { onBeforeMount } from 'vue';
-import { ref } from 'vue'
+  import { onBeforeMount } from 'vue';
+  import { ref } from 'vue'
 
 const destacadas = ref([])
 
 onBeforeMount( async () => {
-  const routineStore = useRoutineStore();
   const userStore = useUserStore();
   const all = await userStore.getCurrentRoutines();
   all.content.forEach((elem) => {
-    destacadas.value.push({src: elem.metadata.img, title: elem.name})
+    destacadas.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
   })
 })
 

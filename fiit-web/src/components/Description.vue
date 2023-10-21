@@ -24,8 +24,8 @@
             </v-col>
             <v-col>
                 <v-container>
-                    <v-file-input label="Foto de la rutina" v-model:model-value="routineImg" class="mt-8 mx-auto">
-                    </v-file-input>
+                    <v-text-field label="URL de la imagen de la rutina" v-model:model-value="routineImg" class="mt-8 mx-auto">
+                    </v-text-field>
                     <v-img v-if="routineImg" :src="routineImg" height="200px">
                     </v-img>
                 </v-container>

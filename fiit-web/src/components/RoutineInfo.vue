@@ -1,15 +1,14 @@
 <template color="lighter">
-    <div style="background-color: #FFCCBC;" class="rounded-template">
-        <h1 style="color: black;"> Descripción...... </h1>
+    <div class="rounded-template">
+        <h1 > {{ description }} </h1>
         <div class="pt-8 d-flex align-center justify-center flex-column">
         <v-row> 
             <v-col>
                 <v-row>
                 <v-rating
                 v-model="dif"
-                class="ma-2"
+                class="ma-2 text-black"
                 item-label-position="top"
-                style="color: black;"
                 ></v-rating>
             </v-row>
             </v-col>
@@ -45,18 +44,26 @@
         </v-row>
         <v-row>
             <v-col>
-               <h1 style="color: black;">Duración:  </h1> 
-            </v-col>
-            <v-col>
-               <h1 style="color: black;">Materiales: </h1> 
+               <h1>Materiales: </h1>
+               <ul>
+                    <li class="text-black" v-for="mat in material" :key="mat">
+                        {{ mat }}
+                    </li>
+               </ul> 
             </v-col>
         </v-row>
         <v-row>
             <v-col>
-               <h1 style="color: black;">Musculos a trabajar: </h1> 
+               <h1 >Musculos a trabajar: </h1> 
+               <ul>
+                    <li class="text-black" v-for="mus in muscles" :key="mus">
+                        {{ mus }}
+                    </li>
+               </ul>
             </v-col>
             <v-col>
-               <h1 style="color: black;">Intensidad: </h1> 
+               <h1>Intensidad: </h1>
+               <h4 class="text-black">{{ intensity }}</h4> 
             </v-col>
         </v-row>
         <v-row>
@@ -75,18 +82,23 @@
     }),
   }
 </script>
+
 <script setup>
     import { computed } from 'vue';
-    const props = defineProps(['favState'])
+    const props = defineProps(['favState', 'description', 'muscles', 'material', 'intensity'])
     const isFav = computed(() => {
         
     }) 
 
 </script>
 <style scoped>
+h1 {
+    color: black;
+}
+
 .rounded-template {
   border-radius: 10px; /* Adjust the radius as needed */
-  background-color: #f0f0f0; /* Set the background color */
+  background-color: #FFCCBC; /* #f2f2f2 */
   padding: 20px; /* Add padding to your template */
 }
 </style>
