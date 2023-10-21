@@ -9,7 +9,6 @@
                 <v-checkbox-btn
                 v-model="enabledReps"
                 class="pe-2"
-                @change="selectReps"
                 ></v-checkbox-btn>
                 <v-text-field
                 :disabled="!enabledReps"
@@ -21,7 +20,6 @@
                 <v-checkbox-btn
                 v-model="enabledSeg"
                 class="pe-2"
-                @change="selectSeg"
                 ></v-checkbox-btn>
                 <v-text-field
                 :disabled="!enabledSeg"
@@ -40,16 +38,6 @@
       enabledReps: false,
       enabledSeg: false,
     }),
-    methods: {
-    selectReps() {
-      this.enabledReps = true;
-      this.enabledSeg = false;
-    },
-    selectSeg() {
-      this.enabledReps = false;
-      this.enabledSeg = true;
-    },
-  },
   }
 </script>
 

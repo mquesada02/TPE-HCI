@@ -1,44 +1,4 @@
-<template>
-  <div v-if="from">
-    <v-row class="ml-8 pt-5">
-        <v-btn
-          color="secondary"
-          @click="dialog = true"
-        >
-        <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
-        </v-btn>
-        <v-dialog
-            v-model="dialog"
-            width="auto"
-        >
-        <v-card>
-            <v-card-actions>
-            <v-btn color="primary" block @click="dialog = false" to="/addRoutine">Si usted vuelve a la creación de rutina perdera el progreso de este ejercicio</v-btn>
-            </v-card-actions>
-        </v-card>
-        </v-dialog>
-    </v-row>
-  </div>  
-  <div v-else>
-    <v-row class="ml-8 pt-5">
-        <v-btn
-          color="secondary"
-          @click="dialog = true"
-        >
-        <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
-        </v-btn>
-        <v-dialog
-            v-model="dialog"
-            width="auto"
-        >
-        <v-card>
-            <v-card-actions>
-            <v-btn color="primary" block @click="dialog = false" to="/myExercices">Si usted vuelve al buscador de ejercicios perdera el progreso de este ejercicio</v-btn>
-            </v-card-actions>
-        </v-card>
-        </v-dialog>
-    </v-row>
-  </div>
+<template> 
 <h1 class="mt-8 mb-4 ml-8">Crear Ejercicio</h1>
 <v-row>
 <v-col cols="6">
@@ -75,42 +35,46 @@
 </v-image>
 </v-container>
 </v-col>
-<v-col cols="6">
-    <v-sheet color="secondary" width="600" height="314" class="mt-4 mb-2 mx-auto" rounded="lg">
-     <v-textarea
-            v-model:model-value="descripcion"
-            label="Descripción:"
-            class="text-field-center ml-4 mr-4"
-            :rules="descripcionRules"
-            rows="12"
-            >
-            
-        </v-textarea>
-    </v-sheet>
-<v-container width="200">
-    <v-file-input
-  label="Subir video"
-  accept="video/*"
-  v-model="video"
-  class=" mt-8 mx-auto"
-  >
-</v-file-input>
-
-<v-video
-  v-if="video"
-  :src="video"
-  controls>
-</v-video>
-</v-container>
-<v-container class="text-right">
- <v-btn color="secondary" :loading="loading"  type="submit"  class="text-center mr-12 mb-8">Crear Ejercicio</v-btn>
- </v-container>
-</v-col>
+  <v-col cols="6">
+      <v-sheet color="secondary" width="600" height="314" class="mt-4 mb-2 mx-auto" rounded="lg">
+      <v-textarea
+              v-model:model-value="descripcion"
+              label="Descripción:"
+              class="text-field-center ml-4 mr-4"
+              :rules="descripcionRules"
+              rows="12"
+              >
+              
+          </v-textarea>
+      </v-sheet>
+  <v-container width="200">
+      <v-file-input
+        label="Subir video"
+        accept="video/*"
+        v-model="video"
+        class=" mt-8 mx-auto"
+        >
+      </v-file-input>
+    <v-video
+      v-if="video"
+      :src="video"
+      controls>
+    </v-video>
+    </v-container>
+    <v-container class="text-right">
+      <div v-if="from">
+        <v-btn color="secondary" :loading="loading"  type="submit"  class="text-center mr-12 mb-8">Crear y añadir a ciclo</v-btn>
+      </div> 
+      <div v-else>
+        <v-btn color="secondary" :loading="loading"  type="submit"  class="text-center mr-12 mb-8">Crear</v-btn>
+      </div> 
+    </v-container>
+  </v-col>
 </v-row>
 </template>
 
-FROM tiene q ser una variable definida por la api, sera true cuando uno entre al CreateExercice desde el crearRutina
-y sera false cuando uno entre desde el buscador de rutinas
+
+EL PROPS.FROM NO FUNCIONA, HACE LO QUE QUIERE, NECESITAMOS Q FUNCIONE PARA Q EL BTN DE ABAJO SEA EL CORRRECTO
 
 <script>
 export default {
@@ -145,4 +109,9 @@ data () {
       }
     },
 };
+</script>
+
+<script setup>
+  const props = defineProps(['from'])
+  const from=props.from;
 </script>

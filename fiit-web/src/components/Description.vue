@@ -58,7 +58,7 @@
         <v-row>
             <v-col>
                 <div class="checkbox-list">
-                    <h1 style="font-size: 25px;">Músculo:</h1>
+                    <h1 style="font-size: 25px;" class="pb-2 ml-2">Músculo:</h1>
                     <v-divider></v-divider>
                     <v-checkbox label="Abdominales" values="Abdominales"></v-checkbox>
                     <v-checkbox label="Biceps" values="Biceps"></v-checkbox>
@@ -74,14 +74,14 @@
             </v-col>
             <v-col>
                 <div class="checkbox-list">
-                    <h1 style="font-size: 25px;">Intensidad:</h1>
+                    <h1 style="font-size: 25px;" class="pb-2">Intensidad:</h1>
                     <v-divider></v-divider>
                     <v-checkbox label="Baja" values="Baja"></v-checkbox>
                     <v-checkbox label="Media" values="Media"></v-checkbox>
                     <v-checkbox label="Alta" values="Alta"></v-checkbox>
                 </div>
                 <div class="checkbox-list pt-10">
-                    <h1 style="font-size: 25px;">Objetivo:</h1>
+                    <h1 style="font-size: 25px;" class="pb-2">Objetivo:</h1>
                     <v-divider></v-divider>
                     <v-checkbox label="Fuerza" values="Fuerza"></v-checkbox>
                     <v-checkbox label="Bajar de peso" values="Bajar de peso"></v-checkbox>
@@ -91,7 +91,7 @@
             </v-col>
             <v-col>
                 <div class="checkbox-list">
-                    <h1 style="font-size: 25px;">Equipamiento:</h1>
+                    <h1 style="font-size: 25px;" class="pb-2">Equipamiento:</h1>
                     <v-divider></v-divider>
                     <v-checkbox label="Sin material" values="Sin material"></v-checkbox>
                     <v-checkbox label="Máquinas" values="Máquinas"></v-checkbox>
@@ -100,10 +100,10 @@
                     <v-checkbox label="Soga" values="Glúteos"></v-checkbox>
                 </div>
                 <div>
-                    <h1 style="font-size: 25px">Estado:</h1>
+                    <h1 style="font-size: 25px" class="pb-2">Estado:</h1>
                     <v-divider></v-divider>
                     <v-radio-group class="pt-4">
-                    <v-radio label="Privada (solo la podras visualizar vos y la gente a la cual se la compartas)" value="one"></v-radio>
+                    <v-radio label="Privada" value="one"></v-radio>
                     <v-radio label="Pública (podra ser vista por cualquier persona con una cuenta en fiit-web)" value="two"></v-radio>
                     </v-radio-group>
                 </div>
@@ -131,8 +131,4 @@
   right: 3%;
   transform: translateY(-50%);
 }
-/*
-se debe crear una variable a partir de la info en api de cuantas cosas fueron seleccionadas
-esta variable es boolean, y es la q va en el next
-*/
 </style>

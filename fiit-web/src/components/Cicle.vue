@@ -49,30 +49,57 @@
             <AadEx/>
         </div>
         <v-row justify="center" align="center" >
-                <div class="size text-center mr-5">Añadir ejercicio</div>
-                <v-btn
-                    color="secondary"
-                    @click="dialog = true"
-                    >
-                    <v-icon icon="mdi-plus" size="x-large"></v-icon>
-                </v-btn>
-                <v-dialog
-                    v-model="dialog"
-                    width="auto"
-                >
+            <div class="size text-center mr-5">Añadir ejercicio</div>
+            <v-btn color="secondary" @click="dialog = true">
+                <v-icon icon="mdi-plus" size="x-large"/>
+            </v-btn>
+            <v-dialog v-model="dialog" width="auto">
                 <v-card>
                     <v-card-text>
-                    <v-btn to="/addEx">Crear ejercicio</v-btn>
+                        <v-btn @click="dialogCrear = true">
+                            Crear ejercicio
+                        </v-btn>
+                        <v-dialog v-model="dialogCrear" width="auto">
+                            <v-sheet class="sheet">
+                                    <v-row class="ml-8 pt-5">
+                                        <v-btn
+                                        color="secondary"
+                                        @click="dialogSheet = true"
+                                        >
+                                        <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
+                                        </v-btn>
+                                        <v-dialog
+                                            v-model="dialogSheet"
+                                            width="auto"
+                                        >
+                                        <v-card>
+                                            <v-card-actions>
+                                                <v-card-text class="text-center">
+                                                    <v-btn @click="dialogSheet=false" class="pt-5">
+                                                        Queeeeeeddaaettte atte:Quevedo
+                                                    </v-btn>
+                                                    <v-btn color="primary" block @click="dialogSheet = false, dialogCrear=false">
+                                                        Si usted vuelve a la creación de rutina perdera el progreso de este ejercicio
+                                                    </v-btn>
+                                                </v-card-text>  
+                                            </v-card-actions>
+                                        </v-card>
+                                        </v-dialog>
+                                    </v-row>
+                                <CreateEx from="True"/>
+                            </v-sheet>
+                        </v-dialog>
                     <v-btn>Buscar ejercicio</v-btn>
                     </v-card-text>
                     <v-card-actions>
-                    <v-btn color="primary" block @click="dialog = false">Close</v-btn>
+                    <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
                     </v-card-actions>
                 </v-card>
-                </v-dialog>
+            </v-dialog>
         </v-row>
     </v-app>
 </template>
+
 
 
 AAA NO FUNCIONA EL PROPS DEL TITULO NI EL DE TYPE
@@ -82,6 +109,7 @@ EN EL ADDEX EN REALIDAD VA UN V-FOR Q USA EL ARRAY Q RECIBA ESTE CICLO EN ESPECI
 <script setup>
     import { defineProps } from 'vue'
     import AadEx from '@/components/AddExCard.vue'
+    import CreateEx from '@/components/CreateExcercice.vue'
     const props = defineProps(['title', 'type'])
     const title = props.title
     const type = props.type
@@ -93,6 +121,9 @@ EN EL ADDEX EN REALIDAD VA UN V-FOR Q USA EL ARRAY Q RECIBA ESTE CICLO EN ESPECI
         return {
         numberOfSeries: 0,
         dialog: false,
+        dialogCrear: false,
+        dialogBuscar: false,
+        dialogSheet: false,
         };
     },
     };
@@ -100,6 +131,10 @@ EN EL ADDEX EN REALIDAD VA UN V-FOR Q USA EL ARRAY Q RECIBA ESTE CICLO EN ESPECI
 
 <style scoped>
     .size {
-    font-size: 25px;
+        font-size: 25px;
+    }
+    .sheet {
+        background-color: black;
+        padding: 40px;
     }
 </style>

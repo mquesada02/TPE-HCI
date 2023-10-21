@@ -33,13 +33,12 @@
             @input="updateCiclos"
           />
         </div>
-        <ciclo v-for="index in numCiclos" :key="index" type="false" />
+        <ciclo v-for="index in numCiclos" :key="index" type="false"/>
       </v-container>
     </v-app>
 </template>
 
 <script setup>
-  import addEx from '@/components/AddExCard.vue'
   import ciclo from '@/components/Cicle.vue'
   import {ref} from 'vue'
   const numCiclos = ref(1)

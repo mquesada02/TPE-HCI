@@ -51,7 +51,19 @@
         </v-window>
       </v-card-text>
     </v-card>
+    <div v-if="true" class="text-right mr-5 pb-10 finalizarBtn">
+        <v-btn color="secondary" size="x-large" to="/myRoutines">
+            Finalizar rutina
+        </v-btn>
+    </div>
   </template>
+
+faltan cuatro variabls boolean, q se crean a partir de la api
+seran true si ya se completo la info de la tab
+ESTAS CUATRO VARIABLES SE USAN PARA LOS V-IF DE LOS V-ICON (deciden su color)
+Y PARA Q APAREZCA O NO EL BUTTON DE CREAR RUTINA
+
+EL BOTON FINALIZA RUTINA TIENE Q ACCIONAR CON LA API PARA GUARDAR LA PROPIA RUTINA
 
 <script>
 export default {
@@ -65,8 +77,17 @@ data: () => ({
 import Desc from '@/components/Description.vue';
 import Workout from '@/components/Workout.vue';
 import PrePostWorkout from '@/components/PrePostWorkout.vue';
-/*
-faltan cuatro variabls boolean, q se crean a partir de la api
-seran true si ya se completo la info de la pestaña
-*/
 </script>
+
+<style scoped>
+.finalizarBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 95%;
+  left: 10;
+  right: 0;
+  transform: translateY(-50%);
+}
+</style>
