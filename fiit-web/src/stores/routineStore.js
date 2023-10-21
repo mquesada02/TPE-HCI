@@ -1,12 +1,26 @@
 import { defineStore } from 'pinia'
+import { RoutineApi } from '@/api/routine';
+import { ref } from 'vue';
 
 export const useRoutineStore = defineStore('routine', () => {
+
+    const routines = ref([]);
+    const userRoutines = ref([]);
+    const exercises = ref([]);
+   
+    async function retrieveRoutines() {
+        if (routines.value || routines.value.length === 0) {
+            routines.value = await RoutineApi.getRoutines();
+        }
+       return routines.value;
+    }
 
     const muscles = [
         'Abdominales', 'Biceps', 'Cuádriceps', 'Espalda', 'Glúteos',
         'Gemelos', 'Isquiotibiales', 'Hombro', 'Pectoral', 'Triceps',
     ]
 
+    /* dificultad */
     const intensity = [
         'Baja', 'Media', 'Alta',
     ]
@@ -24,6 +38,12 @@ export const useRoutineStore = defineStore('routine', () => {
     const getGoal = () => { return goal }
     const getMaterial = () => { return material }
 
+    async function newRoutine(name, detail, state, intensity, muscles, goals, materials, img) {
+        const metadata = {muscles, goals, materials, img}
+        const difficulty = intensity === 'Baja' ? 'rookie' : intensity === 'Media' ? 'intermediate' : 'expert'
+        return await RoutineApi.createRoutine(name, detail, state, difficulty, metadata);
+    }
+
     return {
         muscles,
         intensity,
@@ -33,5 +53,7 @@ export const useRoutineStore = defineStore('routine', () => {
         getIntensity,
         getGoal,
         getMaterial,
+        newRoutine,
+        retrieveRoutines,
     }
 });

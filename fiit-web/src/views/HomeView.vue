@@ -22,18 +22,24 @@
 
 <script setup>
   import SmallCarousel from '@/components/SmallCarousel.vue';
+  import { useRoutineStore } from '@/stores/routineStore';
+  import { useUserStore } from '@/stores/userStore';
+import { onBeforeMount } from 'vue';
+import { ref } from 'vue'
 
-  const destacadas = [
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' },
-    { src: 'fondo triceps.webp', title: 'Fondo de tríceps' },
-    { src: 'peso muerto.jpg', title: 'Peso muerto' },
-    { src: 'sentadillas.jpg', title: 'Sentadillas' },
-    { src: 'zancadas.webp', title: 'Zancadas' }
-  ];
+const destacadas = ref([])
+
+onBeforeMount( async () => {
+  const routineStore = useRoutineStore();
+  const userStore = useUserStore();
+  const all = await userStore.getCurrentRoutines();
+  all.content.forEach((elem) => {
+    destacadas.value.push({src: elem.metadata.img, title: elem.name})
+  })
+})
+
+
+
   const recientes = [
   { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
     { src: 'abductores.jpg', title: 'Abductores' },

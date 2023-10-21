@@ -22,7 +22,7 @@
         </v-dialog>
     </div>
     <div class="pt-5">
-      <Cicle :title="aa" type="true" :ejercicios="ejerciciosS"/>
+      <Cicle :title="props.title" type="true" :ejercicios="ejerciciosS"/>
     </div>
 </template> 
 

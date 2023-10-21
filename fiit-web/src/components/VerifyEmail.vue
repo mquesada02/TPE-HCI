@@ -33,7 +33,10 @@
     async function onSubmit () {
     try {
       await userStore.verifyEmail(email.value, code.value);
-      router.push('/login?user=' + user.value);
+      if (user.value !== null)
+        router.push('/login?user=' + user.value);
+      else
+        router.push('/login');
     } catch (error){
       alert(error.description);
     }

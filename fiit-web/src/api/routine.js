@@ -9,11 +9,13 @@ class RoutineApi {
     }
 
     static async getRoutines() {
-        return await Api.get(RoutineApi.getUrl(), true);
+        return await Api.get(RoutineApi.getUrl(), false);
     }
 
-    static async addRoutine() {
-        return await Api.post(RoutineApi.getUrl(), true);
+    static async createRoutine(name, detail, state, difficulty, metadata) {
+        return Api.post(RoutineApi.getUrl(), true, {name: name, detail: detail, isPublic: state, difficulty: difficulty, metadata: metadata});
     }
+
 }
+
 

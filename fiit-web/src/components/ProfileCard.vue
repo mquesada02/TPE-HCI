@@ -14,6 +14,7 @@
                 <p class="text-h6 text-center drop-shadow-lg mb-4">Edad: {{ age }}</p>
                 <p class="text-h6 text-center drop-shadow-lg mb-4">Peso: {{ weight }}</p>
                 <p class="text-h6 text-center drop-shadow-lg mb-4">Altura: {{ height }}</p>
+                <v-btn color="secondary" type="submit" @click="logOut" class="text-center mb-8">Cerrar Sesion</v-btn>
             </v-sheet>
             <v-sheet v-else height="100%" width="100%" color="lighter" rounded="xl" class="pa-0 text-center">
                 <v-form @submit.prevent="onSubmit">
@@ -61,9 +62,17 @@ onMounted(async () => {
 })
 
 function modify() {
-
     modifyMode.value = true;
 }
+
+async function logOut () {
+    try {
+      await userStore.logout();
+      router.push('/');
+    } catch (error) {
+      alert(error.description);
+    }
+  };
 
 async function onSubmit() {
     loading.value = true;

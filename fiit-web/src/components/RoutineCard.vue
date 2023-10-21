@@ -3,7 +3,7 @@
             height="150"
             width="225"
             @:click="toggle"
-            to="/newRoutine"
+            :to="link" 
     >
         <v-card height="75%">
             <v-img :src="img" cover/>  
@@ -58,12 +58,15 @@
 //y tmb el Rating, para saber la puntuación 
 
 <script setup>
-    const props = defineProps(['img','title', 'selectedClass', 'toggle', 'favState', 'rating']);
+    const props = defineProps(['img','title', 'selectedClass', 'toggle', 'favState', 'rating', 'id']);
     const img = props.img;
     const cardTitle = props.title;
     const selectedClass = props.selectedClass;
     const toggle = props.toggle;
     const FavState = props.favState;
+    const id = props.id;
+    
+    const link = `/newRoutine?id=${id}`;
 </script>
 
 

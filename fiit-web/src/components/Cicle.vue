@@ -1,46 +1,38 @@
 <template>
     <v-app>
         <div v-if="type">
-        <v-app-bar app>
-            <v-toolbar-title class="size">
-                Ciclo
-                <span>{{ title }}</span>
-            </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <div class="pt-6 mr-4">
-                <v-text-field
-                    v-model="numberOfSeries"
-                    outlined
-                    dense>
-                <template v-slot:prepend>
-                <span class="size">Series:</span>
-                </template>
-                </v-text-field>
-            </div>
-        </v-app-bar>
+            <v-app-bar app>
+                <v-toolbar-title class="size">
+                    Ciclo {{ title }}
+
+                </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <div class="pt-6 mr-4">
+                    <v-text-field v-model="numberOfSeries" outlined dense>
+                        <template v-slot:prepend>
+                            <span class="size">Series:</span>
+                        </template>
+                    </v-text-field>
+                </div>
+            </v-app-bar>
         </div>
         <div v-else>
             <v-app-bar app>
                 <v-toolbar-title class="size">
                     <div class="pt-6">
-                    <v-text-field
-                        outlined
-                        dense>
-                    <template v-slot:prepend>
-                    <span class="size">Ciclo:</span>
-                    </template>
-                    </v-text-field>
-                </div>
+                        <v-text-field outlined dense>
+                            <template v-slot:prepend>
+                                <span class="size">Ciclo:</span>
+                            </template>
+                        </v-text-field>
+                    </div>
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <div class="pt-6 mr-4">
-                    <v-text-field
-                        v-model="numberOfSeries"
-                        outlined
-                        dense>
-                    <template v-slot:prepend>
-                    <span class="size">Series:</span>
-                    </template>
+                    <v-text-field v-model="numberOfSeries" outlined dense>
+                        <template v-slot:prepend>
+                            <span class="size">Series:</span>
+                        </template>
                     </v-text-field>
                 </div>
             </v-app-bar>
@@ -48,22 +40,22 @@
         <div class="pt-15" v-for="item in ejercicios">
             <v-row>
                 <v-col cols="10">
-                    <AadEx/>
+                    <AadEx />
                 </v-col>
                 <v-col>
                     <div class="pt-10">
-                    <v-btn>Borrar ejercicio</v-btn>
-                    <div class="pt-12">
-                        <v-btn>Editar ejercicio</v-btn>
-                    </div>
+                        <v-btn>Borrar ejercicio</v-btn>
+                        <div class="pt-12">
+                            <v-btn>Editar ejercicio</v-btn>
+                        </div>
                     </div>
                 </v-col>
             </v-row>
         </div>
-        <v-row justify="center" align="center" >
+        <v-row justify="center" align="center">
             <div class="size text-center mr-5">Añadir ejercicio</div>
             <v-btn color="secondary" @click="dialog = true">
-                <v-icon icon="mdi-plus" size="x-large"/>
+                <v-icon icon="mdi-plus" size="x-large" />
             </v-btn>
             <v-dialog v-model="dialog" width="auto">
                 <v-card>
@@ -73,38 +65,33 @@
                         </v-btn>
                         <v-dialog v-model="dialogCrear" width="auto">
                             <v-sheet class="sheet">
-                                    <v-row class="ml-8 pt-5">
-                                        <v-btn
-                                        color="secondary"
-                                        @click="dialogSheet = true"
-                                        >
+                                <v-row class="ml-8 pt-5">
+                                    <v-btn color="secondary" @click="dialogSheet = true">
                                         <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
-                                        </v-btn>
-                                        <v-dialog
-                                            v-model="dialogSheet"
-                                            width="auto"
-                                        >
+                                    </v-btn>
+                                    <v-dialog v-model="dialogSheet" width="auto">
                                         <v-card>
                                             <v-card-actions>
                                                 <v-card-text class="text-center">
-                                                    <v-btn @click="dialogSheet=false" class="pt-5">
-                                                        Queeeeeeddaaettte atte:Quevedo
+                                                    <v-btn @click="dialogSheet = false" class="pt-5">
+                                                        Volver
                                                     </v-btn>
-                                                    <v-btn color="primary" block @click="dialogSheet = false, dialogCrear=false">
-                                                        Si usted vuelve a la creación de rutina perdera el progreso de este ejercicio
+                                                    <v-btn color="primary" block
+                                                        @click="dialogSheet = false, dialogCrear = false">
+                                                        Salir sin guardar
                                                     </v-btn>
-                                                </v-card-text>  
+                                                </v-card-text>
                                             </v-card-actions>
                                         </v-card>
-                                        </v-dialog>
-                                    </v-row>
-                                <CreateEx from="True"/>
+                                    </v-dialog>
+                                </v-row>
+                                <CreateEx from="True" />
                             </v-sheet>
                         </v-dialog>
-                    <v-btn>Buscar ejercicio</v-btn>
+                        <v-btn>Buscar ejercicio</v-btn>
                     </v-card-text>
                     <v-card-actions>
-                    <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
+                        <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -121,7 +108,6 @@ EN EL ADDEX EN REALIDAD VA UN V-FOR Q USA EL ARRAY Q RECIBA ESTE CICLO EN ESPECI
 EL V-FOR DE AadEx's RECORRE EL ARRAY DE EJERCICIOS Q SE RECIBE COMO PROPS 
 
 <script setup>
-    import { defineProps } from 'vue'
     import AadEx from '@/components/AddExCard.vue'
     import CreateEx from '@/components/CreateExcercice.vue'
     const props = defineProps(['title', 'type', 'ejercicios'])
@@ -132,25 +118,26 @@ EL V-FOR DE AadEx's RECORRE EL ARRAY DE EJERCICIOS Q SE RECIBE COMO PROPS
 </script>
 
 <script>
-    export default {
+export default {
     data() {
         return {
-        numberOfSeries: 0,
-        dialog: false,
-        dialogCrear: false,
-        dialogBuscar: false,
-        dialogSheet: false,
+            numberOfSeries: 0,
+            dialog: false,
+            dialogCrear: false,
+            dialogBuscar: false,
+            dialogSheet: false,
         };
     },
-    };
+};
 </script>
 
 <style scoped>
-    .size {
-        font-size: 25px;
-    }
-    .sheet {
-        background-color: black;
-        padding: 40px;
-    }
+.size {
+    font-size: 25px;
+}
+
+.sheet {
+    background-color: black;
+    padding: 40px;
+}
 </style>

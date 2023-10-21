@@ -27,9 +27,12 @@
   import { useUserStore } from '@/stores/userStore';
   import { Credentials } from '@/api/user.js';
   import AlertSnackbar from '@/components/AlertSnackbar.vue';
-import { provide } from 'vue';
+  import { provide } from 'vue';
+  import { useRoutineStore } from '@/stores/routineStore';
 
   const userStore = useUserStore();
+  const routineStore = useRoutineStore();
+
   const remember = ref(false);
   const user = ref('');
   const password = ref('');
