@@ -40,13 +40,13 @@
                 <Desc></Desc>
             </v-window-item>
             <v-window-item value="two">
-               <PrePostWorkout :title="Inicial"></PrePostWorkout>
+               <PrePostWorkout :title="Inicial" :ejercicios="[]"></PrePostWorkout>
             </v-window-item>
             <v-window-item value="three">
                 <Workout></Workout>
             </v-window-item>
             <v-window-item value="four">
-                <PrePostWorkout :title="Final"></PrePostWorkout>
+                <PrePostWorkout :title="Final" :ejercicios="[1,2]"></PrePostWorkout>
             </v-window-item>
         </v-window>
       </v-card-text>

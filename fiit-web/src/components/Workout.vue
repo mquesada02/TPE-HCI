@@ -33,27 +33,23 @@
             @input="updateCiclos"
           />
         </div>
-        <ciclo v-for="index in numCiclos" :key="index" type="false"/>
+        <ciclo v-for="index in numCiclos" :key="index" type="false" :ejercicios="[1, 2, 3]"/>
       </v-container>
     </v-app>
 </template>
 
+EL V-FOR VA A RECORRER TANTO CICLOS (cantidad=numCiclos) COMO UN ARRAY DE ARRAYS(de ejercicios), YA Q PARA CADA CICLO HAY UN ARRAY(de ejercicios)
+osea donde dice [1, 2, 3] deberia haber un array de arrays(de ejercicios) q tenga como indice a index
+AL INSTANCIAR CADA CICLO SE LE ENVIA SU ARRAY (como props) Q SIEMPRE COMIENZA VACIOS
+
+
 <script setup>
   import ciclo from '@/components/Cicle.vue'
-  import {ref} from 'vue'
+  import {ref, computed} from 'vue'
   const numCiclos = ref(1)
-  const cicloTitles = ref([])
+  const dialog = ref(false)
 </script>
 
-<script>
-  export default {
-    data () {
-      return {
-        dialog: false,
-      }
-    },
-  }
-</script>
 
 <style scoped>
     .size {

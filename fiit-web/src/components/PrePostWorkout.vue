@@ -22,7 +22,7 @@
         </v-dialog>
     </div>
     <div class="pt-5">
-      <Cicle :title="aa" type="true"/>
+      <Cicle :title="aa" type="true" :ejercicios="ejerciciosS"/>
     </div>
 </template> 
 
@@ -38,17 +38,6 @@
 
 <script setup>
     import Cicle from '@/components/Cicle.vue';
-    const props = defineProps(['title']);
-    const recientes = [
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' },
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
-  ];
+    const props = defineProps(['title', 'ejercicios']);
+    const ejerciciosS = props.ejercicios
 </script>
