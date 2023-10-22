@@ -66,7 +66,7 @@ onMounted(async () => {
     avatar.value = user.value.avatarUrl;
     firstName.value = user.value.firstName;
     lastName.value = user.value.lastName;
-    age.value = new Date().getFullYear() - new Date(user.value.birthdate).getFullYear();
+    age.value = new Date().getFullYear() - new Date(user.value.date).getFullYear();
     weight.value = user.value.metadata.weight;
     height.value = user.value.metadata.height;
 })
@@ -88,7 +88,7 @@ async function logOut () {
 
 async function onSubmit() {
     loading.value = true;
-    const newBirthdate = new Date('01-01-' + (new Date().getFullYear() - age.value));
+    const newBirthdate = new Date('01-01-' + (new Date().getFullYear() - age.value)+1);
     const userInfo = new UserInfoWithAvatar(
         firstName.value ? firstName.value : user.value.firstName,
         lastName.value ? lastName.value : user.value.lastName,

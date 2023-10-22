@@ -26,15 +26,17 @@ export const useExerciseStore = defineStore('exercise', () => {
         }
     }
 
-    async function createExercise(exercise) {
-            const result = await ExerciseApi.addExercise(...exercise.BasicData());
-            pushExercise(exercise.BasicData());
-            if (exercise instanceof Exercise) {
-                const id = result.id;
-                // then add an image and video to the exercise
-                await ExerciseApi.addExerciseImage(id, exercise.img);
-                await ExerciseApi.addExerciseVideo(id, exercise.video);
-            }
+    async function createExercise(name, detail, type, image, video) {
+        const result = await ExerciseApi.addExercise(name, detail, type);
+        pushExercise(result);
+        const id = result.id;
+        if (image) { //no se bien como poner esto?
+            // then add an image and video to the exercise
+            await ExerciseApi.addExerciseImage(id, image);
+        }
+        if(video){
+            await ExerciseApi.addExerciseVideo(id, video);
+        }
     }
 
     async function getExercise(id) {
