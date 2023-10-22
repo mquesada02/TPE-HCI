@@ -4,7 +4,6 @@
             <v-app-bar app>
                 <v-toolbar-title class="size">
                     Ciclo {{ title }}
-
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <div class="pt-6 mr-4">
@@ -58,7 +57,7 @@
             <v-dialog v-model="dialog" width="auto">
                 <v-card>
                     <v-card-text>
-                        <v-btn @click="dialogCrear = true">
+                        <v-btn class="botones-ej" @click="dialogCrear = true">
                             Crear ejercicio
                         </v-btn>
                         <v-dialog v-model="dialogCrear" width="auto">
@@ -71,22 +70,24 @@
                                         <v-card>
                                             <v-card-actions>
                                                 <v-card-text class="text-center">
-                                                    <v-btn @click="dialogSheet = false" class="pt-5">
-                                                        Volver
-                                                    </v-btn>
-                                                    <v-btn color="primary" block
+                                                    Salir sin guardar?
+                                                    <v-divider class="pt-2"></v-divider>
+                                                    <v-btn color="primary" block width="50%"
                                                         @click="dialogSheet = false, dialogCrear = false">
-                                                        Salir sin guardar
+                                                        Salir
+                                                    </v-btn>
+                                                    <v-btn @click="dialogSheet = false" class="pt-5">
+                                                        Canelar
                                                     </v-btn>
                                                 </v-card-text>
                                             </v-card-actions>
                                         </v-card>
                                     </v-dialog>
                                 </v-row>
-                                <CreateEx from="True" />
+                                <CreateEx :from="true" />
                             </v-sheet>
                         </v-dialog>
-                        <v-btn>Buscar ejercicio</v-btn>
+                        <v-btn class="botones-ej">Buscar ejercicio</v-btn>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
@@ -142,4 +143,10 @@ export default {
     margin-left: auto;
     margin-right: auto;
 }
+
+.botones-ej{
+    margin:15px;
+}
+
+
 </style>

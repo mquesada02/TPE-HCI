@@ -1,6 +1,6 @@
 import { Api } from "@/api/api.js";
 
-export { ExerciseApi, Exercise, BasicExercise, ExercisePair }
+export { ExerciseApi }
 
 class ExerciseApi {
 
@@ -60,55 +60,4 @@ class ExerciseApi {
         return await Api.delete(`${ExerciseApi.getUrl(id)}/videos/1`, true);
     }
 
-}
-
-class BasicExercise {
-    constructor(name, detail, type) {
-        this.name = name;
-        this.detail = detail;
-        this.type = type;
-    }
-
-    get BasicData() {
-        return {
-            name: this.name,
-            detail: this.detail,
-            type: this.type
-        }
-    }
-}
-
-class Exercise extends BasicExercise {
-    constructor(name, detail, type, img , video , equipment, muscle) {
-        super(name, detail, type);
-        this.img = img;
-        this.video = video;
-        this.equipment = equipment;
-        this.muscle = muscle;
-    }
-
-    get MetaData() {
-        return {
-            metadata: {
-                equipment: this.equipment,
-                muscle: this.muscle
-            }
-        }
-    }
-
-    get Image() {
-        return this.img;
-    }
-
-    get Video() {
-        return this.video;
-    }
-}
-
-class ExercisePair {
-    constructor(exercise, reps, secs) {
-        this.exercise = exercise;
-        this.reps = reps;
-        this.secs = secs;
-    }
 }

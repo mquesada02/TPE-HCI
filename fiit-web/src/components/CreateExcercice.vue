@@ -1,6 +1,6 @@
 <template>
   <h1 class="mt-8 mb-4 ml-8">Crear Ejercicio</h1>
-  <v-card color="black" width="1000">
+  <v-card color="black">
     <v-row>
     <v-col cols="6">
         <v-text-field v-model:model-value="nombre" label="Nombre ejercicio:" class="text-field-center ml-4 mr-4"
@@ -68,8 +68,9 @@
         }
   }
 
+
   async function createAndAddToCycle(){
-    
+
   }
 
 </script>

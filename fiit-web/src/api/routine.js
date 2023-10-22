@@ -28,6 +28,16 @@ class RoutineApi {
         return Api.post(RoutineApi.getUrl(routineId + "/cycles"), true, cycleInfo);
     }
 
+    static async addExerciseToCycle(cycleId, exerciseId, body){
+
+    }
+
+}
+class Cycle {
+    constructor(cycleInfo, exercisesArray){
+        this.cycleInfo = cycleInfo;
+        this.exercisesArray = exercisesArray;
+    }
 }
 
 class CycleInfo {

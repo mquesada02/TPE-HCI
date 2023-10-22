@@ -128,6 +128,10 @@ data: () => ({
 
     /* Ciclos */
 
+    const ciclos = ref([]); //array de ciclos
+
+    provide('ciclos', ciclos);
+
     /* Finalizar rutina */
 
     const snackbar = ref(false)
