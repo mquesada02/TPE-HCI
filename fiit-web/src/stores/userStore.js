@@ -50,9 +50,9 @@ export const useUserStore = defineStore('user', () => {
     }
 
     async function logout() {
-        await UserApi.logout();
         localStorage.removeItem(SECURITY_TOKEN_KEY);
         setToken(null);
+        await UserApi.logout();
     }
 
     async function getCurrentUser() {
@@ -65,7 +65,12 @@ export const useUserStore = defineStore('user', () => {
     }
 
     async function modifyCurrentUser(userInfo) {
-        await UserApi.modifyCurrent(userInfo);
+        const res = await UserApi.modifyCurrent(userInfo);
+        setUser(res);
+    }
+
+    async function getAllUsers() {
+        return await UserApi.getAllUsers();
     }
 
     async function getCurrentRoutines() {
@@ -81,7 +86,8 @@ export const useUserStore = defineStore('user', () => {
         logout,
         getCurrentUser,
         modifyCurrentUser,
-        getCurrentRoutines
+        getCurrentRoutines,
+        getAllUsers,
 
     }
 });

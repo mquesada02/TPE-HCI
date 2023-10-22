@@ -32,7 +32,6 @@ export const useRoutineStore = defineStore('routine', () => {
     const getMaterial = () => { return material }
 
     async function newRoutine(name, detail, state, intensity, muscles, goals, materials, img) {
-        console.log(img);
         const metadata = {muscles, goals, materials, img}
         const difficulty = intensity === 'Baja' ? 'rookie' : intensity === 'Media' ? 'intermediate' : 'expert'
         return await RoutineApi.createRoutine(name, detail, state, difficulty, metadata);

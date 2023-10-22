@@ -38,6 +38,10 @@ class UserApi {
     static async modifyCurrent(userInfo) {
         return await Api.put(UserApi.getUrl('current'), true, userInfo);
     }
+
+    static async getAllUsers() {
+        return await Api.get(UserApi.getUrl(), true);
+    }
 }
 
 class Credentials {
