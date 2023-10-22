@@ -7,7 +7,7 @@
       :sort-by="sortBy"
     >
       <template v-slot:no-data>
-        <v-alert class="ma-2" type="warning">No results</v-alert>
+        <v-alert class="ma-2" type="warning">{{ text }}</v-alert>
       </template>
   
       <template v-slot:default="{items}" >
@@ -46,7 +46,7 @@
   <script setup>
     import RoutineCard from './RoutineCard.vue';
     import { computed, ref } from 'vue'
-    const props = defineProps(['items'])
+    const props = defineProps(['items', 'text'])
     const items = props.items;
     const itemsPerPage = ref(8)
     const page = ref(1)

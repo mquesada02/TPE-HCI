@@ -21,7 +21,7 @@
                     clearable
                     style="position: absolute; bottom: 0; right: 0; z-index: 1;"
             /> 
-            <div v-if="FavState">
+            <div>
                 <v-rating
                 hover
                 readonly
@@ -30,20 +30,7 @@
                 active-color="primary"
                 style="position: absolute; bottom: 0; z-index: 1;"
             />
-            <v-card-text class="pt-5 ml-4 font-weight-medium text-left">numerito {{ Rating }}</v-card-text>
-            </div>
-            <div v-else>
-                <v-rating
-                hover
-                readonly
-                :length="1"
-                :size="32"
-                active-color="primary"
-                style="position: absolute; bottom: 0; z-index: 1;"
-                />
-                <v-card-text class="pt-5">
-                    numerito {{ Rating }}
-                </v-card-text>
+            <v-card-text class="pt-5 ml-4">numerito {{ Rating }}</v-card-text>
             </div>
         </v-row>
     </v-card>
