@@ -14,29 +14,17 @@
                         </template>
                     </v-text-field>
                 </div>
-            </v-app-bar>
-        </div>
-        <div v-else>
-            <v-app-bar app>
-                <v-toolbar-title class="size">
-                    <div class="pt-6">
-                        <v-text-field outlined dense>
-                            <template v-slot:prepend>
-                                <span class="size">Ciclo:</span>
-                            </template>
-                        </v-text-field>
-                    </div>
-                </v-toolbar-title>
-                <v-spacer></v-spacer>
-                <div class="pt-6 mr-4">
-                    <v-text-field v-model="numberOfSeries" outlined dense>
-                        <template v-slot:prepend>
-                            <span class="size">Series:</span>
-                        </template>
-                    </v-text-field>
-                </div>
-            </v-app-bar>
-        </div>
+            </div>
+            <v-spacer></v-spacer>
+            <div class="pt-6 mr-4">
+                <v-text-field v-model="numberOfSeries" outlined dense :rules="seriesRules">
+                    <template v-slot:prepend>
+                        <span class="size">Series:</span>
+                    </template>
+                </v-text-field>
+            </div>
+        </v-app-bar>
+        
         <div class="exerciseComponents pt-15" v-for="item in exercises"> <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
             <v-row >
                 <div>
