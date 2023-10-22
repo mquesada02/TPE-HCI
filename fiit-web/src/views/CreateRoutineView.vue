@@ -2,35 +2,31 @@
     <v-card color="background">
       <v-tabs grow v-model="tab">
         <v-tab value="one">Descripción 
-            <div v-if="false">
-                <v-icon icon="mdi-checkbox-marked"/>
+            <div v-if="descCheckbox">
             </div>
             <div v-else>
-                <v-icon icon="mdi-checkbox-marked" color="completed"/>
+                <v-icon icon="mdi-checkbox-marked"/>
             </div>
         </v-tab>
         <v-tab value="two">Entrada en calor
             <div v-if="true">
-                <v-icon icon="mdi-checkbox-marked"/>
             </div>
             <div v-else>
-                <v-icon icon="mdi-checkbox-marked" color="completed"/>
+                <v-icon icon="mdi-checkbox-marked"/>
             </div>
         </v-tab>
         <v-tab value="three">Ejercitación
             <div v-if="true">
-                <v-icon icon="mdi-checkbox-marked"/>
             </div>
             <div v-else>
-                <v-icon icon="mdi-checkbox-marked" color="completed"/>
+                <v-icon icon="mdi-checkbox-marked"/>
             </div>
         </v-tab>
         <v-tab value="four">Enfriamiento
             <div v-if="true">
-                <v-icon icon="mdi-checkbox-marked"/>
             </div>
             <div v-else>
-                <v-icon icon="mdi-checkbox-marked" color="completed"/>
+                <v-icon icon="mdi-checkbox-marked"/>
             </div>
         </v-tab>
       </v-tabs>
@@ -52,19 +48,12 @@
       </v-card-text>
     </v-card>
     <div class="text-right mr-5 pb-10 finalizarBtn">
-        <v-btn :disabled="canEnd" :loading="onProcess" color="secondary" size="x-large" @click="createRoutine()">
+        <v-btn :disabled="canCreate" :loading="onProcess" color="secondary" size="x-large" @click="createRoutine()">
             Finalizar rutina
         </v-btn>
     </div>
     <AlertSnackbar />
-  </template>
-
-faltan cuatro variabls boolean, q se crean a partir de la api
-seran true si ya se completo la info de la tab
-ESTAS CUATRO VARIABLES SE USAN PARA LOS V-IF DE LOS V-ICON (deciden su color)
-Y PARA Q APAREZCA O NO EL BUTTON DE CREAR RUTINA
-
-EL BOTON FINALIZA RUTINA TIENE Q ACCIONAR CON LA API PARA GUARDAR LA PROPIA RUTINA
+</template>
 
 <script>
 export default {
@@ -114,10 +103,25 @@ data: () => ({
     const estado = ref(false);
     provide('estado', estado);
 
-    const canEnd = computed(() => {
-        /* AGREGAR LO DE LOS CICLOS */
-        return !(muscles.value.length && goals.value.length && materials.value.length);
+    const descCheckbox = computed(() => {
+        return !(muscles.value.length && goals.value.length && materials.value.length && routineName.value && routineDescription.value);
     })  
+
+    const warmupCheckbox = computed(() => {
+
+    })
+
+    const exerciceCheckbox = computed(() => {
+        
+    })
+
+    const cooldownCheckbox = computed(() => {
+        
+    })
+
+    const canCreate = computed(() => {
+        return (descCheckbox.value /*&& warmupCheckbox.value && exerciceCheckbox.value && cooldownCheckbox.value*/);
+    })
 
     /* Fin descripción */
 
