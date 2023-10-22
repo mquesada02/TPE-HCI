@@ -40,33 +40,27 @@
 //y tmb el Rating, para saber la puntuación 
 
 <script setup>
-    import { watch, ref } from 'vue';
+    import { onBeforeMount, ref } from 'vue';
+    import { useRoutineStore } from '@/stores/routineStore';
     const props = defineProps(['img','title', 'selectedClass', 'toggle', 'rating', 'id']);
     const img = props.img;
     const cardTitle = props.title;
     const selectedClass = props.selectedClass;
     const toggle = props.toggle;
-    const favState = ref(0);
     const Rating = props.rating;
     const id = props.id;
     const link = `/newRoutine?id=${id}`;
-
-    watch(favState, async (newVal, oldVal) => {
-        if (newVal === 1) {
-            try {
-                await routineStore.markAsFavourite(props.id);
-            } catch(error) {
-                console.log(error.description);
+    const favState = ref(false);
+    const routineStore = useRoutineStore();
+    const favourites = ref([]);
+    onBeforeMount(async () => {
+        favourites.value = await routineStore.retrieveFavourites();
+        favourites.value.forEach((elem) => {
+            if (elem.id == id) { 
+                favState.value = 1;
             }
-        } else {
-            try{
-                await routineStore.unmarkAsFavourite(props.id);
-            } catch(error) {
-                console.log(error.description);
-            }
-        }
+        })
     })
-    
 </script>
 
 
