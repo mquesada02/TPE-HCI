@@ -50,7 +50,10 @@
   const itemsPerPage = ref(8)
   const page = ref(1)
   const numberOfPages = computed(() => {
-    return Math.ceil(props.items.length / itemsPerPage.value)
+      if(props.items.length==0){
+        return 1;
+      }
+      return Math.ceil(props.items.length / itemsPerPage.value)
   })
   function nextPage () {
     if (page.value + 1 <= numberOfPages.value) page.value += 1
