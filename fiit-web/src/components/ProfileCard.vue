@@ -11,14 +11,15 @@
                 </v-avatar>
                 <p class="pt-4 font-weight-bold text-h2 text-center drop-shadow-lg mb-4">{{ user.username }}</p>
                 <p class="text-h5 text-center drop-shadow-lg mb-4">{{ firstName }} {{ lastName }}</p>
-                <p class="text-h6 text-center drop-shadow-lg mb-4">Edad: {{ age }}</p>
-                <p class="text-h6 text-center drop-shadow-lg mb-4">Peso: {{ weight }}</p>
-                <p class="text-h6 text-center drop-shadow-lg mb-4">Altura: {{ height }}</p>
+                <p class="text-h6 text-center drop-shadow-lg mb-4">Edad: {{ age }} años</p>
+                <p class="text-h6 text-center drop-shadow-lg mb-4">Peso: {{ weight }}kg</p>
+                <p class="text-h6 text-center drop-shadow-lg mb-4">Altura: {{ height }}cm</p>
                 <v-btn color="secondary" type="submit" @click="logOut" class="text-center mb-8">Cerrar Sesion</v-btn>
             </v-sheet>
             <v-sheet v-else height="100%" width="100%" color="lighter" rounded="xl" class="pa-0 text-center">
                 <v-form @submit.prevent="onSubmit">
                     <v-text-field type="text" v-model:model-value="avatar" label="Avatar URL"></v-text-field>
+                    <img v-if="avatar" :src="avatar" height="150" width="150" />
                     <v-text-field type="text" v-model:model-value="firstName" label="Nombre"></v-text-field>
                     <v-text-field type="text" v-model:model-value="lastName" label="Apellido"></v-text-field>
                     <v-text-field type="text" v-model:model-value="age" label="Edad"></v-text-field>
@@ -28,6 +29,7 @@
                 </v-form>
             </v-sheet>
         </v-sheet>
+        <AlertSnackbar />
     </v-container>
 </template>
 
@@ -35,9 +37,17 @@
 import { UserInfoWithAvatar } from '@/api/user';
 import { useUserStore } from '@/stores/userStore';
 import { onMounted } from 'vue';
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
+import AlertSnackbar from './AlertSnackbar.vue';
+import router from '@/router';
 const user = ref('');
 const modifyMode = ref(false);
+
+
+const snackbar = ref(false)
+const text = ref('');
+provide('snackbar', snackbar);
+provide('text', text);
 
 
 const avatar = ref('');
@@ -68,9 +78,11 @@ function modify() {
 async function logOut () {
     try {
       await userStore.logout();
-      router.push('/');
+      
     } catch (error) {
-      alert(error.description);
+      
+    } finally {
+        router.push('/');
     }
   };
 
@@ -86,9 +98,18 @@ async function onSubmit() {
         weight.value ? weight.value : user.value.metadata.weight,
         avatar.value ? avatar.value : user.value.avatarUrl,
         );
+    try {
         await userStore.modifyCurrentUser(userInfo);
-    modifyMode.value = false;
-    loading.value = false;
+        
+    } catch (error) {
+        text.value = error.description;
+        snackbar.value = true;
+    } finally {
+        modifyMode.value = false;
+        loading.value = false;
+    }
+        
+    
 }
 
 

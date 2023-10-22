@@ -44,7 +44,7 @@
         </v-row>
         <v-row>
             <v-col>
-               <h1>Materiales: </h1>
+               <h1>Equipamiento: </h1>
                <ul>
                     <li class="text-black" v-for="mat in material" :key="mat">
                         {{ mat }}
