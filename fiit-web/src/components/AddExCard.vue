@@ -1,10 +1,10 @@
 <template>
   <v-container fluid color="secondary">
-    <v-row justify="center" align="center">
-        <v-col cols="2">
+    <v-row justify="center">
+        <v-col>
             <ExCard title="prueba"/>
         </v-col>
-        <v-col cols="2">
+        <v-col>
             <div class="d-flex pa-4">
                 <v-checkbox-btn
                 v-model="enabledReps"

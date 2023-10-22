@@ -2,82 +2,81 @@
   <v-sheet  width="1000" class="mx-auto" color="white" rounded="lg">
   
     <p class="pt-6 text-h3 text-center ml-5 mb-7 font-weight-bold" >
-             Registrarse
-        </p>
-        <div/>
-        <v-form fast-fail @submit.prevent="onSubmit">
-        <v-row>
-        <v-col cols="12" md="6">
-         <v-text-field
-            v-model:model-value="email"
-            label="Correo electrónico"
-            variant="underlined"
-            class="text-field-center ml-8"
-            :rules="emailRules">
-        </v-text-field>
-        <v-text-field
-            label="Nombre de Usuario" 
-            v-model:model-value="user"
-             variant="underlined"
-             class="text-field-center ml-8"
-             :rules="usuarioRules">
-        </v-text-field>
-        <v-text-field
-            label="Contraseña"
-            type="password"
-            v-model:model-value="pass" 
-            variant="underlined"
-            class="text-field-center ml-8"
-            :rules="passwordRules">
-        </v-text-field>
-        <!-- <v-text-field
-            label="Altura (cm)" 
-            v-model:model-value="height"
-             variant="underlined"
-             class="text-field-center ml-8"
-             :rules="alturaRules">
-        </v-text-field> -->
-        </v-col>
+      Registrarse
+    </p>
+    <v-form fast-fail @submit.prevent="onSubmit">
+    <v-row>
+    <v-col cols="12" md="6">
+      <v-text-field
+        v-model:model-value="email"
+        label="Correo electrónico"
+        variant="underlined"
+        class="text-field-center ml-8"
+        :rules="emailRules">
+    </v-text-field>
+    <v-text-field
+        label="Nombre de Usuario" 
+        v-model:model-value="user"
+          variant="underlined"
+          class="text-field-center ml-8"
+          :rules="usuarioRules">
+    </v-text-field>
+    <v-text-field
+        label="Contraseña"
+        type="password"
+        v-model:model-value="pass" 
+        variant="underlined"
+        class="text-field-center ml-8"
+        :rules="passwordRules">
+    </v-text-field>
+    <!-- <v-text-field
+        label="Altura (cm)" 
+        v-model:model-value="height"
+          variant="underlined"
+          class="text-field-center ml-8"
+          :rules="alturaRules">
+    </v-text-field> -->
+    </v-col>
 
-        <v-col cols="12" md="6">
-          <v-text-field
-            label="Nombre" 
-            v-model:model-value="name"
-            variant="underlined"
-            class="text-field-center mr-8"
-            :rules="nombreRules">
-        </v-text-field>
-         
-        
-        <v-text-field
-            label="Apellido"
-            v-model:model-value="surname"
-            variant="underlined"
-            class="text-field-center mr-8"
-            :rules="apellidoRules">
-         </v-text-field>
-         
-         <v-text-field
-            label="Fecha de Nacimiento" 
-            v-model:model-value="birth"
-             variant="underlined"
-             class="text-field-center mr-8"
-             :rules="fechaRules">
-        </v-text-field>
-         
-         <!-- <v-text-field
-            label="Peso (kg)" 
-            v-model:model-value="weight"
-             variant="underlined"
-             class="text-field-center mr-8"
-             :rules="pesoRules">
-        </v-text-field> -->
-        </v-col>
-        </v-row>
-         <p class="drop-shadow-lg text-h7 text-center mb-5"> ¿Ya tienes cuenta? <router-link to="/login">Inicia sesión</router-link></p>
-         <div class="d-flex flex-column align-center mb-8">
-         <v-btn color="secondary" :loading="loading"  type="submit" class="text-center mb-8">Registrarse</v-btn>
-         </div>
+    <v-col cols="12" md="6">
+      <v-text-field
+        label="Nombre" 
+        v-model:model-value="name"
+        variant="underlined"
+        class="text-field-center mr-8"
+        :rules="nombreRules">
+    </v-text-field>
+      
+    
+    <v-text-field
+        label="Apellido"
+        v-model:model-value="surname"
+        variant="underlined"
+        class="text-field-center mr-8"
+        :rules="apellidoRules">
+      </v-text-field>
+      
+      <v-text-field
+        label="Fecha de Nacimiento" 
+        v-model:model-value="birth"
+          variant="underlined"
+          class="text-field-center mr-8"
+          :rules="fechaRules">
+    </v-text-field>
+      
+      <!-- <v-text-field
+        label="Peso (kg)" 
+        v-model:model-value="weight"
+          variant="underlined"
+          class="text-field-center mr-8"
+          :rules="pesoRules">
+    </v-text-field> -->
+    </v-col>
+    </v-row>
+      <p class="drop-shadow-lg text-h7 text-center mb-5"> ¿Ya tienes cuenta? <router-link to="/login">Inicia sesión</router-link></p>
+      <div class="d-flex flex-column align-center mb-8">
+      <v-btn color="secondary" :loading="loading"  type="submit" class="text-center mb-8">Registrarse</v-btn>
+      </div>
     </v-form>
     <AlertSnackbar />
   </v-sheet>

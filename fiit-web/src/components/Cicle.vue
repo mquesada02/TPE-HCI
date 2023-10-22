@@ -37,9 +37,9 @@
                 </div>
             </v-app-bar>
         </div>
-        <div class="pt-15" v-for="item in ejercicios">
+        <div class="exerciseComponents" v-for="item in ejercicios">
             <v-row>
-                <v-col cols="10">
+                <v-col>
                     <AadEx />
                 </v-col>
                 <v-col>
@@ -139,5 +139,11 @@ export default {
 .sheet {
     background-color: black;
     padding: 40px;
+}
+
+.exerciseComponents{
+    /* padding: 50px; */
+    margin-left: auto;
+    margin-right: auto;
 }
 </style>
