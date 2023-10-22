@@ -28,13 +28,12 @@
             @input="updateCiclos"
           />
         </div>
-        <ciclo v-for="index in numCiclos" :key="index" type="false" :ejercicios="[]"/>
+        <ciclo v-for="index in numCiclos" :key="index" :type="false" :ejercicios="[]"/>
       </v-container>
     </v-app>
 </template>
 
 EL V-FOR VA A RECORRER TANTO CICLOS (cantidad=numCiclos) COMO UN ARRAY DE ARRAYS(de ejercicios), YA Q PARA CADA CICLO HAY UN ARRAY(de ejercicios)
-osea donde dice [1, 2, 3] deberia haber un array de arrays(de ejercicios) q tenga como indice a index
 AL INSTANCIAR CADA CICLO SE LE ENVIA SU ARRAY (como props) Q SIEMPRE COMIENZA VACIOS
 
 
