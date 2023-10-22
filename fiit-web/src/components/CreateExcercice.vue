@@ -26,7 +26,7 @@
     </v-col>
     <v-container class="text-right">
         <div v-if="from">
-          <v-btn color="secondary" :loading="isLoading" @click="CreateAndAddToCycle()" type="submit" class="text-center mr-12 mb-8">Crear y añadir a
+          <v-btn color="secondary" :loading="isLoading" @click="createAndAddToCycle()" type="submit" class="text-center mr-12 mb-8">Crear y añadir a
             ciclo</v-btn>
         </div>
         <div v-else>
@@ -44,6 +44,8 @@
   import { ref } from 'vue';
   import { useExerciseStore } from '@/stores/exerciseStore';
 
+  const exerciseStore = useExerciseStore();
+
   const props = defineProps(['from'])
   const from = props.from;
 
@@ -57,19 +59,21 @@
   async function createExercise() {
     isLoading.value = true;
     try {
-            const res = await routineStore.newRoutine(routineName.value, routineDescription.value, estado.value, dificultad.value, muscles.value, goals.value, materials.value, routineImg.value);
+            const res = await exerciseStore.createExercise(nombre.value, descripcion.value, "exercise", foto.value, video.value);
         } catch(error) {
             text.value = error.description;
             snackbar.value = true;
         } finally {
-            onProcess.value = false;
+            isLoading.value = false;
         }
+  }
+
+  async function createAndAddToCycle(){
+    
   }
 
 </script>
 
-
-EL PROPS.FROM NO FUNCIONA, HACE LO QUE QUIERE, NECESITAMOS Q FUNCIONE PARA Q EL BTN DE ABAJO SEA EL CORRRECTO
 
 <script>
 export default {

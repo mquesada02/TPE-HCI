@@ -39,7 +39,7 @@
                       </v-dialog>
                   </v-row>
                 </div>
-                <CreateEx from="False"/>
+                <CreateEx :from="false"/>
                 </v-sheet>
             </v-dialog>
           </v-row>

@@ -43,6 +43,7 @@ export const useUserStore = defineStore('user', () => {
     async function login(credentials, rememberMe) {
         const result = await UserApi.login(credentials);
         updateToken(result.token, rememberMe);
+        return result;
     }
 
     async function verifyEmail(email, code) {
