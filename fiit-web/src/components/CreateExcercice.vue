@@ -26,11 +26,11 @@
     </v-col>
     <v-container class="text-right">
         <div v-if="from">
-          <v-btn color="secondary" :loading="loading" @click="CreateAndAddToCycle()" type="submit" class="text-center mr-12 mb-8">Crear y añadir a
+          <v-btn color="secondary" :loading="isLoading" @click="CreateAndAddToCycle()" type="submit" class="text-center mr-12 mb-8">Crear y añadir a
             ciclo</v-btn>
         </div>
         <div v-else>
-          <v-btn color="secondary" :loading="loading" @click="create()" type="submit" class="text-center mr-12 mb-8">Crear</v-btn>
+          <v-btn color="secondary" :loading="isLoading" @click="createExercise()" type="submit" class="text-center mr-12 mb-8">Crear</v-btn>
         </div>
       </v-container>
   </v-row>
@@ -42,7 +42,7 @@
 
 <script setup>
   import { ref } from 'vue';
-  import { useExcerciseStore }
+  import { useExcerciseStore } from '@/stores/exerciseStore';
 
   const props = defineProps(['from'])
   const from = props.from;
@@ -52,20 +52,11 @@
   const foto = ref('');
   const video = ref('');
 
-  async function create () {
-    try {
-      const credentials = new Credentials(user.value, pass.value);
-      const userInfo = new UserInfo(name.value, surname.value, email.value, birth.value, height.value, weight.value);
-      loading.value = true;
-      await userStore.register(credentials,userInfo);
-      
-      router.push('/verify?email=' + email.value + '&user=' + user.value );
-    } catch (error) {
-      text.value = error.description;
-      snackbar.value = true;
-    } finally {
-      loading.value = false;
-    }
+  const isLoading = ref(false);
+
+  async function createExercise() {
+    isLoading.value = true;
+    
   }
 
 </script>
