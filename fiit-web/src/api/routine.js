@@ -1,6 +1,6 @@
 import { Api } from "@/api/api.js";
 
-export { RoutineApi, CycleInfo }
+export { RoutineApi, CycleInfo, Cycle }
 
 class RoutineApi {
     
@@ -10,6 +10,10 @@ class RoutineApi {
 
     static getSearchUrl(query) {
         return RoutineApi.getUrl() + `?search=${query}`;
+    }
+
+    static async geteCycleExerciseUrl(slugCycle, slugExercise){
+        return `${Api.baseUrl}/cycles/${slugCycle}/exercises${slugExercise ? `/${slugExercise}` : ''}`;
     }
 
     static async getRoutines() {
@@ -37,7 +41,7 @@ class RoutineApi {
     }
 
     static async addExerciseToCycle(cycleId, exerciseId, body){
-
+        return Api.post(RoutineApi.geteCycleExerciseUrl(cycleId, exerciseId), true, body)
     }
 
 }
@@ -46,6 +50,10 @@ class Cycle {
         this.cycleInfo = cycleInfo;
         this.exercisesArray = exercisesArray;
     }
+
+    setExerciseArray(exerciseArray){
+        
+    }
 }
 
 class CycleInfo {
@@ -53,7 +61,12 @@ class CycleInfo {
         this.name = name;
         this.detail = detail;
         this.type = type;
+        this.order = 1;
         this.series = series;
+    }
+
+    setOrder(order){
+        this.order = order;
     }
 }
 

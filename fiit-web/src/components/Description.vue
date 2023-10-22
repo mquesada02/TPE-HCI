@@ -7,7 +7,7 @@
                 <v-card-text>
                     Para completar esta sección se tiene que haber seleccionado minimo un elemento en Músculo, Intensidad,
                     Objetivo, Estado y Equipameinto.
-                    Además se debe haber completo el nombre y una breve descirpción.
+                    Además se debe haber completado el nombre y una breve descirpción.
                 </v-card-text>
                 <v-card-actions>
                     <v-btn color="primary" block @click="dialog = false">Close</v-btn>
