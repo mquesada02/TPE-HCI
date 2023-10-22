@@ -56,14 +56,14 @@
           <v-checkbox label="Banda elástica" values="Banda elástica"></v-checkbox>
           <v-checkbox label="Soga" values="Glúteos"></v-checkbox>
         </div>
-
         <v-card-actions>
           <v-spacer />
-          <v-btn
+            <v-btn
             color="secondary"
             @click="menu = false"
             icon="mdi-check"
             vertical-align="bottom"
+            class="bottom-right-button"
           >
           </v-btn>
         </v-card-actions>
@@ -79,16 +79,19 @@
     justify-content: space-between;
     vertical-align: top;
   }
-
+  .checkbox-list{
+    width:300;
+    padding: 15px;
+  }
+  .bottom-right-button {
+  position: fixed;
+  bottom: 20px; 
+  right: 20px; 
+}
   v-checkbox{
     margin: 0px;
     padding: 0px;
     height: 12px;
-  }
-
-  .checkbox-list{
-    width:300;
-    padding: 15px;
   }
 </style>
 
