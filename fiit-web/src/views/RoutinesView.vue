@@ -10,7 +10,7 @@
             <v-btn  size="x-large" variant="outlined" color="secondary" to="/addRoutine">Crear nueva rutina <v-icon icon="mdi-plus" size="x-large"></v-icon></v-btn>
           </v-row>
           <h1 class="pt-5">Mis rutinas:</h1>
-          <MyRout :items="recientes"/>
+          <MyRout :items="myroutines"/>
         </v-container>
       </v-main>
     </v-app>
@@ -18,17 +18,19 @@
   
   <script setup>
       import MyRout from '@/components/RoutineIter.vue';
-      const recientes = [
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' },
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
-  ];
+      import { onBeforeMount, ref } from 'vue';
+
+      import { useUserStore } from '@/stores/userStore';
+
+      const myroutines = ref([])
+
+      onBeforeMount( async () => {
+        const userStore = useUserStore();
+        const routines = await userStore.getCurrentRoutines();
+            
+        routines.content.forEach((elem) => {
+          myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
+        })
+      })
   </script>
 

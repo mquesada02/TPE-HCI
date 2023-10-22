@@ -31,14 +31,18 @@ export const useRoutineStore = defineStore('routine', () => {
     const getGoal = () => { return goal }
     const getMaterial = () => { return material }
 
-    async function newRoutine(name, detail, state, intensity, muscles, goals, materials, img) {
+    async function newRoutine(name, detail, isPublic, intensity, muscles, goals, materials, img) {
         const metadata = {muscles, goals, materials, img}
         const difficulty = intensity === 'Baja' ? 'rookie' : intensity === 'Media' ? 'intermediate' : 'expert'
-        return await RoutineApi.createRoutine(name, detail, state, difficulty, metadata);
+        return await RoutineApi.createRoutine(name, detail, isPublic, difficulty, metadata);
+    }
+
+    async function modifyRoutine(id, routineInfo) {
+        return await RoutineApi.modifyRoutine(id, routineInfo);
     }
 
     async function retrieveRoutines() {
-        if (routines.value || routines.value.length === 0) {
+        if (!routines.value || routines.value.length === 0) {
             routines.value = await RoutineApi.getRoutines();
         }
        return routines.value;
@@ -46,6 +50,10 @@ export const useRoutineStore = defineStore('routine', () => {
 
     async function retrieveRoutineById(id) {
         return await RoutineApi.getRoutineById(id);
+    }
+
+    async function addCycle(routineId, cycleInfo) {
+        return await RoutineApi.createCycle(routineId, cycleInfo);
     }
 
     return {
@@ -58,7 +66,9 @@ export const useRoutineStore = defineStore('routine', () => {
         getGoal,
         getMaterial,
         newRoutine,
+        modifyRoutine,
         retrieveRoutineById,
         retrieveRoutines,
+        addCycle,
     }
 });

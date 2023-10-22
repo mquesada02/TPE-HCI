@@ -20,7 +20,7 @@
             md="4"
             lg="3"
           >
-            <RoutineCard :title="item.raw.title" :img="item.raw.src"/>
+            <RoutineCard :title="item.raw.title" :img="item.raw.src" :id="item.raw.id"/>
           </v-col>
         </v-row>
       </template>
