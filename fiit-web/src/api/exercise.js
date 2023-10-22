@@ -1,6 +1,6 @@
 import { Api } from "@/api/api.js";
 
-export { ExerciseApi, Exercise, BasicExercise, ExercisePair }
+export { ExerciseApi }
 
 class ExerciseApi {
 

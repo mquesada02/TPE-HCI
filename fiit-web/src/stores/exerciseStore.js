@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { ExerciseApi, Exercise, BasicExercise } from "@/api/exercise";
+import { ExerciseApi} from "@/api/exercise";
 
 
 export const useExerciseStore = defineStore('exercise', () => {
