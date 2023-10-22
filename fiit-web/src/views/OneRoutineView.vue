@@ -3,23 +3,24 @@
         <v-row>
             <v-col class="ma-10" cols="4">   
                 <h1>{{name}}</h1>
-                <v-row>
+                <v-row class="d-flex justify-center align-center">
                     <div class="pt-5">
                     <v-img
-                        width="500"
+                        width="300"
                         :src="src" 
                         cover/>
                     </div>
                 </v-row>
-                <div class="pt-10">
-                    <RoutineInfo :description="description" :intensity="intensity" :muscles="muscles" :material="material"/>
-                </div>
+                <RoutineCardInfo :id="id" :description="description" :intensity="intensity" :muscles="muscles" :material="material"/>
             </v-col>
-            <v-col class="ma-15">
+            <v-col class="d-flex mt-8 justify-center align-center">
                 <div class="pt-4">
                   <ExcerciceScroller/>
                 </div>
             </v-col>
+        </v-row>
+        <v-row>
+            
         </v-row>
     </div>
 </template>
@@ -31,7 +32,7 @@
 
 
 <script setup>
-    import RoutineInfo from '@/components/RoutineInfo.vue';
+    import RoutineCardInfo from '@/components/RoutineCardInfo.vue';
     import ExcerciceScroller from '@/components/ExcerciceScroller.vue';
     
     import { useRoutineStore } from '@/stores/routineStore';
@@ -43,10 +44,11 @@
     const description = ref('');
     const intensity = ref('');
     const name = ref('');
+
+    const id = ref('');
     
     onBeforeMount(async () => {
         const routineStore = useRoutineStore();
-        const id = ref('');
         const params = new URLSearchParams(location.search);
         id.value = params.get("id");
         const routine = await routineStore.retrieveRoutineById(id.value);
@@ -56,6 +58,5 @@
         description.value = routine.detail;
         muscles.value = routine.metadata.muscles;
         material.value = routine.metadata.materials;
-        console.log(routine);
     })
 </script>
