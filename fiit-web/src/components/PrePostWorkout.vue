@@ -17,7 +17,7 @@
         </v-dialog>
     </div>
     <div class="pt-5">
-      <Cicle :title="props.title" type="true" :ejercicios="ejerciciosS"/>
+      <Cicle :title="props.title" :type="true" :arrayPos="props.arrayPos"/>
     </div>
 </template> 
 
@@ -33,6 +33,6 @@
 
 <script setup>
     import Cicle from '@/components/Cicle.vue';
-    const props = defineProps(['title', 'ejercicios']);
-    const ejerciciosS = props.ejercicios
+    import { inject } from 'vue';
+    const props = defineProps(['title', 'arrayPos']);
 </script>

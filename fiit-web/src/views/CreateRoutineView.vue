@@ -36,13 +36,13 @@
                 <Desc></Desc>
             </v-window-item>
             <v-window-item value="two">
-               <PrePostWorkout title="Inicial" :ejercicios="[]"></PrePostWorkout>
+               <PrePostWorkout title="Inicial" :arrayPos="0"></PrePostWorkout>
             </v-window-item>
             <v-window-item value="three">
                 <Workout></Workout>
             </v-window-item>
             <v-window-item value="four">
-                <PrePostWorkout title="Final" :ejercicios="[1,2]"></PrePostWorkout>
+                <PrePostWorkout title="Final" :arrayPos="1"></PrePostWorkout>
             </v-window-item>
         </v-window>
       </v-card-text>
@@ -71,6 +71,7 @@ data: () => ({
     import { computed } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';
     import AlertSnackbar from '@/components/AlertSnackbar.vue'
+    import { CycleInfo, Cycle } from '@/api/routine';
 
     const routineStore = useRoutineStore();
 
@@ -128,6 +129,12 @@ data: () => ({
     /* Ciclos */
 
     const ciclos = ref([]); //array de ciclos
+
+    const exercisesArray = [];
+
+    ciclos.value.push(new Cycle(new CycleInfo('inicial', 'entrada en calor', 'warmup',1), exercisesArray));
+    ciclos.value.push(new Cycle(new CycleInfo('final', 'enfriamiento', 'cooldown',1), exercisesArray));
+    ciclos.value.push(new Cycle(new CycleInfo('ciclo1', 'ejercitacion', 'exercise',1), exercisesArray));
 
     provide('ciclos', ciclos);
 

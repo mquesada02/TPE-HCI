@@ -68,6 +68,9 @@
         }
   }
 
+  async function addToCycle(){
+    
+  }
 
   async function createAndAddToCycle(){
 

@@ -28,7 +28,7 @@
             @input="updateCiclos"
           />
         </div>
-        <ciclo v-for="index in numCiclos" :key="index" type="false" :ejercicios="[]"/>
+        <ciclo v-for="index in numCiclos" :key="index" :type="false" :arrayPos="0"/>
       </v-container>
     </v-app>
 </template>
