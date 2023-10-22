@@ -126,6 +126,7 @@ EL V-FOR DE AadEx's RECORRE EL ARRAY DE EJERCICIOS Q SE RECIBE COMO PROPS
 <script setup>
     import AadEx from '@/components/AddExCard.vue'
     import CreateEx from '@/components/CreateExcercice.vue'
+    import BuscadorEjercicios from '@/components/SearchExercise.vue'
     import { inject } from 'vue';
 
     const props = defineProps(['title', 'type', 'arrayPos'])
