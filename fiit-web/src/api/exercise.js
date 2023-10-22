@@ -12,8 +12,8 @@ class ExerciseApi {
         return await Api.get(ExerciseApi.getUrl(), true);
     }
 
-    static async addExercise(exercise) {
-        return await Api.post(ExerciseApi.getUrl(), true, {...exercise});
+    static async addExercise(name, detail, type) {
+        return await Api.post(ExerciseApi.getUrl(), true, {name: name, detail:detail, type:type});
     }
 
     static async getExercise(id) {
