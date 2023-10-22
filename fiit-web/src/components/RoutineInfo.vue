@@ -2,7 +2,7 @@
     <div class="rounded-template">
         <v-row>
             <div class="mr-15">
-                <h1 > {{ description }} </h1>
+                <h3 > {{ description }} </h3>
             </div>
             <v-spacer></v-spacer>
             <div class="pt-2 mr-2">
@@ -47,33 +47,20 @@
             </v-row>
             </v-col>
             <v-col>
-                <div v-if="false">
-                    <v-btn color="secondary"> 
+                
+                
+                     
                         <v-rating
                             hover
                             :length="1"
                             :size="32"
-                            :model-value="1"
+                            color="primary"
                             active-color="primary"
                             empty-icon="mdi-heart-outline"
                             half-icon="mdi-heart-half-full"
                             full-icon="mdi-heart"
                             clearable/>
-                    </v-btn>
-                </div>
-                <div v-else>
-                    <v-btn color="secondary"> 
-                        <v-rating
-                            hover
-                            :length="1"
-                            :size="32"
-                            active-color="primary"
-                            empty-icon="mdi-heart-outline"
-                            half-icon="mdi-heart-half-full"
-                            full-icon="mdi-heart"
-                            clearable/>
-                    </v-btn>
-                </div>
+                
             </v-col>
         </v-row>
         </div>

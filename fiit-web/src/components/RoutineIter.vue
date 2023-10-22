@@ -7,9 +7,8 @@
       :sort-by="sortBy"
     >
       <template v-slot:no-data>
-        <v-alert class="ma-2" type="warning">No results</v-alert>
-      </template>
-  
+        <v-alert class="ma-2" type="warning">{{ text }}</v-alert>
+      </template> 
       <template v-slot:default="{items}" >
         <v-row>
           <v-col
@@ -24,7 +23,6 @@
           </v-col>
         </v-row>
       </template>
-  
       <template v-slot:footer>
       <div class="d-flex align-center justify-space-around pa-4">
           <v-spacer></v-spacer>
@@ -39,26 +37,29 @@
           </v-btn>
       </div>
       </template>
-    </v-data-iterator>
-  </template>
+  </v-data-iterator>
+</template>
   
   
-  <script setup>
-    import RoutineCard from './RoutineCard.vue';
-    import { computed, ref } from 'vue'
-    const props = defineProps(['items'])
-    const items = props.items;
-    const itemsPerPage = ref(8)
-    const page = ref(1)
-    const numberOfPages = computed(() => {
+<script setup>
+  import RoutineCard from './RoutineCard.vue';
+  import { computed, ref } from 'vue'
+  const props = defineProps(['items', 'text'])
+  const items = props.items;
+  const text = props.text;
+  const itemsPerPage = ref(8)
+  const page = ref(1)
+  const numberOfPages = computed(() => {
+      if(props.items.length==0){
+        return 1;
+      }
       return Math.ceil(props.items.length / itemsPerPage.value)
-    })
-    function nextPage () {
-      if (page.value + 1 <= numberOfPages.value) page.value += 1
-    }
-    function prevPage () {
-      if (page.value - 1 >= 1) page.value -= 1
-    }
-    
-  </script>
+  })
+  function nextPage () {
+    if (page.value + 1 <= numberOfPages.value) page.value += 1
+  }
+  function prevPage () {
+    if (page.value - 1 >= 1) page.value -= 1
+  }
+</script>
   

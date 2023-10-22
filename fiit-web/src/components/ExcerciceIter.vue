@@ -7,7 +7,7 @@
     :sort-by="sortBy"
   >
     <template v-slot:no-data>
-      <v-alert class="ma-2" type="warning">No results</v-alert>
+      <v-alert class="ma-2" type="warning">No has creado ningun ejercicio todavia</v-alert>
     </template>
 
     <template v-slot:default="{items}" >
@@ -54,6 +54,9 @@
   const itemsPerPage = ref(8)
   const page = ref(1)
   const numberOfPages = computed(() => {
+    if(props.items.length==0){
+        return 1;
+    }
     return Math.ceil(props.items.length / itemsPerPage.value)
   })
   function nextPage () {

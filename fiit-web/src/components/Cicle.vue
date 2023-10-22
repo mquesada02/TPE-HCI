@@ -1,15 +1,16 @@
 <template>
     <v-app>
-        <div v-if="type">
-            <v-app-bar app>
+        <v-app-bar app class="pb-4 pt-4">
+            <div v-if="type" class="ml-3">
                 <v-toolbar-title class="size">
                     Ciclo {{ title }}
                 </v-toolbar-title>
-                <v-spacer></v-spacer>
-                <div class="pt-6 mr-4">
-                    <v-text-field v-model="numberOfSeries" outlined dense>
+            </div>
+            <div v-else>
+                <div class="pt-6 ml-2">
+                    <v-text-field width="300">
                         <template v-slot:prepend>
-                            <span class="size">Series:</span>
+                            <span class="size">Ciclo:</span>
                         </template>
                     </v-text-field>
                 </div>
@@ -87,7 +88,38 @@
                                 <CreateEx :from="true" />
                             </v-sheet>
                         </v-dialog>
-                        <v-btn class="botones-ej">Buscar ejercicio</v-btn>
+                        <v-btn class="botones-ej" @click="dialogBuscar = true">Buscar ejercicio</v-btn>
+                        <v-card-actions>
+                            <v-dialog v-model="dialogBuscar" width="auto">
+                                <v-sheet class="sheet">
+                                    <v-row class=" pt-5">
+                                        <v-btn color="secondary" @click="dialogSheet = true">
+                                            <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
+                                        </v-btn>
+                                        <v-dialog v-model="dialogSheet" width="auto">
+                                            <v-card>
+                                                <v-card-actions>
+                                                    <v-card-text class="text-center">
+                                                        Salir sin guardar?
+                                                        <v-divider class="pt-2"></v-divider>
+                                                        <v-btn color="primary" block width="50%"
+                                                            @click="dialogSheet = false, dialogBuscar = false">
+                                                            Salir
+                                                        </v-btn>
+                                                        <v-btn @click="dialogSheet = false" class="pt-5">
+                                                            Canelar
+                                                        </v-btn>
+                                                    </v-card-text>
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </v-row>
+                                    <v-row>
+                                        <BuscadorEjercicios class="pt-3"/>
+                                    </v-row>
+                                </v-sheet>
+                            </v-dialog>
+                        </v-card-actions>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
@@ -98,7 +130,6 @@
     </v-app>
 </template>
 
-AAA NO FUNCIONA EL PROPS DEL TITULO NI EL DE TYPE
 EL ESPACIO DEL MEDIO ES PARA EL V-FOR Q MUESTRA LOS EJERCICIOS AGREGADOS
 EN EL ADDEX EN REALIDAD VA UN V-FOR Q USA EL ARRAY Q RECIBA ESTE CICLO EN ESPECIFICO
 
@@ -127,13 +158,21 @@ EL V-FOR DE AadEx's RECORRE EL ARRAY DE EJERCICIOS Q SE RECIBE COMO PROPS
 export default {
     data() {
         return {
-            numberOfSeries: 0,
+            numberOfSeries: 1,
             dialog: false,
             dialogCrear: false,
             dialogBuscar: false,
             dialogSheet: false,
         };
     },
+    computed: {
+        seriesRules(){
+            return [
+                (v) => !!v || 'La cantidad de series es requerida',
+                (v) => v > 0 || 'Series debe ser un número mayor a 0',
+            ];
+        }
+    }
 };
 </script>
 

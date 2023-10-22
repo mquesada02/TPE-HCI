@@ -71,6 +71,7 @@ data: () => ({
     import { computed } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';
     import AlertSnackbar from '@/components/AlertSnackbar.vue'
+    import router from '@/router';
     import { CycleInfo, Cycle } from '@/api/routine';
 
     const routineStore = useRoutineStore();
@@ -153,6 +154,7 @@ data: () => ({
         /* primero creamos la rutina */
         try {
             res.value = await routineStore.newRoutine(routineName.value, routineDescription.value, estado.value, dificultad.value, muscles.value, goals.value, materials.value, routineImg.value);
+            router.push('/');
         } catch(error) {
             text.value = error.description;
             snackbar.value = true;
