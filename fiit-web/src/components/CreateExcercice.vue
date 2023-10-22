@@ -12,14 +12,14 @@
     </v-col> 
     <v-col cols="6">
       <v-container width="200">
-        <v-file-input label="Subir foto" v-model="foto" class="mx-auto" :rules="fotoRules">
-        </v-file-input>
+        <v-text-field label="Ingresar el URL de la imagen" v-model="foto" class="mx-auto" :rules="fotoRules">
+        </v-text-field>
         <v-img v-if="foto" :src="foto" height="200px">
         </v-img>
       </v-container>
       <v-container width="200">
-        <v-file-input label="Subir video" accept="video/*" v-model="video" class="mx-auto">
-        </v-file-input>
+        <v-text-field label="Ingresar el URL del video" accept="video/*" v-model="video" class="mx-auto">
+        </v-text-field>
         <video v-if="video" :src="video" controls>
         </video>
       </v-container>
@@ -42,6 +42,7 @@
 
 <script setup>
   import { ref } from 'vue';
+  import { useExcerciseStore }
 
   const props = defineProps(['from'])
   const from = props.from;
@@ -51,8 +52,20 @@
   const foto = ref('');
   const video = ref('');
 
-  async function create() {
-    
+  async function create () {
+    try {
+      const credentials = new Credentials(user.value, pass.value);
+      const userInfo = new UserInfo(name.value, surname.value, email.value, birth.value, height.value, weight.value);
+      loading.value = true;
+      await userStore.register(credentials,userInfo);
+      
+      router.push('/verify?email=' + email.value + '&user=' + user.value );
+    } catch (error) {
+      text.value = error.description;
+      snackbar.value = true;
+    } finally {
+      loading.value = false;
+    }
   }
 
 </script>
