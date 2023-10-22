@@ -42,7 +42,7 @@
 
 <script setup>
   import { ref } from 'vue';
-  import { useExcerciseStore } from '@/stores/exerciseStore';
+  import { useExerciseStore } from '@/stores/exerciseStore';
 
   const props = defineProps(['from'])
   const from = props.from;
@@ -56,7 +56,14 @@
 
   async function createExercise() {
     isLoading.value = true;
-    
+    try {
+            const res = await routineStore.newRoutine(routineName.value, routineDescription.value, estado.value, dificultad.value, muscles.value, goals.value, materials.value, routineImg.value);
+        } catch(error) {
+            text.value = error.description;
+            snackbar.value = true;
+        } finally {
+            onProcess.value = false;
+        }
   }
 
 </script>
