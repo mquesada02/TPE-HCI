@@ -20,7 +20,7 @@
         <v-row>
             <v-col>
                 <v-text-field class="pt-11" hide-details label="Nombre de la rutina:" single-line
-                    v-model:model-value="routineName"></v-text-field>
+                    v-model:model-value="routineName" :maxlength="30"></v-text-field>
             </v-col>
             <v-col>
                 <v-container>
@@ -32,7 +32,7 @@
             </v-col>
         </v-row>
         <v-divider></v-divider>
-        <v-textarea counter label="Descripción..." maxlength="500" single-line
+        <v-textarea counter label="Descripción..." maxlength="200" single-line
             v-model:model-value="routineDescription"></v-textarea>
     </v-form>
     <v-card class="card pt-3">
@@ -128,5 +128,8 @@ export default {
     top: 93%;
     right: 3%;
     transform: translateY(-50%);
+}
+.textarea {
+    height: 50px;
 }
 </style>
