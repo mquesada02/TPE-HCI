@@ -5,26 +5,26 @@
             <ExCard title="prueba"/>
         </v-col>
         <v-col>
-            <div class="d-flex pa-4">
+            <div class="d-flex pa-5" v-if="notDescanso">
                 <v-checkbox-btn
                 v-model="enabledReps"
-                class="pe-2"
                 ></v-checkbox-btn>
                 <v-text-field
                 :disabled="!enabledReps"
                 hide-details
                 label="Repeticones:"
+                style="width: 125px;"
                 ></v-text-field>
             </div>
             <div class="d-flex pa-4">
                 <v-checkbox-btn
                 v-model="enabledSeg"
-                class="pe-2"
                 ></v-checkbox-btn>
                 <v-text-field
                 :disabled="!enabledSeg"
                 hide-details
                 label="Segundos:"
+                style="width: 125px;"
                 ></v-text-field>
             </div>
         </v-col>
@@ -41,8 +41,11 @@
   }
 </script>
 
+LA CONST notDescanso TIENE Q IGUALARSE A LA VARIABLE DE API Q DIFERENCIA ENTRE EJERCICIO Y DESCANSO 
+
 <script setup>
     import ExCard from '@/components/ExcersiveCard.vue'
+    const notDescanso = true;
 </script>
 
 <style scoped>
