@@ -78,6 +78,10 @@ export const useUserStore = defineStore('user', () => {
         return UserApi.getRoutines();
     }
 
+    async function getCurrentRoutinesByPage(page) {
+        return UserApi.getRoutinesByPage(page);
+    }
+
     return {
         isLoggedIn,
         initialize,
@@ -88,6 +92,7 @@ export const useUserStore = defineStore('user', () => {
         getCurrentUser,
         modifyCurrentUser,
         getCurrentRoutines,
+        getCurrentRoutinesByPage,
         getAllUsers,
 
     }

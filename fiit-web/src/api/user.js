@@ -35,6 +35,10 @@ class UserApi {
         return await Api.get(UserApi.getUrl('current/routines'), true);
     }
 
+    static async getRoutinesByPage(page) {
+        return await Api.get(UserApi.getUrl(`current/routines?page=${page}`), true);
+    }
+
     static async modifyCurrent(userInfo) {
         return await Api.put(UserApi.getUrl('current'), true, userInfo);
     }
