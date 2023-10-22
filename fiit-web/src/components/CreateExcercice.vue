@@ -26,7 +26,7 @@
     </v-col>
     <v-container class="text-right">
         <div v-if="from">
-          <v-btn color="secondary" :loading="isLoading" @click="CreateAndAddToCycle()" type="submit" class="text-center mr-12 mb-8">Crear y añadir a
+          <v-btn color="secondary" :loading="isLoading" @click="createAndAddToCycle()" type="submit" class="text-center mr-12 mb-8">Crear y añadir a
             ciclo</v-btn>
         </div>
         <div v-else>
@@ -66,6 +66,10 @@
         } finally {
             isLoading.value = false;
         }
+  }
+
+  async function createAndAddToCycle(){
+    
   }
 
 </script>
