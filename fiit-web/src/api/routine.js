@@ -8,8 +8,16 @@ class RoutineApi {
         return `${Api.baseUrl}/routines${slug ? `/${slug}` : ''}`;
     }
 
+    static getSearchUrl(query) {
+        return RoutineApi.getUrl() + `?search=${query}`;
+    }
+
     static async getRoutines() {
         return await Api.get(RoutineApi.getUrl(), false);
+    }
+
+    static async getFilteredRoutines(query) {
+        return await Api.get(RoutineApi.getSearchUrl(query), false);
     }
 
     static async createRoutine(name, detail, isPublic, difficulty, metadata) {
