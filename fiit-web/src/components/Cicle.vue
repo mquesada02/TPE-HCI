@@ -37,19 +37,17 @@
                 </div>
             </v-app-bar>
         </div>
-        <div class="exerciseComponents" v-for="item in ejercicios">
-            <v-row>
-                <v-col>
+        <div class="exerciseComponents pt-15" v-for="item in ejercicios">
+            <v-row >
+                <div>
                     <AadEx />
-                </v-col>
-                <v-col>
-                    <div class="pt-10">
+                </div>
+                <div class="pt-11">
                         <v-btn>Borrar ejercicio</v-btn>
-                        <div class="pt-12">
-                            <v-btn>Editar ejercicio</v-btn>
-                        </div>
+                    <div class="pt-15">
+                        <v-btn>Editar ejercicio</v-btn>
                     </div>
-                </v-col>
+                </div>
             </v-row>
         </div>
         <v-row justify="center" align="center">
@@ -98,8 +96,6 @@
         </v-row>
     </v-app>
 </template>
-
-
 
 AAA NO FUNCIONA EL PROPS DEL TITULO NI EL DE TYPE
 EL ESPACIO DEL MEDIO ES PARA EL V-FOR Q MUESTRA LOS EJERCICIOS AGREGADOS
