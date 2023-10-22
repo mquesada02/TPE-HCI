@@ -20,7 +20,7 @@
   import MyRout from '@/components/RoutineIter.vue';
   import { onBeforeMount, ref } from 'vue';
   import { useUserStore } from '@/stores/userStore';
-  const texto = "No has creado ninguna rutina|"
+  const texto = "No has creado ninguna rutina todavia"
   const myroutines = ref([])
   onBeforeMount( async () => {
     const userStore = useUserStore();

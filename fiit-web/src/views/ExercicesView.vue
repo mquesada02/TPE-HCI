@@ -54,16 +54,6 @@
       import myExercices from '@/components/ExcerciceIter.vue';
       import CreateEx from '@/components/CreateExcercice.vue'
       const recientes = [
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' },
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
   ];
   </script>
 
