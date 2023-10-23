@@ -44,18 +44,39 @@
             </v-dialog>
           </v-row>
           <h1 class="pt-5">Mis ejercicios:</h1>
-          <myExercices :items="recientes"/>
+          <myExercices :items="exercices"/>
         </v-container>
       </v-main>
     </v-app>
   </template>
   
-  <script setup>
-      import myExercices from '@/components/ExcerciceIter.vue';
-      import CreateEx from '@/components/CreateExcercice.vue'
-      const recientes = [
-  ];
-  </script>
+<script setup>
+    import myExercices from '@/components/ExcerciceIter.vue';
+    import CreateEx from '@/components/CreateExcercice.vue'
+    import { onBeforeMount, ref } from 'vue';
+    import { useUserStore } from '@/stores/userStore';
+    import { useRoutineStore} from '@/stores/routineStore';
+    const exercices = ref([]);
+    onBeforeMount( async () => {
+      const userStore = useUserStore();
+      const ejercicios = ref(null);
+      const routineStore = useRoutineStore();
+      const var1 = ref(null);
+      let i = 0;
+      ejercicios.value = await userStore.getCurrentMyExcrcicesByPage(i);                      
+      ejercicios.value.content.forEach( async (elem) => {
+        var1.value= await routineStore.getExerciseImage(elem.id);
+        exercices.value.push({src: var1.value.url, title: elem.name, id: elem.id})
+      })
+      while (!ejercicios.value.isLastPage) {
+        ejercicios.value = await userStore.getCurrentMyExcrcicesByPage(++i);                        
+        ejercicios.value.content.forEach( async (elem) => {
+          var1.value= await routineStore.getExerciseImage(elem.id);
+          exercices.value.push({src: var1.value.url, title: elem.name, id: elem.id})
+        })
+      } 
+    })
+</script>
 
 <script>
 export default {

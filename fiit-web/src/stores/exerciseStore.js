@@ -30,9 +30,9 @@ export const useExerciseStore = defineStore('exercise', () => {
         const result = await ExerciseApi.addExercise(name, detail, type);
         pushExercise(result);
         const id = result.id;
-        if (image) { //no se bien como poner esto?
-            // then add an image and video to the exercise
-            await ExerciseApi.addExerciseImage(id, image);
+        if (image) { 
+            const res = await ExerciseApi.addExerciseImage(id, image);
+            console.log(res);
         }
         if(video){
             await ExerciseApi.addExerciseVideo(id, video);

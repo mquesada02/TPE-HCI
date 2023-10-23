@@ -33,7 +33,8 @@ class ExerciseApi {
     }
 
     static async getExerciseImage(id) {
-        return await Api.get(`${ExerciseApi.getUrl(id)}/images/1`, true);
+        const res = await Api.get(`${ExerciseApi.getUrl(id)}/images`, true);
+        return res.content[0];
     }
 
     static async modifyExerciseImage(id, url) {
@@ -60,4 +61,7 @@ class ExerciseApi {
         return await Api.delete(`${ExerciseApi.getUrl(id)}/videos/1`, true);
     }
 
+    static async getMyExecrcicesByPage(page) {
+        return await Api.get(ExerciseApi.getUrl()+`?page=${page}`, true);
+    }
 }

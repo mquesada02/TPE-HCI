@@ -12,9 +12,9 @@
           </v-img>
 
       <v-container>
-        <SmallCarousel title="Destacadas" :imgs="destacadas"/>
-        <SmallCarousel title="Recientes" :imgs="recientes"/>
-        <SmallCarousel title="Recomendaciones para tí" :imgs="recomendaciones"/>
+        <SmallCarousel v-if="userStore.isLoggedIn" title="Destacadas" :imgs="destacadas"/>
+        <SmallCarousel v-if="userStore.isLoggedIn" title="Recientes" :imgs="recientes"/>
+        <SmallCarousel v-if="userStore.isLoggedIn" title="Recomendaciones para tí" :imgs="recomendaciones"/>
       </v-container>
     </v-main>
   </v-app>
@@ -23,11 +23,13 @@
 <script setup>
   import SmallCarousel from '@/components/SmallCarousel.vue';
   import { useRoutineStore } from '@/stores/routineStore';
+  import { useUserStore } from '@/stores/userStore';
   import { onBeforeMount } from 'vue';
   import { ref } from 'vue'
 
 const destacadas = ref([])
 
+const userStore = useUserStore();
 onBeforeMount( async () => {
   const routineStore = useRoutineStore();
   const routines = await routineStore.retrieveRoutines();

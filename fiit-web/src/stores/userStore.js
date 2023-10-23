@@ -2,6 +2,7 @@ import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { UserApi } from '@/api/user';
 import { Api } from '@/api/api';
+import { ExerciseApi } from '@/api/exercise';
 
 const SECURITY_TOKEN_KEY = 'security-token'
 
@@ -82,6 +83,10 @@ export const useUserStore = defineStore('user', () => {
         return UserApi.getRoutinesByPage(page);
     }
 
+    async function getCurrentMyExcrcicesByPage(page) {
+        return ExerciseApi.getMyExecrcicesByPage(page);
+    }
+
     return {
         isLoggedIn,
         initialize,
@@ -94,6 +99,6 @@ export const useUserStore = defineStore('user', () => {
         getCurrentRoutines,
         getCurrentRoutinesByPage,
         getAllUsers,
-
+        getCurrentMyExcrcicesByPage,
     }
 });

@@ -11,12 +11,11 @@
                         cover/>
                     </div>
                 </v-row>
-                <RoutineCardInfo :id="id" :description="description" :intensity="intensity" :muscles="muscles" :material="material"/>
+                <RoutineCardInfo :img="img" :difficulty="difficulty" :isPublic="isPublic" :id="id" :name="name" 
+                :description="description" :intensity="intensity" :muscles="muscles" :material="material"/>
             </v-col>
-            <v-col class="d-flex mt-8 justify-center align-center">
-                <div class="pt-4">
+            <v-col class="d-flex  text-center pt-15">
                   <ExcerciceScroller/>
-                </div>
             </v-col>
         </v-row>
         <v-row>
@@ -34,19 +33,18 @@
 <script setup>
     import RoutineCardInfo from '@/components/RoutineCardInfo.vue';
     import ExcerciceScroller from '@/components/ExcerciceScroller.vue';
-    
     import { useRoutineStore } from '@/stores/routineStore';
     import { onBeforeMount, ref } from 'vue';
-
     const src = ref('');
     const muscles = ref([]);
     const material = ref([]);
     const description = ref('');
     const intensity = ref('');
     const name = ref('');
-
+    const isPublic = ref(false);
+    const difficulty = ref('');
+    const img = ref('');
     const id = ref('');
-    
     onBeforeMount(async () => {
         const routineStore = useRoutineStore();
         const params = new URLSearchParams(location.search);
@@ -54,9 +52,12 @@
         const routine = await routineStore.retrieveRoutineById(id.value);
         src.value = routine.metadata.img;
         name.value = routine.name;
+        difficulty.value = routine.difficulty
         intensity.value = routine.difficulty === 'rookie' ? 'Bajo' : routine.difficulty === 'intermediate' ? 'Medio' : 'Alto';
         description.value = routine.detail;
         muscles.value = routine.metadata.muscles;
         material.value = routine.metadata.materials;
+        isPublic.value = routine.isPublic;
+        img.value = routine.metadata.img;
     })
 </script>

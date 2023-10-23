@@ -1,6 +1,6 @@
 import { Api } from "@/api/api.js";
 
-export { RoutineApi, CycleInfo, Cycle }
+export { RoutineApi, CycleInfo, Cycle, RoutineInfo }
 
 class RoutineApi {
     
@@ -71,6 +71,16 @@ class CycleInfo {
 
     setOrder(order){
         this.order = order;
+    }
+}
+
+class RoutineInfo {
+    constructor(name, detail, isPublic, difficulty, metadata) {
+        this.name = name;
+        this.detail = detail;
+        this.isPublic = isPublic;
+        this.difficulty = difficulty;
+        this.metadata = metadata;
     }
 }
 

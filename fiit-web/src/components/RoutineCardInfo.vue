@@ -1,7 +1,7 @@
 <template>
     <v-sheet rounded="xl" color="lighter" width="35vw" min-height="100vh" class="pa-5 mt-5">
-        <v-row class="pa-5 d-flex justify-end">
-            <v-icon icon="mdi-pencil" @click="deletee()"></v-icon>
+        <v-row v-if="routineUserID.value == userID.value" class="pa-5 d-flex justify-end">
+            <v-icon icon="mdi-pencil" @click="overlay = !overlay"></v-icon>
         </v-row>
         <v-row class="d-flex align-center justify-center">
             <v-rating hover :length="5" :size="70" :model-value="3" color="black" active-color="primary" />
@@ -50,30 +50,94 @@
             </v-col>
         </v-row>
         <v-row class="d-flex justify-end align-start pa-5">
-            <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
+            <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" 
+                empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
             <v-icon size="24" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
         </v-row>
     </v-sheet>
+    <v-overlay class="align-center justify-center" location-strategy="static" v-model:model-value="overlay">
+        <v-card width="50vw" height="80%">
+            <v-card-title class="text-center">
+                <h1>Editar rutina</h1>
+            </v-card-title>
+            <v-card-text>
+                <v-text-field v-model:model-value="name" label="Nombre" outlined></v-text-field>
+                <v-textarea v-model:model-value="desc" label="Descripción" outlined></v-textarea>
+                <v-text-field v-model:model-value="imagen" label="URL de la imagen de la rutina" outlined></v-text-field>
+                <v-select v-model:model-value="mat" :items="routineStore.getMaterial()" label="Equipamiento" multiple outlined></v-select>
+                <v-select v-model:model-value="musc" :items="routineStore.getMuscles()" label="Músculos a trabajar" multiple outlined></v-select>
+                <v-select v-model:model-value="int" :items="routineStore.getIntensity()" label="Intensidad" outlined></v-select>
+                <v-btn  text @click="cancel()">Cancelar</v-btn>
+                <v-btn  text @click="save()">Guardar</v-btn>
+            </v-card-text>
+        </v-card>
+    </v-overlay>
 </template>
-
+ 
 <script setup>
     import { useRoutineStore } from '@/stores/routineStore';
+    import { useUserStore } from '@/stores/userStore';
 import { watch } from 'vue';
 import { onBeforeMount } from 'vue';
 import { ref } from 'vue';
-    const props = defineProps(['id','description', 'muscles', 'material', 'intensity'])
+import { RoutineInfo} from '@/api/routine.js'
+    const props = defineProps(['img','isPublic','name','id','description', 'muscles', 'material', 'intensity', 'difficulty'])
     const routineStore = useRoutineStore();
+    const userStore = useUserStore();
     const id = props.id;
     const favState = ref(0);
     const favourites = ref([]);
+    const isPublic = ref(props.isPublic);
+    const difficulty = ref(props.difficulty);
+
+    const name = ref(props.name);
+    const desc = ref(props.description);
+    const musc = ref(props.muscles);
+    const mat = ref(props.material);
+    const int = ref(props.intensity);
+    const imagen = ref(props.img)
+
+    const routineUserID = ref('');
+    const userID = ref('');
+
     onBeforeMount(async () => {
         favourites.value = await routineStore.retrieveFavourites();
         favourites.value.forEach((elem) => {
             if (elem.id == id) { 
                 favState.value = 1;
+                routineUserID.value = elem.user.id;
             }
         })
+
+        const result = await userStore.getCurrentUser();
+        userID.value = await result.id;
+        
+        name.value = props.name;
+        desc.value = props.description;
+        musc.value = props.muscles;
+        mat.value = props.material;
+        int.value = props.intensity;
+        imagen.value = props.img;
+        isPublic.value = props.isPublic;
+        difficulty.value = props.difficulty;
     })
+    const overlay = ref(false);
+    function cancel() {
+        overlay.value = !overlay.value;
+    }
+
+    async function save() {
+        const metadata = {
+            muscles: musc.value,
+            materials: mat.value,
+            img: imagen.value
+        }
+        const routineInfo = new RoutineInfo(name.value, desc.value, isPublic.value ,difficulty.value, metadata)
+        console.log(id)
+        await routineStore.modifyRoutine(id, routineInfo);
+        overlay.value = !overlay.value
+    }
+
 
     watch(favState, async (newVal, oldVal) => {
         if (newVal === 1) {
@@ -91,9 +155,7 @@ import { ref } from 'vue';
         }
     })
 
-    function modify() {
-
-    }
+    
     
     function deletee() {
 
