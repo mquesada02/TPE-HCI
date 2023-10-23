@@ -37,6 +37,7 @@ export const useExerciseStore = defineStore('exercise', () => {
         if(video){
             await ExerciseApi.addExerciseVideo(id, video);
         }
+        return id
     }
 
     async function getExercise(id) {

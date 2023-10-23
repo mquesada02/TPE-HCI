@@ -43,6 +43,7 @@
 <script setup>
   import { ref } from 'vue';
   import { useExerciseStore } from '@/stores/exerciseStore';
+  import { inject } from 'vue';
 
   const exerciseStore = useExerciseStore();
 
@@ -56,10 +57,13 @@
 
   const isLoading = ref(false);
 
+  const exercises = inject('exercises');
+
   async function createExercise() {
     isLoading.value = true;
+    const id = ref(null);
     try {
-            const res = await exerciseStore.createExercise(nombre.value, descripcion.value, "exercise", foto.value, video.value);
+            id.value = await exerciseStore.createExercise(nombre.value, descripcion.value, "exercise", foto.value, video.value);
         } catch(error) {
             text.value = error.description;
             snackbar.value = true;
@@ -68,12 +72,18 @@
         }
   }
 
-  async function addToCycle(){
-    
-  }
-
   async function createAndAddToCycle(){
-
+    isLoading.value = true;
+    const id = ref(null);
+    try {
+            id.value = await exerciseStore.createExercise(nombre.value, descripcion.value, "exercise", foto.value, video.value);
+        } catch(error) {
+            text.value = error.description;
+            snackbar.value = true;
+        } finally {
+            isLoading.value = false;
+        }
+    exercises.push(id);
   }
 
 </script>

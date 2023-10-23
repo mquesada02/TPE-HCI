@@ -55,8 +55,8 @@ export const useRoutineStore = defineStore('routine', () => {
        return routines.value;
     }
 
-    async function filterRoutines(query) {
-        return await RoutineApi.getFilteredRoutines(query);
+    async function filterRoutinesByPage(page, query) {
+        return await RoutineApi.getFilteredRoutinesByPage(page, query);
     }
 
     async function retrieveRoutineById(id) {
@@ -100,7 +100,7 @@ export const useRoutineStore = defineStore('routine', () => {
         modifyRoutine,
         retrieveRoutineById,
         retrieveRoutines,
-        filterRoutines,
+        filterRoutinesByPage,
         retrieveFavourites,
         addCycle,
         markAsFavourite,

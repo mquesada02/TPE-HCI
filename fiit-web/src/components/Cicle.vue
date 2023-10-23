@@ -24,7 +24,7 @@
                 </v-text-field>
             </div>
         </v-app-bar>
-        
+
         <div class="exerciseComponents pt-15" v-for="item in exercises"> <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
             <v-row >
                 <div>
@@ -127,6 +127,7 @@ EL V-FOR DE AadEx's RECORRE EL ARRAY DE EJERCICIOS Q SE RECIBE COMO PROPS
     import AadEx from '@/components/AddExCard.vue'
     import CreateEx from '@/components/CreateExcercice.vue'
     import BuscadorEjercicios from '@/components/SearchExercise.vue'
+import { provide } from 'vue';
     import { inject } from 'vue';
 
     const props = defineProps(['title', 'type', 'arrayPos'])
@@ -135,10 +136,11 @@ EL V-FOR DE AadEx's RECORRE EL ARRAY DE EJERCICIOS Q SE RECIBE COMO PROPS
     const arrayPos = props.arrayPos
 
     const ciclos = inject('ciclos');
-    console.log(ciclos.value)
-    console.log(ciclos.value[0].exercisesArray)
+    console.log(ciclos.value);
+    console.log(ciclos.value[0].exercisesArray);
 
-    const exercises = ciclos.value[arrayPos].exercisesArray
+    const exercises = ciclos.value[arrayPos].exercisesArray;
+    provide('exercises', exercises);
 
     // ciclos.value[arrayPos].cycleInfo.setOrder(numberOfSeries);
 </script>

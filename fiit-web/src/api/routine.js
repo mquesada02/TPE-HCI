@@ -12,6 +12,10 @@ class RoutineApi {
         return RoutineApi.getUrl() + `?search=${query}`;
     }
 
+    static getSearchUrlByPage(page, query) {
+        return RoutineApi.getUrl(`?page=${page}`) + `&?search=${query}`;
+    }
+
     static async geteCycleExerciseUrl(slugCycle, slugExercise){
         return `${Api.baseUrl}/cycles/${slugCycle}/exercises${slugExercise ? `/${slugExercise}` : ''}`;
     }
@@ -20,8 +24,8 @@ class RoutineApi {
         return await Api.get(RoutineApi.getUrl(), false);
     }
 
-    static async getFilteredRoutines(query) {
-        return await Api.get(RoutineApi.getSearchUrl(query), false);
+    static async getFilteredRoutinesByPage(page, query) {
+        return await Api.get(RoutineApi.getSearchUrlByPage(page,query), false);
     }
 
     static async createRoutine(name, detail, isPublic, difficulty, metadata) {

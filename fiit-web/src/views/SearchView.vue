@@ -1,6 +1,9 @@
 <template>
     <v-app id="searchScreen">
         <SearchBar />
+        <v-container>
+        <MyRout :items="myroutines" :text="texto"/>
+    </v-container>
     </v-app>
 </template>
 
@@ -12,4 +15,29 @@
 
 <script setup>
     import SearchBar from '@/components/SearchBar.vue';
+    import MyRout from '@/components/RoutineIter.vue';
+    import { onBeforeMount, ref } from 'vue';
+    import { useRoutineStore } from '@/stores/routineStore';
+import { inject } from 'vue';
+
+    const texto="No se encontraron resultados para tu búsqueda"
+    const myroutines = ref([]);
+    const query = '';
+    onBeforeMount( async () => {
+    const routineStore = useRoutineStore();
+    const routines = ref(null)
+    let i = 0;
+    routines.value = await routineStore.filterRoutinesByPage(i, query);
+    routines.value.content.forEach((elem) => {
+      myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
+    })
+    
+    while (!routines.value.isLastPage) {
+      routines.value = await routineStore.filterRoutinesByPage(++i, query);
+      routines.value.content.forEach((elem) => {
+        myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
+      })
+    }
+    console.log(myroutines.value.length)
+  })
 </script>
