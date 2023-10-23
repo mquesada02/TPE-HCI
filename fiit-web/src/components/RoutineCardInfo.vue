@@ -87,15 +87,6 @@ import { RoutineInfo} from '@/api/routine.js'
     const favourites = ref([]);
     const isPublic = props.isPublic;
     const difficulty = props.difficulty;
-    onBeforeMount(async () => {
-        favourites.value = await routineStore.retrieveFavourites();
-        favourites.value.forEach((elem) => {
-            if (elem.id == id) { 
-                favState.value = 1;
-            }
-        })
-    })
-    const overlay = ref(false);
 
     const name = ref(props.name);
     const desc = ref(props.description);
@@ -103,6 +94,23 @@ import { RoutineInfo} from '@/api/routine.js'
     const mat = ref(props.material);
     const int = ref(props.intensity);
     const imagen = ref(props.img)
+    onBeforeMount(async () => {
+        favourites.value = await routineStore.retrieveFavourites();
+        favourites.value.forEach((elem) => {
+            if (elem.id == id) { 
+                favState.value = 1;
+            }
+        })
+        name.value = props.name;
+        desc.value = props.description;
+        musc.value = props.muscles;
+        mat.value = props.material;
+        int.value = props.intensity;
+        imagen.value = props.img;
+    })
+    const overlay = ref(false);
+
+    
 
     function cancel() {
         overlay.value = !overlay.value;
