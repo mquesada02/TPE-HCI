@@ -4,7 +4,7 @@
             <v-icon icon="mdi-pencil" @click="overlay = !overlay"></v-icon>
         </v-row>
         <v-row class="d-flex align-center justify-center">
-            <v-rating hover :length="5" :size="70" :model-value="3" color="black" active-color="primary" />
+            <v-rating hover :length="5" :size="70" v-model:model-value="rating" color="black" active-color="primary" />
         </v-row>
         <v-row>
             <v-col>
@@ -52,7 +52,7 @@
         <v-row class="d-flex justify-end align-start pa-5">
             <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" 
                 empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
-            <v-icon size="24" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
+            <v-icon v-if="routineUserID.value == userID.value" :size="32" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
         </v-row>
     </v-sheet>
     <v-overlay class="align-center justify-center" location-strategy="static" v-model:model-value="overlay">
@@ -81,6 +81,7 @@ import { watch } from 'vue';
 import { onBeforeMount } from 'vue';
 import { ref } from 'vue';
 import { RoutineInfo} from '@/api/routine.js'
+import router from '@/router';
     const props = defineProps(['img','isPublic','name','id','description', 'muscles', 'material', 'intensity', 'difficulty'])
     const routineStore = useRoutineStore();
     const userStore = useUserStore();
@@ -96,6 +97,9 @@ import { RoutineInfo} from '@/api/routine.js'
     const mat = ref(props.material);
     const int = ref(props.intensity);
     const imagen = ref(props.img)
+    const done = ref(false);
+
+    const rating = ref(0);
 
     const routineUserID = ref('');
     const userID = ref('');
@@ -109,6 +113,11 @@ import { RoutineInfo} from '@/api/routine.js'
             }
         })
 
+        const allratings = await routineStore.getReviews(id);
+        if (allratings.content.length !== 0) {
+            allratings.content.forEach((elem) => { rating.value += elem.score; })
+            rating.value = Math.trunc(rating.value / allratings.content.length);
+        }
         const result = await userStore.getCurrentUser();
         userID.value = await result.id;
         
@@ -120,6 +129,8 @@ import { RoutineInfo} from '@/api/routine.js'
         imagen.value = props.img;
         isPublic.value = props.isPublic;
         difficulty.value = props.difficulty;
+
+        done.value = true;
     })
     const overlay = ref(false);
     function cancel() {
@@ -133,7 +144,6 @@ import { RoutineInfo} from '@/api/routine.js'
             img: imagen.value
         }
         const routineInfo = new RoutineInfo(name.value, desc.value, isPublic.value ,difficulty.value, metadata)
-        console.log(id)
         await routineStore.modifyRoutine(id, routineInfo);
         overlay.value = !overlay.value
     }
@@ -155,10 +165,18 @@ import { RoutineInfo} from '@/api/routine.js'
         }
     })
 
+    watch(rating, async (newVal, oldVal) => {
+        if (!done) return;
+        await routineStore.addReview(id, newVal);
+    })
     
-    
-    function deletee() {
-
+    async function deletee() {
+        try {
+            await routineStore.deleteRoutine(id);
+            router.go(-1);
+        } catch(error) {
+            console.log(error.description);
+        }
     }
 
 </script>

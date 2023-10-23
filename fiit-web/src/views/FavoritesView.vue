@@ -3,7 +3,6 @@
     <v-app id="Favorites">
       <v-main color="background">
         <v-container>
-          <FavsRec title="Recientes" :imgs="recientes"/>
           <h1 class="pt-5">Mis favoritos:</h1>
           <Myfavs :items="myfavs" :text="texto"/>
         </v-container>
@@ -34,11 +33,4 @@
           myfavs.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
         })
     })
-
-    const recientes = [
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' }
-  ];
 </script>
