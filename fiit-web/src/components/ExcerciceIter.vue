@@ -24,7 +24,7 @@
     </template>
 
     <template v-slot:footer>
-    <div class="d-flex align-center justify-space-around pa-4">
+    <div class="d-flex align-center justify-space-around pa-4 pages">
         <v-spacer></v-spacer>
         <span class="mr-4 grey--text">
           Página {{ page }} de {{ numberOfPages }}
@@ -61,4 +61,12 @@
     if (page.value - 1 >= 1) page.value -= 1
   }
 </script>
+<style scoped>
+  .pages {
+    position: fixed;
+    right: 18%;
+    bottom: 10%;
+    margin: 20px; /* Ajusta el margen según tus preferencias */
+  }
+</style>
 
