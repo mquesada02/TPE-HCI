@@ -3,8 +3,6 @@
     v-model:items-per-page="itemsPerPage"
     v-model:page="page"
     :items="items"
-    :search="search"
-    :sort-by="sortBy"
   >
     <template v-slot:no-data>
       <v-alert class="ma-2" type="warning">No has creado ningun ejercicio</v-alert>
