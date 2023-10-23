@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-row>
+    <v-row class="container">
       <ProfileCard />
       <ProfileRoutines />
     </v-row>
@@ -13,3 +13,10 @@ import ProfileCard from '@/components/ProfileCard.vue';
 import ProfileRoutines from '@/components/ProfileRoutines.vue';
 
 </script>
+
+<style scoped>
+  .container{
+    padding:20px;
+    padding-bottom: 30px;
+  }
+</style>

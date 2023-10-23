@@ -27,7 +27,7 @@
   import { onBeforeMount, ref } from 'vue';
   import { useUserStore } from '@/stores/userStore';
   const userStore = useUserStore();
-  const texto = "No has creado ninguna rutina todavia"
+  const texto = "No has creado ninguna rutina"
   const myroutines = ref([])
   onBeforeMount( async () => {
     const userStore = useUserStore();

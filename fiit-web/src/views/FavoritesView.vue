@@ -19,7 +19,6 @@
 <script setup>
     import FavsRec from '@/components/Recently.vue';
     import Myfavs from '@/components/RoutineIter.vue';
-    import NotLogIn from '@/views/NotLogInView.vue';
     import { useRoutineStore } from '@/stores/routineStore';
     import { onBeforeMount, ref } from 'vue';
     import { useUserStore } from '@/stores/userStore';

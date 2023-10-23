@@ -168,7 +168,7 @@ export default {
 }
 
 .sheet {
-    background-color: black;
+    background-color: #121212;
     padding: 30px;
     width:100%;
     margin:auto;

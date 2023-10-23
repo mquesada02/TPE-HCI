@@ -27,12 +27,15 @@
                       <v-card>
                           <v-card-actions>
                             <v-card-text class="text-center">
-                                <v-btn @click="dialogSheet=false" class="pt-5">
-                                    Queeeeeeddaaettte atte:Quevedo
-                                </v-btn>
-                                <v-btn color="primary" block @click="dialogSheet = false, dialogCrear=false">
-                                    Si usted vuelve a la busqueda de rutina perdera el progreso de este ejercicio
-                                </v-btn>
+                              Salir sin guardar?
+                              <v-divider class="pt-2"></v-divider>
+                              <v-btn color="primary" block width="50%"
+                                  @click="dialogSheet = false, dialogCrear = false">
+                                  Salir
+                              </v-btn>
+                              <v-btn @click="dialogSheet = false" class="pt-5">
+                                  Canelar
+                              </v-btn>
                             </v-card-text>
                           </v-card-actions>
                       </v-card>

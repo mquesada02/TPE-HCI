@@ -7,7 +7,7 @@
     :sort-by="sortBy"
   >
     <template v-slot:no-data>
-      <v-alert class="ma-2" type="warning">No hay ningún ejercicio creado</v-alert>
+      <v-alert class="ma-2" type="warning">No has creado ningun ejercicio</v-alert>
     </template>
 
     <template v-slot:default="{items}" >

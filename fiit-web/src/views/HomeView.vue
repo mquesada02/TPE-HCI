@@ -9,7 +9,7 @@
             </p>
           </v-img>
       <v-container v-if="userStore.isLoggedIn">
-        <SmallCarousel title="Destacadas" :imgs="destacadas"/>
+        <SmallCarousel title="Destacadas" :imgs="destacadas" text="No hay rutinas disponibles"/>
         <SmallCarousel title="Recientes" :imgs="recientes"/>
         <SmallCarousel title="Recomendaciones para tí" :imgs="recomendaciones"/>
       </v-container>

@@ -1,8 +1,7 @@
 <template>
-    <v-sheet width="60vw" color="background" rounded="xl" height="80vh" class="d-flex align-center justify-space-evenly flex-column mt-15" >
-        <br/>    
-        <SmallCarousel title="Mis rutinas" :imgs="myroutines"/>
-            <SmallCarousel title="Mis favoritos" :imgs="myfavs"/>
+    <v-sheet width="50%" color="background" height="80vh" class="align-start justify-space-evenly flex-column mt-10">
+        <SmallCarousel title="Mis rutinas" :imgs="myroutines" text="No has creado ninguna rutina"/>
+        <SmallCarousel title="Mis favoritos" :imgs="myfavs" text="No has agregado ninguna rutina a favoritos"/>
     </v-sheet>
 </template>
 
