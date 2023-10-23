@@ -16,7 +16,7 @@
         </v-card>
         </v-dialog>
     </div>
-    <div class="pt-5">
+    <div class="pt-3">
       <Cicle :title="props.title" :type="true" :arrayPos="props.arrayPos"/>
     </div>
 </template> 

@@ -1,5 +1,5 @@
 <template>
-    <v-sheet height="100%" width="30vw" color="secondary" rounded="xl" elevation="10" class="d-flex justify-center ma-5">
+    <v-sheet height="100%" width="40%" color="secondary" rounded="xl" elevation="10" class="d-flex justify-center ma-5">
         <v-sheet v-if="!modifyMode" height="95%" width="95%" color="lighter" elevation="10" rounded="xl" class=" ma-3 text-center">
             <div class="pa-4 d-flex flex-row-reverse">
                 <v-btn @click="modify()" size="50" color="primary" icon="mdi-pencil" />
@@ -8,14 +8,14 @@
                 <v-icon v-if="!avatar" size="150" class="mdi" icon="mdi-account" />
                 <v-img v-else :src="avatar" class="white--text" height="150" width="150" />
             </v-avatar>
-            <p class="pt-4 font-weight-bold text-h2 text-center drop-shadow-lg mb-4">{{ user.username }}</p>
+            <p class="pt-4 font-weight-bold text-h3 text-center drop-shadow-lg mb-4">{{ user.username }}</p>
             <p class="text-h5 text-center drop-shadow-lg mb-4">{{ firstName }} {{ lastName }}</p>
             <p class="text-h6 text-center drop-shadow-lg mb-4">Edad: {{ age }} años</p>
             <p class="text-h6 text-center drop-shadow-lg mb-4">Peso: {{ weight }}kg</p>
             <p class="text-h6 text-center drop-shadow-lg mb-4">Altura: {{ height }}cm</p>
-            <v-btn color="secondary" type="submit" @click="logOut" class="text-center mb-8">Cerrar Sesion</v-btn>
+            <v-btn color="secondary" type="submit" @click="logOut" class="text-center mb-8" append-icon="mdi-logout">Cerrar Sesion</v-btn>
         </v-sheet>
-        <v-sheet v-else height="100%" width="100%" color="lighter" rounded="xl" class="pa-0 text-center">
+        <v-sheet v-else height="100%" width="100%" color="lighter" rounded="xl" class="pa-10 text-center">
             <v-form @submit.prevent="onSubmit">
                 <v-text-field type="text" v-model:model-value="avatar" label="Avatar URL"></v-text-field>
                 <img v-if="avatar" :src="avatar" height="150" width="150" />

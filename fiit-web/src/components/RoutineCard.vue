@@ -28,7 +28,7 @@
                 :size="32"
                 active-color="primary"
                 style="position: absolute; bottom: 0; z-index: 1;"/>
-                <v-card-text class="pt-5 ml-4">numerito {{ Rating }}</v-card-text>
+                <v-card-text class="pt-5 ml-4"> {{ rating }}</v-card-text>
             </div>
         </v-row>
     </v-card>
@@ -37,15 +37,15 @@
 <script setup>
     import { onBeforeMount, ref } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';
-    const props = defineProps(['img','title', 'selectedClass', 'toggle', 'rating', 'id']);
+    const props = defineProps(['img','title', 'selectedClass', 'toggle', 'id']);
     const img = props.img;
     const cardTitle = props.title;
     const selectedClass = props.selectedClass;
     const toggle = props.toggle;
-    const Rating = props.rating;
     const id = props.id;
     const link = `/newRoutine?id=${id}`;
     const favState = ref(false);
+    const rating = ref(0);
     const routineStore = useRoutineStore();
     const favourites = ref([]);
     onBeforeMount(async () => {
@@ -55,6 +55,15 @@
                 favState.value = 1;
             }
         })
+        const allratings = await routineStore.getReviews(id);
+        
+        if (allratings.content.length !== 0) {
+            rating.value = 0;
+            allratings.content.forEach((elem) => { rating.value += elem.score; })
+            rating.value = Math.trunc(rating.value / allratings.content.length);
+        } else {
+            rating.value = 'No rating';
+        }
     })
 </script>
 

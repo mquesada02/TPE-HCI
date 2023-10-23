@@ -56,7 +56,7 @@
     <AlertSnackbar />
     </div>
     <div v-else>
-        <NotLogIn/>
+        {{ router.push('/login') }}
     </div>
 </template>
 
@@ -74,7 +74,6 @@ data: () => ({
     import PrePostWorkout from '@/components/PrePostWorkout.vue';
     import AlertSnackbar from '@/components/AlertSnackbar.vue'
     import router from '@/router';
-    import NotLogIn from './NotLogInView.vue';
     import { provide, ref } from 'vue';
     import { computed } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';

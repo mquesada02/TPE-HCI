@@ -17,17 +17,17 @@
     </v-app>
   </div>
   <div v-else>
-    <NotLogIn/>
+    {{ router.push('/login') }}
   </div>
 </template>
   
 <script setup>
-  import NotLogIn from '@/views/NotLogInView.vue';
+  import router from '@/router';
   import MyRout from '@/components/RoutineIter.vue';
   import { onBeforeMount, ref } from 'vue';
   import { useUserStore } from '@/stores/userStore';
   const userStore = useUserStore();
-  const texto = "No has creado ninguna rutina todavia"
+  const texto = "No has creado ninguna rutina"
   const myroutines = ref([])
   onBeforeMount( async () => {
     const userStore = useUserStore();
@@ -39,7 +39,6 @@
     })
     
     while (!routines.value.isLastPage) {
-      console.log(routines.value.isLastPage);
       routines.value = await userStore.getCurrentRoutinesByPage(++i);
       routines.value.content.forEach((elem) => {
         myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})

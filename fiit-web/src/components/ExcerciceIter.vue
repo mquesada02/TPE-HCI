@@ -7,7 +7,7 @@
     :sort-by="sortBy"
   >
     <template v-slot:no-data>
-      <v-alert class="ma-2" type="warning">No has creado ningun ejercicio todavia</v-alert>
+      <v-alert class="ma-2" type="warning">No has creado ningun ejercicio</v-alert>
     </template>
 
     <template v-slot:default="{items}" >
@@ -48,9 +48,6 @@
   import { computed, ref } from 'vue'
   const props = defineProps(['items'])
   const items = props.items;
-  for (let i = 0; i < items.length; i++) {
-      items[i].src = new URL('../assets/img/ejercicios/' + items[i].src, import.meta.url).href;
-    }
   const itemsPerPage = ref(8)
   const page = ref(1)
   const numberOfPages = computed(() => {

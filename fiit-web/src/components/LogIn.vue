@@ -42,7 +42,7 @@
       const credentials = new Credentials(user.value, password.value);
       loading.value = true;
       await userStore.login(credentials, remember);
-      router.push('/');
+      router.go(-1);
     } catch (error) {
       text.value = error.description;
       snackbar.value = true;

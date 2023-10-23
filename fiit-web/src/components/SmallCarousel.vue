@@ -4,6 +4,7 @@
       max-width="100%"
     >
     <p class="pl-3 pt-3 text-h4 font-weight-medium">{{ title }}</p>
+    <v-alert v-if="imgs.length==0" class="ma-2" type="warning">{{ text }}</v-alert>
       <v-slide-group
         class="pa-4"
         selected-class="bg-success"
@@ -22,9 +23,10 @@
 
 <script setup>
     import RoutineCard from './RoutineCard.vue';
-    const props = defineProps(['title','imgs']);
+    const props = defineProps(['title','imgs','text']);
     const title = props.title;
     const imgs = props.imgs;
+    const text = props.text;
     for (let i = 0; i < imgs.length; i++) {
       imgs[i].src = new URL('../assets/img/ejercicios/' + imgs[i].src, import.meta.url).href;
     }

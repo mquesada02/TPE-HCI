@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app class="pb-4 pt-4">
+        <v-app-bar app class="pb-3 pt-2">
             <div v-if="type" class="ml-3">
                 <v-toolbar-title class="size">
                     Ciclo {{ title }}
@@ -17,7 +17,7 @@
             </div>
             <v-spacer></v-spacer>
             <div class="pt-6 mr-4">
-                <v-text-field v-model="numberOfSeries" outlined dense :rules="seriesRules">
+                <v-text-field density="compact" v-model="numberOfSeries" outlined dense :rules="seriesRules">
                     <template v-slot:prepend>
                         <span class="size">Series:</span>
                     </template>
@@ -77,37 +77,18 @@
                             </v-sheet>
                         </v-dialog>
                         <v-btn class="botones-ej" @click="dialogBuscar = true">Buscar ejercicio</v-btn>
-                        <v-card-actions>
                             <v-dialog v-model="dialogBuscar" width="auto">
                                 <v-sheet class="sheet">
-                                    <v-row class=" pt-5">
-                                        <v-btn color="secondary" @click="dialogSheet = true">
+                                    <div>
+                                        <v-btn color="secondary" @click="dialogSheet = false, dialogBuscar = false">
                                             <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
                                         </v-btn>
-                                        <v-dialog v-model="dialogSheet" width="auto">
-                                            <v-card>
-                                                <v-card-actions>
-                                                    <v-card-text class="text-center">
-                                                        Salir sin guardar?
-                                                        <v-divider class="pt-2"></v-divider>
-                                                        <v-btn color="primary" block width="50%"
-                                                            @click="dialogSheet = false, dialogBuscar = false">
-                                                            Salir
-                                                        </v-btn>
-                                                        <v-btn @click="dialogSheet = false" class="pt-5">
-                                                            Cancelar
-                                                        </v-btn>
-                                                    </v-card-text>
-                                                </v-card-actions>
-                                            </v-card>
-                                        </v-dialog>
-                                    </v-row>
-                                    <v-row>
+                                    </div>
+                                    <div>
                                         <BuscadorEjercicios class="pt-3"/>
-                                    </v-row>
+                                    </div>
                                 </v-sheet>
                             </v-dialog>
-                        </v-card-actions>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
@@ -166,12 +147,15 @@ export default {
 
 <style scoped>
 .size {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .sheet {
-    background-color: black;
-    padding: 40px;
+    background-color: #121212;
+    padding: 30px;
+    width:80vw;
+    height:100vh;
+    margin:auto;
 }
 
 .exerciseComponents{
@@ -181,7 +165,8 @@ export default {
 }
 
 .botones-ej{
-    margin:15px;
+    margin-right:15px;
+    margin-left:15px;
 }
 
 

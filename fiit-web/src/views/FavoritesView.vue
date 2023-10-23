@@ -3,7 +3,6 @@
     <v-app id="Favorites">
       <v-main color="background">
         <v-container>
-          <FavsRec title="Recientes" :imgs="recientes"/>
           <h1 class="pt-5">Mis favoritos:</h1>
           <Myfavs :items="myfavs" :text="texto"/>
         </v-container>
@@ -11,7 +10,7 @@
     </v-app>
   </div>
   <div v-else>
-    <NotLogIn/>
+    {{ router.push('/login') }}
   </div>
 </template>
 
@@ -19,10 +18,10 @@
 <script setup>
     import FavsRec from '@/components/Recently.vue';
     import Myfavs from '@/components/RoutineIter.vue';
-    import NotLogIn from '@/views/NotLogInView.vue';
     import { useRoutineStore } from '@/stores/routineStore';
     import { onBeforeMount, ref } from 'vue';
     import { useUserStore } from '@/stores/userStore';
+    import router from '@/router';
     const userStore = useUserStore();
     const texto = "No has agregado ninguna rutina a favoritos"
     const myfavs = ref([])
@@ -34,11 +33,4 @@
           myfavs.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
         })
     })
-
-    const recientes = [
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' }
-  ];
 </script>

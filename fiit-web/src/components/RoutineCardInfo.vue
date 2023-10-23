@@ -4,7 +4,7 @@
             <v-icon icon="mdi-pencil" @click="overlay = !overlay"></v-icon>
         </v-row>
         <v-row class="d-flex align-center justify-center">
-            <v-rating hover :length="5" :size="70" :model-value="3" color="black" active-color="primary" />
+            <v-rating hover :length="5" :size="ratingSize" v-model:model-value="rating" color="black" active-color="primary" />
         </v-row>
         <v-row>
             <v-col>
@@ -52,7 +52,7 @@
         <v-row class="d-flex justify-end align-start pa-5">
             <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" 
                 empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
-            <v-icon size="24" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
+            <v-icon v-if="routineUserID.value == userID.value" :size="32" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
         </v-row>
     </v-sheet>
     <v-overlay class="align-center justify-center" location-strategy="static" v-model:model-value="overlay">
@@ -61,7 +61,7 @@
                 <h1>Editar rutina</h1>
             </v-card-title>
             <v-card-text>
-                <v-text-field v-model:model-value="name" label="Nombre" outlined></v-text-field>
+                <v-text-field v-model:model-value="routineName" label="Nombre" outlined></v-text-field>
                 <v-textarea v-model:model-value="desc" label="Descripción" outlined></v-textarea>
                 <v-text-field v-model:model-value="imagen" label="URL de la imagen de la rutina" outlined></v-text-field>
                 <v-select v-model:model-value="mat" :items="routineStore.getMaterial()" label="Equipamiento" multiple outlined></v-select>
@@ -81,6 +81,9 @@ import { watch } from 'vue';
 import { onBeforeMount } from 'vue';
 import { ref } from 'vue';
 import { RoutineInfo} from '@/api/routine.js'
+import router from '@/router';
+import { computed } from 'vue';
+import { useDisplay } from 'vuetify';
     const props = defineProps(['img','isPublic','name','id','description', 'muscles', 'material', 'intensity', 'difficulty'])
     const routineStore = useRoutineStore();
     const userStore = useUserStore();
@@ -90,12 +93,25 @@ import { RoutineInfo} from '@/api/routine.js'
     const isPublic = ref(props.isPublic);
     const difficulty = ref(props.difficulty);
 
-    const name = ref(props.name);
+    const routineName = ref(props.name);
     const desc = ref(props.description);
     const musc = ref(props.muscles);
     const mat = ref(props.material);
     const int = ref(props.intensity);
     const imagen = ref(props.img)
+    const done = ref(false);
+
+    const rating = ref(0);
+    const {name} = useDisplay()
+    const ratingSize = computed( () => {
+        switch(name.value){
+            case 'xs': return 25
+            case 'sm': return 35
+            case 'md': return 50
+            case 'lg': return 60
+            default: return 70
+        }
+    })
 
     const routineUserID = ref('');
     const userID = ref('');
@@ -109,10 +125,15 @@ import { RoutineInfo} from '@/api/routine.js'
             }
         })
 
+        const allratings = await routineStore.getReviews(id);
+        if (allratings.content.length !== 0) {
+            allratings.content.forEach((elem) => { rating.value += elem.score; })
+            rating.value = Math.trunc(rating.value / allratings.content.length);
+        }
         const result = await userStore.getCurrentUser();
         userID.value = await result.id;
         
-        name.value = props.name;
+        routineName.value = props.name;
         desc.value = props.description;
         musc.value = props.muscles;
         mat.value = props.material;
@@ -120,6 +141,8 @@ import { RoutineInfo} from '@/api/routine.js'
         imagen.value = props.img;
         isPublic.value = props.isPublic;
         difficulty.value = props.difficulty;
+
+        done.value = true;
     })
     const overlay = ref(false);
     function cancel() {
@@ -132,8 +155,7 @@ import { RoutineInfo} from '@/api/routine.js'
             materials: mat.value,
             img: imagen.value
         }
-        const routineInfo = new RoutineInfo(name.value, desc.value, isPublic.value ,difficulty.value, metadata)
-        console.log(id)
+        const routineInfo = new RoutineInfo(routineName.value, desc.value, isPublic.value ,difficulty.value, metadata)
         await routineStore.modifyRoutine(id, routineInfo);
         overlay.value = !overlay.value
     }
@@ -155,10 +177,18 @@ import { RoutineInfo} from '@/api/routine.js'
         }
     })
 
+    watch(rating, async (newVal, oldVal) => {
+        if (!done) return;
+        await routineStore.addReview(id, newVal);
+    })
     
-    
-    function deletee() {
-
+    async function deletee() {
+        try {
+            await routineStore.deleteRoutine(id);
+            router.go(-1);
+        } catch(error) {
+            console.log(error.description);
+        }
     }
 
 </script>
