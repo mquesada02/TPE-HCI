@@ -18,43 +18,43 @@
         <div class="checkbox-list">
           Músculo
           <v-divider></v-divider>
-          <v-checkbox label="Abdominales" values="Abdominales"></v-checkbox>
-          <v-checkbox label="Biceps" values="Biceps"></v-checkbox>
-          <v-checkbox label="Cuádriceps" values="Cuádriceps"></v-checkbox>
-          <v-checkbox label="Espalda" values="Espalda"></v-checkbox>
-          <v-checkbox label="Glúteos" values="Glúteos"></v-checkbox>
-          <v-checkbox label="Gemelos" values="Gemelos"></v-checkbox>
-          <v-checkbox label="Isquiotibiales" values="Isquiotibiales"></v-checkbox>
-          <v-checkbox label="Hombro" values="Hombro"></v-checkbox>
-          <v-checkbox label="Pectoral" values="Pectoral"></v-checkbox>
-          <v-checkbox label="Triceps" values="Triceps"></v-checkbox>
+          <v-checkbox label="Abdominales" value="Abdominales" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Biceps" value="Biceps" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Cuádriceps" value="Cuádriceps" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Espalda" value="Espalda" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Glúteos" value="Glúteos" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Gemelos" value="Gemelos" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Isquiotibiales" value="Isquiotibiales" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Hombro" value="Hombro" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Pectoral" value="Pectoral" v-model="musculos"></v-checkbox>
+          <v-checkbox label="Triceps" value="Triceps" v-model="musculos"></v-checkbox>
         </div>
 
         <div class="checkbox-list">
           Intensidad
           <v-divider></v-divider>
-          <v-checkbox label="Baja" values="Baja"></v-checkbox>
-          <v-checkbox label="Media" values="Media"></v-checkbox>
-          <v-checkbox label="Alta" values="Alta"></v-checkbox>
+          <v-checkbox label="Baja" value="Baja"></v-checkbox>
+          <v-checkbox label="Media" value="Media"></v-checkbox>
+          <v-checkbox label="Alta" value="Alta"></v-checkbox>
         </div>
 
         <div class="checkbox-list">
           Objetivo
           <v-divider></v-divider>
-          <v-checkbox label="Fuerza" values="Fuerza"></v-checkbox>
-          <v-checkbox label="Bajar de peso" values="Bajar de peso"></v-checkbox>
-          <v-checkbox label="Flexibilidad" values="Flexibilidad"></v-checkbox>
-          <v-checkbox label="Ganar músculo" values="Ganar músculo"></v-checkbox>
+          <v-checkbox label="Fuerza" value="Fuerza"></v-checkbox>
+          <v-checkbox label="Bajar de peso" value="Bajar de peso"></v-checkbox>
+          <v-checkbox label="Flexibilidad" value="Flexibilidad"></v-checkbox>
+          <v-checkbox label="Ganar músculo" value="Ganar músculo"></v-checkbox>
         </div>
 
         <div class="checkbox-list">
           Equipamiento
           <v-divider></v-divider>
-          <v-checkbox label="Sin material" values="Sin material"></v-checkbox>
-          <v-checkbox label="Máquinas" values="Máquinas"></v-checkbox>
-          <v-checkbox label="Pesas" values="Pesas"></v-checkbox>
-          <v-checkbox label="Banda elástica" values="Banda elástica"></v-checkbox>
-          <v-checkbox label="Soga" values="Glúteos"></v-checkbox>
+          <v-checkbox label="Sin material" value="Sin material"></v-checkbox>
+          <v-checkbox label="Máquinas" value="Máquinas"></v-checkbox>
+          <v-checkbox label="Pesas" value="Pesas"></v-checkbox>
+          <v-checkbox label="Banda elástica" value="Banda elástica"></v-checkbox>
+          <v-checkbox label="Soga" value="Glúteos"></v-checkbox>
         </div>
         <v-card-actions>
           <v-spacer />
@@ -107,4 +107,10 @@ import { onDeactivated } from 'vue';
     }),
     components: { onDeactivated }
 }
+</script>
+
+<script setup>
+  import { ref } from 'vue';
+
+  const musculos = ref([]);
 </script>

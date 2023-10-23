@@ -1,5 +1,6 @@
 <template>
-    <v-card color="background">
+    <div v-if="userStore.isLoggedIn">
+        <v-card color="background">
       <v-tabs grow v-model="tab">
         <v-tab value="one">Descripción 
             <div v-if="descCheckbox">
@@ -53,6 +54,10 @@
         </v-btn>
     </div>
     <AlertSnackbar />
+    </div>
+    <div v-else>
+        <NotLogIn/>
+    </div>
 </template>
 
 <script>
@@ -67,13 +72,15 @@ data: () => ({
     import Desc from '@/components/Description.vue';
     import Workout from '@/components/Workout.vue';
     import PrePostWorkout from '@/components/PrePostWorkout.vue';
+    import AlertSnackbar from '@/components/AlertSnackbar.vue'
+    import router from '@/router';
+    import NotLogIn from './NotLogInView.vue';
     import { provide, ref } from 'vue';
     import { computed } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';
-    import AlertSnackbar from '@/components/AlertSnackbar.vue'
-    import router from '@/router';
     import { CycleInfo, Cycle } from '@/api/routine';
-
+    import { useUserStore } from '@/stores/userStore';
+    const userStore = useUserStore();
     const routineStore = useRoutineStore();
 
     /* Descripción */

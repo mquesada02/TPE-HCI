@@ -3,31 +3,31 @@
         <v-text-field 
         class="search_box"
         bg-color="lighter"
-        label="Buscar"
-        append-inner-icon="magnify"></v-text-field>
-
+        label="Buscar rutinas públicas..."
+        append-inner-icon="magnify"
+        v-model:model-value="search"
+        ></v-text-field>
+        <v-icon icon="mdi-magnify" 
+            size="x-large" 
+            class="pt-10 pr-8 pl-2"
+            @click="change()"></v-icon>
         <filters-menu class="pt-5"/>
-        <!-- <filter-button :items="musculoItems" label="Músculo"></filter-button>
-
-        <filter-button :items="intensidadItems" label="Intensidad"></filter-button>
-
-        <filter-button :items="objetivoItems" label="Objetivo"></filter-button>
-
-        <filter-button :items="materialItems" label="Material"></filter-button> -->
     </div>
 </template>
 
 <script setup>
-    import FilterButton from '@/components/FilterButton.vue';
     import { useRoutineStore } from '@/stores/routineStore';
-import FiltersMenu from './FiltersMenu.vue';
+    import FiltersMenu from './FiltersMenu.vue';
+    import { ref, provide, inject } from 'vue';
 
-    const routineStore = useRoutineStore();
+    const search = ref('');
 
-    const musculoItems = routineStore.getMuscles();
-    const intensidadItems = routineStore.getIntensity();
-    const objetivoItems = routineStore.getGoal();
-    const materialItems = routineStore.getMaterial();
+    const query = inject('query')
+
+    function change(){
+        query.value=search.value
+    }
+
 </script>
 
 <style scoped>

@@ -7,7 +7,7 @@
         <v-tabs grow >
             <v-tab v-if="!tooSmall" append-icon="mdi-home" to="/" text="Inicio" />
             <v-tab v-if="!tooSmall" append-icon="mdi-plus" to="/addRoutine" text="Crear rutina"/>
-            <v-tab v-if="!tooSmall" append-icon="mdi-folder" to="/myRoutines" text="Mis rutinas"/>
+            <v-tab v-if="!tooSmall" append-icon="mdi-folder" to="/myRoutines" text="Mis entrenamientos"/>
             <v-tab v-if="!tooSmall" append-icon="mdi-heart" to="/favourites" text="Favoritos"/>
             <v-tab v-if="!tooSmall" append-icon="mdi-magnify" to="/search" text="Búsqueda"/>
             <v-tab v-if="!tooSmall && !user.isLoggedIn" append-icon="mdi-account" to="/login" text="Iniciar Sesión"/>

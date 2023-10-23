@@ -29,15 +29,7 @@
         class="text-field-center ml-8"
         :rules="passwordRules">
     </v-text-field>
-    <!-- <v-text-field
-        label="Altura (cm)" 
-        v-model:model-value="height"
-          variant="underlined"
-          class="text-field-center ml-8"
-          :rules="alturaRules">
-    </v-text-field> -->
     </v-col>
-
     <v-col cols="12" md="6">
       <v-text-field
         label="Nombre" 
@@ -46,8 +38,6 @@
         class="text-field-center mr-8"
         :rules="nombreRules">
     </v-text-field>
-      
-    
     <v-text-field
         label="Apellido"
         v-model:model-value="surname"
@@ -55,7 +45,6 @@
         class="text-field-center mr-8"
         :rules="apellidoRules">
       </v-text-field>
-      
       <v-text-field
         label="Fecha de Nacimiento" 
         v-model:model-value="birth"
@@ -63,14 +52,6 @@
           class="text-field-center mr-8"
           :rules="fechaRules">
     </v-text-field>
-      
-      <!-- <v-text-field
-        label="Peso (kg)" 
-        v-model:model-value="weight"
-          variant="underlined"
-          class="text-field-center mr-8"
-          :rules="pesoRules">
-    </v-text-field> -->
     </v-col>
     </v-row>
       <p class="drop-shadow-lg text-h7 text-center mb-5"> ¿Ya tienes cuenta? <router-link to="/login">Inicia sesión</router-link></p>
@@ -83,15 +64,12 @@
 </template>
 
 <script setup>
-
   import { ref, provide } from 'vue';
   import { useUserStore } from '@/stores/userStore';
   import { useRouter } from 'vue-router';
   import { Credentials, UserInfo } from '@/api/user.js';
   import AlertSnackbar from './AlertSnackbar.vue';
-
   const router = useRouter();
-
   const email = ref('');
   const pass = ref('');
   const name = ref('');
@@ -100,14 +78,11 @@
   const birth = ref('');
   const height =  ref('');
   const weight = ref('');
-
   const snackbar = ref(false)
   const text = ref('');
   provide('snackbar', snackbar);
   provide('text', text);
-
   const loading = ref(false);
-
   const userStore = useUserStore();
   async function onSubmit () {
     try {
@@ -124,12 +99,9 @@
       loading.value = false;
     }
   };
-
-
 </script>
 
 <script>
-
 export default {
   computed: {
     emailRules() {
@@ -178,7 +150,6 @@ export default {
         ) {
           return 'Fecha no válida';
         }
-
         return true;
       },
     ];
@@ -189,12 +160,10 @@ export default {
         if (!v) {
           return 'La altura es requerida';
         }
-
         const alturaNum = parseFloat(v);
         if (isNaN(alturaNum) || alturaNum < 0 || alturaNum > 250) {
           return 'Ingrese una altura valida';
         }
-
         return true;
       },
     ];

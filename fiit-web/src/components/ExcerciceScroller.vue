@@ -1,12 +1,12 @@
 <template>
-    <v-card class="mx-auto" max-width="1100">
+    <v-card class="mx-auto">
     <v-card-title>
         Ejercicios:
     </v-card-title>
     <v-divider></v-divider>
     <v-virtual-scroll
         :height="650"
-        :items="['1', '2', '225', '26', '27', '28', '29', '30']">
+        :items="['1', '2', '3', '4', '5', '6', '7']">
         <template v-slot:default="{ item }">
             <div style="background-color: #FF8A65;" class="rounded-template" max-width="900">
                 <v-row>
@@ -24,7 +24,7 @@
                         </div>
                     </v-col>
                     <v-col>
-                        <div class="pt-8 ml-16">
+                        <div class="pt-8">
                         <v-btn size="large" icon="mdi-play" to="/oneExercice"></v-btn>
                         </div>
                     </v-col>
@@ -39,8 +39,8 @@
 //Al igual q el nombre de item.name
 //Al igual q la dirección a la q debe redireccionar cada play
 
-  <script setup>
+<script setup>
     const props = defineProps(['itemss']);
-    const itemss = props.itemss;
-  </script>
+    const itemss = props.itemss;    
+</script>
 

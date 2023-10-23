@@ -36,9 +36,7 @@
 <script setup>
   import router from '@/router';
   import { useUserStore } from '@/stores/userStore';
-
   const userStore = useUserStore();
-
   async function logOut () {
     try {
       await userStore.logout();
@@ -47,17 +45,13 @@
       alert(error.description);
     }
   };
-
 </script>
 
 <style>
-.myParagraph {
-  font-size: 27px;
-}
- .subrayado {
+  .myParagraph {
+    font-size: 27px;
+  }
+  .subrayado {
       text-decoration: underline;
-    }
-  
-
-
+  }
 </style>

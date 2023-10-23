@@ -6,7 +6,6 @@
       </p>
       <v-container>
         <v-text-field type="text" v-model:model-value="user" label="Usuario" :rules="userRequired"></v-text-field>
-
         <v-text-field type="password" v-model:model-value="password" label="Contraseña" :rules="passwordRequired"></v-text-field>
         <v-checkbox v-model="remember" label="Recuérdame"></v-checkbox>
         <p class="drop-shadow-lg  text-center my-4">
@@ -18,7 +17,6 @@
     </v-form>
     <AlertSnackbar />
   </v-sheet>
-  
 </template>
 
 <script setup>
@@ -28,25 +26,17 @@
   import { Credentials } from '@/api/user.js';
   import AlertSnackbar from '@/components/AlertSnackbar.vue';
   import { provide } from 'vue';
-  import { useRoutineStore } from '@/stores/routineStore';
-
   const userStore = useUserStore();
-  const routineStore = useRoutineStore();
-
   const remember = ref(false);
   const user = ref('');
   const password = ref('');
-
   const snackbar = ref(false)
   const text = ref('');
   provide('snackbar', snackbar);
   provide('text', text);
-
   const params = new URLSearchParams(location.search);
   user.value = params.get("user");
-
   const loading = ref(false);
-
   async function onSubmit () {
     try {
       const credentials = new Credentials(user.value, password.value);
@@ -62,16 +52,14 @@
     } finally {
       loading.value = false;
     }
-    
   };
-  
 </script>
 
 <script>
-export default {
-  computed: {
-    userRequired() { return [ (v) => !!v || 'El usuario es requerido',] },
-    passwordRequired() { return [ (v) => !!v || 'La contraseña es requerida',] },
+  export default {
+    computed: {
+      userRequired() { return [ (v) => !!v || 'El usuario es requerido',] },
+      passwordRequired() { return [ (v) => !!v || 'La contraseña es requerida',] },
+    }
   }
-}
 </script>
