@@ -22,7 +22,7 @@
         </v-row>
       </template>
       <template v-slot:footer>
-      <div class="d-flex align-center justify-space-around pa-4">
+      <div class="d-flex align-center justify-space-around pa-4 pages">
           <v-spacer></v-spacer>
           <span class="mr-4 grey--text">
             Página {{ page }} de {{ numberOfPages }}
@@ -39,6 +39,14 @@
 </template>
   
   
+<style scoped>
+  .pages {
+    position: fixed;
+    right: 18%;
+    bottom: 10%;
+    margin: 20px; /* Ajusta el margen según tus preferencias */
+  }
+</style>
 <script setup>
   import RoutineCard from './RoutineCard.vue';
   import { computed, ref } from 'vue'
