@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app class="pb-4 pt-4">
+        <v-app-bar app class="pb-3 pt-2">
             <div v-if="type" class="ml-3">
                 <v-toolbar-title class="size">
                     Ciclo {{ title }}
@@ -17,7 +17,7 @@
             </div>
             <v-spacer></v-spacer>
             <div class="pt-6 mr-4">
-                <v-text-field v-model="numberOfSeries" outlined dense :rules="seriesRules">
+                <v-text-field density="compact" v-model="numberOfSeries" outlined dense :rules="seriesRules">
                     <template v-slot:prepend>
                         <span class="size">Series:</span>
                     </template>
@@ -77,10 +77,9 @@
                             </v-sheet>
                         </v-dialog>
                         <v-btn class="botones-ej" @click="dialogBuscar = true">Buscar ejercicio</v-btn>
-                        <v-card-actions>
                             <v-dialog v-model="dialogBuscar" width="auto">
                                 <v-sheet class="sheet">
-                                    <v-row class=" pt-5">
+                                    <div>
                                         <v-btn color="secondary" @click="dialogSheet = true">
                                             <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
                                         </v-btn>
@@ -101,13 +100,12 @@
                                                 </v-card-actions>
                                             </v-card>
                                         </v-dialog>
-                                    </v-row>
-                                    <v-row>
+                                    </div>
+                                    <div>
                                         <BuscadorEjercicios class="pt-3"/>
-                                    </v-row>
+                                    </div>
                                 </v-sheet>
                             </v-dialog>
-                        </v-card-actions>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
@@ -166,12 +164,14 @@ export default {
 
 <style scoped>
 .size {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .sheet {
     background-color: black;
-    padding: 40px;
+    padding: 30px;
+    width:100%;
+    margin:auto;
 }
 
 .exerciseComponents{
@@ -181,7 +181,8 @@ export default {
 }
 
 .botones-ej{
-    margin:15px;
+    margin-right:15px;
+    margin-left:15px;
 }
 
 

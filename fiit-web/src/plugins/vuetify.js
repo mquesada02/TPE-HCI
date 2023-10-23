@@ -27,7 +27,7 @@ export default createVuetify({
           error: '#E90000',
           info: '#F55E3D',
           success: '#4CAF50',
-          warning: '#FB8C00',
+          warning: '#212121',
           completed: '#32CD32',
           white: '#FFFFFF'
         },

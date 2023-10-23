@@ -8,7 +8,7 @@
     </v-app>
     </div>
     <div v-else>
-        <NotLogIn/>
+      {{ router.push('/login') }}
     </div>
 </template>
 
@@ -21,7 +21,7 @@
 <script setup>
     import SearchBar from '@/components/SearchBar.vue';
     import MyRout from '@/components/RoutineIter.vue';
-    import NotLogIn from '@/views/NotLogInView.vue';
+    import router from '@/router';
     import { onBeforeMount, ref } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';
 import { provide } from 'vue';

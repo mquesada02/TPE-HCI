@@ -1,6 +1,7 @@
 <template>
     <div class="search_bar" color="secondary">
         <v-text-field 
+        clearable
         class="search_box"
         bg-color="lighter"
         label="Buscar rutinas públicas..."

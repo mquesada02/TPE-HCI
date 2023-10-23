@@ -47,6 +47,6 @@ AL INSTANCIAR CADA CICLO SE LE ENVIA SU ARRAY (como props) Q SIEMPRE COMIENZA VA
 
 <style scoped>
     .size {
-    font-size: 25px;
+    font-size: 20px;
     }
 </style>

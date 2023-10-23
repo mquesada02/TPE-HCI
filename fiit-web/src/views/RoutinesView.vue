@@ -17,12 +17,12 @@
     </v-app>
   </div>
   <div v-else>
-    <NotLogIn/>
+    {{ router.push('/login') }}
   </div>
 </template>
   
 <script setup>
-  import NotLogIn from '@/views/NotLogInView.vue';
+  import router from '@/router';
   import MyRout from '@/components/RoutineIter.vue';
   import { onBeforeMount, ref } from 'vue';
   import { useUserStore } from '@/stores/userStore';

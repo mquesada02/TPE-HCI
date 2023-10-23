@@ -11,7 +11,7 @@
     </v-app>
   </div>
   <div v-else>
-    <NotLogIn/>
+    {{ router.push('/login') }}
   </div>
 </template>
 
@@ -23,6 +23,7 @@
     import { useRoutineStore } from '@/stores/routineStore';
     import { onBeforeMount, ref } from 'vue';
     import { useUserStore } from '@/stores/userStore';
+    import router from '@/router';
     const userStore = useUserStore();
     const texto = "No has agregado ninguna rutina a favoritos"
     const myfavs = ref([])
