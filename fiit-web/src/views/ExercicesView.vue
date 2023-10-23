@@ -64,24 +64,19 @@
       const userStore = useUserStore();
       const ejercicios = ref(null);
       const routineStore = useRoutineStore();
-      const var1 = ref(null);
+      
       let i = 0;
       ejercicios.value = await userStore.getCurrentMyExcrcicesByPage(i);                      
       ejercicios.value.content.forEach( async (elem) => {
+        const var1 = ref(null);
         var1.value= await routineStore.getExerciseImage(elem.id);
-        const var2 = var1.value.url;
-        if (!var1.value.url)
-          var2.value = 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'
-        exercices.value.push({src: var2.value, title: elem.name, id: elem.id})
+        exercices.value.push({src: var1.value?.url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg', title: elem.name, id: elem.id})
       })
       while (!ejercicios.value.isLastPage) {
         ejercicios.value = await userStore.getCurrentMyExcrcicesByPage(++i);                        
         ejercicios.value.content.forEach( async (elem) => {
           var1.value= await routineStore.getExerciseImage(elem.id);
-          const var2 = var1.value.url;
-          if (!var1.value.url)
-            var2.value = 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'
-          exercices.value.push({src: var1.value.url, title: elem.name, id: elem.id})
+          exercices.value.push({src: var1.value?.url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg', title: elem.name, id: elem.id})
         })
       } 
     })
