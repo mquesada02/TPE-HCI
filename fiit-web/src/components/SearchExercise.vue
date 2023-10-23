@@ -1,28 +1,27 @@
 <template>
-        <v-row align="center" justify="center">
-                <v-text-field 
-                class="search_box pt-5"
-                bg-color="lighter"
-                label="Buscar"
-                append-inner-icon="magnify">
-                </v-text-field>
-        </v-row>
-        <iterador-de-ej :items="recientes"/>
+        <v-card width="100vw" height="80vh">
+
+        </v-card>
+                
 </template>
 
 <script setup>
+        import { ExerciseApi } from '@/api/exercise';
         import iteradorDeEj from '@/components/ExcerciceIter.vue'
-        const recientes = [
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' },
-    { src: 'abdominales bicicleta.webp', title: 'Abdominales en bicicleta' },
-    { src: 'abductores.jpg', title: 'Abductores' },
-    { src: 'dominadas.jpg', title: 'Dominadas' },
-    { src: 'elevaciones laterales.jpeg', title: 'Elevaciones laterales' },
-    { src: 'estiramiento abductores.jpg', title: 'Estiramiento de abductores' }
-  ];
+        import { onBeforeMount, ref } from 'vue';
+        
+        const myexercises = ref([]);
+        onBeforeMount(async () => {
+                const exercises = ref([])
+                const res = await ExerciseApi.getAllExercises();
+                exercises.value = res.content;
+                exercises.value.forEach((exercise) => {
+                        myexercises.value.push({ src: exercise.image, title: exercise.name })
+                });
+
+        })
+        
+        
+
 </script>
 
