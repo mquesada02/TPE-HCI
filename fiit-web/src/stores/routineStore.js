@@ -3,6 +3,7 @@ import { RoutineApi } from '@/api/routine';
 import { ref } from 'vue';
 import { FavouritesApi } from '@/api/favourites';
 import { ExerciseApi } from '@/api/exercise';
+import { ReviewApi } from '@/api/review';
 
 export const useRoutineStore = defineStore('routine', () => {
 
@@ -96,6 +97,14 @@ export const useRoutineStore = defineStore('routine', () => {
             favourites.value = favourites.value.filter(r => r.id !== routineId);
     }
 
+    async function addReview(routineId, score) {
+        return await ReviewApi.addReview(routineId, score);
+    }
+
+    async function getReviews(routineId) {
+        return await ReviewApi.getReviews(routineId);
+    }
+
     async function getExerciseImage(id) {
         return await ExerciseApi.getExerciseImage(id);
     }
@@ -120,6 +129,8 @@ export const useRoutineStore = defineStore('routine', () => {
         addCycle,
         markAsFavourite,
         unmarkAsFavourite,
+        addReview,
+        getReviews,
         getExerciseImage,
     }
 });

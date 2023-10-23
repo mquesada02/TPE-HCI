@@ -4,7 +4,7 @@
             <v-icon icon="mdi-pencil" @click="overlay = !overlay"></v-icon>
         </v-row>
         <v-row class="d-flex align-center justify-center">
-            <v-rating hover :length="5" :size="70" :model-value="3" color="black" active-color="primary" />
+            <v-rating hover :length="5" :size="70" v-model:model-value="rating" color="black" active-color="primary" />
         </v-row>
         <v-row>
             <v-col>
@@ -97,6 +97,9 @@ import router from '@/router';
     const mat = ref(props.material);
     const int = ref(props.intensity);
     const imagen = ref(props.img)
+    const done = ref(false);
+
+    const rating = ref(0);
 
     const routineUserID = ref('');
     const userID = ref('');
@@ -110,6 +113,11 @@ import router from '@/router';
             }
         })
 
+        const allratings = await routineStore.getReviews(id);
+        if (allratings.content.length !== 0) {
+            allratings.content.forEach((elem) => { rating.value += elem.score; })
+            rating.value = Math.trunc(rating.value / allratings.content.length);
+        }
         const result = await userStore.getCurrentUser();
         userID.value = await result.id;
         
@@ -121,6 +129,8 @@ import router from '@/router';
         imagen.value = props.img;
         isPublic.value = props.isPublic;
         difficulty.value = props.difficulty;
+
+        done.value = true;
     })
     const overlay = ref(false);
     function cancel() {
@@ -134,7 +144,6 @@ import router from '@/router';
             img: imagen.value
         }
         const routineInfo = new RoutineInfo(name.value, desc.value, isPublic.value ,difficulty.value, metadata)
-        console.log(id)
         await routineStore.modifyRoutine(id, routineInfo);
         overlay.value = !overlay.value
     }
@@ -156,7 +165,10 @@ import router from '@/router';
         }
     })
 
-    
+    watch(rating, async (newVal, oldVal) => {
+        if (!done) return;
+        await routineStore.addReview(id, newVal);
+    })
     
     async function deletee() {
         try {
