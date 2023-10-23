@@ -49,6 +49,10 @@ export const useRoutineStore = defineStore('routine', () => {
         return await RoutineApi.modifyRoutine(id, routineInfo);
     }
 
+    async function deleteRoutine(id) {
+        return await RoutineApi.removeRoutine(id);
+    }
+
     async function retrieveRoutines() {
         if (!routines.value || routines.value.length === 0) {
             routines.value = await RoutineApi.getRoutines();
@@ -105,6 +109,7 @@ export const useRoutineStore = defineStore('routine', () => {
         getIntensity,
         getGoal,
         getMaterial,
+        deleteRoutine,
         newRoutine,
         modifyRoutine,
         retrieveRoutineById,

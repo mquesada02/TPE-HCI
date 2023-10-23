@@ -12,6 +12,10 @@ class RoutineApi {
         return RoutineApi.getUrl() + `?search=${query}`;
     }
 
+    static removeRoutine(id) {
+        return Api.delete(RoutineApi.getUrl(id), true);
+    }
+
     static getSearchUrlByPage(page, query) {
         return RoutineApi.getUrl() + `?search=${query}&page=${page}`;
     }

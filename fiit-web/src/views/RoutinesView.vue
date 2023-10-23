@@ -39,7 +39,6 @@
     })
     
     while (!routines.value.isLastPage) {
-      console.log(routines.value.isLastPage);
       routines.value = await userStore.getCurrentRoutinesByPage(++i);
       routines.value.content.forEach((elem) => {
         myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})

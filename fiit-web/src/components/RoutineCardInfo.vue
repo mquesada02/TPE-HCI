@@ -52,7 +52,7 @@
         <v-row class="d-flex justify-end align-start pa-5">
             <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" 
                 empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
-            <v-icon size="24" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
+            <v-icon v-if="routineUserID.value == userID.value" :size="32" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
         </v-row>
     </v-sheet>
     <v-overlay class="align-center justify-center" location-strategy="static" v-model:model-value="overlay">
@@ -81,6 +81,7 @@ import { watch } from 'vue';
 import { onBeforeMount } from 'vue';
 import { ref } from 'vue';
 import { RoutineInfo} from '@/api/routine.js'
+import router from '@/router';
     const props = defineProps(['img','isPublic','name','id','description', 'muscles', 'material', 'intensity', 'difficulty'])
     const routineStore = useRoutineStore();
     const userStore = useUserStore();
@@ -157,8 +158,13 @@ import { RoutineInfo} from '@/api/routine.js'
 
     
     
-    function deletee() {
-
+    async function deletee() {
+        try {
+            await routineStore.deleteRoutine(id);
+            router.go(-1);
+        } catch(error) {
+            console.log(error.description);
+        }
     }
 
 </script>

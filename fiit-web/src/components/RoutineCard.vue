@@ -28,7 +28,7 @@
                 :size="32"
                 active-color="primary"
                 style="position: absolute; bottom: 0; z-index: 1;"/>
-                <v-card-text class="pt-5 ml-4">numerito {{ Rating }}</v-card-text>
+                <v-card-text class="pt-5 ml-4"> {{ Rating }}</v-card-text>
             </div>
         </v-row>
     </v-card>
