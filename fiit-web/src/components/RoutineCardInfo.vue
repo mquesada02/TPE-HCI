@@ -87,8 +87,8 @@ import { RoutineInfo} from '@/api/routine.js'
     const id = props.id;
     const favState = ref(0);
     const favourites = ref([]);
-    const isPublic = props.isPublic;
-    const difficulty = props.difficulty;
+    const isPublic = ref(props.isPublic);
+    const difficulty = ref(props.difficulty);
 
     const name = ref(props.name);
     const desc = ref(props.description);
@@ -118,6 +118,8 @@ import { RoutineInfo} from '@/api/routine.js'
         mat.value = props.material;
         int.value = props.intensity;
         imagen.value = props.img;
+        isPublic.value = props.isPublic;
+        difficulty.value = props.difficulty;
     })
     const overlay = ref(false);
     function cancel() {
@@ -130,7 +132,7 @@ import { RoutineInfo} from '@/api/routine.js'
             materials: mat.value,
             img: imagen.value
         }
-        const routineInfo = new RoutineInfo(name.value, desc.value, isPublic ,difficulty, metadata)
+        const routineInfo = new RoutineInfo(name.value, desc.value, isPublic.value ,difficulty.value, metadata)
         console.log(id)
         await routineStore.modifyRoutine(id, routineInfo);
         overlay.value = !overlay.value
