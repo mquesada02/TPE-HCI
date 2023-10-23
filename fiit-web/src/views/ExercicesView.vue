@@ -69,12 +69,18 @@
       ejercicios.value = await userStore.getCurrentMyExcrcicesByPage(i);                      
       ejercicios.value.content.forEach( async (elem) => {
         var1.value= await routineStore.getExerciseImage(elem.id);
-        exercices.value.push({src: var1.value.url, title: elem.name, id: elem.id})
+        const var2 = var1.value.url;
+        if (!var1.value.url)
+          var2.value = 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'
+        exercices.value.push({src: var2.value, title: elem.name, id: elem.id})
       })
       while (!ejercicios.value.isLastPage) {
         ejercicios.value = await userStore.getCurrentMyExcrcicesByPage(++i);                        
         ejercicios.value.content.forEach( async (elem) => {
           var1.value= await routineStore.getExerciseImage(elem.id);
+          const var2 = var1.value.url;
+          if (!var1.value.url)
+            var2.value = 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg'
           exercices.value.push({src: var1.value.url, title: elem.name, id: elem.id})
         })
       } 
