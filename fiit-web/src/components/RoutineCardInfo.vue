@@ -50,7 +50,8 @@
             </v-col>
         </v-row>
         <v-row class="d-flex justify-end align-start pa-5">
-            <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
+            <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" 
+                empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
             <v-icon size="24" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
         </v-row>
     </v-sheet>
@@ -72,7 +73,7 @@
         </v-card>
     </v-overlay>
 </template>
-
+ 
 <script setup>
     import { useRoutineStore } from '@/stores/routineStore';
 import { watch } from 'vue';

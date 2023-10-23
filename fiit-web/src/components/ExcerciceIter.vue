@@ -20,7 +20,7 @@
           md="4"
           lg="3"
         >
-          <ExcersiveCard :title="item.raw.title" :img="item.raw.src"></ExcersiveCard>
+          <ExcersiveCard :title="item.raw.title" :img="item.raw.src" :id="item.raw.id"></ExcersiveCard>
         </v-col>
       </v-row>
     </template>

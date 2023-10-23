@@ -6,7 +6,7 @@
         label="Buscar"
         append-inner-icon="magnify"></v-text-field>
 
-        <filters-menu />
+        <filters-menu class="pt-5"/>
         <!-- <filter-button :items="musculoItems" label="Músculo"></filter-button>
 
         <filter-button :items="intensidadItems" label="Intensidad"></filter-button>
@@ -14,8 +14,7 @@
         <filter-button :items="objetivoItems" label="Objetivo"></filter-button>
 
         <filter-button :items="materialItems" label="Material"></filter-button> -->
-
-        </div>
+    </div>
 </template>
 
 <script setup>
