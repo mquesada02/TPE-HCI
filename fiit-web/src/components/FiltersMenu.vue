@@ -33,34 +33,34 @@
         <div class="checkbox-list">
           Intensidad
           <v-divider></v-divider>
-          <v-checkbox label="Baja" value="Baja"></v-checkbox>
-          <v-checkbox label="Media" value="Media"></v-checkbox>
-          <v-checkbox label="Alta" value="Alta"></v-checkbox>
+          <v-checkbox v-model="intensity" label="Baja" value="Baja"></v-checkbox>
+          <v-checkbox v-model="intensity" label="Media" value="Media"></v-checkbox>
+          <v-checkbox v-model="intensity" label="Alta" value="Alta"></v-checkbox>
         </div>
 
         <div class="checkbox-list">
           Objetivo
           <v-divider></v-divider>
-          <v-checkbox label="Fuerza" value="Fuerza"></v-checkbox>
-          <v-checkbox label="Bajar de peso" value="Bajar de peso"></v-checkbox>
-          <v-checkbox label="Flexibilidad" value="Flexibilidad"></v-checkbox>
-          <v-checkbox label="Ganar músculo" value="Ganar músculo"></v-checkbox>
+          <v-checkbox v-model="goal" label="Fuerza" value="Fuerza"></v-checkbox>
+          <v-checkbox v-model="goal" label="Bajar de peso" value="Bajar de peso"></v-checkbox>
+          <v-checkbox v-model="goal" label="Flexibilidad" value="Flexibilidad"></v-checkbox>
+          <v-checkbox v-model="goal" label="Ganar músculo" value="Ganar músculo"></v-checkbox>
         </div>
 
         <div class="checkbox-list">
           Equipamiento
           <v-divider></v-divider>
-          <v-checkbox label="Sin material" value="Sin material"></v-checkbox>
-          <v-checkbox label="Máquinas" value="Máquinas"></v-checkbox>
-          <v-checkbox label="Pesas" value="Pesas"></v-checkbox>
-          <v-checkbox label="Banda elástica" value="Banda elástica"></v-checkbox>
-          <v-checkbox label="Soga" value="Glúteos"></v-checkbox>
+          <v-checkbox v-model="material" label="Sin material" value="Sin material"></v-checkbox>
+          <v-checkbox v-model="material" label="Máquinas" value="Máquinas"></v-checkbox>
+          <v-checkbox v-model="material" label="Pesas" value="Pesas"></v-checkbox>
+          <v-checkbox v-model="material" label="Banda elástica" value="Banda elástica"></v-checkbox>
+          <v-checkbox v-model="material" label="Soga" value="Glúteos"></v-checkbox>
         </div>
         <v-card-actions>
           <v-spacer />
             <v-btn
             color="secondary"
-            @click="menu = false"
+            @click="save()"
             icon="mdi-check"
             vertical-align="bottom"
             class="bottom-right-button"
@@ -101,7 +101,6 @@ import { onDeactivated } from 'vue';
   export default {
     data: () => ({
         fav: true,
-        menu: false,
         message: false,
         hints: true,
     }),
@@ -110,7 +109,29 @@ import { onDeactivated } from 'vue';
 </script>
 
 <script setup>
-  import { ref } from 'vue';
+  import { inject } from 'vue';
+import { ref } from 'vue';
 
   const musculos = ref([]);
+  const material = ref([]);
+  const goal = ref([]);
+  const intensity = ref([]);
+
+  const menu = ref(false);
+  const toSend = inject('filters');
+
+  function save() {
+    menu.value = false;
+    const difficulty = ref([]);
+    intensity.value.forEach((elem => {
+      difficulty.value.push(elem == "Baja" ? 'rookie' : elem == "Media" ? 'intermediate' : 'expert');
+    }))
+    toSend.value = {
+      muscles: musculos.value,
+      material: material.value,
+      goal: goal.value,
+      difficulty: difficulty.value
+    }
+    
+  }
 </script>
