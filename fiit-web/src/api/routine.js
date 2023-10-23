@@ -13,7 +13,7 @@ class RoutineApi {
     }
 
     static getSearchUrlByPage(page, query) {
-        return RoutineApi.getUrl(`?page=${page}`) + `&?search=${query}`;
+        return RoutineApi.getUrl() + `?search=${query}&page=${page}`;
     }
 
     static async geteCycleExerciseUrl(slugCycle, slugExercise){
@@ -22,6 +22,10 @@ class RoutineApi {
 
     static async getRoutines() {
         return await Api.get(RoutineApi.getUrl(), false);
+    }
+
+    static async getRoutinesByPage(page) {
+        return await Api.get(RoutineApi.getUrl() + '?page=' + page, false);
     }
 
     static async getFilteredRoutinesByPage(page, query) {

@@ -60,6 +60,10 @@ export const useRoutineStore = defineStore('routine', () => {
         return await RoutineApi.getFilteredRoutinesByPage(page, query);
     }
 
+    async function getRoutinesByPage(page) {
+        return await RoutineApi.getRoutinesByPage(page);
+    }
+
     async function retrieveRoutineById(id) {
         // o buscar en el array
         return await RoutineApi.getRoutineById(id);
@@ -106,6 +110,7 @@ export const useRoutineStore = defineStore('routine', () => {
         retrieveRoutineById,
         retrieveRoutines,
         filterRoutinesByPage,
+        getRoutinesByPage,
         retrieveFavourites,
         addCycle,
         markAsFavourite,

@@ -94,7 +94,7 @@
                                                             Salir
                                                         </v-btn>
                                                         <v-btn @click="dialogSheet = false" class="pt-5">
-                                                            Canelar
+                                                            Cancelar
                                                         </v-btn>
                                                     </v-card-text>
                                                 </v-card-actions>

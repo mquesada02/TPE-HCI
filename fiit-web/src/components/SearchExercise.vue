@@ -8,12 +8,27 @@
                 append-inner-icon="magnify">
                 </v-text-field>
         </div>
-        <ExerciseIter :items="recientes"/>
+        <ExerciseIter :items="myexercises"/>
 </template>
 
 <script setup>
-        import ExerciseIter from '@/components/ExcerciceIter.vue'
-        const recientes = []
+        import { ExerciseApi } from '@/api/exercise';
+        import iteradorDeEj from '@/components/ExcerciceIter.vue'
+        import { onBeforeMount, ref } from 'vue';
+        
+        const myexercises = ref([]);
+        onBeforeMount(async () => {
+                const exercises = ref([])
+                const res = await ExerciseApi.getAllExercises();
+                exercises.value = res.content;
+                exercises.value.forEach((exercise) => {
+                        myexercises.value.push({ src: exercise.image, title: exercise.name })
+                });
+
+        })
+        
+        
+
 </script>
 
 <style scoped>
