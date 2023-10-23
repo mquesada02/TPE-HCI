@@ -2,7 +2,7 @@
     <v-app id="searchScreen">
         <SearchBar />
         <v-container>
-        <MyRout :items="myroutines" :text="texto"/>
+        <MyRout :items="myroutines" :text="texto" :key="myroutines"/>
     </v-container>
     </v-app>
 </template>
@@ -18,26 +18,40 @@
     import MyRout from '@/components/RoutineIter.vue';
     import { onBeforeMount, ref } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';
-import { inject } from 'vue';
+import { provide } from 'vue';
+import { watch } from 'vue';
 
     const texto="No se encontraron resultados para tu búsqueda"
     const myroutines = ref([]);
-    const query = '';
+    const query = ref('')
+
+    provide('query', query)
+
     onBeforeMount( async () => {
-    const routineStore = useRoutineStore();
-    const routines = ref(null)
-    let i = 0;
-    routines.value = await routineStore.filterRoutinesByPage(i, query);
-    routines.value.content.forEach((elem) => {
-      myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
-    })
-    
-    while (!routines.value.isLastPage) {
-      routines.value = await routineStore.filterRoutinesByPage(++i, query);
+      await fetchRoutines('');
+  })
+
+  async function fetchRoutines(query){
+      console.log(myroutines)
+      const routineStore = useRoutineStore();
+      const routines = ref(null)
+      let i = 0;
+      routines.value = await routineStore.filterRoutinesByPage(i, query);
       routines.value.content.forEach((elem) => {
         myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
       })
-    }
-    console.log(myroutines.value.length)
+      
+      while (!routines.value.isLastPage) {
+        routines.value = await routineStore.filterRoutinesByPage(++i, query);
+        routines.value.content.forEach((elem) => {
+          myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
+        })
+      }
+      console.log(myroutines.value.length)
+  }
+
+  watch(query, async (value, oldValue) => {
+    await fetchRoutines(value)
   })
+
 </script>
