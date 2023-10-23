@@ -41,7 +41,7 @@ export const useRoutineStore = defineStore('routine', () => {
         const difficulty = intensity === 'Baja' ? 'rookie' : intensity === 'Media' ? 'intermediate' : 'expert'
         const res = await RoutineApi.createRoutine(name, detail, isPublic, difficulty, metadata);
         if (res) {
-            routines.push(res);
+            routines.value.push(res);
         }
         return res;
     }

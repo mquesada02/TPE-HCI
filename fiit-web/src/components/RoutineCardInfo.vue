@@ -162,6 +162,7 @@ import { useDisplay } from 'vuetify';
 
 
     watch(favState, async (newVal, oldVal) => {
+        if (!done) return;
         if (newVal === 1) {
             try {
                 await routineStore.markAsFavourite(props.id);
