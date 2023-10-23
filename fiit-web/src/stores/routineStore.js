@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { RoutineApi } from '@/api/routine';
 import { ref } from 'vue';
 import { FavouritesApi } from '@/api/favourites';
+import { ExerciseApi } from '@/api/exercise';
 
 export const useRoutineStore = defineStore('routine', () => {
 
@@ -87,6 +88,10 @@ export const useRoutineStore = defineStore('routine', () => {
             favourites.value = favourites.value.filter(r => r.id !== routineId);
     }
 
+    async function getExerciseImage(id) {
+        return await ExerciseApi.getExerciseImage(id);
+    }
+
     return {
         muscles,
         intensity,
@@ -104,6 +109,7 @@ export const useRoutineStore = defineStore('routine', () => {
         retrieveFavourites,
         addCycle,
         markAsFavourite,
-        unmarkAsFavourite
+        unmarkAsFavourite,
+        getExerciseImage,
     }
 });
