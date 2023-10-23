@@ -48,9 +48,6 @@
   import { computed, ref } from 'vue'
   const props = defineProps(['items'])
   const items = props.items;
-  for (let i = 0; i < items.length; i++) {
-      items[i].src = new URL('../assets/img/ejercicios/' + items[i].src, import.meta.url).href;
-    }
   const itemsPerPage = ref(8)
   const page = ref(1)
   const numberOfPages = computed(() => {

@@ -1,7 +1,7 @@
 <template>
     <div v-if="userStore.isLoggedIn">
         <v-app id="searchScreen">
-        <SearchBar />
+        <SearchBar text="Buscar rutinas públicas..." :withFilters="true" />
         <v-container>
         <MyRout :items="filteredRoutines" :text="texto" :key="finished"/>
     </v-container>

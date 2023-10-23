@@ -80,26 +80,9 @@
                             <v-dialog v-model="dialogBuscar" width="auto">
                                 <v-sheet class="sheet">
                                     <div>
-                                        <v-btn color="secondary" @click="dialogSheet = true">
+                                        <v-btn color="secondary" @click="dialogSheet = false, dialogBuscar = false">
                                             <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
                                         </v-btn>
-                                        <v-dialog v-model="dialogSheet" width="auto">
-                                            <v-card>
-                                                <v-card-actions>
-                                                    <v-card-text class="text-center">
-                                                        Salir sin guardar?
-                                                        <v-divider class="pt-2"></v-divider>
-                                                        <v-btn color="primary" block width="50%"
-                                                            @click="dialogSheet = false, dialogBuscar = false">
-                                                            Salir
-                                                        </v-btn>
-                                                        <v-btn @click="dialogSheet = false" class="pt-5">
-                                                            Cancelar
-                                                        </v-btn>
-                                                    </v-card-text>
-                                                </v-card-actions>
-                                            </v-card>
-                                        </v-dialog>
                                     </div>
                                     <div>
                                         <BuscadorEjercicios class="pt-3"/>
@@ -170,7 +153,8 @@ export default {
 .sheet {
     background-color: #121212;
     padding: 30px;
-    width:100%;
+    width:80vw;
+    height:100vh;
     margin:auto;
 }
 

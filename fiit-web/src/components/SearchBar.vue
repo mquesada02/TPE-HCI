@@ -1,10 +1,9 @@
 <template>
     <div class="search_bar" color="secondary">
         <v-text-field 
-        clearable
         class="search_box"
         bg-color="lighter"
-        label="Buscar rutinas públicas..."
+        :label="text"
         append-inner-icon="magnify"
         v-model:model-value="search"
         ></v-text-field>
@@ -12,15 +11,16 @@
             size="x-large" 
             class="pt-10 pr-8 pl-2"
             @click="change()"></v-icon>
-        <filters-menu class="pt-5"/>
+        <filters-menu v-if="withFilters" class="pt-5"/>
     </div>
 </template>
 
 <script setup>
-    import { useRoutineStore } from '@/stores/routineStore';
     import FiltersMenu from './FiltersMenu.vue';
-    import { ref, provide, inject } from 'vue';
+    import { ref, inject } from 'vue';
 
+    const props = defineProps(['text', 'withFilters']);
+    const withFilters = props.withFilters;
     const search = ref('');
 
     const query = inject('query')
