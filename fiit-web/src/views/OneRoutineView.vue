@@ -11,7 +11,7 @@
                         cover/>
                     </div>
                 </v-row>
-                <RoutineCardInfo :id="id" :description="description" :intensity="intensity" :muscles="muscles" :material="material"/>
+                <RoutineCardInfo :img="img" :difficulty="difficulty" :isPublic="isPublic" :id="id" :name="name" :description="description" :intensity="intensity" :muscles="muscles" :material="material"/>
             </v-col>
             <v-col class="d-flex mt-8 justify-center align-center">
                 <div class="pt-4">
@@ -44,6 +44,9 @@
     const description = ref('');
     const intensity = ref('');
     const name = ref('');
+    const isPublic = ref(false);
+    const difficulty = ref('');
+    const img = ref('');
 
     const id = ref('');
     
@@ -54,9 +57,12 @@
         const routine = await routineStore.retrieveRoutineById(id.value);
         src.value = routine.metadata.img;
         name.value = routine.name;
+        difficulty.value = routine.difficulty
         intensity.value = routine.difficulty === 'rookie' ? 'Bajo' : routine.difficulty === 'intermediate' ? 'Medio' : 'Alto';
         description.value = routine.detail;
         muscles.value = routine.metadata.muscles;
         material.value = routine.metadata.materials;
+        isPublic.value = routine.isPublic;
+        img.value = routine.metadata.img;
     })
 </script>
