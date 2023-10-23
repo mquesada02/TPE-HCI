@@ -86,9 +86,7 @@
 <script setup>
     import { useRoutineStore } from '@/stores/routineStore';
     import { inject } from 'vue';
-
     const routineStore = useRoutineStore();
-
     const routineName = inject('routineName');
     const routineImg = inject('routineImg');
     const routineDescription = inject('routineDescription');
@@ -110,25 +108,25 @@
 </script>
 
 <script>
-export default {
-    data() {
-        return {
-            dialog: false,
-        }
-    },
-}
+    export default {
+        data() {
+            return {
+                dialog: false,
+            }
+        },
+    }
 </script>
 
 <style scoped>
-.nextBtn {
-    align-items: right;
-    justify-content: right;
-    position: fixed;
-    top: 93%;
-    right: 3%;
-    transform: translateY(-50%);
-}
-.textarea {
-    height: 50px;
-}
+    .nextBtn {
+        align-items: right;
+        justify-content: right;
+        position: fixed;
+        top: 93%;
+        right: 3%;
+        transform: translateY(-50%);
+    }
+    .textarea {
+        height: 50px;
+    }
 </style>

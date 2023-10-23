@@ -40,12 +40,12 @@ sin arquear la espalda ni elevar las caderas.</h2>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-         videoUrl: "https://www.youtube.com/embed/ogfuXWgXVsg", 
-      //si no hay video aparece una pag y si hay otra
+    export default {
+    data() {
+        return {
+            videoUrl: "https://www.youtube.com/embed/ogfuXWgXVsg", 
+        //si no hay video aparece una pag y si hay otra
+        };
+    },
     };
-  },
-};
 </script>

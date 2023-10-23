@@ -9,20 +9,18 @@
 </template>
 
 <script setup>
-import LogIn from '@/components/LogIn.vue';
+  import LogIn from '@/components/LogIn.vue';
 </script>
 
 <style scoped>
-.loginContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 50%;
-  left: 0;
-  right: 0;
-  transform: translateY(-50%);
-}
+  .loginContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+  }
 </style>
-
-<!-- fijar el cuadro al medio, emprolijar el cuadro  -->

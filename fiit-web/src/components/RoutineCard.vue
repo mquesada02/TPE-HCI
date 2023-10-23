@@ -34,11 +34,6 @@
     </v-card>
 </template>
 
-
-//Recibe dos parametros más q ExersiveCard, estos son el FavState (boolean), para saber si estan en favs o no (si no esta loged in va automatico a no)
-//claramente si esta es true, si no esta es false
-//y tmb el Rating, para saber la puntuación 
-
 <script setup>
     import { onBeforeMount, ref } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';

@@ -41,7 +41,7 @@
   }
 </script>
 
-LA CONST notDescanso TIENE Q IGUALARSE A LA VARIABLE DE API Q DIFERENCIA ENTRE EJERCICIO Y DESCANSO 
+LA CONST notDescanso TIENE Q IGUALARSE A LA VARIABLE DE API Q DIFERENCIA ENTRE EJERCICIO Y DESCANSO  --------------------------------------------------------------------------------------------------------
 
 <script setup>
     import ExCard from '@/components/ExcersiveCard.vue'

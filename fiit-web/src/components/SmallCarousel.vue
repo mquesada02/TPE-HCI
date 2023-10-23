@@ -5,7 +5,6 @@
     >
     <p class="pl-3 pt-3 text-h4 font-weight-medium">{{ title }}</p>
       <v-slide-group
-        
         class="pa-4"
         selected-class="bg-success"
         show-arrows
@@ -16,7 +15,6 @@
           v-slot="{ isSelected, toggle, selectedClass }"
         >
           <RoutineCard :img="img.src" :title="img.title" :id="img.id" :selected-class="selectedClass" :toggle="toggle"/>
-
         </v-slide-group-item>
       </v-slide-group>
     </v-sheet>
@@ -24,7 +22,6 @@
 
 <script setup>
     import RoutineCard from './RoutineCard.vue';
-
     const props = defineProps(['title','imgs']);
     const title = props.title;
     const imgs = props.imgs;

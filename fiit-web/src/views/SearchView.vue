@@ -1,10 +1,15 @@
 <template>
-    <v-app id="searchScreen">
+    <div v-if="userStore.isLoggedIn">
+        <v-app id="searchScreen">
         <SearchBar />
         <v-container>
         <MyRout :items="myroutines" :text="texto" :key="myroutines"/>
     </v-container>
     </v-app>
+    </div>
+    <div v-else>
+        <NotLogIn/>
+    </div>
 </template>
 
 <style scoped>
@@ -16,10 +21,14 @@
 <script setup>
     import SearchBar from '@/components/SearchBar.vue';
     import MyRout from '@/components/RoutineIter.vue';
+    import NotLogIn from '@/views/NotLogInView.vue';
     import { onBeforeMount, ref } from 'vue';
     import { useRoutineStore } from '@/stores/routineStore';
 import { provide } from 'vue';
 import { watch } from 'vue';
+
+import { useUserStore } from '@/stores/userStore';
+    const userStore = useUserStore();
 
     const texto="No se encontraron resultados para tu búsqueda"
     const myroutines = ref([]);

@@ -24,8 +24,8 @@
                 </v-text-field>
             </div>
         </v-app-bar>
-
-        <div class="exerciseComponents pt-15" v-for="item in exercises"> <!-- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+        
+        <div class="exerciseComponents pt-15" v-for="item in exercises"> 
             <v-row >
                 <div>
                     <AadEx />
@@ -117,9 +117,6 @@
         </v-row>
     </v-app>
 </template>
-
-EL ESPACIO DEL MEDIO ES PARA EL V-FOR Q MUESTRA LOS EJERCICIOS AGREGADOS
-EN EL ADDEX EN REALIDAD VA UN V-FOR Q USA EL ARRAY Q RECIBA ESTE CICLO EN ESPECIFICO
 
 EL V-FOR DE AadEx's RECORRE EL ARRAY DE EJERCICIOS Q SE RECIBE COMO PROPS 
 

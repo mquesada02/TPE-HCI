@@ -39,8 +39,8 @@
 //Al igual q el nombre de item.name
 //Al igual q la dirección a la q debe redireccionar cada play
 
-  <script setup>
+<script setup>
     const props = defineProps(['itemss']);
-    const itemss = props.itemss;
-  </script>
+    const itemss = props.itemss;    
+</script>
 

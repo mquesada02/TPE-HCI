@@ -40,25 +40,18 @@ import AlertSnackbar from './AlertSnackbar.vue';
 import router from '@/router';
 const user = ref('');
 const modifyMode = ref(false);
-
-
 const snackbar = ref(false)
 const text = ref('');
 provide('snackbar', snackbar);
 provide('text', text);
-
-
 const avatar = ref('');
 const firstName = ref('');
 const lastName = ref('');
 const age = ref('');
 const weight = ref('');
 const height = ref('');
-
 const userStore = useUserStore();
-
 const loading = ref(false);
-
 onMounted(async () => {
     user.value = await userStore.getCurrentUser();
     avatar.value = user.value.avatarUrl;
@@ -68,11 +61,9 @@ onMounted(async () => {
     weight.value = user.value.metadata.weight;
     height.value = user.value.metadata.height;
 })
-
 function modify() {
     modifyMode.value = true;
 }
-
 async function logOut() {
     try {
         await userStore.logout();
@@ -83,7 +74,6 @@ async function logOut() {
         router.push('/');
     }
 };
-
 async function onSubmit() {
     loading.value = true;
     const newBirthdate = new Date('01-01-' + (new Date().getFullYear() - age.value) + 1);
@@ -106,10 +96,5 @@ async function onSubmit() {
         modifyMode.value = false;
         loading.value = false;
     }
-
-
 }
-
-
-
 </script>
