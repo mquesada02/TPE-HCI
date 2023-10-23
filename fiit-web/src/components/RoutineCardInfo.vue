@@ -1,6 +1,6 @@
 <template>
     <v-sheet rounded="xl" color="lighter" width="35vw" min-height="100vh" class="pa-5 mt-5">
-        <v-row class="pa-5 d-flex justify-end">
+        <v-row v-if="routineUserID.value == userID.value" class="pa-5 d-flex justify-end">
             <v-icon icon="mdi-pencil" @click="overlay = !overlay"></v-icon>
         </v-row>
         <v-row class="d-flex align-center justify-center">
@@ -76,12 +76,14 @@
  
 <script setup>
     import { useRoutineStore } from '@/stores/routineStore';
+    import { useUserStore } from '@/stores/userStore';
 import { watch } from 'vue';
 import { onBeforeMount } from 'vue';
 import { ref } from 'vue';
 import { RoutineInfo} from '@/api/routine.js'
     const props = defineProps(['img','isPublic','name','id','description', 'muscles', 'material', 'intensity', 'difficulty'])
     const routineStore = useRoutineStore();
+    const userStore = useUserStore();
     const id = props.id;
     const favState = ref(0);
     const favourites = ref([]);
@@ -94,13 +96,22 @@ import { RoutineInfo} from '@/api/routine.js'
     const mat = ref(props.material);
     const int = ref(props.intensity);
     const imagen = ref(props.img)
+
+    const routineUserID = ref('');
+    const userID = ref('');
+
     onBeforeMount(async () => {
         favourites.value = await routineStore.retrieveFavourites();
         favourites.value.forEach((elem) => {
             if (elem.id == id) { 
                 favState.value = 1;
+                routineUserID.value = elem.user.id;
             }
         })
+
+        const result = await userStore.getCurrentUser();
+        userID.value = await result.id;
+        
         name.value = props.name;
         desc.value = props.description;
         musc.value = props.muscles;
@@ -109,9 +120,6 @@ import { RoutineInfo} from '@/api/routine.js'
         imagen.value = props.img;
     })
     const overlay = ref(false);
-
-    
-
     function cancel() {
         overlay.value = !overlay.value;
     }
