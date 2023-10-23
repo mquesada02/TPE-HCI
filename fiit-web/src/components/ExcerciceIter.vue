@@ -65,6 +65,5 @@
   function prevPage () {
     if (page.value - 1 >= 1) page.value -= 1
   }
-  
 </script>
 

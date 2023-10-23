@@ -33,6 +33,5 @@
 
 <script setup>
     import Cicle from '@/components/Cicle.vue';
-    import { inject } from 'vue';
     const props = defineProps(['title', 'arrayPos']);
 </script>

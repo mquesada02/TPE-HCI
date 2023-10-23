@@ -13,22 +13,17 @@
     import { ref, onBeforeMount } from 'vue';
     const myroutines = ref([]) 
     const myfavs = ref([])
-
-
-
-      onBeforeMount( async () => {
-        const userStore = useUserStore();
-        const routineStore = useRoutineStore();
-        const routines = await userStore.getCurrentRoutines();
-            
-        routines.content.forEach((elem) => {
-          myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
-        })
-        const favourites = await routineStore.retrieveFavourites();
-        favourites.forEach((elem) => {
-          myfavs.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
-        })
+    onBeforeMount( async () => {
+      const userStore = useUserStore();
+      const routineStore = useRoutineStore();
+      const routines = await userStore.getCurrentRoutines();
+          
+      routines.content.forEach((elem) => {
+        myroutines.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
       })
-
-
+      const favourites = await routineStore.retrieveFavourites();
+      favourites.forEach((elem) => {
+        myfavs.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
+      })
+    })
 </script>

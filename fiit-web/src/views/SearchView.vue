@@ -1,7 +1,12 @@
 <template>
-    <v-app id="searchScreen">
-        <SearchBar />
-    </v-app>
+    <div v-if="userStore.isLoggedIn">
+        <v-app id="searchScreen">
+            <SearchBar />
+        </v-app>
+    </div>
+    <div v-else>
+        <NotLogIn/>
+    </div>
 </template>
 
 <style scoped>
@@ -12,4 +17,7 @@
 
 <script setup>
     import SearchBar from '@/components/SearchBar.vue';
+    import NotLogIn from './NotLogInView.vue';
+    import { useUserStore } from '@/stores/userStore';
+    const userStore = useUserStore();
 </script>
