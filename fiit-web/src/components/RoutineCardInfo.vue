@@ -62,7 +62,7 @@
                                 Eliminar
                             </v-btn>
                             <v-btn @click="dialogDel = false" class="pt-5">
-                                No eliminar
+                                Cancelar
                             </v-btn>
                         </v-card-text>
                     </v-card-actions>

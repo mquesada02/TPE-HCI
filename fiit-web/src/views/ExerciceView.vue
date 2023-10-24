@@ -2,7 +2,7 @@
   <v-app>
     <v-main color="background">
       <v-container>
-      <Exercice :nombre="nombre" :descripcion="descripcion" :img="img" :video="videoUrl"/>
+      <Exercice :nombre="nombre" :descripcion="descripcion" :img="img" :video="videoUrl" :id="id"/>
       </v-container>
     </v-main>
   </v-app>
