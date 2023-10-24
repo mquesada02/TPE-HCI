@@ -31,8 +31,7 @@ export const useExerciseStore = defineStore('exercise', () => {
         pushExercise(result);
         const id = result.id;
         if (image) { 
-            const res = await ExerciseApi.addExerciseImage(id, image);
-            console.log(res);
+            await ExerciseApi.addExerciseImage(id, image);
         }
         if(video){
             await ExerciseApi.addExerciseVideo(id, video);
