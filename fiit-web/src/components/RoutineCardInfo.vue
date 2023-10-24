@@ -82,7 +82,7 @@
                 <v-select v-model:model-value="mat" :items="routineStore.getMaterial()" label="Equipamiento" multiple outlined></v-select>
                 <v-select v-model:model-value="musc" :items="routineStore.getMuscles()" label="Músculos a trabajar" multiple outlined></v-select>
                 <v-select v-model:model-value="int" :items="routineStore.getIntensity()" label="Intensidad" outlined></v-select>
-                <v-btn  text @click="cancel()">Cancelar</v-btn>
+                <v-btn  text @click="overlay=!overlay">Cancelar</v-btn>
                 <v-btn  text @click="save()">Guardar</v-btn>
             </v-card-text>
         </v-card>
@@ -160,9 +160,6 @@
         done.value = true;
     })
     const overlay = ref(false);
-    function cancel() {
-        overlay.value = !overlay.value;
-    }
 
     async function save() {
         const metadata = {

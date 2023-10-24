@@ -1,6 +1,6 @@
 import { Api } from "@/api/api.js";
 
-export { ExerciseApi }
+export { ExerciseApi, ExerciseInfo }
 
 class ExerciseApi {
 
@@ -68,5 +68,13 @@ class ExerciseApi {
 
     static async getMyExecrcicesByPage(page) {
         return await Api.get(ExerciseApi.getUrl()+`?page=${page}`, true);
+    }
+}
+
+class ExerciseInfo {
+    constructor(name, detail, metadata) {
+        this.name = name;
+        this.detail = detail;
+        this.metadata = metadata;
     }
 }
