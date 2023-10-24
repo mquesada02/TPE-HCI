@@ -56,6 +56,18 @@ class RoutineApi {
         return Api.post(RoutineApi.geteCycleExerciseUrl(cycleId, exerciseId), true, body)
     }
 
+    static async getCycleExercises(cycleId){
+        const res= Api.get(RoutineApi.geteCycleExerciseUrl(cycleId))
+        const content = res.content
+        return content
+    }
+
+    static async retrieveRoutineCycles(id){
+        const res = await Api.get(RoutineApi.getUrl(id) + '/cycles')
+        const content = res.content
+        return content
+    }
+
 }
 class Cycle {
     constructor(cycleInfo, exercisesArray){

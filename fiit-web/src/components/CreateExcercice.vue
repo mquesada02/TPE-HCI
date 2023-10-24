@@ -45,6 +45,7 @@
   import { useExerciseStore } from '@/stores/exerciseStore';
   import { inject } from 'vue';
 import router from '@/router';
+import { provide } from 'vue';
 
   const exerciseStore = useExerciseStore();
 
@@ -59,6 +60,12 @@ import router from '@/router';
   const isLoading = ref(false);
 
   const exercises = inject('exercises');
+
+  const text = ref('')
+  const snackbar = ref(false)
+
+  provide('text', text)
+  provide('snackbar', snackbar)
 
   async function createExercise() {
     isLoading.value = true;
