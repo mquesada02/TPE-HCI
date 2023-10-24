@@ -22,8 +22,8 @@
                     </v-card>
                 </v-overlay>
             </div>
-            <h1 class="mt-4 mb-6 mr-4 ml-6 text-center">Descripción</h1>
-            <h3 class="mb-4 ml-12 mr-12"> {{ descripcion }} </h3>
+            <h1 class="mt-4 mb-6 mr-4 ml-6 text-center hColor">Descripción</h1>
+            <h3 class="mb-4 ml-12 mr-12 hColor"> {{ descripcion }} </h3>
             <div class="text-right">
                 <v-icon v-if="exerciseUserID.value == userID.value" :size="32" color="black" icon="mdi-delete" @click="dialogDel=true"></v-icon>
                 <v-dialog v-model="dialogDel" width="auto">
@@ -112,18 +112,11 @@ export default {
     margin:auto;
     background-color: #FFCCBC;
   }
+  .hColor{
+    color:black;
+  }
   iframe{
     width:100%;
     height:100%
   }
 </style>
-<!-- <script>
-    export default {
-    data() {
-        return {
-            videoUrl: "https://www.youtube.com/embed/ogfuXWgXVsg", 
-        //si no hay video aparece una pag y si hay otra
-        };
-    },
-    };
-</script> -->
