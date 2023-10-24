@@ -40,13 +40,20 @@ export const useExerciseStore = defineStore('exercise', () => {
     }
 
     async function getExercise(id) {
-        if (exercises.value) {
-            const value = exercises.value.find(exercise => exercise.id === id);
-            if (value) {
-                return value;
-            }
-            throw new Error('Exercise not found!');
+        console.log(exercises.value)
+        //if (!exercises.value.length){
+        const res = await ExerciseApi.getAllExercises();
+        exercises.value = res.content
+        //}
+        const value = exercises.value.find(exercise => exercise.id === parseInt(id));
+        if (value) {
+            return value;
         }
+        throw new Error('Exercise not found!');
+    }
+
+    async function getExerciseFromApi(id){
+        return await ExerciseApi.getExercise(id)
     }
 
     async function modifyExercise(id, basicExercise) {
@@ -61,13 +68,26 @@ export const useExerciseStore = defineStore('exercise', () => {
         exercises.value.splice(index, 1);
     }
 
+    async function exerciseImage(id){
+        const result = await ExerciseApi.getExerciseImage(id);
+        return result.url
+    }
+
+    async function exerciseVideo(id){
+        const result = await ExerciseApi.getExerciseVideo(id);
+        return result.url
+    }
+
     return {
         exercises,
         initialize,
         createExercise,
         getExercise,
         modifyExercise,
-        deleteExercise
+        deleteExercise,
+        exerciseImage,
+        exerciseVideo,
+        getExerciseFromApi
     }
 
 });
