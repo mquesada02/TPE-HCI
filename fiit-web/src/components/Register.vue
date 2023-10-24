@@ -1,12 +1,12 @@
 <template>
-  <v-sheet  width="1000" class="mx-auto" color="white" rounded="lg">
+  <v-sheet  width="80%" class="mx-auto" color="white" rounded="lg">
   
     <p class="pt-6 text-h3 text-center ml-5 mb-7 font-weight-bold" >
       Registrarse
     </p>
     <v-form fast-fail @submit.prevent="onSubmit">
     <v-row>
-    <v-col cols="12" md="6">
+    <v-col md="6">
       <v-text-field
         v-model:model-value="email"
         label="Correo electrónico"
@@ -30,7 +30,7 @@
         :rules="passwordRules">
     </v-text-field>
     </v-col>
-    <v-col cols="12" md="6">
+    <v-col md="6">
       <v-text-field
         label="Nombre" 
         v-model:model-value="name"

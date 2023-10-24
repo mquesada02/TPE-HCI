@@ -42,7 +42,11 @@
       const credentials = new Credentials(user.value, password.value);
       loading.value = true;
       await userStore.login(credentials, remember);
-      router.go(-1);
+      const prevRoute = router.options.history.state.back
+      if(prevRoute=='/addRoutine' || prevRoute=='myRoutines' || prevRoute=='favourites' || prevRoute=='search')
+        router.push(prevRoute);
+      else router.push('/');
+      router.go
     } catch (error) {
       text.value = error.description;
       snackbar.value = true;
