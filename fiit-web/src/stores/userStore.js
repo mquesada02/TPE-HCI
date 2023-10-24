@@ -54,6 +54,7 @@ export const useUserStore = defineStore('user', () => {
     async function logout() {
         localStorage.removeItem(SECURITY_TOKEN_KEY);
         setToken(null);
+        user.value = null;
         await UserApi.logout();
     }
 
