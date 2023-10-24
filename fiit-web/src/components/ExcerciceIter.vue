@@ -3,8 +3,6 @@
     v-model:items-per-page="itemsPerPage"
     v-model:page="page"
     :items="items"
-    :search="search"
-    :sort-by="sortBy"
   >
     <template v-slot:no-data>
       <v-alert class="ma-2" type="warning">No has creado ningun ejercicio</v-alert>
@@ -26,7 +24,7 @@
     </template>
 
     <template v-slot:footer>
-    <div class="d-flex align-center justify-space-around pa-4">
+    <div class="d-flex align-center justify-space-around pa-4 pages">
         <v-spacer></v-spacer>
         <span class="mr-4 grey--text">
           Página {{ page }} de {{ numberOfPages }}
@@ -48,9 +46,6 @@
   import { computed, ref } from 'vue'
   const props = defineProps(['items'])
   const items = props.items;
-  for (let i = 0; i < items.length; i++) {
-      items[i].src = new URL('../assets/img/ejercicios/' + items[i].src, import.meta.url).href;
-    }
   const itemsPerPage = ref(8)
   const page = ref(1)
   const numberOfPages = computed(() => {
@@ -66,4 +61,12 @@
     if (page.value - 1 >= 1) page.value -= 1
   }
 </script>
+<style scoped>
+  .pages {
+    position: fixed;
+    right: 18%;
+    bottom: 10%;
+    margin: 20px; /* Ajusta el margen según tus preferencias */
+  }
+</style>
 

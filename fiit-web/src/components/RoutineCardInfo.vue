@@ -52,7 +52,22 @@
         <v-row class="d-flex justify-end align-start pa-5">
             <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" 
                 empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
-            <v-icon v-if="routineUserID.value == userID.value" :size="32" class="pl-15" color="black" icon="mdi-delete" @click="deletee()"></v-icon>
+            <v-icon v-if="routineUserID.value == userID.value" :size="32" class="pl-15" color="black" icon="mdi-delete" @click="dialogDel=true"></v-icon>
+            <v-dialog v-model="dialogDel" width="auto">
+                <v-card>
+                    <v-card-actions>
+                        <v-card-text class="text-center">
+                            <v-divider class="pt-2"></v-divider>
+                            <v-btn color="primary" block width="50%" @click="dialogDel = false, deletee()">
+                                Eliminar
+                            </v-btn>
+                            <v-btn @click="dialogDel = false" class="pt-5">
+                                No eliminar
+                            </v-btn>
+                        </v-card-text>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-row>
     </v-sheet>
     <v-overlay class="align-center justify-center" location-strategy="static" v-model:model-value="overlay">
@@ -77,13 +92,13 @@
 <script setup>
     import { useRoutineStore } from '@/stores/routineStore';
     import { useUserStore } from '@/stores/userStore';
-import { watch } from 'vue';
-import { onBeforeMount } from 'vue';
-import { ref } from 'vue';
-import { RoutineInfo} from '@/api/routine.js'
-import router from '@/router';
-import { computed } from 'vue';
-import { useDisplay } from 'vuetify';
+    import { watch } from 'vue';
+    import { onBeforeMount } from 'vue';
+    import { ref } from 'vue';
+    import { RoutineInfo} from '@/api/routine.js'
+    import router from '@/router';
+    import { computed } from 'vue';
+    import { useDisplay } from 'vuetify';
     const props = defineProps(['img','isPublic','name','id','description', 'muscles', 'material', 'intensity', 'difficulty'])
     const routineStore = useRoutineStore();
     const userStore = useUserStore();
@@ -159,9 +174,9 @@ import { useDisplay } from 'vuetify';
         await routineStore.modifyRoutine(id, routineInfo);
         overlay.value = !overlay.value
     }
-
-
+    
     watch(favState, async (newVal, oldVal) => {
+        if (!done) return;
         if (newVal === 1) {
             try {
                 await routineStore.markAsFavourite(props.id);
@@ -202,3 +217,13 @@ import { useDisplay } from 'vuetify';
         list-style-type: none;
     }
 </style>
+
+<script>
+export default {
+    data() {
+        return {
+            dialogDel: false,
+        };
+    },
+}
+</script>

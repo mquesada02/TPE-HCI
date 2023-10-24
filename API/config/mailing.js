@@ -13,7 +13,7 @@ module.exports = {
         htmlBodyTemplate:
             `<div>
                 <h1 style="text-align: center;">
-                    <strong>Welcome to <span style="color: #fc987e;">Exercise</span></strong>
+                    <strong>Welcome to <span style="color: #fc987e;">Fiit-web</span></strong>
                 </h1>
                 <p>
                     <span>Valid until <%EXPIRATION_DATE%></span>
