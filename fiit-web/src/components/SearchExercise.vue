@@ -24,7 +24,7 @@
                 exercises.value = res.content;
                 exercises.value.forEach(async (exercise) => {
                         const res = await ExerciseApi.getExerciseImage(exercise.id);
-                        myexercises.value.push({ name: exercise.name, src: res.url, title: exercise.name })
+                        myexercises.value.push({ name: exercise.name, src: res?.url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg', title: exercise.name })
                 });
                 filteredExercises.value = myexercises.value;
                 finished.value = !finished.value;

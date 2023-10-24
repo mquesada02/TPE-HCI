@@ -114,8 +114,6 @@ import { provide } from 'vue';
     const arrayPos = props.arrayPos
 
     const ciclos = inject('ciclos');
-    console.log(ciclos.value);
-    console.log(ciclos.value[0].exercisesArray);
 
     const exercises = ciclos.value[arrayPos].exercisesArray;
     provide('exercises', exercises);

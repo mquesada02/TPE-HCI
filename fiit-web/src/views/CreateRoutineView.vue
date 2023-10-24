@@ -79,6 +79,7 @@ data: () => ({
     import { useRoutineStore } from '@/stores/routineStore';
     import { CycleInfo, Cycle } from '@/api/routine';
     import { useUserStore } from '@/stores/userStore';
+import { watch } from 'vue';
     const userStore = useUserStore();
     const routineStore = useRoutineStore();
 
@@ -137,11 +138,12 @@ data: () => ({
 
     const ciclos = ref([]); //array de ciclos
 
-    const exercisesArray = [];
+    
 
-    ciclos.value.push(new Cycle(new CycleInfo('inicial', 'entrada en calor', 'warmup',1), exercisesArray));
-    ciclos.value.push(new Cycle(new CycleInfo('final', 'enfriamiento', 'cooldown',1), exercisesArray));
-    ciclos.value.push(new Cycle(new CycleInfo('ciclo1', 'ejercitacion', 'exercise',1), exercisesArray));
+    ciclos.value.push(new Cycle(new CycleInfo('inicial', 'entrada en calor', 'warmup',1), []));
+    ciclos.value.push(new Cycle(new CycleInfo('final', 'enfriamiento', 'cooldown',1), []));
+    ciclos.value.push(new Cycle(new CycleInfo('ciclo1', 'ejercitacion', 'exercise',1), []));
+    
 
     provide('ciclos', ciclos);
 
