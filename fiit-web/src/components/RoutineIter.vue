@@ -41,7 +41,7 @@
   
 <style scoped>
   .pages {
-    position: fixed;
+    position: flex;
     right: 18%;
     bottom: 10%;
     margin: 20px; /* Ajusta el margen según tus preferencias */
