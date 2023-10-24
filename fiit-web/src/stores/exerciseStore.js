@@ -56,10 +56,19 @@ export const useExerciseStore = defineStore('exercise', () => {
         return await ExerciseApi.getExercise(id)
     }
 
-    async function modifyExercise(id, basicExercise) {
-        const result = await ExerciseApi.modifyExercise(id, basicExercise);
+    async function modifyExercise(id, name, detail,type) {
+        const result = await ExerciseApi.modifyExercise(id, name, detail, type);
         const index = exercises.value.findIndex(exercise => exercise.id === id);
-        exercises.value[index] = basicExercise;
+        exercises.value[index] = result;
+        return result
+    }
+
+    async function modifyExerciseImage(id, url){
+        return await ExerciseApi.modifyExerciseImage(id, url);
+    }
+
+    async function modifyExerciseVideo(id, url){
+        return await ExerciseApi.modifyExerciseVideo(id, url);
     }
 
     async function deleteExercise(id) {
@@ -84,6 +93,8 @@ export const useExerciseStore = defineStore('exercise', () => {
         createExercise,
         getExercise,
         modifyExercise,
+        modifyExerciseImage,
+        modifyExerciseVideo,
         deleteExercise,
         exerciseImage,
         exerciseVideo,

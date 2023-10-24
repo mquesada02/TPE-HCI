@@ -20,8 +20,8 @@ class ExerciseApi {
         return await Api.get(ExerciseApi.getUrl(id), true);
     }
 
-    static async modifyExercise(id, basicExercise) {
-        return await Api.put(ExerciseApi.getUrl(id), true, {...basicExercise});
+    static async modifyExercise(id, name, detail, type) {
+        return await Api.put(ExerciseApi.getUrl(id), true, {name, detail, type});
     }
 
     static async removeExercise(id) {

@@ -1,25 +1,23 @@
 <template>
-    <v-card color="secondary" :class="['ma-4', selectedClass]"
+    <v-card :rounded="0" color="secondary" :class="['ma-4', selectedClass]"
             height="200"
             width="225"
             @:click="toggle"
             :to="link" 
     >
-        <v-card height="65%">
+        <v-card :rounded="0" height="65%">
             <v-img :src="img" cover/>  
         </v-card>
             <v-card-text class="pa-2 font-weight-medium text-center" height="35%">{{ cardTitle }}</v-card-text>
         <v-row class="ml-1">
             <v-rating v-if="favState"
-                    hover
                     readonly
                     :length="1"
                     :size="32"
                     :model-value="1"
-                    empty-icon="mdi-heart-outline"
                     full-icon="mdi-heart"
-                    clearable
-                    style="position: absolute; bottom: 0; right: 0; z-index: 1;"/> 
+                    style="position: absolute; 
+                    bottom: 0; right: 0; z-index: 1;"/> 
             <div>
                 <v-rating
                 hover

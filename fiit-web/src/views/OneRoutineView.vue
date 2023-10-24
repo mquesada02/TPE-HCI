@@ -1,5 +1,12 @@
 <template>
     <div >
+        <v-btn
+          color="secondary"
+          class="mt-3 ml-3"
+          @click="goBack()"
+          >
+          <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
+        </v-btn>
         <v-row>
             <v-col class="ma-10" cols="4">   
                 <h1>{{name}}</h1>
@@ -35,6 +42,7 @@
     import ExcerciceScroller from '@/components/ExcerciceScroller.vue';
     import { useRoutineStore } from '@/stores/routineStore';
     import { onBeforeMount, ref } from 'vue';
+    import router from '@/router';
     const src = ref('');
     const muscles = ref([]);
     const material = ref([]);
@@ -60,4 +68,8 @@
         isPublic.value = routine.isPublic;
         img.value = routine.metadata.img;
     })
+
+    function goBack(){
+      router.go(-1);
+    }
 </script>
