@@ -248,8 +248,8 @@ const finalNumberOfSeries = ref('1');
 
 const ciclos = ref([]); //array de ciclos
 
-ciclos.value.push(new Cycle(new CycleInfo('inicial', 'entrada en calor', 'warmup', 1), []));
-ciclos.value.push(new Cycle(new CycleInfo('final', 'enfriamiento', 'cooldown', 1), []));
+ciclos.value.push(new Cycle(new CycleInfo('Entrada en calor', 'entrada en calor', 'warmup', 1), []));
+ciclos.value.push(new Cycle(new CycleInfo('Enfriamiento', 'enfriamiento', 'cooldown', 1), []));
 
 const numberOfCycles = ref('1');
 const exercisesSeries = []
@@ -258,7 +258,7 @@ const overlays = []
 
 for (let i = 0; i < 20; i++) {
     exercisesSeries.push(ref('1'));
-    ciclos.value.push(new Cycle(new CycleInfo('ciclo' + i, 'ejercitacion', 'exercise', 1), []))
+    ciclos.value.push(new Cycle(new CycleInfo('Ciclo de ejercitación ' + i, 'ejercitacion', 'exercise', 1), []))
     exerciseExercises.push(ciclos.value[i + 2].exercisesArray);
 }
 

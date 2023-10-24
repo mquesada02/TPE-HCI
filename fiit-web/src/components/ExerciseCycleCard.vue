@@ -68,7 +68,7 @@ async function addToCycle() {
             isRepeated.value = true;
     })
     if (!isRepeated.value)
-        ciclos.value[cycleIndex].exercisesArray.push({ ...res, img: img.url, duration: secs.value, repetitions: reps.value });
+        ciclos.value[cycleIndex].exercisesArray.push({ ...res, img: img?.url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg', duration: secs.value, repetitions: reps.value });
     overlay.value = false;
 }
 
