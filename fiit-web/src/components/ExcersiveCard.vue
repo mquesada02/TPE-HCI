@@ -1,9 +1,8 @@
 <template>
-    <v-card color="secondary" :class="['ma-4', selectedClass]"
-            height="150"
+    <v-card color="secondary" class="ma-4"
             width="200"
             @:click="toggle"
-            to="/oneExercice"
+            :to="link"
             >
         <v-card height="75%">
             <v-img :src="img" cover/>   
@@ -13,9 +12,11 @@
 </template>
 
 <script setup>
-    const props = defineProps(['img','title', 'selectedClass', 'toggle']);
+    const props = defineProps(['img','title', 'id', 'toggle']);
     const img = props.img;
     const cardTitle = props.title;
-    const selectedClass = props.selectedClass;
+    const id = props.id;
     const toggle = props.toggle;
+
+    const link = `/oneExercice?id=${id}`;
 </script>

@@ -44,6 +44,7 @@
   import { ref } from 'vue';
   import { useExerciseStore } from '@/stores/exerciseStore';
   import { inject } from 'vue';
+import router from '@/router';
 
   const exerciseStore = useExerciseStore();
 
@@ -64,6 +65,7 @@
     const id = ref(null);
     try {
             id.value = await exerciseStore.createExercise(nombre.value, descripcion.value, "exercise", foto.value, video.value);
+            router.go()
         } catch(error) {
             text.value = error.description;
             snackbar.value = true;

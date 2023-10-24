@@ -50,7 +50,12 @@ class ExerciseApi {
     }
 
     static async getExerciseVideo(id) {
-        return await Api.get(`${ExerciseApi.getUrl(id)}/videos/1`, true);
+        try{
+            const res = await Api.get(`${ExerciseApi.getUrl(id)}/videos/1`, true);
+            return res
+        } catch{
+            return {url: ''}
+        }
     }
 
     static async modifyExerciseVideo(id, url) {
