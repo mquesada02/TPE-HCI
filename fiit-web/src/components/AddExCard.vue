@@ -1,51 +1,43 @@
 <template>
   <v-container fluid color="secondary">
     <v-row justify="center">
-        <v-col>
-            <ExCard title="prueba"/>
+        <v-col class="d-flex justify-end">
+            <ExCard :title="title" :img="img"/>
         </v-col>
-        <v-col>
-            <div class="d-flex pa-5" v-if="notDescanso">
-                <v-checkbox-btn
-                v-model="enabledReps"
-                ></v-checkbox-btn>
-                <v-text-field
-                :disabled="!enabledReps"
-                hide-details
-                label="Repeticones:"
-                style="width: 125px;"
-                ></v-text-field>
+        <v-col class="d-flex text-left align-center">
+          <div>
+            <div class="mb-5">
+              <h2 v-if="reps">Repeticiones {{ reps }}</h2> 
+
             </div>
-            <div class="d-flex pa-4">
-                <v-checkbox-btn
-                v-model="enabledSeg"
-                ></v-checkbox-btn>
-                <v-text-field
-                :disabled="!enabledSeg"
-                hide-details
-                label="Segundos:"
-                style="width: 125px;"
-                ></v-text-field>
+            <div>
+              <h2 v-if="duration">Segundos: {{ duration }}</h2> 
+
             </div>
+          </div>
         </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script>
-  export default {
-    data: () => ({
-      enabledReps: false,
-      enabledSeg: false,
-    }),
-  }
-</script>
-
 LA CONST notDescanso TIENE Q IGUALARSE A LA VARIABLE DE API Q DIFERENCIA ENTRE EJERCICIO Y DESCANSO  --------------------------------------------------------------------------------------------------------
 
 <script setup>
-    import ExCard from '@/components/ExcersiveCard.vue'
+    import { ExerciseApi } from '@/api/exercise';
+import ExCard from '@/components/ExcersiveCard.vue'
+import { inject, ref } from 'vue';
     const notDescanso = true;
+
+    const props = defineProps(['exercise', 'index'])
+    const exercise = props.exercise;
+    const title = exercise.name
+    const img = exercise.img
+    const reps = ref('5');
+    const duration = ref('');
+    reps.value = exercise.repetitions;
+    duration.value = exercise.duration;
+
+
 </script>
 
 <style scoped>

@@ -60,7 +60,7 @@
         if (allratings.content.length !== 0) {
             rating.value = 0;
             allratings.content.forEach((elem) => { rating.value += elem.score; })
-            rating.value = Math.trunc(rating.value / allratings.content.length);
+            rating.value = Math.round(100*rating.value / allratings.content.length)/100;
         } else {
             rating.value = 'No rating';
         }

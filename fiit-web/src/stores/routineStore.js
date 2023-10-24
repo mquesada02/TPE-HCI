@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import { FavouritesApi } from '@/api/favourites';
 import { ExerciseApi } from '@/api/exercise';
 import { ReviewApi } from '@/api/review';
+import { CycleApi } from '@/api/cycle';
 
 export const useRoutineStore = defineStore('routine', () => {
 
@@ -78,6 +79,10 @@ export const useRoutineStore = defineStore('routine', () => {
         return await RoutineApi.createCycle(routineId, cycleInfo);
     }
 
+    async function addExerciseToCycle(cycleId, exerciseId, exerciseBody) {
+        return await CycleApi.addExercise(cycleId, exerciseId, exerciseBody);
+    }
+
     async function retrieveFavourites() {
         //if (!favourites.value || favourites.value.length === 0) {
             const res = await FavouritesApi.getFavourites();
@@ -127,6 +132,7 @@ export const useRoutineStore = defineStore('routine', () => {
         getRoutinesByPage,
         retrieveFavourites,
         addCycle,
+        addExerciseToCycle,
         markAsFavourite,
         unmarkAsFavourite,
         addReview,

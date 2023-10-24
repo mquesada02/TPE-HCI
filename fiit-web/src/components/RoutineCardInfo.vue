@@ -1,6 +1,6 @@
 <template>
     <v-sheet rounded="xl" color="lighter" width="35vw" min-height="100vh" class="pa-5 mt-5">
-        <v-row v-if="routineUserID.value == userID.value" class="pa-5 d-flex justify-end">
+        <v-row v-if="routineUserID == userID" class="pa-5 d-flex justify-end">
             <v-icon icon="mdi-pencil" @click="overlay = !overlay"></v-icon>
         </v-row>
         <v-row class="d-flex align-center justify-center">
@@ -52,7 +52,10 @@
         <v-row class="d-flex justify-end align-start pa-5">
             <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" 
                 empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
-            <v-icon v-if="routineUserID.value == userID.value" :size="32" class="pl-15" color="black" icon="mdi-delete" @click="dialogDel=true"></v-icon>
+            <v-icon v-if="routineUserID == userID" :size="32" class="pl-15" color="black" icon="mdi-delete" @click="dialogDel=true"></v-icon>
+            {{ console.log(userID) }}
+
+            {{ console.log(routineUserID) }}
             <v-dialog v-model="dialogDel" width="auto">
                 <v-card>
                     <v-card-actions>
@@ -136,15 +139,18 @@
         favourites.value.forEach((elem) => {
             if (elem.id == id) { 
                 favState.value = 1;
-                routineUserID.value = elem.user.id;
             }
         })
 
         const allratings = await routineStore.getReviews(id);
         if (allratings.content.length !== 0) {
             allratings.content.forEach((elem) => { rating.value += elem.score; })
-            rating.value = Math.trunc(rating.value / allratings.content.length);
+            rating.value = Math.round(100*rating.value / allratings.content.length)/100;
         }
+
+        const other = await routineStore.retrieveRoutineById(id);
+        routineUserID.value = other.user.id;
+
         const result = await userStore.getCurrentUser();
         userID.value = await result.id;
         

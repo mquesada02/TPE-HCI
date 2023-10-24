@@ -63,9 +63,6 @@ class Cycle {
         this.exercisesArray = exercisesArray;
     }
 
-    setExerciseArray(exerciseArray){
-        
-    }
 }
 
 class CycleInfo {
@@ -74,11 +71,15 @@ class CycleInfo {
         this.detail = detail;
         this.type = type;
         this.order = 1;
-        this.series = series;
+        this.repetitions = series;
     }
 
     setOrder(order){
         this.order = order;
+    }
+
+    setSeries(series) {
+        this.repetitions = series;
     }
 }
 
