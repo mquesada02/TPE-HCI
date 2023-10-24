@@ -3,28 +3,28 @@
         <v-card color="background">
             <v-tabs grow v-model="tab">
                 <v-tab value="one">Descripción
-                    <div v-if="descCheckbox">
+                    <div v-if="!descCheckbox">
                     </div>
                     <div v-else>
                         <v-icon icon="mdi-checkbox-marked" />
                     </div>
                 </v-tab>
                 <v-tab value="two">Entrada en calor
-                    <div v-if="true">
+                    <div v-if="!warmupCheckbox">
                     </div>
                     <div v-else>
                         <v-icon icon="mdi-checkbox-marked" />
                     </div>
                 </v-tab>
                 <v-tab value="three">Ejercitación
-                    <div v-if="true">
+                    <div v-if="!exerciceCheckbox">
                     </div>
                     <div v-else>
                         <v-icon icon="mdi-checkbox-marked" />
                     </div>
                 </v-tab>
                 <v-tab value="four">Enfriamiento
-                    <div v-if="true">
+                    <div v-if="!cooldownCheckbox">
                     </div>
                     <div v-else>
                         <v-icon icon="mdi-checkbox-marked" />
@@ -66,8 +66,56 @@
                             </v-overlay>
                         </v-row>
                     </v-window-item>
-                    <v-window-item value="three">
-                        <Workout></Workout>
+                    <v-window-item value="three"> <!-- ejercitación -->
+                        <v-card-text class="text-center">
+                            <v-btn variant="text" @click="length++, exerciseTab = length">
+                                Finalizar y añadir ciclo
+                            </v-btn>
+                            <v-divider class="mx-4" vertical></v-divider>
+                            <v-btn :disabled="!length" variant="text" @click="tab = 3">
+                                Finalizar ejercitación
+                            </v-btn>
+                        </v-card-text>
+                        <v-tabs v-model="exerciseTab" bg-color="surface">
+                            <v-tab v-for="n in length" :key="n" :value="n">
+                                Ciclo {{ n }}
+                            </v-tab>
+                        </v-tabs>
+                        <v-card-text>
+                            <v-window v-model="exerciseTab">
+                                <v-window-item v-for="n in length" :key="n" :value="n">
+                                    <v-row class="top d-flex justify-center mt-5">
+                                        <v-col class="d-flex align-center pl-5 pb-5">
+                                            <h1>Ciclo {{ n }}</h1>
+                                        </v-col>
+                                        <v-col class="d-flex justify-end">
+                                            <v-responsive maxWidth="300">
+                                                <v-text-field type="number" density="compact"
+                                                    v-model="exercisesSeries[n - 1].value" outlined dense
+                                                    :rules="seriesRules">
+                                                    <template v-slot:prepend>
+                                                        <span class="size">Series:</span>
+                                                    </template>
+                                                </v-text-field>
+                                            </v-responsive>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row v-for="(exercise, index) in exerciseExercises[n-1]"
+                                        class="pt-10 d-flex align-center justify-center text-center">
+                                        <AddExCard :index="index" :exercise="exercise" :key="exercise" />
+                                    </v-row>
+                                    <v-row class="pa-10 d-flex align-center justify-center">
+                                        <v-btn :disabled="n != length" color="primary" @click="addToStarterCycle()">Añadir ejercicios</v-btn>
+                                        <v-overlay class="align-center justify-center" location-strategy="static"
+                                            v-model:model-value="overlay">
+                                            <v-card width="80vw" height="100vh">
+                                                <ExerciseCycleSearch :cycleIndex="n+1" />
+                                            </v-card>
+                                        </v-overlay>
+                                    </v-row>
+                                </v-window-item>
+                            </v-window>
+                        </v-card-text>
                     </v-window-item>
                     <v-window-item value="four">
                         <v-row class="top d-flex justify-center mt-5">
@@ -117,14 +165,23 @@
 <script>
 export default {
     data: () => ({
+        length: 1,
         tab: null,
+        exerciseTab: null,
     }),
     computed: {
         seriesRules() {
             return [
                 (v) => !!v || 'La cantidad de series es requerida',
-                (v) => v > 0 || 'Series debe ser un número mayor a 0',
+                (v) => v > 0 || 'La cantidad de series debe ser un número mayor a 0',
             ];
+        },
+        cycleRules() {
+            return [
+                (v) => !!v || 'La cantidad de ciclos es requerida',
+                (v) => v > 0 || 'La cantidad de ciclos debe ser un número mayor a 0',
+                (v) => v <= 20 || 'La cantidad de ciclos debe ser un número menor o igual a 20',
+            ]
         }
     }
 }
@@ -182,10 +239,8 @@ const estado = ref(false);
 provide('estado', estado);
 
 
-const startingNumberOfSeries = ref('');
-const finalNumberOfSeries = ref('');
-
-
+const startingNumberOfSeries = ref('1');
+const finalNumberOfSeries = ref('1');
 
 /* Fin descripción */
 
@@ -195,8 +250,22 @@ const ciclos = ref([]); //array de ciclos
 
 ciclos.value.push(new Cycle(new CycleInfo('inicial', 'entrada en calor', 'warmup', 1), []));
 ciclos.value.push(new Cycle(new CycleInfo('final', 'enfriamiento', 'cooldown', 1), []));
-ciclos.value.push(new Cycle(new CycleInfo('ciclo1', 'ejercitacion', 'exercise', 1), []));
 
+const numberOfCycles = ref('1');
+const exercisesSeries = []
+const exerciseExercises = []
+const overlays = []
+
+for (let i = 0; i < 20; i++) {
+    exercisesSeries.push(ref('1'));
+    ciclos.value.push(new Cycle(new CycleInfo('ciclo' + i, 'ejercitacion', 'exercise', 1), []))
+    exerciseExercises.push(ciclos.value[i + 2].exercisesArray);
+}
+
+/* watch(exercisesSeries[0], () => {
+    console.log(exercisesSeries[0].value);
+})
+ */
 
 
 provide('ciclos', ciclos);
@@ -228,15 +297,10 @@ const currentOrder = ref(1);
 async function createRoutine() {
     onProcess.value = true;
     /* primero creamos la rutina */
-    try {
-        res.value = await routineStore.newRoutine(routineName.value, routineDescription.value, estado.value, dificultad.value, muscles.value, goals.value, materials.value, routineImg.value);
-    } catch (error) {
-        text.value = error.description;
-        snackbar.value = true;
-    } finally {
-        onProcess.value = false;
-    }
-    
+
+    res.value = await routineStore.newRoutine(routineName.value, routineDescription.value, estado.value, dificultad.value, muscles.value, goals.value, materials.value, routineImg.value);
+ 
+
     /* añadimos los ciclos y agregamos los ejercicios */
     // Ciclo Inicial
     try {
@@ -245,8 +309,8 @@ async function createRoutine() {
         currentOrder.value++;
         const response = await routineStore.addCycle(res.value.id, ciclos.value[0].cycleInfo);
         const cycleId = response.id;
-        ciclos.value[0].exercisesArray.forEach(async(exercise, index) => {
-            await routineStore.addExerciseToCycle(cycleId,exercise.id, {order: currentOrder.value, duration: parseInt(exercise.duration) || 0, repetitions: parseInt(exercise.repetitions) || 0})
+        ciclos.value[0].exercisesArray.forEach(async (exercise, index) => {
+            await routineStore.addExerciseToCycle(cycleId, exercise.id, { order: currentOrder.value, duration: parseInt(exercise.duration) || 0, repetitions: parseInt(exercise.repetitions) || 0 })
         })
     } catch (error) {
         console.log(error);
@@ -263,8 +327,8 @@ async function createRoutine() {
         currentOrder.value++;
         const response = await routineStore.addCycle(res.value.id, ciclos.value[1].cycleInfo);
         const cycleId = response.id;
-        ciclos.value[1].exercisesArray.forEach(async(exercise, index) => {
-            await routineStore.addExerciseToCycle(cycleId,exercise.id, {order: index+1, duration: parseInt(exercise.duration) || 0, repetitions: parseInt(exercise.repetitions) || 0})
+        ciclos.value[1].exercisesArray.forEach(async (exercise, index) => {
+            await routineStore.addExerciseToCycle(cycleId, exercise.id, { order: index + 1, duration: parseInt(exercise.duration) || 0, repetitions: parseInt(exercise.repetitions) || 0 })
         })
     } catch (error) {
         console.log(error);
@@ -274,33 +338,52 @@ async function createRoutine() {
         onProcess.value = false;
     }
 
+    // Ciclos de ejercitación
+    for (let i = 2; i < ciclos.value.length && exerciseExercises[i-2].length !== 0; i++) {
+        try {
+            ciclos.value[i].cycleInfo.setSeries(parseInt(exercisesSeries[i-2].value));
+            ciclos.value[i].cycleInfo.setOrder(currentOrder.value);
+            currentOrder.value++;
+            const response = await routineStore.addCycle(res.value.id, ciclos.value[i].cycleInfo);
+            const cycleId = response.id;
+            ciclos.value[i].exercisesArray.forEach(async (exercise, index) => {
+                await routineStore.addExerciseToCycle(cycleId, exercise.id, { order: index + 1, duration: parseInt(exercise.duration) || 0, repetitions: parseInt(exercise.repetitions) || 0 })
+            })
+        } catch (error) {
+            console.log(error);
+            text.value = error.description;
+            snackbar.value = true;
+        } finally {
+            onProcess.value = false;
+        }
+    }
 
-    /* le agregamos la imagen a la rutina */
-    
+
     /* router push */
-    //router.push('/');
+    await router.push('/myRoutines');
+    router.go();
 
 }
 
 
-/* const descCheckbox = computed(() => {
-    return !(muscles.value.length && goals.value.length && materials.value.length && routineName.value && routineDescription.value);
-}) */
+const descCheckbox = computed(() => {
+    return (muscles.value.length && goals.value.length && materials.value.length && routineName.value && routineDescription.value)
+})
 
-/* const warmupCheckbox = computed(() => {
-    return (parseInt(startingNumberOfSeries.value)>= 1 && !firstCycleExercises.length);
-}) */
+const warmupCheckbox = computed(() => {
+    return (parseInt(startingNumberOfSeries.value) >= 1 && firstCycleExercises.length);
+})
 
 const exerciceCheckbox = computed(() => {
-
+    return false;
 })
 
-/* const cooldownCheckbox = computed(() => {
-    return (parseInt(finalNumberOfSeries.value)>=1 && !lastCycleExercises.length);
+const cooldownCheckbox = computed(() => {
+    return (parseInt(finalNumberOfSeries.value) >= 1 && lastCycleExercises.length);
 })
- */
+
 const canCreate = computed(() => {
-    return !((muscles.value.length && goals.value.length && materials.value.length && routineName.value && routineDescription.value) && (parseInt(startingNumberOfSeries.value)>= 1 && firstCycleExercises.length) && (parseInt(finalNumberOfSeries.value)>=1 && lastCycleExercises.length));
+    return !(descCheckbox.value && warmupCheckbox.value && cooldownCheckbox.value);
 })
 
 </script>
