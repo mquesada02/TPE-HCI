@@ -75,7 +75,6 @@ import { onBeforeMount } from 'vue';
             isRest.value = true;
         else
             isRest.value = false;
-        console.log(isRest.value)
     })
     
     async function deletee() {

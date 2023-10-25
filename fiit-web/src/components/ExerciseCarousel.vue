@@ -13,7 +13,7 @@
         <v-slide-group-item
           v-for="img in imgs"
           :key="img"
-          v-slot="{ toggle, selectedClass }"
+          v-slot="{ isSelected, toggle, selectedClass }"
         >
           <ExcersiveCard :img="img.src" :title="img.title" :id="img.id" :selected-class="selectedClass" :toggle="toggle"/>
         </v-slide-group-item>
@@ -22,9 +22,16 @@
 </template>
 
 <script setup>
-    import ExcersiveCard from './ExcersiveCard.vue';
-    const props = defineProps(['title','imgs','text']);
-    const title = props.title;
-    const imgs = props.imgs;
-    const text = props.text;
+    import { onBeforeMount, ref } from 'vue';
+import ExcersiveCard from './ExcersiveCard.vue';
+    const props = defineProps(['title','imgs','id']);
+    const title = ref(props.title);
+    const imgs = ref(props.imgs);
+    const id = ref(props.id);
+    onBeforeMount(async () => {
+      title.value = props.title;
+      imgs.value = await props.imgs;
+      id.value = props.id;
+    })
+    
 </script>

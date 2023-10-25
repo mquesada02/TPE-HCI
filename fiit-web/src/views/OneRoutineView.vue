@@ -23,7 +23,7 @@
             </v-col>
             <v-col class="text-center pt-15">
                   <v-container v-for="cycle in cycles">
-                    <ExerciseCarousel :title="cycle.name" :imgs="getExArray(cycle)"/>
+                    <ExerciseCarousel :id="id" :title="cycle.name" :imgs="getExArray(cycle)"/>
                   </v-container>
             </v-col>
         </v-row>
@@ -50,7 +50,7 @@
     const id = ref('');
 
     const cycles = ref([]);
-    const ExArray = ref([])
+    
 
     const exerciseStore = useExerciseStore();
     const routineStore = useRoutineStore();
@@ -69,20 +69,21 @@
         material.value = routine.metadata.materials;
         isPublic.value = routine.isPublic;
         img.value = routine.metadata.img;
-        
         cycles.value = await routineStore.getRoutineCycles(id.value);
 
     })
 
     async function getExArray(cycle) {
-        const exercises = await routineStore.getCycleExercises(cycle.id)
-        console.log('IDDD')
-        console.log(cycle.id)
-        exercises.forEach(async (ex) => {
-            const img = await exerciseStore.exerciseImage(ex.id)
-            ExArray.value.push({src: img, title: ex.name, id: ex.id})
+        const ExArray = ref([])
+        const exercises = await routineStore.getCycleExercises(cycle.id);
+        console.log(exercises.content);
+        exercises.content.forEach(async (ex) => {
+            const img = await exerciseStore.exerciseImage(ex.exercise.id)
+            console.log(ex);
+            ExArray.value.push({src: img, title: ex.exercise.name, id: ex.exercise.id})
         })
-        return ExArray
+        console.log(ExArray.value)
+        return ExArray.value
     }
 
     function goBack(){

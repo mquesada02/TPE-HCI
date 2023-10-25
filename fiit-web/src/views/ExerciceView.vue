@@ -41,13 +41,9 @@
         const exerciseStore = useExerciseStore();
         const params = new URLSearchParams(location.search);
         id.value = params.get("id");
-        console.log(id.value)
         const exercise = await exerciseStore.getExerciseFromApi(id.value);
-        console.log(exercise)
         const exerciseImg = await exerciseStore.exerciseImage(id.value)
-        console.log(exerciseImg)
         const exerciseVideo = await exerciseStore.exerciseVideo(id.value)
-        console.log(exerciseVideo.value)
 
         nombre.value = exercise.name
         descripcion.value = exercise.detail 
