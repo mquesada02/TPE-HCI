@@ -12,15 +12,15 @@ class RoutineApi {
         return RoutineApi.getUrl() + `?search=${query}`;
     }
 
-    static removeRoutine(id) {
-        return Api.delete(RoutineApi.getUrl(id), true);
+    static async removeRoutine(id) {
+        return await Api.delete(RoutineApi.getUrl(id), true);
     }
 
     static getSearchUrlByPage(page, query) {
         return RoutineApi.getUrl() + `?search=${query}&page=${page}`;
     }
 
-    static async geteCycleExerciseUrl(slugCycle, slugExercise){
+    static getCycleExerciseUrl(slugCycle, slugExercise){
         return `${Api.baseUrl}/cycles/${slugCycle}/exercises${slugExercise ? `/${slugExercise}` : ''}`;
     }
 
@@ -53,13 +53,12 @@ class RoutineApi {
     }
 
     static async addExerciseToCycle(cycleId, exerciseId, body){
-        return await Api.post(RoutineApi.geteCycleExerciseUrl(cycleId, exerciseId), true, body)
+        return await Api.post(RoutineApi.getCycleExerciseUrl(cycleId, exerciseId), true, body)
     }
 
     static async getCycleExercises(cycleId){
-        const res= await Api.get(RoutineApi.geteCycleExerciseUrl(cycleId), true)
-        const content = res.content
-        return content
+       return await Api.get(RoutineApi.getCycleExerciseUrl(cycleId), true)
+        
     }
 
     static async retrieveRoutineCycles(id){

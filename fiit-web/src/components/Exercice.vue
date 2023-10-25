@@ -1,7 +1,6 @@
 <template>
     <h1 color="white" class="text-center">{{nombre}}</h1>
     <div class="container">
-        {{ console.log(videoUrl) }}
         <div class="card-div">
             <v-icon icon="mdi-pencil" color="black" class="pb-5 pt-3" @click="overlay = !overlay" />
             <v-img  :src="img" height="300"/>
@@ -25,7 +24,7 @@
             <h1 class="mt-4 mb-6 mr-4 ml-6 text-center hColor">Descripción</h1>
             <h3 class="mb-4 ml-12 mr-12 hColor"> {{ descripcion }} </h3>
             <div class="text-right">
-                <v-icon v-if="exerciseUserID.value == userID.value" :size="32" color="black" icon="mdi-delete" @click="dialogDel=true"></v-icon>
+                <v-icon v-if="exerciseUserID == userID && !isRest" :size="32" color="black" icon="mdi-delete" @click="dialogDel=true"></v-icon>
                 <v-dialog v-model="dialogDel" width="auto">
                     <v-card>
                         <v-card-actions>
@@ -56,6 +55,7 @@
     import { ref, inject } from 'vue';
     import { useExerciseStore } from '@/stores/exerciseStore';
     import router from '@/router';
+import { onBeforeMount } from 'vue';
     const overlay = ref(false);
     const exerciseStore = useExerciseStore();
     const exerciseUserID = ref('');
@@ -66,9 +66,16 @@
     const img = inject('img')
     const id = inject('id')
 
-    console.log(videoUrl.value)
-    console.log(img.value)
+    const isRest = ref(false);
 
+    onBeforeMount(async () => {
+        const res = await exerciseStore.getExercise(id.value);
+        if (res.type == 'rest')
+            isRest.value = true;
+        else
+            isRest.value = false;
+    })
+    
     async function deletee() {
         try {
             await exerciseStore.deleteExercise(id.value);

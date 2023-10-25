@@ -55,9 +55,6 @@
             <v-rating hover :length="1" :size="32" color="black" active-color="black" v-model:model-value="favState" 
                 empty-icon="mdi-heart-outline" half-icon="mdi-heart-half-full" full-icon="mdi-heart" clearable/>
             <v-icon v-if="routineUserID == userID" :size="32" class="pl-15" color="black" icon="mdi-delete" @click="dialogDel=true"></v-icon>
-            {{ console.log(userID) }}
-
-            {{ console.log(routineUserID) }}
             <v-dialog v-model="dialogDel" width="auto">
                 <v-card>
                     <v-card-actions>

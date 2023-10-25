@@ -74,6 +74,9 @@
                             <v-overlay class="align-center justify-center" location-strategy="static"
                                 v-model:model-value="overlay">
                                 <v-card width="80vw" height="100vh">
+                                    <v-btn class="mt-3 ml-5 mb-3" color="secondary" @click="overlayyy()" >          
+                                        <v-icon icon="mdi-chevron-left" size="x-large"></v-icon>
+                                    </v-btn>
                                     <ExerciseCycleSearch :cycleIndex="0" />
                                 </v-card>
                             </v-overlay>
@@ -314,6 +317,11 @@ provide('overlay', overlay);
 function addToStarterCycle() {
     overlay.value = true;
 }
+
+function overlayyy(){
+    overlay.value= false;
+}
+
 
 import AddExCard from '@/components/AddExCard.vue';
 

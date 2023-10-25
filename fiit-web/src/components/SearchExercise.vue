@@ -37,7 +37,6 @@
         function queryExercises(query) {
                 filteredExercises.value = myexercises.value;
                 filteredExercises.value = filteredExercises.value.filter((exercise) => {
-                        console.log(exercise);
                         return exercise.name.toLowerCase().includes(query.toLowerCase());
                 })
                 finished.value = ! finished.value;
