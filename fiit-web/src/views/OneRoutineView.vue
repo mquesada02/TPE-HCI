@@ -23,7 +23,7 @@
             </v-col>
             <v-col class="text-center pt-15">
                   <v-container v-for="cycle in cycles">
-                    <ExerciseCarousel :title="cycle.name" :imgs="getExArray()"/>
+                    <ExerciseCarousel :title="cycle.name" :imgs="getExArray(cycle)"/>
                   </v-container>
             </v-col>
         </v-row>
@@ -63,23 +63,24 @@
         src.value = routine.metadata.img;
         name.value = routine.name;
         difficulty.value = routine.difficulty
-        intensity.value = routine.difficulty === 'rookie' ? 'Bajo' : routine.difficulty === 'intermediate' ? 'Medio' : 'Alto';
+        intensity.value = routine.difficulty === 'rookie' ? 'Baja' : routine.difficulty === 'intermediate' ? 'Media' : 'Alta';
         description.value = routine.detail;
         muscles.value = routine.metadata.muscles;
         material.value = routine.metadata.materials;
         isPublic.value = routine.isPublic;
         img.value = routine.metadata.img;
         
-        cycles.value = await routineStore.getRoutineCycles();
+        cycles.value = await routineStore.getRoutineCycles(id.value);
 
     })
 
     async function getExArray(cycle) {
         const exercises = await routineStore.getCycleExercises(cycle.id)
+        console.log('IDDD')
+        console.log(cycle.id)
         exercises.forEach(async (ex) => {
-            const id = ex.id
-            const img = await exerciseStore.exerciseImage(id)
-            ExArray.value.push({src: img, title: ex.name, id: id})
+            const img = await exerciseStore.exerciseImage(ex.id)
+            ExArray.value.push({src: img, title: ex.name, id: ex.id})
         })
         return ExArray
     }
