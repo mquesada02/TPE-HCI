@@ -37,33 +37,33 @@ class RoutineApi {
     }
 
     static async createRoutine(name, detail, isPublic, difficulty, metadata) {
-        return Api.post(RoutineApi.getUrl(), true, {name: name, detail: detail, isPublic: isPublic, difficulty: difficulty, metadata: metadata});
+        return await Api.post(RoutineApi.getUrl(), true, {name: name, detail: detail, isPublic: isPublic, difficulty: difficulty, metadata: metadata});
     }
 
     static async modifyRoutine(id, routineInfo) {
-        return Api.put(RoutineApi.getUrl(id), true, routineInfo);
+        return await Api.put(RoutineApi.getUrl(id), true, routineInfo);
     }
 
     static async getRoutineById(id){
-        return Api.get(RoutineApi.getUrl(id),true);
+        return await Api.get(RoutineApi.getUrl(id),true);
     }
 
     static async createCycle(routineId, cycleInfo) {
-        return Api.post(RoutineApi.getUrl(routineId + "/cycles"), true, cycleInfo);
+        return await Api.post(RoutineApi.getUrl(routineId + "/cycles"), true, cycleInfo);
     }
 
     static async addExerciseToCycle(cycleId, exerciseId, body){
-        return Api.post(RoutineApi.geteCycleExerciseUrl(cycleId, exerciseId), true, body)
+        return await Api.post(RoutineApi.geteCycleExerciseUrl(cycleId, exerciseId), true, body)
     }
 
     static async getCycleExercises(cycleId){
-        const res= Api.get(RoutineApi.geteCycleExerciseUrl(cycleId))
+        const res= await Api.get(RoutineApi.geteCycleExerciseUrl(cycleId), true)
         const content = res.content
         return content
     }
 
     static async retrieveRoutineCycles(id){
-        const res = await Api.get(RoutineApi.getUrl(id) + '/cycles')
+        const res = await Api.get(RoutineApi.getUrl(id) + '/cycles', true)
         const content = res.content
         return content
     }

@@ -2,7 +2,7 @@
   <h1 class="mt-8 mb-4 ml-8">Crear Ejercicio</h1>
   <v-card color="black">
     <v-row>
-    <v-col cols="6">
+    <v-col>
         <v-text-field v-model:model-value="nombre" label="Nombre ejercicio:" class="text-field-center ml-4 mr-4"
           :rules="nombreRules">
         </v-text-field>
@@ -10,14 +10,14 @@
           :rules="descripcionRules">
         </v-textarea>
     </v-col> 
-    <v-col cols="6">
-      <v-container width="200">
+    <v-col>
+      <v-container width="50%">
         <v-text-field label="Ingresar el URL de la imagen" v-model="foto" class="mx-auto" :rules="fotoRules">
         </v-text-field>
         <v-img v-if="foto" :src="foto" height="200px">
         </v-img>
       </v-container>
-      <v-container width="200">
+      <v-container width="50%">
         <v-text-field label="Ingresar el URL del video" accept="video/*" v-model="video" class="mx-auto">
         </v-text-field>
         <video v-if="video" :src="video" controls>

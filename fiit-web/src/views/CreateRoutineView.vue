@@ -37,6 +37,19 @@
                         <Desc></Desc>
                     </v-window-item>
                     <v-window-item value="two">
+                        <div class="text-right">
+                            <v-icon icon="mdi-information" size="x-large" @click="dialog = true" color="white"></v-icon>
+                            <v-dialog v-model="dialog" width="auto">
+                                <v-card>
+                                    <v-card-text>
+                                        Para completar esta sección es necesario añadir al menos un ejercicio al ciclo.
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </div>
                         <v-row class="top d-flex justify-center mt-5">
                             <v-col class="d-flex align-center pl-5 pb-5">
                                 <h1>Ciclo Inicial</h1>
@@ -67,6 +80,20 @@
                         </v-row>
                     </v-window-item>
                     <v-window-item value="three"> <!-- ejercitación -->
+                        <div class="text-right">
+                            <v-icon icon="mdi-information" size="x-large" @click="dialog = true" color="white"></v-icon>
+                            <v-dialog v-model="dialog" width="auto">
+                                <v-card>
+                                    <v-card-text>
+                                        Para completar esta sección es necesario añadir al menos un ejercicio a cada ciclo y presionar "Finalizar ejercitación". No se puede modificar un 
+                                        ciclo una vez presionado "Finalizar y añadir ciclo"
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </div>
                         <v-card-text class="text-center">
                             <v-btn variant="text" @click="length++, exerciseTab = length">
                                 Finalizar y añadir ciclo
@@ -168,6 +195,7 @@ export default {
         length: 1,
         tab: null,
         exerciseTab: null,
+        dialog: false,
     }),
     computed: {
         seriesRules() {
