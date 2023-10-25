@@ -82,7 +82,6 @@
             console.log(ex);
             ExArray.value.push({src: img, title: ex.exercise.name, id: ex.exercise.id})
         })
-        console.log(ExArray.value)
         return ExArray.value
     }
 

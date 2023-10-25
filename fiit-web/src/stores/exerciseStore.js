@@ -40,7 +40,6 @@ export const useExerciseStore = defineStore('exercise', () => {
     }
 
     async function getExercise(id) {
-        console.log(exercises.value)
         //if (!exercises.value.length){
         const res = await ExerciseApi.getAllExercises();
         exercises.value = res.content

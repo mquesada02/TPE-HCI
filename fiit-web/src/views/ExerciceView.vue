@@ -49,6 +49,5 @@
         descripcion.value = exercise.detail 
         img.value = exerciseImg   
         videoUrl.value = exerciseVideo 
-        console.log(videoUrl.value)
     })
 </script>

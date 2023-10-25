@@ -1,7 +1,6 @@
 <template>
     <h1 color="white" class="text-center">{{nombre}}</h1>
     <div class="container">
-        {{ console.log(videoUrl) }}
         <div class="card-div">
             <v-icon icon="mdi-pencil" color="black" class="pb-5 pt-3" @click="overlay = !overlay" />
             <v-img  :src="img" height="300"/>
