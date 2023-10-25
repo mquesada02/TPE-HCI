@@ -9,7 +9,7 @@
             </p>
           </v-img>
       <v-container v-if="userStore.isLoggedIn">
-        <SmallCarousel title="Destacadas" :imgs="destacadas" text="No hay rutinas disponibles"/>
+        <SmallCarousel title="Rutinas públicas" :imgs="destacadas" text="No hay rutinas disponibles"/>
       </v-container>
     </v-main>
   </v-app>
