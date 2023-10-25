@@ -77,6 +77,10 @@ export const useExerciseStore = defineStore('exercise', () => {
         exercises.value.splice(index, 1);
     }
 
+    async function createRest() {
+        return await ExerciseApi.createRest();
+    }
+
     async function exerciseImage(id){
         const result = await ExerciseApi.getExerciseImage(id);
         return result?.url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg';
@@ -98,6 +102,7 @@ export const useExerciseStore = defineStore('exercise', () => {
         deleteExercise,
         exerciseImage,
         exerciseVideo,
+        createRest,
         getExerciseFromApi
     }
 

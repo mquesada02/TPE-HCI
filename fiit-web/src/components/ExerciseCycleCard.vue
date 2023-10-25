@@ -10,14 +10,14 @@
             <v-row class="mt-5">
                 <v-col class="d-flex justify-end">
                     <v-checkbox-btn class="ml-5" v-model="enabledReps"></v-checkbox-btn>
-                    <v-text-field class="mr-5" :disabled="!enabledReps" hide-details label="Repeticiones:" style="width: 125px;"
+                    <v-text-field type="number" class="mr-5" :disabled="!enabledReps" hide-details label="Repeticiones:" style="width: 125px;"
                         v-model="reps"></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col class="d-flex justify-end">
                     <v-checkbox-btn class="ml-5" v-model="enabledSecs"></v-checkbox-btn>
-                    <v-text-field class="mr-5" :disabled="!enabledSecs" hide-details label="Segundos:" style="width: 125px;"
+                    <v-text-field type="number" class="mr-5" :disabled="!enabledSecs" hide-details label="Segundos:" style="width: 125px;"
                         v-model="secs"></v-text-field>
                 </v-col>
             </v-row>
@@ -68,7 +68,7 @@ async function addToCycle() {
             isRepeated.value = true;
     })
     if (!isRepeated.value)
-        ciclos.value[cycleIndex].exercisesArray.push({ ...res, img: img.url, duration: secs.value, repetitions: reps.value });
+        ciclos.value[cycleIndex].exercisesArray.push({ ...res, img: img?.url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg', duration: secs.value, repetitions: reps.value });
     overlay.value = false;
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <v-sheet rounded="xl" color="lighter" width="35vw" min-height="100vh" class="pa-5 mt-5">
+    <v-sheet color="lighter" width="35vw" class="pa-5 mt-5">
         <v-row v-if="routineUserID == userID" class="pa-5 d-flex justify-end">
             <v-icon icon="mdi-pencil" @click="overlay = !overlay"></v-icon>
         </v-row>
@@ -12,8 +12,8 @@
                 {{ description }}
             </v-col>
         </v-row>
-        
-        <v-row class="align-start">
+        <v-divider class="mt-5"/>
+        <v-row class="align-start" align="center">
             <v-col>
                 <h2>Equipamiento</h2>
             </v-col>
@@ -25,7 +25,8 @@
                 </ul>
             </v-col>
         </v-row>
-        <v-row class="align-start">
+        <v-divider class="mt-5"/>
+        <v-row class="align-start" align="center">
             <v-col>
                 <h2>Músculos a trabajar</h2>
             </v-col>
@@ -37,7 +38,8 @@
                </ul>
             </v-col>
         </v-row>
-        <v-row class="align-start">
+        <v-divider class="mt-5"/>
+        <v-row class="align-start" align="center">
             <v-col>
                 <h2>Intensidad</h2>
             </v-col>

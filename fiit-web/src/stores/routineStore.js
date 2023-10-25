@@ -114,6 +114,14 @@ export const useRoutineStore = defineStore('routine', () => {
         return await ExerciseApi.getExerciseImage(id);
     }
 
+    async function getRoutineCycles(id){
+        return await RoutineApi.retrieveRoutineCycles(id)
+    }
+
+    async function getCycleExercises(cycleId){
+        return await RoutineApi.getCycleExercises(cycleId);
+    }
+
     return {
         muscles,
         intensity,
@@ -138,5 +146,7 @@ export const useRoutineStore = defineStore('routine', () => {
         addReview,
         getReviews,
         getExerciseImage,
+        getRoutineCycles,
+        getCycleExercises,
     }
 });

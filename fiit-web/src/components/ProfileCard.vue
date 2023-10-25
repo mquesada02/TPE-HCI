@@ -1,6 +1,6 @@
 <template>
-    <v-sheet height="100%" width="40%" color="secondary" rounded="xl" elevation="10" class="d-flex justify-center ma-5">
-        <v-sheet v-if="!modifyMode" height="95%" width="95%" color="lighter" elevation="10" rounded="xl" class=" ma-3 text-center">
+    <v-sheet height="100%" width="40%" color="secondary" class="d-flex justify-center ma-5">
+        <v-sheet v-if="!modifyMode" height="100%" width="100%" color="lighter" class="text-center">
             <div class="pa-4 d-flex flex-row-reverse">
                 <v-btn @click="modify()" size="50" color="primary" icon="mdi-pencil" />
             </div>
@@ -15,13 +15,12 @@
             <p class="text-h6 text-center drop-shadow-lg mb-4">Altura: {{ height }}cm</p>
             <v-btn color="secondary" type="submit" @click="logOut" class="text-center mb-8" append-icon="mdi-logout">Cerrar Sesion</v-btn>
         </v-sheet>
-        <v-sheet v-else height="100%" width="100%" color="lighter" rounded="xl" class="pa-10 text-center">
+        <v-sheet v-else height="100%" width="100%" color="lighter" class="pa-10 text-center">
             <v-form @submit.prevent="onSubmit">
                 <v-text-field type="text" v-model:model-value="avatar" label="Avatar URL"></v-text-field>
                 <img v-if="avatar" :src="avatar" height="150" width="150" />
                 <v-text-field type="text" v-model:model-value="firstName" label="Nombre"></v-text-field>
                 <v-text-field type="text" v-model:model-value="lastName" label="Apellido"></v-text-field>
-                <v-text-field type="text" v-model:model-value="age" label="Edad"></v-text-field>
                 <v-text-field type="text" v-model:model-value="weight" label="Peso"></v-text-field>
                 <v-text-field type="text" v-model:model-value="height" label="Altura"></v-text-field>
                 <v-btn variant="outlined" :loading="loading" type="submit" block class="text-center"> Guardar cambios

@@ -21,27 +21,22 @@
                 <RoutineCardInfo :img="img" :difficulty="difficulty" :isPublic="isPublic" :id="id" :name="name" 
                 :description="description" :intensity="intensity" :muscles="muscles" :material="material"/>
             </v-col>
-            <v-col class="d-flex  text-center pt-15">
-                  <ExcerciceScroller/>
+            <v-col class="text-center pt-15">
+                  <v-container v-for="cycle in cycles">
+                    <ExerciseCarousel :title="cycle.name" :imgs="getExArray(cycle)"/>
+                  </v-container>
             </v-col>
-        </v-row>
-        <v-row>
-            
         </v-row>
     </div>
 </template>
 
 
-//el nombre de rutina es un parametro q se tiene q recibir desde donde sea q se clickee
-//al igual q la foto
-//en vez de muchos miniExcerise seria un v-for q recorre la info de la api sobre q ej estan en esta rutina
-
-
 <script setup>
     import RoutineCardInfo from '@/components/RoutineCardInfo.vue';
-    import ExcerciceScroller from '@/components/ExcerciceScroller.vue';
     import { useRoutineStore } from '@/stores/routineStore';
+    import { useExerciseStore } from '@/stores/exerciseStore';
     import { onBeforeMount, ref } from 'vue';
+    import ExerciseCarousel from '@/components/ExerciseCarousel.vue';
     import router from '@/router';
     const src = ref('');
     const muscles = ref([]);
@@ -53,6 +48,13 @@
     const difficulty = ref('');
     const img = ref('');
     const id = ref('');
+
+    const cycles = ref([]);
+    const ExArray = ref([])
+
+    const exerciseStore = useExerciseStore();
+    const routineStore = useRoutineStore();
+
     onBeforeMount(async () => {
         const routineStore = useRoutineStore();
         const params = new URLSearchParams(location.search);
@@ -61,13 +63,27 @@
         src.value = routine.metadata.img;
         name.value = routine.name;
         difficulty.value = routine.difficulty
-        intensity.value = routine.difficulty === 'rookie' ? 'Bajo' : routine.difficulty === 'intermediate' ? 'Medio' : 'Alto';
+        intensity.value = routine.difficulty === 'rookie' ? 'Baja' : routine.difficulty === 'intermediate' ? 'Media' : 'Alta';
         description.value = routine.detail;
         muscles.value = routine.metadata.muscles;
         material.value = routine.metadata.materials;
         isPublic.value = routine.isPublic;
         img.value = routine.metadata.img;
+        
+        cycles.value = await routineStore.getRoutineCycles(id.value);
+
     })
+
+    async function getExArray(cycle) {
+        const exercises = await routineStore.getCycleExercises(cycle.id)
+        console.log('IDDD')
+        console.log(cycle.id)
+        exercises.forEach(async (ex) => {
+            const img = await exerciseStore.exerciseImage(ex.id)
+            ExArray.value.push({src: img, title: ex.name, id: ex.id})
+        })
+        return ExArray
+    }
 
     function goBack(){
       router.go(-1);

@@ -37,6 +37,19 @@
                         <Desc></Desc>
                     </v-window-item>
                     <v-window-item value="two">
+                        <div class="text-right">
+                            <v-icon icon="mdi-information" size="x-large" @click="dialog = true" color="white"></v-icon>
+                            <v-dialog v-model="dialog" width="auto">
+                                <v-card>
+                                    <v-card-text>
+                                        Para completar esta sección es necesario añadir al menos un ejercicio al ciclo.
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </div>
                         <v-row class="top d-flex justify-center mt-5">
                             <v-col class="d-flex align-center pl-5 pb-5">
                                 <h1>Ciclo Inicial</h1>
@@ -67,12 +80,26 @@
                         </v-row>
                     </v-window-item>
                     <v-window-item value="three"> <!-- ejercitación -->
+                        <div class="text-right">
+                            <v-icon icon="mdi-information" size="x-large" @click="dialog = true" color="white"></v-icon>
+                            <v-dialog v-model="dialog" width="auto">
+                                <v-card>
+                                    <v-card-text>
+                                        Para completar esta sección es necesario añadir al menos un ejercicio a cada ciclo y presionar "Finalizar ejercitación". No se puede modificar un 
+                                        ciclo una vez presionado "Finalizar y añadir ciclo"
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-btn color="primary" block @click="dialog = false">Cerrar</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </div>
                         <v-card-text class="text-center">
                             <v-btn variant="text" @click="length++, exerciseTab = length">
                                 Finalizar y añadir ciclo
                             </v-btn>
                             <v-divider class="mx-4" vertical></v-divider>
-                            <v-btn :disabled="!length" variant="text" @click="tab = 3">
+                            <v-btn :disabled="!length" variant="text" @click="tab = 3, exerciceCheckbox = true">
                                 Finalizar ejercitación
                             </v-btn>
                         </v-card-text>
@@ -168,6 +195,7 @@ export default {
         length: 1,
         tab: null,
         exerciseTab: null,
+        dialog: false,
     }),
     computed: {
         seriesRules() {
@@ -248,8 +276,8 @@ const finalNumberOfSeries = ref('1');
 
 const ciclos = ref([]); //array de ciclos
 
-ciclos.value.push(new Cycle(new CycleInfo('inicial', 'entrada en calor', 'warmup', 1), []));
-ciclos.value.push(new Cycle(new CycleInfo('final', 'enfriamiento', 'cooldown', 1), []));
+ciclos.value.push(new Cycle(new CycleInfo('Entrada en calor', 'entrada en calor', 'warmup', 1), []));
+ciclos.value.push(new Cycle(new CycleInfo('Enfriamiento', 'enfriamiento', 'cooldown', 1), []));
 
 const numberOfCycles = ref('1');
 const exercisesSeries = []
@@ -258,7 +286,7 @@ const overlays = []
 
 for (let i = 0; i < 20; i++) {
     exercisesSeries.push(ref('1'));
-    ciclos.value.push(new Cycle(new CycleInfo('ciclo' + i, 'ejercitacion', 'exercise', 1), []))
+    ciclos.value.push(new Cycle(new CycleInfo('Ciclo de ejercitación ' + i, 'ejercitacion', 'exercise', 1), []))
     exerciseExercises.push(ciclos.value[i + 2].exercisesArray);
 }
 
@@ -374,16 +402,14 @@ const warmupCheckbox = computed(() => {
     return (parseInt(startingNumberOfSeries.value) >= 1 && firstCycleExercises.length);
 })
 
-const exerciceCheckbox = computed(() => {
-    return false;
-})
+const exerciceCheckbox = ref(false);
 
 const cooldownCheckbox = computed(() => {
     return (parseInt(finalNumberOfSeries.value) >= 1 && lastCycleExercises.length);
 })
 
 const canCreate = computed(() => {
-    return !(descCheckbox.value && warmupCheckbox.value && cooldownCheckbox.value);
+    return !(descCheckbox.value && warmupCheckbox.value && exerciceCheckbox && cooldownCheckbox.value);
 })
 
 </script>
