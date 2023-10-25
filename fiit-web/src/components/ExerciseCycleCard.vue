@@ -21,6 +21,7 @@
                         v-model="secs"></v-text-field>
                 </v-col>
             </v-row>
+            <v-btn color="surface" class="mt-5 ml-15 mr-15" @click="overlayReps=false">Volver</v-btn>
             <v-btn color="primary" class="mt-5 ml-15 mr-15 mb-5" @click="confirm()">Confirmar</v-btn>
         </v-card>
     </v-dialog>
