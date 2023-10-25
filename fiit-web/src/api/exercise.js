@@ -37,6 +37,10 @@ class ExerciseApi {
         return res.content[0];
     }
 
+    static async createRest() {
+        return await Api.post(ExerciseApi.getUrl(), true, {name: 'Descanso', detail: 'Descanso', type: 'rest'});
+    }
+
     static async modifyExerciseImage(id, url) {
         return await Api.put(`${ExerciseApi.getUrl(id)}/images/1`, true, {number: 1, url: url});
     }

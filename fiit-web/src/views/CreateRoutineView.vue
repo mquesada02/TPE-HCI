@@ -99,7 +99,7 @@
                                 Finalizar y añadir ciclo
                             </v-btn>
                             <v-divider class="mx-4" vertical></v-divider>
-                            <v-btn :disabled="!length" variant="text" @click="tab = 3">
+                            <v-btn :disabled="!length" variant="text" @click="tab = 3, exerciceCheckbox = true">
                                 Finalizar ejercitación
                             </v-btn>
                         </v-card-text>
@@ -402,16 +402,14 @@ const warmupCheckbox = computed(() => {
     return (parseInt(startingNumberOfSeries.value) >= 1 && firstCycleExercises.length);
 })
 
-const exerciceCheckbox = computed(() => {
-    return false;
-})
+const exerciceCheckbox = ref(false);
 
 const cooldownCheckbox = computed(() => {
     return (parseInt(finalNumberOfSeries.value) >= 1 && lastCycleExercises.length);
 })
 
 const canCreate = computed(() => {
-    return !(descCheckbox.value && warmupCheckbox.value && cooldownCheckbox.value);
+    return !(descCheckbox.value && warmupCheckbox.value && exerciceCheckbox && cooldownCheckbox.value);
 })
 
 </script>

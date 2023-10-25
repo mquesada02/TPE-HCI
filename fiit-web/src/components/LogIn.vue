@@ -26,6 +26,7 @@
   import { Credentials } from '@/api/user.js';
   import AlertSnackbar from '@/components/AlertSnackbar.vue';
   import { provide } from 'vue';
+import { ExerciseApi } from '@/api/exercise';
   const userStore = useUserStore();
   const remember = ref(false);
   const user = ref('');
@@ -55,6 +56,16 @@
       }
     } finally {
       loading.value = false;
+    }
+
+    try {
+      const res = await ExerciseApi.getExercise(0);
+      if (!res.content.length) {
+        const rest = await ExerciseApi.createRest();
+        await ExerciseApi.addExerciseImage(rest.id,'https://i.imgur.com/IAzLj4Q.png')
+      }
+    } catch(error) {
+      console.log(error);
     }
   };
 </script>
