@@ -8,7 +8,7 @@
     <v-dialog max-width="25vw" height="50vh" persistent v-model:model-value="overlayReps">
         <v-card>
             <v-row class="mt-5">
-                <v-col class="d-flex justify-end">
+                <v-col v-if="!isRest" class="d-flex justify-end">
                     <v-checkbox-btn class="ml-5" v-model="enabledReps"></v-checkbox-btn>
                     <v-text-field type="number" class="mr-5" :disabled="!enabledReps" hide-details label="Repeticiones:" style="width: 125px;"
                         v-model="reps"></v-text-field>
@@ -28,6 +28,7 @@
 
 <script setup>
 import { ExerciseApi } from '@/api/exercise';
+import { onBeforeMount } from 'vue';
 import { inject, ref } from 'vue';
 
 const props = defineProps(['img', 'title', 'id', 'cycleIndex']);
@@ -44,6 +45,18 @@ const enabledSecs = ref(false);
 
 const reps = ref('');
 const secs = ref('');
+
+const exercise = ref(null);
+const isRest = ref(false);
+
+onBeforeMount(async () => {
+    const res = await ExerciseApi.getExercise(id);
+    exercise.value = res;
+    if (res.type == 'rest')
+        isRest.value = true;
+    else
+        isRest.value = false;
+})
 
 function activateOverlay() {
     
@@ -68,7 +81,7 @@ async function addToCycle() {
             isRepeated.value = true;
     })
     if (!isRepeated.value)
-        ciclos.value[cycleIndex].exercisesArray.push({ ...res, img: img?.url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg', duration: secs.value, repetitions: reps.value });
+        ciclos.value[cycleIndex].exercisesArray.push({ ...exercise.value, img: img?.url || 'https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg', duration: secs.value, repetitions: reps.value });
     overlay.value = false;
 }
 
