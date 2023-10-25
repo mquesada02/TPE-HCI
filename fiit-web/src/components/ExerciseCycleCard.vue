@@ -51,7 +51,7 @@ function activateOverlay() {
 }
 
 function confirm() {
-    if (reps.value || secs.value) {
+    if ((reps.value && enabledReps.value)|| (secs.value && enabledSecs.value)) { 
         overlayReps.value = false
         addToCycle();
     }

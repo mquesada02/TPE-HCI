@@ -44,6 +44,7 @@
         max-width: 500px;
         display: flex;
         justify-content: space-between;
+        margin-top: 10px;
     }
 
     filters-menu{
