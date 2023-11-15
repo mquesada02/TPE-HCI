@@ -57,7 +57,8 @@ export const useRoutineStore = defineStore('routine', () => {
 
     async function retrieveRoutines() {
         if (!routines.value || routines.value.length === 0) {
-            routines.value = await RoutineApi.getRoutines();
+            const res = await RoutineApi.getRoutines();
+            routines.value = res.content;
         }
        return routines.value;
     }

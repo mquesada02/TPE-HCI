@@ -51,7 +51,7 @@
   onBeforeMount( async () => {
     const routineStore = useRoutineStore();
     const routines = await routineStore.retrieveRoutines();
-    routines.content.forEach((elem) => {
+    routines.forEach((elem) => {
       destacadas.value.push({src: elem.metadata.img, title: elem.name, id: elem.id})
     })
   })
