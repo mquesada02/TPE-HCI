@@ -3,4 +3,22 @@
     <string name="login">Login</string>
     <string name="user">Username</string>
     <string name="password">Password</string>
+    <string name="enter_user">Enter your username</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="no_account">"New to the application? "</string>
+    <string name="no_account_register">Register</string>
+    <string name="register">Register</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="name">Name</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="surname">Surname</string>
+    <string name="enter_surname">Enter your surname</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="enter_confirm_password">Repeat your password</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="enter_birthdate">Enter your birthdate</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="enter_weight">Enter your weight in kilograms</string>
+    <string name="enter_height">Enter your height in centimeters</string>
 </resources>

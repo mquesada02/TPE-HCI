@@ -3,4 +3,22 @@
     <string name="login">Iniciar Sesión</string>
     <string name="user">Nombre de usuario</string>
     <string name="password">Contraseña</string>
+    <string name="enter_user">Ingrese su nombre de usuario</string>
+    <string name="enter_password">Ingrese su contraseña</string>
+    <string name="no_account">"¿No tienes cuenta? "</string>
+    <string name="no_account_register">Regístrate</string>
+    <string name="register">Registrarse</string>
+    <string name="enter_email">Ingrese su email</string>
+    <string name="name">Nombre</string>
+    <string name="enter_name">Ingrese su nombre</string>
+    <string name="surname">Apellido</string>
+    <string name="enter_surname">Ingrese su apellido</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="enter_confirm_password">Repita su contraseña</string>
+    <string name="birthdate">Fecha de nacimiento</string>
+    <string name="enter_birthdate">Ingrese su fecha de nacimiento</string>
+    <string name="weight">Peso</string>
+    <string name="height">Altura</string>
+    <string name="enter_weight">Ingrese su peso en kilogramos</string>
+    <string name="enter_height">Ingrese su altura en centímetros</string>
 </resources>
