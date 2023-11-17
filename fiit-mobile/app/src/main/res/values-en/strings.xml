@@ -17,8 +17,17 @@
     <string name="enter_confirm_password">Repeat your password</string>
     <string name="birthdate">Birthdate</string>
     <string name="enter_birthdate">Enter your birthdate</string>
-    <string name="weight">Weight</string>
-    <string name="height">Height</string>
+    <string name="weight">Weight (kg)</string>
+    <string name="height">Height (cm)</string>
     <string name="enter_weight">Enter your weight in kilograms</string>
     <string name="enter_height">Enter your height in centimeters</string>
+    <string name="invalid_email">Enter a valid email. For example, example@gmail.com</string>
+    <string name="invalid_name">The name must have between 2 and 20 letters</string>
+    <string name="invalid_surname">The surname must have between 2 and 20 letters</string>
+    <string name="invalid_username">The username must have between 2 and 20 letters</string>
+    <string name="invalid_password">Password must contain between 2 and 20 characteres</string>
+    <string name="invalid_confirm_password">Passwords don\'t match</string>
+    <string name="invalid_birthdate">Date does\'t match with the format dd-mm-yyyy</string>
+    <string name="invalid_height">Height must be between 0 and 300 cm</string>
+    <string name="invalid_weight">Weight must be between 0 and 500 kg</string>
 </resources>

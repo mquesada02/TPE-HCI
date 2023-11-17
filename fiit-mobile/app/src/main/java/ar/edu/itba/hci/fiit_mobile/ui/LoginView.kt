@@ -1,12 +1,15 @@
 package ar.edu.itba.hci.fiit_mobile.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -19,10 +22,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -30,17 +33,21 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import ar.edu.itba.hci.fiit_mobile.R
+import ar.edu.itba.hci.fiit_mobile.Screen
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onNavigateToScreen: (String) -> Unit) {
     val username = remember { mutableStateOf(TextFieldValue("")) }
     val userOnValueChange = { user: TextFieldValue -> username.value = user }
     val password = remember { mutableStateOf(TextFieldValue("")) }
     val passwordOnValueChange = { pass: TextFieldValue -> password.value = pass }
 
     Column(
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.background)
+            .fillMaxSize()
     ) {
         Row(
             modifier = Modifier
@@ -64,7 +71,8 @@ fun LoginScreen() {
             Text(
                 text = stringResource(R.string.login),
                 fontWeight = FontWeight.Bold,
-                fontSize = MaterialTheme.typography.titleLarge.fontSize
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                color = MaterialTheme.colorScheme.onBackground
             )
         }
         Row(
@@ -77,8 +85,7 @@ fun LoginScreen() {
                 placeholder = stringResource(R.string.enter_user),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-                    .shadow(2.dp),
+                    .padding(16.dp),
                 text = username.value,
                 onValueChange = userOnValueChange
             )
@@ -93,8 +100,7 @@ fun LoginScreen() {
                 placeholder = stringResource(R.string.enter_password),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
-                    .shadow(1.dp),
+                    .padding(16.dp),
                 text = password.value,
                 onValueChange = passwordOnValueChange,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -107,24 +113,32 @@ fun LoginScreen() {
         ) {
             Text(
                 text = stringResource(R.string.no_account),
-                fontSize = MaterialTheme.typography.labelMedium.fontSize
-            )
-            Text(
-                text = stringResource(R.string.no_account_register),
                 fontSize = MaterialTheme.typography.labelMedium.fontSize,
-                textDecoration = TextDecoration.Underline
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            ClickableText(
+                text = AnnotatedString(text = stringResource(R.string.no_account_register)),
+                onClick = {onNavigateToScreen(Screen.RegisterScreen.route)},
+                style = MaterialTheme.typography.labelMedium.copy(
+                    color = MaterialTheme.colorScheme.onBackground,
+                    textDecoration = TextDecoration.Underline
+                ),
             )
         }
         Row(
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp)
         ) {
             ElevatedButton(
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = Color.Black
-            )) {
+                    contentColor = Color.Black,
+            ),
+                enabled = username.value.text.isNotEmpty() && password.value.text.isNotEmpty()
+            ) {
                 Text(text = stringResource(R.string.login), color = Color.Black)
             }
         }
