@@ -1,42 +1,44 @@
 package ar.edu.itba.hci.fiit_mobile
 
-import android.content.res.Configuration
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
+import ar.edu.itba.hci.fiit_mobile.ui.ExecuteRoutineScreen
 import ar.edu.itba.hci.fiit_mobile.ui.theme.FiitmobileTheme
+import ar.edu.itba.hci.fiit_mobile.ui.LoginScreen
+import ar.edu.itba.hci.fiit_mobile.ui.RegisterScreen
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             FiitmobileTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                val navController = rememberNavController()
+                Scaffold(
+                    /* topBar = ,*/
+                    /* bottomBar = ,*/
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    LoginScreen()
+                    FIITNavHost(navController = navController)
                 }
             }
         }
@@ -51,62 +53,48 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
+
+
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true, name = "Testing")
+@Composable
+fun TestingPreview() {
+
+    FiitmobileTheme(dynamicColor = false) {
+        val navController = rememberNavController()
+        Scaffold(
+            /* topBar = ,*/
+            /* bottomBar = ,*/
+            modifier = Modifier.fillMaxSize()
+        ) {
+            FIITNavHost(navController = navController)
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview(showBackground = true, name = "Light Mode", uiMode = Configuration.UI_MODE_NIGHT_NO)
-fun LoginScreen() {
-    val username = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
-            Row(
-                modifier = Modifier
-                    .fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        horizontalArrangement = Arrangement.Center,
-                    ) {
-                        Text(
-                            text = stringResource(R.string.login),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = MaterialTheme.typography.titleLarge.fontSize
-                        )
-                    }
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-
-                        ) {
-                        TextField(
-                            value = username.value,
-                            onValueChange = {},
-                            label = { Text(text = stringResource(R.string.user)) },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
-                                .shadow(4.dp)
-                        )
-                    }
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                    ) {
-                        TextField(
-                            value = password.value,
-                            onValueChange = {},
-                            label = { Text(text = stringResource(R.string.password)) },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
-                                .shadow(4.dp)
-                        )
-                    }
-                }
-            }
+fun TextFieldWithIcons(modifier: Modifier = Modifier, icon: ImageVector? = null, iconDesc: String? = null, label: String, placeholder: String, text: TextFieldValue, onValueChange: (TextFieldValue) -> Unit, keyboardOptions: KeyboardOptions = KeyboardOptions.Default, visualTransformation: VisualTransformation = VisualTransformation.None, errorRules: Boolean = false) {
+    return OutlinedTextField(
+        value = text,
+        leadingIcon = {icon?.let { Icon(imageVector = icon, contentDescription = iconDesc) }},
+        onValueChange = {onValueChange(it)},
+        label = { Text(text = label) },
+        placeholder = { Text(text = placeholder) },
+        modifier = modifier,
+        keyboardOptions = keyboardOptions,
+        singleLine = true,
+        visualTransformation = visualTransformation,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.onBackground
+        ),
+        isError = errorRules
+    )
 }
+
+
 
 
 
