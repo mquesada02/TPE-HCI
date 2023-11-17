@@ -337,7 +337,8 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit) {
                     onValueChange = weightOnValueChange,
                     label = { Text(text = stringResource(R.string.weight)) },
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp),
-                    isError = !validWeight.value
+                    isError = !validWeight.value,
+                    singleLine = true
                 )
                 if (!validWeight.value) {
                     Text(
@@ -363,7 +364,8 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit) {
                     onValueChange = heightOnValueChange,
                     label = { Text(text = stringResource(R.string.height)) },
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp),
-                    isError = !validHeight.value
+                    isError = !validHeight.value,
+                    singleLine = true
                 )
                 if (!validHeight.value) {
                     Text(
@@ -385,7 +387,10 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit) {
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
         ) {
-            ElevatedButton(onClick = { /*TODO*/ },
+            ElevatedButton(onClick = {
+                                    /* TODO */
+                                     onNavigateToConfirmEmailScreen()
+                                     },
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,

@@ -30,4 +30,9 @@
     <string name="invalid_birthdate">La fecha no coincide con el formato dd-mm-yyyy</string>
     <string name="invalid_height">La altura debe estar entre 0 y 300 cm</string>
     <string name="invalid_weight">El peso debe estar entre 0 y 500 kg</string>
+    <string name="verify_email">Verifique su dirección de email</string>
+    <string name="verify_email_message">Introduzca el código recibido por email</string>
+    <string name="verification_code">Código de verificación</string>
+    <string name="introduce_verification_code">Introduzca el código de verificación recibido por mail</string>
+    <string name="verify">Verificar</string>
 </resources>

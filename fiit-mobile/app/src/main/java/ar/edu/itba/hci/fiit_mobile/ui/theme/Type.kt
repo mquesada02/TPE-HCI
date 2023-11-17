@@ -19,7 +19,7 @@ val Typography = Typography(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 40.sp,
-        lineHeight = 28.sp,
+        lineHeight = 38.sp,
         letterSpacing = 0.sp
     )
     /* Other default text styles to override
