@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.data.network
+package ar.edu.itba.hci.fiit_mobile.data.network.api
 
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkCycleInformation
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkEmail
@@ -24,7 +24,7 @@ interface ApiUserService {
 
     @POST("users")
     suspend fun addUser(
-        @Body userInfo: NetworkCycleInformation
+        @Body userInfo: NetworkUserInformation
     ): Response<NetworkUserContent>
 
     @GET("users/{userId}")
@@ -35,12 +35,12 @@ interface ApiUserService {
     @POST("users/resend_verification")
     suspend fun resendVerification(
         @Body email: NetworkEmail
-    )
+    ): Response<Unit>
 
     @POST("users/verify_email")
     suspend fun verifyEmail(
         @Body emailAndCode: NetworkEmailCode
-    )
+    ): Response<Unit>
 
     @POST("users/login")
     suspend fun logUserIn(
@@ -48,7 +48,7 @@ interface ApiUserService {
     ): Response<NetworkUserToken>
 
     @POST("users/logout")
-    suspend fun logUserOut()
+    suspend fun logUserOut(): Response<Unit>
 
     @GET("users/current")
     suspend fun getCurrentUser(): Response<NetworkUserContent>
@@ -59,7 +59,7 @@ interface ApiUserService {
     ): Response<NetworkUserContent>
 
     @DELETE("users/current")
-    suspend fun removeCurrentUser()
+    suspend fun removeCurrentUser(): Response<Unit>
 
     @GET("users/current/routines") //PUEDE TENER PARAMETROS (habria que agregarlos)
     suspend fun getCurrentUserRoutines(): Response<NetworkRoutines>

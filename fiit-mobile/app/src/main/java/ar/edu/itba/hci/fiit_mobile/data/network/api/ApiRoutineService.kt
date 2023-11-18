@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.data.network
+package ar.edu.itba.hci.fiit_mobile.data.network.api
 
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkCycleContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkCycleInformation
@@ -53,7 +53,7 @@ interface ApiRoutineService {
     @DELETE("routines/{routineId}")
     suspend fun removeRoutine(
         @Path("routineId") routineId: Int
-    )
+    ): Response<Unit>
 
     //------ROUTINE CYCLES---------------------------------------------
 
@@ -85,7 +85,7 @@ interface ApiRoutineService {
     suspend fun removeRoutineCycle(
         @Path("routineId") routineId: Int,
         @Path("cycleId") cycleId: Int
-    )
+    ): Response<Unit>
     //------CYCLE EXERCISES---------------------------------------------
 
 
