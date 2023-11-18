@@ -36,4 +36,6 @@
     <string name="introduce_verification_code">Introduzca el código de verificación recibido por mail</string>
     <string name="verify">Verificar</string>
     <string name="welcome">Bienvenido</string>
+    <string name="start">Iniciar</string>
+    <string name="intensity">Intensidad:  </string>
 </resources>

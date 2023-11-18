@@ -1,12 +1,7 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
-import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -23,13 +18,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.itba.hci.fiit_mobile.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview(showBackground = true, name = "Light Mode", uiMode = Configuration.UI_MODE_NIGHT_NO)
-fun BottomBar(){
+fun BottomBar(onNavigateToScreen: (String) -> Unit){
     Scaffold(
         bottomBar = {
             BottomAppBar(
@@ -40,31 +34,31 @@ fun BottomBar(){
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
-                    IconButton(onClick = { /* do something */ }) {
+                    IconButton(onClick = { onNavigateToScreen(Screen.HomeScreen.route)}) {
                         Icon(
                             Icons.Filled.Home,
                             contentDescription = "Localized description"
                         )
                     }
-                    IconButton(onClick = { /* do something */ }) {
+                    IconButton(onClick = { onNavigateToScreen(Screen.ErrorScreen.route) }) {
                         Icon(
                             Icons.Filled.Favorite,
                             contentDescription = "Localized description",
                         )
                     }
-                    IconButton(onClick = { /* do something */ }) {
+                    IconButton(onClick = { onNavigateToScreen(Screen.ErrorScreen.route) }) {
                         Icon(
                             Icons.Filled.MailOutline,
                             contentDescription = "Localized description",
                         )
                     }
-                    IconButton(onClick = { /* do something */ }) {
+                    IconButton(onClick = { onNavigateToScreen(Screen.ErrorScreen.route) }) {
                         Icon(
                             Icons.Filled.Add,
                             contentDescription = "Localized description",
                         )
                     }
-                    IconButton(onClick = { /* do something */ }) {
+                    IconButton(onClick = { onNavigateToScreen(Screen.ErrorScreen.route) }) {
                         Icon(
                             Icons.Filled.Search,
                             contentDescription = "Localized description",
