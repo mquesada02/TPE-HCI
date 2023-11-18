@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.states
+package ar.edu.itba.hci.fiit_mobile.ui.states
 
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
 
