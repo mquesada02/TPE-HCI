@@ -25,25 +25,28 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.itba.hci.fiit_mobile.R
+import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.data.network.ApiRoutineService
+import ar.edu.itba.hci.fiit_mobile.data.network.RetrofitClient
+import retrofit2.Response
 
-@Preview(showBackground = true, name = "Testing")
 @Composable
-fun RountineInfo(){
+fun RountineInfo(data: NetworkRoutineContent){
 
-    val intensityType = "b"         //de la api todo
-    val score = 5                   //de la api todo
-    var isFilled by remember { mutableStateOf(false) } //de la api todo
-    val icon = if (isFilled) Icons.Default.Favorite else Icons.Default.FavoriteBorder
+    val intensityType = data.difficulty
+    val score = data.score
+    var isFav by remember { mutableStateOf(false) } //donde esta info de favs en la api ?? todo
+    val icon = if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
 
     Column {
         Row(){
-            //Puntuaje
+            //Puntuaje en estrellitas q actualiza al momento la variable score
             Text( text = score.toString())
         }
         Row(){
             Text(text =  stringResource(R.string.intensity),
                 modifier = Modifier.padding(end = 5.dp))
-            Text(text = score.toString())
+            Text(text = intensityType)
         }
         Row(){
             IconButton(onClick = { /* tiene q copiar el link todo */ }) {
@@ -53,18 +56,20 @@ fun RountineInfo(){
                     modifier = Modifier.size(20.dp).shadow(10.dp)
                 )
             }
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                if (isFav) {
+                    //todo
+                } else {
+                }
+            }) {
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = if (isFilled) MaterialTheme.colorScheme.primary
+                    tint = if (isFav) MaterialTheme.colorScheme.primary
                            else MaterialTheme.colorScheme.secondary,
                     modifier = Modifier
                         .size(30.dp)
                         .shadow(10.dp)
-                        .clickable {
-                            isFilled = !isFilled //esto en realidad modifica la variable de api todo
-                        }
                 )
             }
         }

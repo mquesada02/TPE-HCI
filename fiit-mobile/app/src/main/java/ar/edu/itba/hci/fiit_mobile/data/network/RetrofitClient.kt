@@ -1,7 +1,5 @@
 package ar.edu.itba.hci.fiit_mobile.data.network
 
-import android.content.Context
-import ar.edu.itba.hci.fiit_mobile.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,7 +21,7 @@ object RetrofitClient {
 
         //gson -> formato de los datos
         retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.API_BASE_URL)
+            //.baseUrl(BuildConfig.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

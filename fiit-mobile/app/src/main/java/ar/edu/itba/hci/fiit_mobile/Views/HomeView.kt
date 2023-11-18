@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.Components.BottomBar
 import ar.edu.itba.hci.fiit_mobile.Components.MenuCard
+import ar.edu.itba.hci.fiit_mobile.Components.RoutineCard
 import ar.edu.itba.hci.fiit_mobile.Components.TopAppBar
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Screen
@@ -86,7 +87,8 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, navController: NavHostContr
             }
         }
 
-        //acá iria el carousel todo
+        Text(text= stringResource(R.string.Featured))
+        // RoutineCard(data = ) todo
 
         BottomBar(onNavigateToScreen = {s -> navController.navigate(s) })
     }
