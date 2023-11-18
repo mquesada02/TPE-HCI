@@ -2,6 +2,8 @@ package ar.edu.itba.hci.fiit_mobile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,8 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.ui.ExecuteRoutineScreen
 import ar.edu.itba.hci.fiit_mobile.ui.theme.FiitmobileTheme
-import ar.edu.itba.hci.fiit_mobile.ui.LoginScreen
-import ar.edu.itba.hci.fiit_mobile.ui.RegisterScreen
+
 
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -60,7 +61,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true, name = "Testing")
 @Composable
 fun TestingPreview() {
-
     FiitmobileTheme(dynamicColor = false) {
         val navController = rememberNavController()
         Scaffold(
@@ -68,7 +68,8 @@ fun TestingPreview() {
             /* bottomBar = ,*/
             modifier = Modifier.fillMaxSize()
         ) {
-            FIITNavHost(navController = navController)
+//            FIITNavHost(navController = navController)
+            ExecuteRoutineScreen()
         }
     }
 }
