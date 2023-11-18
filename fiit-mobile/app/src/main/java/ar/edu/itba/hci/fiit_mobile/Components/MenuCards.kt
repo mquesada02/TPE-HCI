@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MenuCard(name: String, iconType : ImageVector) {
+fun MenuCard(name: String, iconType : ImageVector, onClick: () -> Unit) {
 
     Card(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
@@ -39,14 +39,14 @@ fun MenuCard(name: String, iconType : ImageVector) {
                     .fillMaxSize()
                     .padding(15.dp)
             ) {
-                Icon(
-                    imageVector = iconType,
-                    contentDescription = "Icon",
-                    tint = MaterialTheme.colorScheme.background,
-                    modifier = Modifier
-                        .padding(bottom = 25.dp)
-                        .size(40.dp)
-                )
+                    Icon(
+                        imageVector = iconType,
+                        contentDescription = "Icon",
+                        tint = MaterialTheme.colorScheme.background,
+                        modifier = Modifier
+                            .padding(bottom = 25.dp)
+                            .size(40.dp)
+                    )
                 Text(
                     text = name,
                     color = Color.Black // MaterialTheme.colorScheme. Cambiar al MatherialTheme Black todo

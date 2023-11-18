@@ -3,6 +3,7 @@
     <string name="login">Iniciar Sesión</string>
     <string name="user">Nombre de usuario</string>
     <string name="password">Contraseña</string>
+    <string name="loading_routines">Cargando rutinas...</string>
     <string name="enter_user">Ingrese su nombre de usuario</string>
     <string name="enter_password">Ingrese su contraseña</string>
     <string name="no_account">"¿No tienes cuenta? "</string>
@@ -36,4 +37,6 @@
     <string name="introduce_verification_code">Introduzca el código de verificación recibido por mail</string>
     <string name="verify">Verificar</string>
     <string name="welcome">Bienvenido</string>
+    <string name="start">Iniciar</string>
+    <string name="intensity">Intensidad:  </string>
 </resources>
