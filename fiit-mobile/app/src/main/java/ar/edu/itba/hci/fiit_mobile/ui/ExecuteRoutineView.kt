@@ -76,47 +76,6 @@ fun ExerciseCard(name: String, img: String) {
             }
         }
     }
-
-//    var color = MaterialTheme.colorScheme.secondary
-//
-//    val textMeasurer = rememberTextMeasurer()
-//
-//    val textToDraw = name
-//
-//    val count = name.trim().split("\\s+".toRegex()).size
-//
-//    val style = TextStyle(
-//        fontSize = MaterialTheme.typography.headlineLarge.fontSize,
-//        fontWeight = FontWeight.Bold,
-//        color = Color.Black,
-//    )
-//
-//    val textLayoutResult = remember(textToDraw) {
-//        textMeasurer.measure(textToDraw, style)
-//    }
-//    Canvas(
-//        modifier = Modifier.fillMaxWidth().height(150.dp).padding(horizontal = 30.dp)
-//    ) {
-//        drawRect(
-//            color = color,
-//        )
-//        drawImage(
-//            image = BitmapFactory.decodeStream(img.openStream()).asImageBitmap(),
-//            topLeft = Offset(
-//                x = center.x - 50.dp.toPx(),
-//                y = center.y - 50.dp.toPx(),
-//            )
-//        )
-//        drawText(
-//            textMeasurer = textMeasurer,
-//            text = textToDraw,
-//            style = style,
-//            topLeft = Offset(
-//                x = center.x,
-//                y = center.y - textLayoutResult.size.height / if (count > 1) 1 else 2,
-//            )
-//        )
-//    }
 }
 
 @Composable
@@ -204,7 +163,7 @@ fun ExecuteRoutineScreen() {
         ){
             Text(
                 text = cycleName.value,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
             )
         }
         Row(
