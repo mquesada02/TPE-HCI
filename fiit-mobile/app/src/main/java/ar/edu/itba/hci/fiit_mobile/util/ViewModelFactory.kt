@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import ar.edu.itba.hci.fiit_mobile.data.network.RoutineDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.UserDataSource
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
 
 class ViewModelFactory constructor(
     private val sessionManager: SessionManager,
@@ -21,13 +22,13 @@ class ViewModelFactory constructor(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ) = with(modelClass) {
-//        when {
-//            isAssignableFrom(MainViewModel::class.java) ->
-//                MainViewModel(sessionManager, userRepository, sportRepository)
-//
-//            else ->
-//                throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
-//        }
+
+        when {
+            isAssignableFrom(LoginViewModel::class.java) ->
+                LoginViewModel(sessionManager, userDataSource)
+            else ->
+                throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
+        }
     } as T
     /*TODO*/
 }

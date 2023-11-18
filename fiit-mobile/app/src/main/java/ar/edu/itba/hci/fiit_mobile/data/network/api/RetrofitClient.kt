@@ -37,7 +37,7 @@ object RetrofitClient {
         //gson -> formato de los datos
         return Retrofit.Builder()
             .baseUrl(BuildConfig.API_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
     }
@@ -46,7 +46,7 @@ object RetrofitClient {
         return getInstance(context).create(ApiUserService::class.java)
     }
 
-    fun getApiSportService(context: Context): ApiRoutineService {
+    fun getApiRoutineService(context: Context): ApiRoutineService {
         return getInstance(context).create(ApiRoutineService::class.java)
     }
 }

@@ -32,12 +32,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Screen
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
+import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
 @Composable
-fun LoginScreen(onNavigateToScreen: (String) -> Unit) {
+fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel = viewModel(factory = getViewModelFactory())) {
     val username = remember { mutableStateOf(TextFieldValue("")) }
     val userOnValueChange = { user: TextFieldValue -> username.value = user }
     val password = remember { mutableStateOf(TextFieldValue("")) }
