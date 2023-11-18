@@ -24,14 +24,18 @@ private val DarkColorScheme = darkColorScheme(
     onBackground = Color(0xFFFFFFFF),
     surface = Color(0xFF212121),
     error = Color(0xFFE90000),
-)
+    outlineVariant = Color(0xFF888880),
+    outline = Color(0xFF000000),
+    )
 
 private val LightColorScheme = lightColorScheme(
     primary = Color(0xFFFFD7CE),
     secondary = Color(0xFFFF927A),
     tertiary = Pink40,
     background = Color(0xFFFFF3F0),
-    onBackground = Color(0xFF000000)
+    onBackground = Color(0xFF000000),
+    outlineVariant = Color(0xFF888880),
+    outline = Color(0xFF000000),
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
