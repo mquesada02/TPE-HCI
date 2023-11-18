@@ -94,6 +94,19 @@ fun TextFieldWithIcons(modifier: Modifier = Modifier, icon: ImageVector? = null,
     )
 }
 
+//@Preview(showBackground = true, name = "Testing", uiMode = Configuration.UI_MODE_NIGHT_YES)
+//@Composable
+//fun testingPreview() {
+//    FiitmobileTheme {
+//        Surface(
+//            modifier = Modifier.fillMaxSize(),
+//            color = MaterialTheme.colorScheme.background
+//        ) {
+//            LoginScreen()
+//        }
+//    }
+//}
+
 
 
 

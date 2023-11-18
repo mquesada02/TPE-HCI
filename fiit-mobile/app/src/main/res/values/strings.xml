@@ -3,6 +3,7 @@
     <string name="login">Iniciar Sesión</string>
     <string name="user">Nombre de usuario</string>
     <string name="password">Contraseña</string>
+    <string name="loading_routines">Cargando rutinas...</string>
     <string name="enter_user">Ingrese su nombre de usuario</string>
     <string name="enter_password">Ingrese su contraseña</string>
     <string name="no_account">"¿No tienes cuenta? "</string>
