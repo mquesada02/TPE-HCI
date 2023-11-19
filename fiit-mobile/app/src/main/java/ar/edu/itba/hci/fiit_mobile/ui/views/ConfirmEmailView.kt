@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.ui
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,14 +19,20 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
+import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
 @Composable
-fun ConfirmEmailScreen(onNavigateToLoginScreen: () -> Unit) {
+fun ConfirmEmailScreen(onNavigateToLoginScreen: () -> Unit, viewModel: LoginViewModel = viewModel(factory = getViewModelFactory())) {
     val verificationCode = remember { mutableStateOf(TextFieldValue(""))}
     val validCode = remember { mutableStateOf(false)}
-    val onVerificationCodeChange = { value: TextFieldValue -> verificationCode.value = value; validCode.value = value.text.all { it.isDigit() }}
+    val validEmail = remember { mutableStateOf(false)}
+    val email = remember { mutableStateOf(TextFieldValue(""))}
+    val onVerificationCodeChange = { value: TextFieldValue -> verificationCode.value = value; validCode.value = value.text.isNotEmpty() }
+    val onEmailCodeChange = { value: TextFieldValue -> email.value = value; validEmail.value = email.value.text.isNotEmpty()}
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -64,6 +70,18 @@ fun ConfirmEmailScreen(onNavigateToLoginScreen: () -> Unit) {
             modifier = Modifier.fillMaxWidth()
         ) {
             TextFieldWithIcons(
+                label = "Email",
+                placeholder = stringResource(R.string.enter_email),
+                text = email.value,
+                onValueChange = onEmailCodeChange,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+        }
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            TextFieldWithIcons(
                 label = stringResource(R.string.verification_code),
                 placeholder = stringResource(R.string.introduce_verification_code),
                 text = verificationCode.value,
@@ -77,10 +95,14 @@ fun ConfirmEmailScreen(onNavigateToLoginScreen: () -> Unit) {
         ) {
             ElevatedButton(
                 onClick = {
-                    /* TODO */
-                    onNavigateToLoginScreen()
+                    viewModel.verifyEmail(email.value.text, verificationCode.value.text)
+                    if (viewModel.uiState.error == null) {
+                        onNavigateToLoginScreen()
+                    } else {
+                        /* TODO */
+                    }
                 },
-                enabled = validCode.value,
+                enabled = validCode.value && validEmail.value,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth()
             ) {
                 Text(

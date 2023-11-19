@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.ui
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 
 import androidx.compose.foundation.Canvas

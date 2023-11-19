@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.ui
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,12 +32,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Screen
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
+import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
 @Composable
-fun LoginScreen(onNavigateToScreen: (String) -> Unit) {
+fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel = viewModel(factory = getViewModelFactory())) {
     val username = remember { mutableStateOf(TextFieldValue("")) }
     val userOnValueChange = { user: TextFieldValue -> username.value = user }
     val password = remember { mutableStateOf(TextFieldValue("")) }
@@ -132,12 +135,19 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit) {
                 .padding(top = 16.dp)
         ) {
             ElevatedButton(
-                onClick = { /*TODO*/ },
+                onClick = { /*TODO*/
+                    viewModel.login(username.value.text, password.value.text)
+                    if (viewModel.uiState.isAuthenticated) {
+                        onNavigateToScreen(Screen.HomeScreen.route)
+                    } else {
+                        /* Show error TODO */
+                    }
+                          },
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
                     contentColor = Color.Black,
             ),
-                enabled = username.value.text.isNotEmpty() && password.value.text.isNotEmpty()
+                enabled = username.value.text.isNotEmpty() && password.value.text.isNotEmpty() && !viewModel.uiState.isFetching,
             ) {
                 Text(text = stringResource(R.string.login), color = Color.Black)
             }

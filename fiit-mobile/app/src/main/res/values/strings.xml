@@ -39,4 +39,8 @@
     <string name="welcome">Bienvenido</string>
     <string name="start">Iniciar</string>
     <string name="intensity">Intensidad:  </string>
+    <string name="Favs">Favoritos</string>
+    <string name="MyRouts">Mis rutinas</string>
+    <string name="Featured">Destacadas:</string>
+    <string name="Create">Crear rutina +</string>
 </resources>

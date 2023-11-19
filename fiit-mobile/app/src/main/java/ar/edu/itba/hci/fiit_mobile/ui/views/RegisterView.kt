@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.ui
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,14 +33,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
-
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
+import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit) {
+fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: LoginViewModel = viewModel(factory = getViewModelFactory())) {
     val email = remember { mutableStateOf(TextFieldValue("")) }
     val validEmail = remember { mutableStateOf(true)}
     val emailOnValueChange = { em: TextFieldValue -> email.value = em; validEmail.value = email.value.text.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email.value.text).matches() }
@@ -389,7 +391,12 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit) {
         ) {
             ElevatedButton(onClick = {
                                     /* TODO */
-                                     onNavigateToConfirmEmailScreen()
+                                        viewModel.register(email.value.text, name.value.text, surname.value.text, username.value.text, password.value.text, birthdate.value.text, weight.value.text, height.value.text)
+                                        if(viewModel.uiState.error == null)
+                                            onNavigateToConfirmEmailScreen()
+                                        else {
+                                            /* Show error TODO */
+                                        }
                                      },
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
                 colors = ButtonDefaults.elevatedButtonColors(
@@ -400,6 +407,8 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit) {
                 (email.value.text.isNotEmpty() && name.value.text.isNotEmpty() && surname.value.text.isNotEmpty() && username.value.text.isNotEmpty() && password.value.text.isNotEmpty() && confirmPassword.value.text.isNotEmpty() && birthdate.value.text.isNotEmpty() && weight.value.text.isNotEmpty() && height.value.text.isNotEmpty())
                 &&
                 (validEmail.value && validName.value && validSurname.value && validUsername.value && validPassword.value && validConfirmPassword.value && validBirthdate.value && validWeight.value && validHeight.value)
+                            &&
+                            !viewModel.uiState.isFetching
             ) {
                 Text(text = stringResource(R.string.register), color = Color.Black, fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleLarge.fontSize)
             }

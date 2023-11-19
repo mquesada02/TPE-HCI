@@ -62,7 +62,7 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, navController: NavHostContr
         ){
             FiitmobileTheme {
                 MenuCard(name = "Buscar rutinas", iconType = Icons.Filled.Search,
-                    onClick = { onNavigateToScreen(Screen.ErrorScreen.route)} )
+                    onClick = { onNavigateToScreen(Screen.SearcherScreen.route)} )
             }
 
             FiitmobileTheme {
@@ -78,15 +78,16 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, navController: NavHostContr
         ){
             FiitmobileTheme {
                 MenuCard(name = "Mis rutinas", iconType = Icons.Filled.MailOutline,
-                    onClick = { onNavigateToScreen(Screen.ErrorScreen.route)})
+                    onClick = { onNavigateToScreen(Screen.RoutinesScreen.route)})
             }
             FiitmobileTheme {
                 MenuCard(name = "Favoritas", iconType = Icons.Filled.Favorite,
-                    onClick = { onNavigateToScreen(Screen.ErrorScreen.route)})
+                    onClick = { onNavigateToScreen(Screen.FavsScreen.route)})
             }
         }
 
-        //acá iria el carousel todo
+        Text(text= stringResource(R.string.Featured))
+        // RoutineCarrousel() todo
 
         BottomBar(onNavigateToScreen = {s -> navController.navigate(s) })
     }
