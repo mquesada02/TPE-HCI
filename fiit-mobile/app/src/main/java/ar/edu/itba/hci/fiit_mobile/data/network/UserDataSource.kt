@@ -51,10 +51,6 @@ class UserDataSource(
         return handleApiResponse { apiUserService.getCurrentUser() }
     }
 
-    suspend fun register(username: String, password: String, firstName: String, lastName: String, birthdate: Int, email: String): NetworkUserContent {
-        return handleApiResponse { apiUserService.addUser(NetworkUserInformation(username, password, firstName, lastName, null, birthdate, email, null, null, null)) }
-    }
-
     suspend fun getCurrentUserRoutines(): NetworkRoutines{
         return handleApiResponse { apiUserService.getCurrentUserRoutines() }
     }
