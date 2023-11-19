@@ -39,6 +39,16 @@ class LoginViewModel(
         }
     )
 
+    fun register(email: String, name: String, surname: String, username: String, password: String, birthdate: String, weight: String, height: String) = runOnViewModelScope(
+        { userDataSource.register(email, name, surname, username, password, birthdate, weight, height) },
+        { state, _ -> state.copy() }
+    )
+
+    fun verifyEmail(email: String, code: String) = runOnViewModelScope(
+        { userDataSource.verifyEmail(email, code) },
+        { state, _ -> state.copy() }
+    )
+
     fun getCurrentUser() = runOnViewModelScope(
         { userDataSource.getCurrentUser() },
         { state, response -> state.copy(currentUser = response) }

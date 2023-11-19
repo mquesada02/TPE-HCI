@@ -2,8 +2,6 @@ package ar.edu.itba.hci.fiit_mobile
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +20,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import ar.edu.itba.hci.fiit_mobile.ui.ExecuteRoutineScreen
 import ar.edu.itba.hci.fiit_mobile.ui.theme.FiitmobileTheme
 
 
@@ -69,7 +66,7 @@ fun TestingPreview() {
             modifier = Modifier.fillMaxSize()
         ) {
 //            FIITNavHost(navController = navController)
-            ExecuteRoutineScreen()
+            FIITNavHost(navController = navController)
         }
     }
 }
@@ -94,19 +91,6 @@ fun TextFieldWithIcons(modifier: Modifier = Modifier, icon: ImageVector? = null,
         isError = errorRules
     )
 }
-
-//@Preview(showBackground = true, name = "Testing", uiMode = Configuration.UI_MODE_NIGHT_YES)
-//@Composable
-//fun testingPreview() {
-//    FiitmobileTheme {
-//        Surface(
-//            modifier = Modifier.fillMaxSize(),
-//            color = MaterialTheme.colorScheme.background
-//        ) {
-//            LoginScreen()
-//        }
-//    }
-//}
 
 
 

@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.ui
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -135,12 +135,19 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
                 .padding(top = 16.dp)
         ) {
             ElevatedButton(
-                onClick = { /*TODO*/ },
+                onClick = { /*TODO*/
+                    viewModel.login(username.value.text, password.value.text)
+                    if (viewModel.uiState.isAuthenticated) {
+                        onNavigateToScreen(Screen.HomeScreen.route)
+                    } else {
+                        /* Show error TODO */
+                    }
+                          },
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
                     contentColor = Color.Black,
             ),
-                enabled = username.value.text.isNotEmpty() && password.value.text.isNotEmpty()
+                enabled = username.value.text.isNotEmpty() && password.value.text.isNotEmpty() && !viewModel.uiState.isFetching,
             ) {
                 Text(text = stringResource(R.string.login), color = Color.Black)
             }
