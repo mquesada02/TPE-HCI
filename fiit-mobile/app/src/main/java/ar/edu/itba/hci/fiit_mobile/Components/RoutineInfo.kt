@@ -26,8 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineContent
-import ar.edu.itba.hci.fiit_mobile.data.network.ApiRoutineService
-import ar.edu.itba.hci.fiit_mobile.data.network.RetrofitClient
 import retrofit2.Response
 
 @Composable
@@ -40,7 +38,7 @@ fun RountineInfo(data: NetworkRoutineContent){
 
     Column {
         Row(){
-            //Puntuaje en estrellitas q actualiza al momento la variable score
+            //Puntuaje en estrellitas q actualiza al momento la variable score todo
             Text( text = score.toString())
         }
         Row(){
