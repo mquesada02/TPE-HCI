@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.data.network.model
+package ar.edu.itba.hci.fiit_mobile.data.network.model.user
 
 import com.google.gson.annotations.SerializedName
 import java.util.Date

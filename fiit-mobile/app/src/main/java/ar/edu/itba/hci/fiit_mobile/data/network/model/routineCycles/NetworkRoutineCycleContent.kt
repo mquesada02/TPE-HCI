@@ -1,9 +1,9 @@
-package ar.edu.itba.hci.fiit_mobile.data.network.model
+package ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles
 
 import com.google.gson.annotations.SerializedName
 
 
-data class NetworkCycleContent (
+data class NetworkRoutineCycleContent (
 
     @SerializedName("id"          ) var id          : Int,
     @SerializedName("name"        ) var name        : String,
