@@ -6,14 +6,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -85,6 +89,11 @@ fun ExecuteRoutineScreen() {
     val nextExercise = remember { mutableStateOf("Next Exercise") }
     val nextExerciseURL = remember { mutableStateOf("https://i.imgur.com/Q6Wp95h_d.webp?maxwidth=760&fidelity=grand")}
 
+    val hasPrevious = remember { mutableStateOf(false) }
+    val hasNext = remember { mutableStateOf(false) }
+
+    val clickedButton = remember { mutableStateOf(false) }
+
     var totalTime by remember { mutableLongStateOf(15L * 1000L) }
     var currentTime by remember {mutableLongStateOf(totalTime)}
     var value by remember { mutableStateOf(1f) }
@@ -109,6 +118,8 @@ fun ExecuteRoutineScreen() {
             delay(100L)
             currentTime -= 100L
             value = currentTime / totalTime.toFloat()
+        } else {
+            clickedButton.value = false
         }
     }
 
@@ -137,10 +148,11 @@ fun ExecuteRoutineScreen() {
                 .fillMaxWidth()
                 .padding(32.dp)
         ) {
+            val color = MaterialTheme.colorScheme.secondary
             Canvas(
                 modifier = Modifier.size(100.dp), onDraw = {
                     drawCircle(
-                        color = Color(0xFFFF927A),
+                        color = color,
                         radius = 50.dp.toPx(),
                     )
                     drawText(
@@ -174,9 +186,33 @@ fun ExecuteRoutineScreen() {
         }
         Row (
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 50.dp),
             verticalAlignment = Alignment.Bottom
         ){
+            Button(
+                onClick = {
+                    /* TODO */
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (!clickedButton.value)
+                        MaterialTheme.colorScheme.background
+                    else
+                        MaterialTheme.colorScheme.primary,
+                ),
+                elevation = ButtonDefaults.elevatedButtonElevation(),
+                modifier = Modifier.size(75.dp),
+                enabled = hasPrevious.value
+            ) {
+                Icon(
+                    imageVector = Icons.Default.SkipPrevious,
+                    contentDescription = "SkipPrevious",
+                    tint = Color.Black,
+                    modifier = Modifier.size(50.dp)
+                )
+            }
+            Spacer(modifier = Modifier.width(35.dp))
             Button(
                 onClick = {
                     if(currentTime <= 0L) {
@@ -185,14 +221,17 @@ fun ExecuteRoutineScreen() {
                     } else {
                         isTimerRunning = !isTimerRunning
                     }
+                    clickedButton.value = !clickedButton.value
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (!isTimerRunning || currentTime <= 0L) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        Color.Red
-                    }
+                    containerColor =
+                    if (!clickedButton.value)
+                        MaterialTheme.colorScheme.background
+                    else
+                        MaterialTheme.colorScheme.primary,
                 ),
+                elevation = ButtonDefaults.elevatedButtonElevation(),
+                modifier = Modifier.size(75.dp)
             ) {
                 Icon(
                     imageVector = if (!isTimerRunning || currentTime <= 0L) {
@@ -201,7 +240,30 @@ fun ExecuteRoutineScreen() {
                         Icons.Default.Pause
                     },
                     contentDescription = "Play/Pause",
-                    tint = Color.White
+                    tint = Color.Black,
+                    modifier = Modifier.size(50.dp)
+                )
+            }
+            Spacer(modifier = Modifier.width(35.dp))
+            Button(
+                onClick = {
+                    /* TODO */
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (!clickedButton.value)
+                        MaterialTheme.colorScheme.background
+                    else
+                        MaterialTheme.colorScheme.primary,
+                ),
+                elevation = ButtonDefaults.elevatedButtonElevation(),
+                modifier = Modifier.size(75.dp),
+                enabled = hasNext.value
+            ) {
+                Icon(
+                    imageVector = Icons.Default.SkipNext,
+                    contentDescription = "SkipNext",
+                    tint = Color.Black,
+                    modifier = Modifier.size(50.dp)
                 )
             }
 

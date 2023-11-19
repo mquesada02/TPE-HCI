@@ -7,13 +7,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.Views.HomeScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.ConfirmEmailScreen
+import ar.edu.itba.hci.fiit_mobile.ui.views.ExecuteRoutineScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.LoginScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.RegisterScreen
 
 @Composable
 fun FIITNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = Screen.LoginScreen.route
+    startDestination: String = Screen.ExecuteRoutineScreen.route
 ) {
     NavHost(
         navController = navController,
@@ -32,6 +33,9 @@ fun FIITNavHost(
         }
         composable(Screen.HomeScreen.route) {
             HomeScreen(onNavigateToScreen = {s -> navController.navigate(s) })
+        }
+        composable(Screen.ExecuteRoutineScreen.route) {
+            ExecuteRoutineScreen()
         }
 //        composable("routine/{id}", arguments = listOf(navArgument("id") { type = NavType.IntType})) {
 //            route -> RoutineScreen(route.arguments?.getInt("id"))

@@ -1,6 +1,7 @@
 package ar.edu.itba.hci.fiit_mobile
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Accessibility
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
@@ -19,4 +20,5 @@ sealed class Screen(val title: String, val icon: ImageVector, val route: String)
     object FavsScreen : Screen("Favourites", Icons.Filled.Favorite, "favs")
     object RoutinesScreen : Screen("MyRoutines", Icons.Filled.MailOutline,"routines" )
     object SearcherScreen : Screen("Searcher", Icons.Filled.Search, "seach")
+    object ExecuteRoutineScreen : Screen("ExecuteRoutine", Icons.Filled.Accessibility, "execute_routine")
 }
