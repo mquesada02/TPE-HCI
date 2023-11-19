@@ -28,7 +28,7 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "API_BASE_URL",
-                    "\"http://10.0.2.2:8080/api/\"")
+                "\"http://10.0.2.2:8080/api/\"")
         }
         debug{
             buildConfigField("String", "API_BASE_URL",
@@ -72,7 +72,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
-    implementation("io.coil-kt:coil-compose:2.2.2") //AsyncImage
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4") //AsyncImage
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

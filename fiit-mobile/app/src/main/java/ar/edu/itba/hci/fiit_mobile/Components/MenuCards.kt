@@ -49,7 +49,7 @@ fun MenuCard(name: String, iconType : ImageVector, onClick: () -> Unit) {
                     )
                 Text(
                     text = name,
-                    color = Color.Black // MaterialTheme.colorScheme. Cambiar al MatherialTheme Black todo
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
         }
