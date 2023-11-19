@@ -24,9 +24,9 @@ package ar.edu.itba.hci.fiit_mobile
 //import androidx.compose.ui.unit.dp
 //import androidx.compose.ui.unit.sp
 //import ar.edu.itba.hci.fiit_mobile.data.models.RoutinesViewModel
-//import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineContent
-//import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
-//import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkUser
+//import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
+//import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
+//import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
 //import ar.edu.itba.hci.fiit_mobile.ui.states.RoutineState
 //import coil.compose.AsyncImage
 //

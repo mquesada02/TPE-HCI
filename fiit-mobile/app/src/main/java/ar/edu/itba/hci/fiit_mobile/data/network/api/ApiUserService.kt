@@ -1,15 +1,14 @@
 package ar.edu.itba.hci.fiit_mobile.data.network.api
 
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkCycleInformation
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkEmail
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkEmailCode
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkExecution
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkUser
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkUserContent
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkUserCredentials
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkUserInformation
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkUserToken
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkEmail
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkEmailCode
+import ar.edu.itba.hci.fiit_mobile.data.network.model.executions.NetworkExecution
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUserContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUserCredentials
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUserInformation
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUserToken
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
