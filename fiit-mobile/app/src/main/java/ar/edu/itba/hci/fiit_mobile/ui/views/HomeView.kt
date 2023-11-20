@@ -35,6 +35,7 @@ import ar.edu.itba.hci.fiit_mobile.Components.TopAppBar
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Screen
 import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllRoutines
+import ar.edu.itba.hci.fiit_mobile.ui.states.canGetUser
 import ar.edu.itba.hci.fiit_mobile.ui.theme.FiitmobileTheme
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
@@ -43,7 +44,8 @@ import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 @Composable
 fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())) {
 
-    val username = viewModel.getUsername() //esto esta mal, devuelve job, no string todo
+    var username = viewModel.uiState.currentUser?.username ?: "null"
+
 
    Column(
        horizontalAlignment = Alignment.CenterHorizontally

@@ -13,7 +13,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.RoutineCard
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 
 //importante! cuando se lo llama no pasarle como parametro viewModel = RoutinesViewModel

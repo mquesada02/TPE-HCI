@@ -1,12 +1,10 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Send
@@ -27,19 +25,21 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
-import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineMetadata
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
+import ar.edu.itba.hci.fiit_mobile.ui.states.HomeUiState
 import ar.edu.itba.hci.fiit_mobile.ui.states.canAddFav
 import ar.edu.itba.hci.fiit_mobile.ui.states.canDeleteFav
+import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
-import retrofit2.Response
 
 @Composable
 fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())){
 
     val intensityType = data.difficulty
     val score = data.score
-    var isFav by remember { mutableStateOf(false) } //donde esta info de favs en la api ?? todo
+    var isFav: Boolean = isFav(viewModel.uiState, data.id)
     val icon = if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
 
     Column {
@@ -57,15 +57,19 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
                 Icon(
                     imageVector = Icons.Filled.Send,
                     contentDescription = "Localized description",
-                    modifier = Modifier.size(20.dp).shadow(10.dp)
+                    modifier = Modifier
+                        .size(20.dp)
+                        .shadow(10.dp)
                 )
             }
             IconButton(onClick = {
                 if (isFav && viewModel.uiState.canAddFav) {
                     viewModel.addFavs(data.id)
+                    isFav=isFav(viewModel.uiState, data.id)
                 }
                 if(viewModel.uiState.canDeleteFav){
                     viewModel.removeFavs(data.id)
+                    isFav=isFav(viewModel.uiState, data.id)
                 }
             }) {
                 Icon(
@@ -80,4 +84,27 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
             }
         }
     }
+}
+
+fun isFav( ui : HomeUiState, id : Int): Boolean {
+    if(ui.canGetAllFavourites){
+        for(i in ui.favourites?.content!!){ //esto es legal ? todo
+            if(id == i.id){
+                return true
+            }
+        }
+    }
+    return false
+}
+
+@Preview
+@Composable
+fun test(){
+    RoutineInfo(data = NetworkRoutineContent(
+        id=0, name="test", detail="none", date=10,
+        score=4, isPublic = false, difficulty = "Hard",
+        user= NetworkUser(id=0, username = "Tester"), category = null,
+        metadata = NetworkRoutineMetadata(goals="none", img="what",
+            materials = "none", muscles = "eyes")
+    ))
 }

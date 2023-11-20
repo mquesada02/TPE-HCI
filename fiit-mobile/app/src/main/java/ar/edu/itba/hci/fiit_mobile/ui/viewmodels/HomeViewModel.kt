@@ -19,26 +19,10 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel (
     sessionManager: SessionManager,
-    private val userDataSource: UserDataSource,
+    //private val userDataSource: UserDataSource,
     private val routineDataSource: RoutineDataSource
 ) : ViewModel() {
     var uiState by mutableStateOf(HomeUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
-
-    fun getRoutines() = runOnViewModelScope(
-        { routineDataSource.getRoutines() },
-        { state, _ -> state.copy() }
-    )
-
-    fun getUsername() = runOnViewModelScope(
-        { userDataSource.getCurrentUser().username },
-        { state, _ -> state.copy() }
-    )
-
-
-    fun getFavs() = runOnViewModelScope(
-        { routineDataSource.getFavs() },
-        { state, _ -> state.copy() }
-    )
 
     fun addFavs(id: Int) = runOnViewModelScope(
         { routineDataSource.addToFavs(id) },

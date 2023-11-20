@@ -14,9 +14,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import ar.edu.itba.hci.fiit_mobile.Components.RoutineInfo
 import ar.edu.itba.hci.fiit_mobile.R
 import coil.compose.AsyncImage
-import ar.edu.itba.hci.fiit_mobile.Components.RountineInfo
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import retrofit2.Response
 

@@ -28,7 +28,7 @@ class ViewModelFactory constructor(
             isAssignableFrom(LoginViewModel::class.java) ->
                 LoginViewModel(sessionManager, userDataSource)
             isAssignableFrom(HomeViewModel::class.java) ->
-                HomeViewModel(sessionManager, userDataSource, routineDataSource)
+                HomeViewModel(sessionManager, routineDataSource)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
