@@ -1,7 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile.data.network
 
 import ar.edu.itba.hci.fiit_mobile.data.network.api.ApiRoutineService
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
 import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycle
 import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleExerciseInformation

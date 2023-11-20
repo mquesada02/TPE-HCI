@@ -15,6 +15,7 @@ package ar.edu.itba.hci.fiit_mobile
 //import androidx.compose.material3.Text
 //import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 //import androidx.compose.ui.Modifier
 //import androidx.compose.ui.layout.ContentScale
 //import androidx.compose.ui.layout.HorizontalAlignmentLine
@@ -24,7 +25,6 @@ import androidx.compose.runtime.Composable
 //import androidx.compose.ui.unit.dp
 //import androidx.compose.ui.unit.sp
 //import ar.edu.itba.hci.fiit_mobile.data.models.RoutinesViewModel
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineContent
 //import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
 //import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkUser
 //import ar.edu.itba.hci.fiit_mobile.ui.states.RoutineState

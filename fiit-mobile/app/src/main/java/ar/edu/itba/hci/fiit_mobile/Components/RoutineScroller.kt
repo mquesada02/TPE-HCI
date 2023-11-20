@@ -14,8 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.RoutineCard
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
-import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 
 //importante! cuando se lo llama no pasarle como parametro viewModel = RoutinesViewModel
 //hacer viewModel = viewModel()

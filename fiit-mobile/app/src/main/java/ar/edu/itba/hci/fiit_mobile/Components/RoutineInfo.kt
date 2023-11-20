@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.ui.states.canAddFav
 import ar.edu.itba.hci.fiit_mobile.ui.states.canDeleteFav
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel

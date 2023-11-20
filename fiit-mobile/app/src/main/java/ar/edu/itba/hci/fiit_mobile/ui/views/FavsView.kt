@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Components.Order
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineScroller
+import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
@@ -21,8 +22,8 @@ fun FavsScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
             Text( text = stringResource(R.string.Favs))
             Order()
         }
-        uiState.favourites?.let {
-            RoutineScroller(name = stringResource(R.string.Favs), routines = it)
+        if(uiState.canGetAllFavourites){
+            RoutineScroller(name = stringResource(R.string.Favs), routines = uiState.favourites)
         }
     }
 
