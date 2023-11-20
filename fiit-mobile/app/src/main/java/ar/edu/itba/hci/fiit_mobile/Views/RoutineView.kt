@@ -15,9 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineContent
 import coil.compose.AsyncImage
 import ar.edu.itba.hci.fiit_mobile.Components.RountineInfo
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import retrofit2.Response
 
 @Composable
@@ -36,7 +36,7 @@ fun RoutineScreen(data: NetworkRoutineContent){
         }
         Row {
             AsyncImage(
-                model = data.imgUrl,
+                model = data.metadata.img,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(width = 100.dp, height = 100.dp),

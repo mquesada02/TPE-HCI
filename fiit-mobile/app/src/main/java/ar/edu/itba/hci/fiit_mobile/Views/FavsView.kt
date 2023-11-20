@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import ar.edu.itba.hci.fiit_mobile.Components.RoutineScroller
+//import ar.edu.itba.hci.fiit_mobile.Components.RoutineScroller
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Components.Order
 
