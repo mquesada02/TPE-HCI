@@ -13,7 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.data.models.RoutinesViewModel
+import ar.edu.itba.hci.fiit_mobile.RoutineCard
+import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 
 //importante! cuando se lo llama no pasarle como parametro viewModel = RoutinesViewModel
 //hacer viewModel = viewModel()
@@ -21,33 +23,30 @@ import ar.edu.itba.hci.fiit_mobile.data.models.RoutinesViewModel
 //no usar el vonstructor de viewModel, llamar al factory de viewModel
 @Composable
 fun RoutineScroller(
-    modifier: Modifier = Modifier, //para pasarle el padding desde scaffold (?
-    name: String,
-    viewModel: RoutinesViewModel
+    modifier : Modifier = Modifier, //para pasarle el padding desde scaffold (?
+    name : String,
+    routines : NetworkRoutines
 ){
-    val routineState = viewModel.routineState
 
     Column (
         modifier = Modifier.padding(8.dp)
     ) {
         Text(text = name)
-        if(routineState.isLoading)
+        if(routines.totalCount==0)
             Column(
                 verticalArrangement = Arrangement.Center
             ){
-                Text(text = stringResource(R.string.loading_routines),
-                    fontSize = 14.sp)
+                Text(text = stringResource(R.string.Empty), fontSize = 14.sp)
             }
-        else {
-            val routineList = routineState.routines?.content.orEmpty() //la lista de rutinas o una vacia
+        else{
             LazyColumn(
                 state = rememberLazyListState(),
             ) {
                 items(
-                    count = routineList.size,
-                    key = { index -> routineList[index].id.toString() }
+                    count = routines.size,
+                    key = { index -> routines.content[index].id.toString() }
                 ) { index ->
-                    RoutineCard(routineList[index])
+                     RoutineCard(routines.content[index])
                 }
             }
         }

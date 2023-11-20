@@ -13,6 +13,10 @@ import ar.edu.itba.hci.fiit_mobile.data.DataSourceException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+/*
+*  Acá se encuentran funciones usadas en Login, ConfirmEmail y Register
+*/
+
 class LoginViewModel(
     sessionManager: SessionManager,
     private val userDataSource: UserDataSource,

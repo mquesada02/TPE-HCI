@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.Views
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,37 +15,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import ar.edu.itba.hci.fiit_mobile.Components.Order
 import ar.edu.itba.hci.fiit_mobile.R
+import ar.edu.itba.hci.fiit_mobile.Screen
 
 @Composable
-@Preview
-fun RoutinesScreen(){
-    var inDialog by remember { mutableStateOf(false) }
+fun RoutinesScreen(onNavigateToScreen: (String) -> Unit){
 
     Column(){
         Row(){
-            Button(onClick = {inDialog=true}){
+            Button(onClick = { onNavigateToScreen(Screen.ErrorScreen.route)}){
                 Text(text = stringResource(R.string.Create))
             }
-            if(inDialog) {
-                AlertDialog(
-                    title = {
-                        Text(text = "Sike")
-                    },
-                    onDismissRequest = {
-                    },
-                    confirmButton = {
-                        TextButton(
-                            onClick = {inDialog=false}
-                        ) {
-                            Text("Volver")
-                        }
-                    }
-                )
             }
             Text( text = stringResource(R.string.MyRouts))
             Order()
         }
         // RoutineScroller(name = , viewModel = ) todo
-    }
 
 }

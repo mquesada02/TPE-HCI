@@ -10,4 +10,5 @@ data class LoginUiState(
     val error: NetworkError? = null
 ) {
     val LoginUiState.canGetCurrentUser: Boolean get() = isAuthenticated
+
 }

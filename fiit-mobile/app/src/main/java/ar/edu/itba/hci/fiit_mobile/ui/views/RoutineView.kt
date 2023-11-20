@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.Views
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,18 +17,17 @@ import androidx.compose.ui.unit.dp
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineContent
 import coil.compose.AsyncImage
-import ar.edu.itba.hci.fiit_mobile.Components.RountineInfo
-import retrofit2.Response
+import ar.edu.itba.hci.fiit_mobile.Components.RoutineInfo
 
 @Composable
-fun RoutineScreen(data: NetworkRoutineContent){
+fun RoutineScreen(data : NetworkRoutineContent){
 
     Column(){
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ){
-            Text(text =  data.name, //routineName,
+            Text(text =  data.name,
                 color = MaterialTheme.colorScheme.primary)
             ElevatedButton(onClick = { /* poner lo q esta haciendo manu todo */ }){
                 Text(AnnotatedString(text = stringResource(R.string.start)))
@@ -41,7 +40,7 @@ fun RoutineScreen(data: NetworkRoutineContent){
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(width = 100.dp, height = 100.dp),
             )
-           // RoutineInfo()  todo
+            RoutineInfo(data = data)
         }
         Row(){
             //Entrada en calor
