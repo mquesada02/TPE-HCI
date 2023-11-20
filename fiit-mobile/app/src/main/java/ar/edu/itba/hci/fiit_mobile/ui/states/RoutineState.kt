@@ -1,6 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile.ui.states
 
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 
 data class RoutineState(
     val routines: NetworkRoutines? = null,

@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.data.network.model
+package ar.edu.itba.hci.fiit_mobile.data.network.model.routines
 
 import com.google.gson.annotations.SerializedName
 
@@ -10,6 +10,6 @@ data class NetworkRoutineInformation (
     @SerializedName("isPublic"   ) var isPublic   : Boolean,
     @SerializedName("difficulty" ) var difficulty : String,
     @SerializedName("category"   ) var category   : NetworkRoutineCategoryID? = null,
-    @SerializedName("metadata"   ) var imgUrl   : String?   = null
+    @SerializedName("metadata"   ) var metadata   : NetworkRoutineMetadata
 
 )

@@ -1,5 +1,6 @@
-package ar.edu.itba.hci.fiit_mobile.data.network.model
+package ar.edu.itba.hci.fiit_mobile.data.network.model.executions
 
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import com.google.gson.annotations.SerializedName
 
 

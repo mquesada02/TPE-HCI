@@ -1,14 +1,22 @@
 package ar.edu.itba.hci.fiit_mobile.data.network.api
 
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkCycleContent
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkCycleInformation
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkCycles
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkExecution
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkExecutionContent
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkExecutionModification
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineContent
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutineInformation
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkRoutines
+import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycle
+import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleExerciseInformation
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycleInformation
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycles
+import ar.edu.itba.hci.fiit_mobile.data.network.model.executions.NetworkExecution
+import ar.edu.itba.hci.fiit_mobile.data.network.model.executions.NetworkExecutionContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.executions.NetworkExecutionModification
+import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExercise
+import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseImageContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseImageInformation
+import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseImages
+import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseInformation
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineInformation
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -60,16 +68,16 @@ interface ApiRoutineService {
     @GET("routines/{routineId}/cycles")
     suspend fun getRoutineCycles(
         @Path("routineId") routineId: Int
-    ): Response<NetworkCycles>
+    ): Response<NetworkRoutineCycles>
 
     @POST("routines/{routineId}/cycles")
     suspend fun addRoutineCycle(
         @Path("routineId") routineId: Int,
-        @Body cycleInfo: NetworkCycleInformation
+        @Body cycleInfo: NetworkRoutineCycleInformation
     ): Response<NetworkCycleContent>
 
     @GET("routines/{routineId}/cycles/{cycleId}")
-    suspend fun getRoutineCyclesById(
+    suspend fun getRoutineCycleById(
         @Path("routineId") routineId: Int,
         @Path("cycleId") cycleId: Int
     ): Response<NetworkCycleContent>
@@ -78,22 +86,55 @@ interface ApiRoutineService {
     suspend fun modifyRoutineCycle(
         @Path("routineId") routineId: Int,
         @Path("cycleId") cycleId: Int,
-        @Body cycleInfo: NetworkCycleInformation
-    ): Response<NetworkCycleInformation>
+        @Body cycleInfo: NetworkRoutineCycleInformation
+    ): Response<NetworkRoutineCycleInformation>
 
     @DELETE("routines/{routineId}/cycles/{cycleId}")
     suspend fun removeRoutineCycle(
         @Path("routineId") routineId: Int,
         @Path("cycleId") cycleId: Int
     ): Response<Unit>
+
     //------CYCLE EXERCISES---------------------------------------------
 
+    @GET("cycles/{cycleId}/exercises")
+    suspend fun getCycleExercises(
+        @Path("cycleId") cycleId: Int
+    ): Response<NetworkCycle>
+
+    @GET("cycles/{cycleId}/exercises/{exerciseId}")
+    suspend fun getCycleExerciseById(
+        @Path("cycleId") cycleId: Int,
+        @Path("exerciseId") exerciseId: Int
+    ): Response<NetworkCycleContent>
+
+    @POST("cycles/{cycleId}/exercises/{exerciseId}")
+    suspend fun addCycleExercise(
+        @Path("cycleId") cycleId: Int,
+        @Path("exerciseId") exerciseId: Int,
+        @Body cycleExerciseInformation: NetworkCycleExerciseInformation
+    ): Response<NetworkCycleContent>
 
     //------EXERCISES---------------------------------------------
+    @GET("exercises")
+    suspend fun getExercises(): Response<NetworkExercise>
 
+    @POST("exercises")
+    suspend fun addExercise(
+        @Body exerciseInformation: NetworkExerciseInformation
+    ): Response<NetworkExerciseContent>
 
     //------EXERCISE IMAGES---------------------------------------------
+    @GET("exercises/{exerciseId}/images")
+    suspend fun getExerciseImg(
+        @Path("exerciseId") exerciseId: Int
+    ): Response<NetworkExerciseImages>
 
+    @POST("exercises/{exerciseId}/images")
+    suspend fun addExerciseImg(
+        @Path("exerciseId") exerciseId: Int,
+        @Body exerciseImageInformation: NetworkExerciseImageInformation
+    ): Response<NetworkExerciseImageContent>
 
     //------EXERCISE VIDEOS---------------------------------------------
 

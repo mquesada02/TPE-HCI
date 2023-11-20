@@ -23,7 +23,9 @@ fun FIITNavHost(
         startDestination = startDestination
     ) {
         composable(Screen.LoginScreen.route) {
-            LoginScreen(onNavigateToScreen = {s -> navController.navigate(s) })
+            LoginScreen(onNavigateToScreen = {s -> navController.popBackStack(Screen.RegisterScreen.route,true); navController.navigate(s) {
+                popUpTo(Screen.LoginScreen.route) { inclusive = true }
+            }  })
         }
         composable(Screen.RegisterScreen.route) {
             RegisterScreen(onNavigateToConfirmEmailScreen = { navController.navigate(Screen.ConfirmEmailScreen.route) })

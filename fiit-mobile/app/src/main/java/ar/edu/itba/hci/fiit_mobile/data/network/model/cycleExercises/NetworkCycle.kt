@@ -1,9 +1,9 @@
-package ar.edu.itba.hci.fiit_mobile.data.network.model
+package ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises
 
 import com.google.gson.annotations.SerializedName
 
 
-data class NetworkCycles (
+data class NetworkCycle (
 
     @SerializedName("totalCount" ) var totalCount : Int?               = null,
     @SerializedName("orderBy"    ) var orderBy    : String?            = null,
