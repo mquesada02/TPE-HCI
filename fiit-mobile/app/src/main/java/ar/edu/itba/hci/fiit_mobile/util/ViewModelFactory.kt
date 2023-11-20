@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import ar.edu.itba.hci.fiit_mobile.data.network.RoutineDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.UserDataSource
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
 
 class ViewModelFactory constructor(
@@ -26,6 +27,8 @@ class ViewModelFactory constructor(
         when {
             isAssignableFrom(LoginViewModel::class.java) ->
                 LoginViewModel(sessionManager, userDataSource)
+            isAssignableFrom(HomeViewModel::class.java) ->
+                HomeViewModel(sessionManager, userDataSource, routineDataSource)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

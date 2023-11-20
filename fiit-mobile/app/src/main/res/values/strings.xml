@@ -43,4 +43,9 @@
     <string name="MyRouts">Mis rutinas</string>
     <string name="Featured">Destacadas:</string>
     <string name="Create">Crear rutina +</string>
+    <string name="SearchR">Buscar rutina</string>
+    <string name="CreateR">Crear rutina</string>
+    <string name="DataSourceException"></string>
+    <string name="notDSException"></string>
+    <string name="Empty">No se ha creado ninguna rutina.</string>
 </resources>

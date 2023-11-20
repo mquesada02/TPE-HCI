@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.Views
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,7 +41,7 @@ fun RoutineScreen(data: NetworkRoutineContent){
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(width = 100.dp, height = 100.dp),
             )
-           // RoutineInfo()  todo
+            RoutineInfo(data = data)
         }
         Row(){
             //Entrada en calor

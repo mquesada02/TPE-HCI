@@ -5,7 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ar.edu.itba.hci.fiit_mobile.Views.HomeScreen
+import ar.edu.itba.hci.fiit_mobile.ui.views.FavsScreen
+import ar.edu.itba.hci.fiit_mobile.ui.views.HomeScreen
+import ar.edu.itba.hci.fiit_mobile.ui.views.RoutinesScreen
+import ar.edu.itba.hci.fiit_mobile.ui.views.SearcherScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.ConfirmEmailScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.LoginScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.RegisterScreen
@@ -32,6 +35,15 @@ fun FIITNavHost(
         }
         composable(Screen.HomeScreen.route) {
             HomeScreen(onNavigateToScreen = {s -> navController.navigate(s) })
+        }
+        composable(Screen.FavsScreen.route){
+            FavsScreen(onNavigateToScreen = {s -> navController.navigate(s)})
+        }
+        composable(Screen.SearcherScreen.route){
+            SearcherScreen(onNavigateToScreen = {s -> navController.navigate(s) })
+        }
+        composable(Screen.RoutinesScreen.route){
+            RoutinesScreen(onNavigateToScreen = {s -> navController.navigate(s) })
         }
 //        composable("routine/{id}", arguments = listOf(navArgument("id") { type = NavType.IntType})) {
 //            route -> RoutineScreen(route.arguments?.getInt("id"))

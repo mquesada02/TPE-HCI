@@ -24,12 +24,18 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.ui.states.canAddFav
+import ar.edu.itba.hci.fiit_mobile.ui.states.canDeleteFav
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
+import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 import retrofit2.Response
 
 @Composable
-fun RountineInfo(data: NetworkRoutineContent){
+fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())){
 
     val intensityType = data.difficulty
     val score = data.score
@@ -55,9 +61,11 @@ fun RountineInfo(data: NetworkRoutineContent){
                 )
             }
             IconButton(onClick = {
-                if (isFav) {
-                    //todo
-                } else {
+                if (isFav && viewModel.uiState.canAddFav) {
+                    viewModel.addFavs(data.id)
+                }
+                if(viewModel.uiState.canDeleteFav){
+                    viewModel.removeFavs(data.id)
                 }
             }) {
                 Icon(
