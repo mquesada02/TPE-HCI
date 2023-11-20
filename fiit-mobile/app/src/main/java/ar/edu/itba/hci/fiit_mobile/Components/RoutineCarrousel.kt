@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 
@@ -20,23 +21,20 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 //sino se estaria destruyendo y regenerando la informacion cada vez que se cambia el estado de la pagina
 //no usar el vonstructor de viewModel, llamar al factory de viewModel
 @Composable
-fun RoutineCarrousel(
-    modifier: Modifier = Modifier, //para pasarle el padding desde scaffold (?
-    name: String,
-    routines : NetworkRoutines
-){
+fun RoutineCarrousel(name : String, routines : NetworkRoutines?){
 
     Column (
         modifier = Modifier.padding(8.dp)
     ) {
         Text(text = name)
-        if(routines.totalCount==0)
-            Column(
-                verticalArrangement = Arrangement.Center
-            ){
-                Text(text = stringResource(R.string.loading_routines),
-                    fontSize = 14.sp)
-            }
+        if ((routines == null) || (routines.totalCount == 0)){
+                Column(
+                    verticalArrangement = Arrangement.Center
+                ){
+                    Text(text = stringResource(R.string.Empty),
+                        fontSize = 14.sp)
+                }
+        }
         else {
             LazyRow(
                 state = rememberLazyListState(),

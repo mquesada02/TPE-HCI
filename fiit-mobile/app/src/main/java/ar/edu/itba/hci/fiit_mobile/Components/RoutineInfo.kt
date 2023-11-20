@@ -1,5 +1,8 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.RatingBar
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -13,10 +16,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
@@ -44,7 +43,18 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
 
     Column {
         Row(){
-            //Puntuaje en estrellitas q actualiza al momento la variable score todo
+           /* val ratingBar: RatingBar = RatingBar(this).apply {
+                setIsIndicator(false)
+                numStars = 5
+                stepSize = 1.0f
+                rating = data.score.toFloat()
+                max = 5
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { gravity = Gravity.CENTER }
+            }*/
+            // Puntuaje en estrellitas q actualiza al momento la variable score todo
             Text( text = score.toString())
         }
         Row(){
@@ -85,6 +95,7 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
         }
     }
 }
+
 
 fun isFav( ui : HomeUiState, id : Int): Boolean {
     if(ui.canGetAllFavourites){

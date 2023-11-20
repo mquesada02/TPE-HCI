@@ -14,42 +14,57 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineInfo
 import ar.edu.itba.hci.fiit_mobile.R
+import ar.edu.itba.hci.fiit_mobile.Screen
 import coil.compose.AsyncImage
-import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
-import retrofit2.Response
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
+import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
 @Composable
-fun RoutineScreen(data: NetworkRoutineContent){
+fun RoutineScreen( viewModel: HomeViewModel = viewModel(factory = getViewModelFactory()))
+{
+    val data = viewModel.uiState.currentRoutine
+    //pide chequeo de null q estan re de más pero nose como bypasearlos todo
+    val navController = rememberNavController()
 
-    Column(){
+    Column() {
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
-        ){
-            Text(text =  data.name, //routineName,
-                color = MaterialTheme.colorScheme.primary)
-            ElevatedButton(onClick = { /* poner lo q esta haciendo manu todo */ }){
+        ) {
+            if (data != null) {
+                Text(
+                    text = data.name,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            ElevatedButton(onClick = { navController.navigate(Screen.ExecuteRoutineScreen.route) }) {
                 Text(AnnotatedString(text = stringResource(R.string.start)))
             }
         }
         Row {
-            AsyncImage(
-                model = data.metadata.img,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.size(width = 100.dp, height = 100.dp),
-            )
-            RoutineInfo(data = data)
+            if (data != null) {
+                AsyncImage(
+                    model = data.metadata.img,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.size(width = 100.dp, height = 100.dp),
+                )
+            }
+            if (data != null) {
+                RoutineInfo(data = data)
+            }
         }
-        Row(){
+        Row() {
             //Entrada en calor
         }
-        Row(){
+        Row() {
             //Ejercitación
         }
-        Row(){
+        Row() {
             //Enfriamiento
         }
     }

@@ -17,14 +17,20 @@ import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 fun FavsScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())) {
 
     val uiState = viewModel.uiState
-    Column(){
-        Row(){
-            Text( text = stringResource(R.string.Favs))
+    Column() {
+        Row() {
+            Text(text = stringResource(R.string.Favs))
             Order()
         }
-        if(uiState.canGetAllFavourites){ //esto cuenta como dos chequeos?? todo
-            uiState.favourites?.let { RoutineScroller(name = stringResource(R.string.Favs), routines = it) }
+
+        //esto esta mal porq no sigue ningun orden dado por el usuario todo
+        if (uiState.canGetAllFavourites) {
+            uiState.favourites?.let {
+                RoutineScroller(
+                    name = stringResource(R.string.Favs),
+                    routines = it
+                )
+            }
         }
     }
-
 }

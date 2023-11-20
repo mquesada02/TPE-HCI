@@ -79,7 +79,7 @@ fun ExerciseCard(name: String, img: String) {
 }
 
 @Composable
-fun ExecuteRoutineScreen() {
+fun ExecuteRoutineScreen(onNavigateToScreen: (String) -> Unit) {
     val exercise = remember { mutableStateOf("Exercise") }
     val cycleName = remember { mutableStateOf("Cycle") }
     val nextExercise = remember { mutableStateOf("Next Exercise") }

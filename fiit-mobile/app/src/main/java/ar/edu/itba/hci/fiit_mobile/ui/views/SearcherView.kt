@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import ar.edu.itba.hci.fiit_mobile.Components.Order
 import ar.edu.itba.hci.fiit_mobile.Components.SearchByName
 
-
 @Composable
 fun SearcherScreen(onNavigateToScreen: (String) -> Unit) {
 

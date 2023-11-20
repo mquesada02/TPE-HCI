@@ -25,10 +25,12 @@ fun RoutinesScreen(onNavigateToScreen: (String) -> Unit){
             Button(onClick = { onNavigateToScreen(Screen.ErrorScreen.route)}){
                 Text(text = stringResource(R.string.Create))
             }
-            }
+        }
+        Row {
             Text( text = stringResource(R.string.MyRouts))
             Order()
         }
         // RoutineScroller(name = , viewModel = ) todo
+    }
 
 }

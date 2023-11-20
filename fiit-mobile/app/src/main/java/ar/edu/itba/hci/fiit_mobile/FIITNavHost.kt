@@ -2,16 +2,21 @@ package ar.edu.itba.hci.fiit_mobile
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.ui.views.FavsScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.HomeScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.RoutinesScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.SearcherScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.ConfirmEmailScreen
+import ar.edu.itba.hci.fiit_mobile.ui.views.ExecuteRoutineScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.LoginScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.RegisterScreen
+import ar.edu.itba.hci.fiit_mobile.ui.views.RoutineScreen
 
 @Composable
 fun FIITNavHost(
@@ -45,8 +50,8 @@ fun FIITNavHost(
         composable(Screen.RoutinesScreen.route){
             RoutinesScreen(onNavigateToScreen = {s -> navController.navigate(s) })
         }
-//        composable("routine/{id}", arguments = listOf(navArgument("id") { type = NavType.IntType})) {
-//            route -> RoutineScreen(route.arguments?.getInt("id"))
-//        }
+        composable(Screen.ExecuteRoutineScreen.route){
+            ExecuteRoutineScreen(onNavigateToScreen = {s -> navController.navigate(s)})
+        }
     }
 }
