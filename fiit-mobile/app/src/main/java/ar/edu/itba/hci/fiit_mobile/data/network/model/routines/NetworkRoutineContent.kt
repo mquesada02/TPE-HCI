@@ -15,6 +15,6 @@ data class NetworkRoutineContent (
     @SerializedName("difficulty" ) var difficulty : String,
     @SerializedName("user"       ) var user       : NetworkUser,
     @SerializedName("category"   ) var category   : NetworkRoutineCategory? = null,
-    @SerializedName("metadata"   ) var imgUrl   : String?   = null
+    @SerializedName("metadata"   ) var metadata   : NetworkRoutineMetadata
 
 )

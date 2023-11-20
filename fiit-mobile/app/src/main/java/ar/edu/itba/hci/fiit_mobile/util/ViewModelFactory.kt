@@ -8,6 +8,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import ar.edu.itba.hci.fiit_mobile.data.network.RoutineDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.UserDataSource
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.ExecuteRoutineViewModel
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
 
 class ViewModelFactory constructor(
@@ -27,6 +28,8 @@ class ViewModelFactory constructor(
         when {
             isAssignableFrom(LoginViewModel::class.java) ->
                 LoginViewModel(sessionManager, userDataSource)
+            isAssignableFrom(HomeViewModel::class.java) ->
+                HomeViewModel(sessionManager, routineDataSource)
             isAssignableFrom(ExecuteRoutineViewModel::class.java) ->
                 ExecuteRoutineViewModel(sessionManager, routineDataSource)
             else ->

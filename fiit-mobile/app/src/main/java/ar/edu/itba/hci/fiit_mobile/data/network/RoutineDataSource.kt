@@ -22,6 +22,17 @@ class RoutineDataSource(
     private val apiRoutineService: ApiRoutineService
 ): RemoteDataSource() {
 
+    suspend fun getFavs() : NetworkRoutines {
+        return handleApiResponse { apiRoutineService.getFavourites() }
+    }
+
+    suspend fun addToFavs(id : Int){
+        apiRoutineService.addToFavourites(id)
+    }
+
+    suspend fun removeFromFavs(id : Int) {
+        apiRoutineService.RemoveFromFavourites(id)
+    }
     suspend fun getRoutines(): NetworkRoutines{
         return handleApiResponse { apiRoutineService.getRoutines() }
     }

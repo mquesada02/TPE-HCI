@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.Views
+package ar.edu.itba.hci.fiit_mobile.ui.views
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Text

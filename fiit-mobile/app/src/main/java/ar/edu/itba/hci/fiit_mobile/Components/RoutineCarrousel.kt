@@ -11,8 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.data.models.RoutinesViewModel
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 
 
 //importante! cuando se lo llama no pasarle como parametro viewModel = RoutinesViewModel
@@ -20,34 +21,29 @@ import ar.edu.itba.hci.fiit_mobile.data.models.RoutinesViewModel
 //sino se estaria destruyendo y regenerando la informacion cada vez que se cambia el estado de la pagina
 //no usar el vonstructor de viewModel, llamar al factory de viewModel
 @Composable
-fun RoutineCarrousel(
-    modifier: Modifier = Modifier, //para pasarle el padding desde scaffold (?
-    name: String,
-    viewModel: RoutinesViewModel
-){
-    val routineState = viewModel.routineState
+fun RoutineCarrousel(name : String, routines : NetworkRoutines?){
 
     Column (
         modifier = Modifier.padding(8.dp)
     ) {
         Text(text = name)
-        if(routineState.isLoading)
-            Column(
-                verticalArrangement = Arrangement.Center
-            ){
-                Text(text = stringResource(R.string.loading_routines),
-                    fontSize = 14.sp)
-            }
+        if ((routines == null) || (routines.totalCount == 0)){
+                Column(
+                    verticalArrangement = Arrangement.Center
+                ){
+                    Text(text = stringResource(R.string.Empty),
+                        fontSize = 14.sp)
+                }
+        }
         else {
-            val routineList = routineState.routines?.content.orEmpty() //la lista de rutinas o una vacia
             LazyRow(
                 state = rememberLazyListState(),
             ) {
                 items(
-                    count = routineList.size,
-                    key = { index -> routineList[index].id.toString() }
+                    count = routines.size,
+                    key = { index -> routines.content[index].id.toString() }
                 ) { index ->
-                    RoutineCard(routineList[index])
+                    RoutineCard(routines.content[index])
                 }
             }
         }

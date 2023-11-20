@@ -43,4 +43,9 @@
     <string name="MyRouts">My routines</string>
     <string name="Featured">Featrued:</string>
     <string name="Create">Create routine +</string>
+    <string name="SearchR">Search routine</string>
+    <string name="CreateR">Create routine</string>
+    <string name="DataSourceException"></string>
+    <string name="notDSException"></string>
+    <string name="Empty">There are currently no routines.</string>
 </resources>
