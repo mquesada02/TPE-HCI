@@ -1,7 +1,7 @@
 package ar.edu.itba.hci.fiit_mobile.ui.states
 
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkError
-import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkUserContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUserContent
 
 data class LoginUiState(
     val isAuthenticated: Boolean = false,
