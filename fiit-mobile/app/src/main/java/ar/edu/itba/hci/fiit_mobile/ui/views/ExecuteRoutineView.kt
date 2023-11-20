@@ -6,14 +6,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -36,6 +40,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.ExecuteRoutineViewModel
+import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 import coil.compose.AsyncImage
 import kotlinx.coroutines.delay
 
@@ -79,36 +86,60 @@ fun ExerciseCard(name: String, img: String) {
 }
 
 @Composable
-fun ExecuteRoutineScreen(onNavigateToScreen: (String) -> Unit) {
-    val exercise = remember { mutableStateOf("Exercise") }
-    val cycleName = remember { mutableStateOf("Cycle") }
-    val nextExercise = remember { mutableStateOf("Next Exercise") }
-    val nextExerciseURL = remember { mutableStateOf("https://i.imgur.com/Q6Wp95h_d.webp?maxwidth=760&fidelity=grand")}
+fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = viewModel(factory = getViewModelFactory())) {
 
-    var totalTime by remember { mutableLongStateOf(15L * 1000L) }
+    var fetchedCycles by remember { mutableStateOf(false) }
+    var fetchedExercises by remember { mutableStateOf(false) }
+
+    val uiState = viewModel.uiState
+    if (!fetchedCycles) {
+        // Call the function
+        viewModel.updateCycles(routineId)
+        fetchedCycles = true
+    }
+    if (uiState.cycles.isNotEmpty() && !fetchedExercises) {
+        viewModel.getExercises(uiState.cycles[uiState.cycleIndex].id)
+        fetchedExercises = true
+    }
+
+    //val nextExercise = remember { mutableStateOf(viewModel.getNextExercise(routineId)) }
+    //val nextExerciseName = remember { mutableStateOf(nextExercise.vaExerciselue.exercise.name) }
+    //viewModel.getNextExerciseImage(nextExercise.value.exercise.id) // update next and next image
+    //val nextExerciseURL = remember { mutableStateOf( viewModel.uiState.nextExerciseImage ) }
+
+
+
+    val hasPrevious = remember { mutableStateOf(false/*viewModel.hasPrevious()*/) }
+    val hasNext = remember { mutableStateOf(false/*viewModel.hasNext()*/) }
+
+
+    /* Timer */
+
+    val clickedButton = remember { mutableStateOf(false) }
+
+    var totalTime by remember { mutableLongStateOf(15L) }
     var currentTime by remember {mutableLongStateOf(totalTime)}
     var value by remember { mutableStateOf(1f) }
     var isTimerRunning by remember { mutableStateOf(false) }
 
+
     val textMeasurer = rememberTextMeasurer()
-
     val textToDraw = (currentTime / 1000L).toString()
-
     val style = TextStyle(
         fontSize = MaterialTheme.typography.titleLarge.fontSize,
         fontWeight = FontWeight.Bold,
         color = Color.White,
     )
-
     val textLayoutResult = remember(textToDraw) {
         textMeasurer.measure(textToDraw, style)
     }
-
     LaunchedEffect(key1 = currentTime, key2 = isTimerRunning) {
         if(currentTime > 0 && isTimerRunning) {
             delay(100L)
             currentTime -= 100L
             value = currentTime / totalTime.toFloat()
+        } else {
+            clickedButton.value = false
         }
     }
 
@@ -123,7 +154,8 @@ fun ExecuteRoutineScreen(onNavigateToScreen: (String) -> Unit) {
                 .padding(32.dp)
         ) {
             Text(
-                text = exercise.value,
+                text = if (uiState.cycleExercises.isEmpty()) "Exercise" else
+                    uiState.cycleExercises[uiState.exerciseIndex].exercise.name,
                 modifier = Modifier.fillMaxWidth(),
                 fontWeight = FontWeight.Bold,
                 fontSize = MaterialTheme.typography.titleLarge.fontSize,
@@ -137,10 +169,11 @@ fun ExecuteRoutineScreen(onNavigateToScreen: (String) -> Unit) {
                 .fillMaxWidth()
                 .padding(32.dp)
         ) {
+            val color = MaterialTheme.colorScheme.secondary
             Canvas(
                 modifier = Modifier.size(100.dp), onDraw = {
                     drawCircle(
-                        color = Color(0xFFFF927A),
+                        color = color,
                         radius = 50.dp.toPx(),
                     )
                     drawText(
@@ -162,7 +195,7 @@ fun ExecuteRoutineScreen(onNavigateToScreen: (String) -> Unit) {
                 .padding(16.dp),
         ){
             Text(
-                text = cycleName.value,
+                text = if(uiState.cycles.isEmpty()) "Cycle" else uiState.cycles[uiState.cycleIndex].name,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
             )
         }
@@ -170,13 +203,37 @@ fun ExecuteRoutineScreen(onNavigateToScreen: (String) -> Unit) {
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ){
-            ExerciseCard(name = nextExercise.value, img = nextExerciseURL.value)
+            //ExerciseCard(name = nextExerciseName.value, img = nextExerciseURL.value)
         }
         Row (
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 50.dp),
             verticalAlignment = Alignment.Bottom
         ){
+            Button(
+                onClick = {
+                    /* TODO */
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (!clickedButton.value)
+                        MaterialTheme.colorScheme.background
+                    else
+                        MaterialTheme.colorScheme.primary,
+                ),
+                elevation = ButtonDefaults.elevatedButtonElevation(),
+                modifier = Modifier.size(75.dp),
+                enabled = hasPrevious.value
+            ) {
+                Icon(
+                    imageVector = Icons.Default.SkipPrevious,
+                    contentDescription = "SkipPrevious",
+                    tint = Color.Black,
+                    modifier = Modifier.size(50.dp)
+                )
+            }
+            Spacer(modifier = Modifier.width(35.dp))
             Button(
                 onClick = {
                     if(currentTime <= 0L) {
@@ -185,14 +242,17 @@ fun ExecuteRoutineScreen(onNavigateToScreen: (String) -> Unit) {
                     } else {
                         isTimerRunning = !isTimerRunning
                     }
+                    clickedButton.value = !clickedButton.value
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (!isTimerRunning || currentTime <= 0L) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        Color.Red
-                    }
+                    containerColor =
+                    if (!clickedButton.value)
+                        MaterialTheme.colorScheme.background
+                    else
+                        MaterialTheme.colorScheme.primary,
                 ),
+                elevation = ButtonDefaults.elevatedButtonElevation(),
+                modifier = Modifier.size(75.dp)
             ) {
                 Icon(
                     imageVector = if (!isTimerRunning || currentTime <= 0L) {
@@ -201,7 +261,33 @@ fun ExecuteRoutineScreen(onNavigateToScreen: (String) -> Unit) {
                         Icons.Default.Pause
                     },
                     contentDescription = "Play/Pause",
-                    tint = Color.White
+                    tint = Color.Black,
+                    modifier = Modifier.size(50.dp)
+                )
+            }
+            Spacer(modifier = Modifier.width(35.dp))
+            Button(
+                onClick = {
+                    /* TODO */
+                          //current.value = nextExercise.value
+                          //nextExercise.value = viewModel.getNextExercise(routineId)
+                          //viewModel.getNextExerciseImage(nextExercise.value.exercise.id)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (!clickedButton.value)
+                        MaterialTheme.colorScheme.background
+                    else
+                        MaterialTheme.colorScheme.primary,
+                ),
+                elevation = ButtonDefaults.elevatedButtonElevation(),
+                modifier = Modifier.size(75.dp),
+                enabled = hasNext.value
+            ) {
+                Icon(
+                    imageVector = Icons.Default.SkipNext,
+                    contentDescription = "SkipNext",
+                    tint = Color.Black,
+                    modifier = Modifier.size(50.dp)
                 )
             }
 

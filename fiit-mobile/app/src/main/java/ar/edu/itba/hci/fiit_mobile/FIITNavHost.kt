@@ -50,8 +50,12 @@ fun FIITNavHost(
         composable(Screen.RoutinesScreen.route){
             RoutinesScreen(onNavigateToScreen = {s -> navController.navigate(s) })
         }
-        composable(Screen.ExecuteRoutineScreen.route){
-            ExecuteRoutineScreen(onNavigateToScreen = {s -> navController.navigate(s)})
+
+        composable(Screen.ExecuteRoutineScreen.route) {
+            ExecuteRoutineScreen(14)
         }
+//        composable("routine/{id}", arguments = listOf(navArgument("id") { type = NavType.IntType})) {
+//            route -> RoutineScreen(route.arguments?.getInt("id"))
+//        }
     }
 }

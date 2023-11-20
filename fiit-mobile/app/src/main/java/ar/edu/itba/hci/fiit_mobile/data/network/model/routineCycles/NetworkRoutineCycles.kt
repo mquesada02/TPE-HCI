@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class NetworkRoutineCycles (
 
-    @SerializedName("totalCount" ) var totalCount : Int?               = null,
+    @SerializedName("totalCount" ) var totalCount : Int,
     @SerializedName("orderBy"    ) var orderBy    : String?            = null,
     @SerializedName("direction"  ) var direction  : String?            = null,
     @SerializedName("content"    ) var content    : ArrayList<NetworkRoutineCycleContent> = arrayListOf(),
