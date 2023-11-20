@@ -99,7 +99,7 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
 
 fun isFav( ui : HomeUiState, id : Int): Boolean {
     if(ui.canGetAllFavourites){
-        for(i in ui.favourites?.content!!){ //esto es legal ? todo
+        for(i in ui.favourites?.content!!){
             if(id == i.id){
                 return true
             }

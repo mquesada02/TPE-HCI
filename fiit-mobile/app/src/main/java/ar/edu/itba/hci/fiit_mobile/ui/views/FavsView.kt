@@ -21,7 +21,7 @@ fun FavsScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
             Text(text = stringResource(R.string.Favs))
         }
 
-        //esto esta mal porq no sigue ningun orden dado por el usuario todo
+        //En espera a orderByButton todo
         if (uiState.canGetAllFavourites) {
             uiState.favourites?.let {
                 RoutineScroller(

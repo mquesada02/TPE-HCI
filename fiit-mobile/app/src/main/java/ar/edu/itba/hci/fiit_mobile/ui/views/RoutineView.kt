@@ -24,18 +24,17 @@ import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
 @Composable
-fun RoutineScreen( viewModel: HomeViewModel = viewModel(factory = getViewModelFactory()))
+fun RoutineScreen( viewModel : HomeViewModel = viewModel(factory = getViewModelFactory()))
 {
     val data = viewModel.uiState.currentRoutine
-    //pide chequeo de null q estan re de más pero nose como bypasearlos todo
     val navController = rememberNavController()
 
-    Column() {
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (data != null) {
+    Column(){
+        if(data!=null){
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = data.name,
                     color = MaterialTheme.colorScheme.primary
@@ -44,17 +43,13 @@ fun RoutineScreen( viewModel: HomeViewModel = viewModel(factory = getViewModelFa
             ElevatedButton(onClick = { navController.navigate(Screen.ExecuteRoutineScreen.route) }) {
                 Text(AnnotatedString(text = stringResource(R.string.start)))
             }
-        }
-        Row {
-            if (data != null) {
+            Row {
                 AsyncImage(
                     model = data.metadata.img,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.size(width = 100.dp, height = 100.dp),
                 )
-            }
-            if (data != null) {
                 RoutineInfo(data = data)
             }
         }
