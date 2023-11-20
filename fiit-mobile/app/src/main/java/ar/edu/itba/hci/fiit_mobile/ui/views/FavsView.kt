@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.Components.Order
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineScroller
 import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
@@ -20,7 +19,6 @@ fun FavsScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
     Column() {
         Row() {
             Text(text = stringResource(R.string.Favs))
-            Order()
         }
 
         //esto esta mal porq no sigue ningun orden dado por el usuario todo
