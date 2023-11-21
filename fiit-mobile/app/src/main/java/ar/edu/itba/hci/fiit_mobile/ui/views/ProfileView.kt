@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -45,13 +47,12 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
     }
 
     val uiState = viewModel.uiState
-    val img = remember { mutableStateOf("https://i.imgur.com/Q6Wp95h.png") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.background)
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp).verticalScroll(rememberScrollState())
     ) {
         Row(
             modifier = Modifier
@@ -72,7 +73,7 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
             horizontalArrangement = Arrangement.Center
         ) {
             AsyncImage(
-                model = img.value,
+                model = uiState.currentUser?.avatarUrl ?: "https://imgur.com/vaFSz8D",
                 contentDescription = "Profile Image",
                 modifier = Modifier
                     .size(150.dp)
@@ -80,11 +81,13 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
             )
         }
 
+            PerfilItem(stringResource(R.string.name), uiState.currentUser?.firstName ?: "")
+
+            PerfilItem(stringResource(R.string.surname), uiState.currentUser?.lastName ?: "")
+
             PerfilItem(stringResource(R.string.user), uiState.currentUser?.username?: "")
 
             PerfilItem("Email", uiState.currentUser?.email?: "")
-
-            PerfilItem(stringResource(R.string.birthdate), uiState.currentUser?.birthdate?.toString() ?: "")
 
             Row(
                 modifier = Modifier
@@ -120,7 +123,7 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
 
         }
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
             horizontalArrangement = Arrangement.Center,
         ) {
             Button(

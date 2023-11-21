@@ -19,7 +19,7 @@ data class NetworkUserContent (
     @SerializedName("phone"        ) var phone        : String?  = null,
     @SerializedName("avatarUrl"    ) var avatarUrl    : String?  = null,
     @SerializedName("metadata"     ) var metadata     : UserMetadata?  = null,
-    @SerializedName("date"         ) var date         : Long?     = null,
+    @SerializedName("date"         ) var date         : Long?     = 0L,
     @SerializedName("lastActivity" ) var lastActivity : Long?     = null,
     @SerializedName("verified"     ) var verified     : Boolean? = null
 
