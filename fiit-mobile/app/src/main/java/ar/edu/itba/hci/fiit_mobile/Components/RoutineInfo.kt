@@ -1,13 +1,18 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
-import android.content.Intent
+import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.view.Gravity
 import android.widget.LinearLayout
-import android.widget.RatingBar
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -17,9 +22,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,6 +44,10 @@ import ar.edu.itba.hci.fiit_mobile.ui.states.canDeleteFav
 import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
+import coil.compose.AsyncImage
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.JulianFields
 
 @Composable
 fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())){
@@ -42,29 +56,13 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
     val score = data.score
     var isFav: Boolean = isFav(viewModel.uiState, data.id)
     val icon = if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
-
-    val sendIntent: Intent = Intent().apply {
-        action = Intent.ACTION_SEND
-        putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
-        type = "text/plain"
-    }
-    val shareIntent = Intent.createChooser(sendIntent, null)
-    val context = LocalContext.current
+    var myRating by remember { mutableIntStateOf(data.score) }
 
     Column {
         Row(){
-           /* val ratingBar: RatingBar = RatingBar(this).apply {
-                setIsIndicator(false)
-                numStars = 5
-                stepSize = 1.0f
-                rating = data.score.toFloat()
-                max = 5
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { gravity = Gravity.CENTER }
-            }*/
-            // Puntuaje en estrellitas q actualiza al momento la variable score todo
+            RatingBar(maxRating = 5, currentRating = myRating,
+                onRatingChanged = {myRating = it}, starsColor =MaterialTheme.colorScheme.outline,
+                id = data.id, review = "")
             Text( text = score.toString())
         }
         Row(){
@@ -73,9 +71,17 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
             Text(text = intensityType)
         }
         Row(){
-            IconButton(onClick = {
-                context.startActivity(shareIntent)
-            }) {
+            AsyncImage(
+                model = data.user.avatarUrl,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.height(40.dp).clip(CircleShape).size(10.dp)
+            )
+            Text(data.user.username)
+        }
+         // Text(dateToString(data.date)) //esta comentado porq mi date tdv es int todo
+        Row(){
+            IconButton(onClick = { /* tiene q copiar el link todo */ }) {
                 Icon(
                     imageVector = Icons.Filled.Send,
                     contentDescription = "Localized description",
@@ -120,14 +126,24 @@ fun isFav( ui : HomeUiState, id : Int): Boolean {
     return false
 }
 
-@Preview
-@Composable
-fun test(){
-    RoutineInfo(data = NetworkRoutineContent(
-        id=0, name="test", detail="none", date=10,
-        score=4, isPublic = false, difficulty = "Hard",
-        user= NetworkUser(id=0, username = "Tester"), category = null,
-        metadata = NetworkRoutineMetadata(goals="none", img="what",
-            materials = "none", muscles = "eyes")
-    ))
+@RequiresApi(Build.VERSION_CODES.O)
+fun dateToString(date: Long): String {
+    if (date < 0) {
+        throw IllegalArgumentException("Julian date cannot be negative")
+    }
+
+    val gregorianDate = LocalDate.MIN.with(JulianFields.MODIFIED_JULIAN_DAY, date)
+    return gregorianDate.format(DateTimeFormatter.ISO_DATE)
 }
+
+//@Preview
+//@Composable
+//fun test(){
+//    RoutineInfo(data = NetworkRoutineContent(
+//        id=0, name="test", detail="none", date=10,
+//        score=4, isPublic = false, difficulty = "Hard",
+//        user= NetworkUser(id=0, username = "Tester"), category = null,
+//        metadata = NetworkRoutineMetadata(goals="none", img="what",
+//            materials = "none", muscles = "eyes")
+//    ))
+//}

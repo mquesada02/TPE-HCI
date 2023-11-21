@@ -9,7 +9,7 @@ data class NetworkCycleExercise (
     @SerializedName("name"   ) var name   : String,
     @SerializedName("detail" ) var detail : String,
     @SerializedName("type"   ) var type   : String,
-    @SerializedName("date"   ) var date   : Int,
+    @SerializedName("date"   ) var date   : Long,
     @SerializedName("order"  ) var order  : Int
 
 )

@@ -1,4 +1,4 @@
-package ar.edu.itba.hci.fiit_mobile.data.models
+package ar.edu.itba.hci.fiit_mobile.ui.viewmodels
 //
 //import androidx.compose.runtime.getValue
 //import androidx.compose.runtime.mutableStateOf
