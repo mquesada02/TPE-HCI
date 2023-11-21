@@ -21,17 +21,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ar.edu.itba.hci.fiit_mobile.Screen
 
 
 @Composable
-fun BottomBar(onNavigateToScreen: (String) -> Unit){
+fun BottomBar(navController: NavController){
 
     var inHome by remember { mutableStateOf(true) }
-    var inCreate by remember { mutableStateOf(false) }
     var inSearcher by remember { mutableStateOf(false) }
     var inFavs by remember { mutableStateOf(false) }
     var inMyRoutines by remember { mutableStateOf(false) }
+
+    inHome = navController.currentDestination?.route == Screen.HomeScreen.route
+    inSearcher = navController.currentDestination?.route == Screen.SearchScreen.route
+    inFavs = navController.currentDestination?.route == Screen.FavsScreen.route
+    inMyRoutines = navController.currentDestination?.route == Screen.RoutinesScreen.route
 
             BottomAppBar(
                 actions = {
@@ -42,12 +47,8 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     IconButton(onClick = {
-                        onNavigateToScreen(Screen.HomeScreen.route)
-                        inHome = true
-                        inCreate = false
-                        inSearcher = false
-                        inFavs = false
-                        inMyRoutines = false
+                        navController.popBackStack(Screen.HomeScreen.route, false)
+                        navController.navigate(Screen.HomeScreen.route)
                     }){
                     if(inHome) {
                         Icon(
@@ -67,12 +68,8 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
                     }
                     }
                     IconButton(onClick = {
-                        onNavigateToScreen(Screen.FavsScreen.route)
-                        inHome = false
-                        inCreate = false
-                        inSearcher = false
-                        inFavs = true
-                        inMyRoutines = false
+                        navController.popBackStack(Screen.HomeScreen.route, false)
+                        navController.navigate(Screen.FavsScreen.route)
                     }) {
                     if(inFavs){
                         Icon(
@@ -92,12 +89,8 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
                     }
                     }
                     IconButton(onClick = {
-                        onNavigateToScreen(Screen.RoutinesScreen.route)
-                        inHome = false
-                        inCreate = false
-                        inSearcher = false
-                        inFavs = false
-                        inMyRoutines = true
+                        navController.popBackStack(Screen.HomeScreen.route, false)
+                        navController.navigate(Screen.RoutinesScreen.route)
                     }) {
                     if(inMyRoutines){
                         Icon(
@@ -117,12 +110,8 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
                     }
                     }
                     IconButton(onClick = {
-                        onNavigateToScreen(Screen.SearchScreen.route)
-                        inHome = false
-                        inCreate = false
-                        inSearcher = true
-                        inFavs = false
-                        inMyRoutines = false
+                        navController.popBackStack(Screen.HomeScreen.route, false)
+                        navController.navigate(Screen.SearchScreen.route)
                     }) {
                     if(inSearcher){
                         Icon(

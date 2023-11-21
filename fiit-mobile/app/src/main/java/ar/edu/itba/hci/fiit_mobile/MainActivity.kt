@@ -79,8 +79,8 @@ fun TestingPreview() {
         }
 
         Scaffold(
-            topBar = { if (showBars) TopAppBar(onNavigateToScreen = { navController.navigate(it) }) },
-             bottomBar = { if (showBars) BottomBar(onNavigateToScreen = { navController.navigate(it) }) },
+            topBar = { if (showBars) TopAppBar(navController) },
+             bottomBar = { if (showBars) BottomBar(navController) },
             modifier = Modifier.fillMaxSize(),
         ) {
             Box(
