@@ -45,9 +45,9 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
         viewModel.getCurrentUser()
         fetchedCurrentUser = true
     }
-
     val uiState = viewModel.uiState
 
+    if (!uiState.isAuthenticated) { onNavigateToLogin() }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -103,7 +103,7 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = uiState.currentUser?.metadata?.weight.toString() ?: "",
+                        text = uiState.currentUser?.metadata?.weight.toString(),
                         fontSize = MaterialTheme.typography.headlineSmall.fontSize
                     )
                 }
@@ -115,7 +115,7 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = uiState.currentUser?.metadata?.height.toString() ?: "",
+                        text = uiState.currentUser?.metadata?.height.toString(),
                         fontSize = MaterialTheme.typography.headlineSmall.fontSize
                     )
                 }
@@ -127,7 +127,7 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
             horizontalArrangement = Arrangement.Center,
         ) {
             Button(
-                onClick = { viewModel.logout(); onNavigateToLogin() },//completar
+                onClick = { viewModel.logout() },//completar
                 modifier = Modifier
             ) {
                 Text(text = stringResource(R.string.logout))

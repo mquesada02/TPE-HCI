@@ -6,17 +6,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ar.edu.itba.hci.fiit_mobile.Screen
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun BottomBar(onNavigateToScreen: (String) -> Unit){
 
@@ -36,8 +33,6 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
     var inFavs by remember { mutableStateOf(false) }
     var inMyRoutines by remember { mutableStateOf(false) }
 
-    Scaffold(
-        bottomBar = {
             BottomAppBar(
                 actions = {
                 Row(
@@ -106,7 +101,7 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
                     }) {
                     if(inMyRoutines){
                         Icon(
-                            Icons.Filled.MailOutline,
+                            Icons.Filled.Folder,
                             contentDescription = "Localized description",
                             modifier = Modifier.size(30.dp),
                             tint = MaterialTheme.colorScheme.outline
@@ -114,32 +109,7 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
                     }
                     else{
                         Icon(
-                            Icons.Filled.MailOutline,
-                            contentDescription = "Localized description",
-                            modifier = Modifier.size(20.dp),
-                            tint = MaterialTheme.colorScheme.outlineVariant
-                        )
-                    }
-                    }
-                    IconButton(onClick = {
-                        onNavigateToScreen(Screen.ErrorScreen.route)
-                        inHome = false
-                        inCreate = true
-                        inSearcher = false
-                        inFavs = false
-                        inMyRoutines = false
-                    }) {
-                    if(inCreate){
-                        Icon(
-                            Icons.Filled.Add,
-                            contentDescription = "Localized description",
-                            modifier = Modifier.size(30.dp),
-                            tint = MaterialTheme.colorScheme.outline
-                        )
-                    }
-                    else{
-                        Icon(
-                            Icons.Filled.Add,
+                            Icons.Filled.Folder,
                             contentDescription = "Localized description",
                             modifier = Modifier.size(20.dp),
                             tint = MaterialTheme.colorScheme.outlineVariant
@@ -174,6 +144,5 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
                 }
                 },
             )
-        },
-    ) { innerPadding -> ScrollContent(innerPadding) }
+
 }

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -84,7 +84,7 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
        ) {
            FiitmobileTheme {
                MenuCard(name = stringResource(R.string.MyRouts),
-                       iconType = Icons.Filled.MailOutline,
+                       iconType = Icons.Filled.Folder,
                        onClick = { onNavigateToScreen(Screen.RoutinesScreen.route) })
 
 

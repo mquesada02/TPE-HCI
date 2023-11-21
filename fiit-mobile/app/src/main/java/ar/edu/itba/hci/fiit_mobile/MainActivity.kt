@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -14,12 +16,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import ar.edu.itba.hci.fiit_mobile.Components.BottomBar
+import ar.edu.itba.hci.fiit_mobile.Components.TopAppBar
 import ar.edu.itba.hci.fiit_mobile.ui.theme.FiitmobileTheme
 
 
@@ -53,20 +62,32 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, name = "Testing")
 @Composable
 fun TestingPreview() {
     FiitmobileTheme(dynamicColor = false) {
         val navController = rememberNavController()
+        var showBars by rememberSaveable { mutableStateOf(true) }
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+        showBars = when (navBackStackEntry?.destination?.route) {
+            Screen.LoginScreen.route -> false
+            Screen.RegisterScreen.route -> false
+            Screen.ConfirmEmailScreen.route -> false
+            else -> true
+        }
+
         Scaffold(
-            /* topBar = ,*/
-            /* bottomBar = ,*/
-            modifier = Modifier.fillMaxSize()
+            topBar = { if (showBars) TopAppBar(onNavigateToScreen = { navController.navigate(it) }) },
+             bottomBar = { if (showBars) BottomBar(onNavigateToScreen = { navController.navigate(it) }) },
+            modifier = Modifier.fillMaxSize(),
         ) {
-//            FIITNavHost(navController = navController)
-            FIITNavHost(navController = navController)
+            Box(
+                modifier = Modifier.padding(it)
+            ) {
+                FIITNavHost(navController = navController)
+            }
         }
     }
 }

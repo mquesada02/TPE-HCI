@@ -1,8 +1,5 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
@@ -12,24 +9,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import ar.edu.itba.hci.fiit_mobile.Screen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(onNavigateToScreen: (String) -> Unit){
-
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -51,26 +38,14 @@ fun TopAppBar(onNavigateToScreen: (String) -> Unit){
                             contentDescription = "Localized description"
                         )
                     }
-                    IconButton(onClick = { onNavigateToScreen(Screen.ErrorScreen.route) }) {
+                    IconButton(onClick = { onNavigateToScreen(Screen.ProfileScreen.route) }) {
                         Icon(
                             imageVector = Icons.Filled.Person,
                             contentDescription = "Localized description"
                         )
                     }
-                },
-                scrollBehavior = scrollBehavior
+                }
             )
-        },
-    ) { innerPadding ->
-        ScrollContent(innerPadding)
-    }
-}
-
-@Composable                             //esto te lo pide nose porq, y le puse vacio adentro xd todo
-fun ScrollContent(innerPadding: PaddingValues) {
-    Box(
-        modifier = Modifier.background(MaterialTheme.colorScheme.background)
-    )
 }
 
 
