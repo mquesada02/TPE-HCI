@@ -48,4 +48,8 @@
     <string name="DataSourceException"></string>
     <string name="notDSException"></string>
     <string name="Empty">There are currently no routines.</string>
+    <string name="high_intensity">High intensity</string>
+    <string name="mid_intensity">Mid intensity</string>
+    <string name="low_intensity">Low intensity</string>
+    <string name="search">Search...</string>
 </resources>

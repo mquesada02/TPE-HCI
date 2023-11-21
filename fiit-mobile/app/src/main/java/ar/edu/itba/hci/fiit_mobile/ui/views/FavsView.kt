@@ -23,7 +23,7 @@ fun FavsScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
             Order()
         }
         if(uiState.canGetAllFavourites){ //esto cuenta como dos chequeos?? todo
-            uiState.favourites?.let { RoutineScroller(name = stringResource(R.string.Favs), routines = it) }
+            uiState.favourites?.let { RoutineScroller(name = stringResource(R.string.Favs), routines = it.content) }
         }
     }
 

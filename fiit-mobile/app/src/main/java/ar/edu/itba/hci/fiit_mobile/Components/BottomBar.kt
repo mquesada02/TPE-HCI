@@ -147,7 +147,7 @@ fun BottomBar(onNavigateToScreen: (String) -> Unit){
                     }
                     }
                     IconButton(onClick = {
-                        onNavigateToScreen(Screen.SearcherScreen.route)
+                        onNavigateToScreen(Screen.SearchScreen.route)
                         inHome = false
                         inCreate = false
                         inSearcher = true

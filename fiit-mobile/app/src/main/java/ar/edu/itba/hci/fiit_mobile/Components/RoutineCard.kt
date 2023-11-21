@@ -30,10 +30,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineMetadata
 import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
 import coil.compose.AsyncImage
+
+@Composable
+private fun difficultyToIntensity(difficulty: String): String{
+    if(difficulty=="rookie") {return stringResource(R.string.low_intensity)}
+    if(difficulty=="intermediate") {return stringResource(R.string.mid_intensity)}
+    return stringResource(R.string.high_intensity)
+}
 
 @Composable
 fun RoutineCard(data: NetworkRoutineContent){
@@ -42,8 +50,8 @@ fun RoutineCard(data: NetworkRoutineContent){
             .clickable(onClick = {
                 /*TODO*/
             })
-            .width(100.dp)
-            .height(100.dp)
+            .width(120.dp)
+            .height(120.dp)
             .background(MaterialTheme.colorScheme.background),
 
     ){
@@ -51,13 +59,13 @@ fun RoutineCard(data: NetworkRoutineContent){
             horizontalAlignment = Alignment.CenterHorizontally){
             AsyncImage(
                 model = data.metadata.img,
-                contentDescription = null,
+                contentDescription = "",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth() //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
-                    .height(40.dp)
+                    .height(50.dp)
             )
-            Text(text = data.name, fontSize = 12.sp, modifier = Modifier.padding(top = 3.dp))
+            Text(text = data.name, fontSize = 14.sp, textAlign = TextAlign.Center)
             Row (
                 modifier = Modifier
                     .padding(bottom = 3.dp)
@@ -68,8 +76,8 @@ fun RoutineCard(data: NetworkRoutineContent){
                 ){
                 Column(horizontalAlignment = Alignment.Start, modifier = Modifier.weight(1f)) {
                     Text(
-                        text = data.user.username,
-                        fontSize = 9.sp
+                        text = difficultyToIntensity(difficulty = data.difficulty),
+                        fontSize = 10.sp
                     )
                 }
                 Column(horizontalAlignment = Alignment.End, modifier = Modifier.width(20.dp)) {
@@ -92,14 +100,14 @@ fun RoutineCardPreview(){
     RoutineCard(
         NetworkRoutineContent(
             id = 1,
-            name = "abdominales",
+            name = "abdominales ajsdhbajsdb ashvdjasdvh",
             detail = "......",
             date = 1234,
             score = 4,
             isPublic = false,
             category = null,
-            difficulty = "intermediate",
-            user = NetworkUser(id = 1, username = "Intensidad media"),
+            difficulty = "advanced",
+            user = NetworkUser(id = 1, username = "Inetensidad media"),
             metadata = NetworkRoutineMetadata("a", "a", "a", "https://media.tenor.com/xQXTOmdBKmMAAAAC/leonarda-qsmp.gif")
         )
     )
