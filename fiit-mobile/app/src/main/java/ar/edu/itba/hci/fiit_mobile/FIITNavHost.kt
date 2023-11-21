@@ -21,7 +21,7 @@ import ar.edu.itba.hci.fiit_mobile.ui.views.RoutineScreen
 @Composable
 fun FIITNavHost(
     navController: NavHostController = rememberNavController(),
-    startDestination: String = Screen.LoginScreen.route
+    startDestination: String = Screen.SearchScreen.route
 ) {
     NavHost(
         navController = navController,

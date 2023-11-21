@@ -101,21 +101,21 @@ fun RoutineCard(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
     }
 }
 
-@Composable
-@Preview
-fun RoutineCardPreview(){
-    RoutineCard(
-        NetworkRoutineContent(
-            id = 1,
-            name = "abdominales ajsdhbajsdb ashvdjasdvh",
-            detail = "......",
-            date = 1234,
-            score = 4,
-            isPublic = false,
-            category = null,
-            difficulty = "advanced",
-            user = NetworkUser(id = 1, username = "richarlyson"),
-            metadata = NetworkRoutineMetadata("a", "a", "a", "https://media.tenor.com/xQXTOmdBKmMAAAAC/leonarda-qsmp.gif")
-        )
-    )
-}
+//@Composable
+//@Preview
+//fun RoutineCardPreview(){
+//    RoutineCard(
+//        NetworkRoutineContent(
+//            id = 1,
+//            name = "abdominales ajsdhbajsdb ashvdjasdvh",
+//            detail = "......",
+//            date = 1234,
+//            score = 4,
+//            isPublic = false,
+//            category = null,
+//            difficulty = "advanced",
+//            user = NetworkUser(id = 1, username = "richarlyson"),
+//            metadata = NetworkRoutineMetadata("a", "a", "a", "https://media.tenor.com/xQXTOmdBKmMAAAAC/leonarda-qsmp.gif")
+//        )
+//    )
+//}

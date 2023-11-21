@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class NetworkReviewContent (
 
-    @SerializedName("id"     ) var id     : Int?    = null,
-    @SerializedName("date"   ) var date   : Int?    = null,
-    @SerializedName("score"  ) var score  : Int?    = null,
+    @SerializedName("id"     ) var id     : Int,
+    @SerializedName("date"   ) var date   : Long,
+    @SerializedName("score"  ) var score  : Int,
     @SerializedName("review" ) var review : String? = null
 
 )

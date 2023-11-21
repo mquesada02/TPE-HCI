@@ -136,14 +136,14 @@ fun dateToString(date: Long): String {
     return gregorianDate.format(DateTimeFormatter.ISO_DATE)
 }
 
-@Preview
-@Composable
-fun test(){
-    RoutineInfo(data = NetworkRoutineContent(
-        id=0, name="test", detail="none", date=10,
-        score=4, isPublic = false, difficulty = "Hard",
-        user= NetworkUser(id=0, username = "Tester"), category = null,
-        metadata = NetworkRoutineMetadata(goals="none", img="what",
-            materials = "none", muscles = "eyes")
-    ))
-}
+//@Preview
+//@Composable
+//fun test(){
+//    RoutineInfo(data = NetworkRoutineContent(
+//        id=0, name="test", detail="none", date=10,
+//        score=4, isPublic = false, difficulty = "Hard",
+//        user= NetworkUser(id=0, username = "Tester"), category = null,
+//        metadata = NetworkRoutineMetadata(goals="none", img="what",
+//            materials = "none", muscles = "eyes")
+//    ))
+//}
