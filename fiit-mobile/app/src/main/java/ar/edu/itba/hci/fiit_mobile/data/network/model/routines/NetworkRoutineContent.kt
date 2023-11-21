@@ -17,4 +17,17 @@ data class NetworkRoutineContent (
     @SerializedName("category"   ) var category   : NetworkRoutineCategory? = null,
     @SerializedName("metadata"   ) var metadata   : NetworkRoutineMetadata
 
-)
+){
+    fun matchesStringQuery(query: String): Boolean{
+        val matchingCombinations = listOf(
+            name,
+            metadata.muscles,
+            metadata.goals,
+            user.username
+        )
+
+        return matchingCombinations.any{
+            it.contains(query, ignoreCase = true)
+        }
+    }
+}
