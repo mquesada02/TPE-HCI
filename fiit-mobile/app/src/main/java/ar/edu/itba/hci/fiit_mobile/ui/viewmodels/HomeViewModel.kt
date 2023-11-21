@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.itba.hci.fiit_mobile.data.DataSourceException
 import ar.edu.itba.hci.fiit_mobile.data.network.RoutineDataSource
+import ar.edu.itba.hci.fiit_mobile.data.network.UserDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkError
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkReview
 import ar.edu.itba.hci.fiit_mobile.ui.states.HomeUiState
