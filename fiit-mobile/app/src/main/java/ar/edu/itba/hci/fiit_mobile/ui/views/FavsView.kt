@@ -26,7 +26,7 @@ fun FavsScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
             uiState.favourites?.let {
                 RoutineScroller(
                     name = stringResource(R.string.Favs),
-                    routines = it
+                    routines = uiState.favourites.content
                 )
             }
         }
