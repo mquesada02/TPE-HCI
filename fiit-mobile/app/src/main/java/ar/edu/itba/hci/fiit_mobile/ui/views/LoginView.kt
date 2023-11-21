@@ -50,6 +50,10 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
     val password = remember { mutableStateOf(TextFieldValue("")) }
     val passwordOnValueChange = { pass: TextFieldValue -> password.value = pass }
 
+    if (viewModel.uiState.isAuthenticated) {
+        onNavigateToScreen(Screen.HomeScreen.route)
+    }
+
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -142,12 +146,7 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
             ElevatedButton(
                 onClick = { /*TODO*/
                     viewModel.login(username.value.text, password.value.text)
-                    if (viewModel.uiState.isAuthenticated) {
-                        onNavigateToScreen(Screen.HomeScreen.route)
-                    } else {
-                        /* Show error TODO */
-                    }
-                          },
+                },
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
                     contentColor = Color.Black,
