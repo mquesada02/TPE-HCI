@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -36,9 +39,7 @@ fun RoutineScroller(
                 Text(text = stringResource(R.string.Empty), fontSize = 14.sp)
             }
         else{
-            LazyColumn(
-                state = rememberLazyListState(),
-            ) {
+            LazyVerticalGrid(columns = GridCells.Fixed(2),  state = rememberLazyGridState()){
                 items(
                     count = routines.size,
                     key = { index -> routines[index].id.toString() }

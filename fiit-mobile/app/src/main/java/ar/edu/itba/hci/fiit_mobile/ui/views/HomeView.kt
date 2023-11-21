@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.Components.BottomBar
 import ar.edu.itba.hci.fiit_mobile.Components.MenuCard
+import ar.edu.itba.hci.fiit_mobile.Components.RoutineCarrousel
 import ar.edu.itba.hci.fiit_mobile.Components.TopAppBar
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Screen
@@ -45,7 +46,6 @@ import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())) {
 
     var username = viewModel.uiState.currentUser?.username ?: "null"
-
 
    Column(
        horizontalAlignment = Alignment.CenterHorizontally
@@ -98,24 +98,7 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
                    onClick = { onNavigateToScreen(Screen.FavsScreen.route) })
            }
        }
-       Text(text = stringResource(R.string.Featured))
-       if(!viewModel.uiState.canGetAllRoutines){
-           Card(
-               colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant,),
-               modifier = Modifier
-                   .fillMaxWidth()
-                   .height(50.dp)
-           ) {
-               Text(
-                   text = stringResource(R.string.Empty),
-                   modifier = Modifier.padding(25.dp),
-                   textAlign = TextAlign.Center,
-               )
-           }
-       }
-       else{
-           //RoutineCarrousel(viewModel.getRoutines()) descomentar cuando este listo todo
-       }
+       RoutineCarrousel(stringResource(R.string.Featured), viewModel.uiState.routines)
    }
 }
 

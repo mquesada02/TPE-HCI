@@ -10,15 +10,15 @@ data class HomeUiState(
     val isFetching: Boolean = false,
     val currentUser: NetworkUser? = null,
     val routines: NetworkRoutines? = null,
+    val currentRoutine : NetworkRoutineContent? = null,
     val favourites: NetworkRoutines? = null,
-    val currentFav: NetworkRoutineContent? = null,
     val error: NetworkError? = null
 )
 val HomeUiState.canGetAllFavourites: Boolean get() = isAuthenticated
 val HomeUiState.canGetAllRoutines: Boolean get() = isAuthenticated
-val HomeUiState.canGetCurrentFav: Boolean get() = isAuthenticated && currentFav != null
-val HomeUiState.canAddFav: Boolean get() = isAuthenticated && currentFav == null
-val HomeUiState.canModifyFavs: Boolean get() = isAuthenticated && currentFav != null
+val HomeUiState.canGetCurrentFav: Boolean get() = isAuthenticated
+val HomeUiState.canAddFav: Boolean get() = isAuthenticated
+val HomeUiState.canModifyFavs: Boolean get() = isAuthenticated
 val HomeUiState.canDeleteFav: Boolean get() = canModifyFavs
 val HomeUiState.canGetUser: Boolean get() = isAuthenticated
 

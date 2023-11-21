@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.Components.Order
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineScroller
 import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
@@ -17,14 +16,19 @@ import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 fun FavsScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())) {
 
     val uiState = viewModel.uiState
-    Column(){
-        Row(){
-            Text( text = stringResource(R.string.Favs))
-            Order()
+    Column() {
+        Row() {
+            Text(text = stringResource(R.string.Favs))
         }
-        if(uiState.canGetAllFavourites){ //esto cuenta como dos chequeos?? todo
-            uiState.favourites?.let { RoutineScroller(name = stringResource(R.string.Favs), routines = it.content) }
+
+        //En espera a orderByButton todo
+        if (uiState.canGetAllFavourites) {
+            uiState.favourites?.let {
+                RoutineScroller(
+                    name = stringResource(R.string.Favs),
+                    routines = it
+                )
+            }
         }
     }
-
 }
