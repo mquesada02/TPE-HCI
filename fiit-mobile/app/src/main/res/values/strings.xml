@@ -48,4 +48,7 @@
     <string name="DataSourceException"></string>
     <string name="notDSException"></string>
     <string name="Empty">No se ha creado ninguna rutina.</string>
+    <string name="loading">Cargando...</string>
+    <string name="repetitions">Repeticiones</string>
+    <string name="no_more_exercises">Fin del ciclo</string>
 </resources>

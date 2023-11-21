@@ -13,13 +13,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.SkipNext
-import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,8 +33,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
@@ -41,13 +44,15 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.ExecuteRoutineViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 import coil.compose.AsyncImage
 import kotlinx.coroutines.delay
 
 @Composable
-fun ExerciseCard(name: String, img: String) {
+fun ExerciseCard(detail: String, img: String) {
+    println("Img: $img")
     Row(
         modifier = Modifier.padding(horizontal = 30.dp)
     ) {
@@ -65,18 +70,21 @@ fun ExerciseCard(name: String, img: String) {
             ) {
                 AsyncImage(
                     model = img,
-                    contentDescription = name
+                    contentDescription = detail,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(CircleShape)
                 )
             }
             Column(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = name,
+                    text = detail,
                     modifier = Modifier.fillMaxWidth(),
                     fontWeight = FontWeight.Bold,
-                    fontSize = MaterialTheme.typography.headlineLarge.fontSize,
-                    lineHeight = MaterialTheme.typography.headlineLarge.lineHeight,
+                    fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                    lineHeight = MaterialTheme.typography.headlineSmall.lineHeight,
                     textAlign = TextAlign.Center
                 )
 
@@ -90,41 +98,42 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
 
     var fetchedCycles by remember { mutableStateOf(false) }
     var fetchedExercises by remember { mutableStateOf(false) }
+    var fetchedNextExercise by remember { mutableStateOf(false) }
 
     val uiState = viewModel.uiState
     if (!fetchedCycles) {
-        // Call the function
         viewModel.updateCycles(routineId)
         fetchedCycles = true
     }
     if (uiState.cycles.isNotEmpty() && !fetchedExercises) {
+        viewModel.swapCycles()
         viewModel.getExercises(uiState.cycles[uiState.cycleIndex].id)
         fetchedExercises = true
     }
 
-    //val nextExercise = remember { mutableStateOf(viewModel.getNextExercise(routineId)) }
-    //val nextExerciseName = remember { mutableStateOf(nextExercise.vaExerciselue.exercise.name) }
-    //viewModel.getNextExerciseImage(nextExercise.value.exercise.id) // update next and next image
-    //val nextExerciseURL = remember { mutableStateOf( viewModel.uiState.nextExerciseImage ) }
-
-
-
-    val hasPrevious = remember { mutableStateOf(false/*viewModel.hasPrevious()*/) }
-    val hasNext = remember { mutableStateOf(false/*viewModel.hasNext()*/) }
+    if (uiState.cycleExercises.isNotEmpty() && !fetchedNextExercise) {
+        //viewModel.peekNextExerciseName()
+        //viewModel.peekNextExerciseImage()
+        viewModel.getExerciseImage(uiState.cycleExercises[uiState.exerciseIndex].exercise.id)
+        fetchedNextExercise = true
+    }
 
 
     /* Timer */
 
     val clickedButton = remember { mutableStateOf(false) }
 
-    var totalTime by remember { mutableLongStateOf(15L) }
-    var currentTime by remember {mutableLongStateOf(totalTime)}
-    var value by remember { mutableStateOf(1f) }
+    var totalTime by remember { mutableLongStateOf(0L) }
+
     var isTimerRunning by remember { mutableStateOf(false) }
 
+    if (uiState.cycleExercises.isNotEmpty()) {
+        totalTime = (uiState.cycleExercises[uiState.exerciseIndex].duration)?.times(1000L) ?: 0L
+    }
+    var currentTime by remember {mutableLongStateOf(totalTime)}
 
     val textMeasurer = rememberTextMeasurer()
-    val textToDraw = (currentTime / 1000L).toString()
+    val textToDraw = if (currentTime / 1000L == 0L) "-" else (currentTime / 1000L).toString()
     val style = TextStyle(
         fontSize = MaterialTheme.typography.titleLarge.fontSize,
         fontWeight = FontWeight.Bold,
@@ -137,9 +146,15 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
         if(currentTime > 0 && isTimerRunning) {
             delay(100L)
             currentTime -= 100L
-            value = currentTime / totalTime.toFloat()
         } else {
             clickedButton.value = false
+            if (uiState.cycleExercises.isNotEmpty()) {
+                totalTime = (uiState.cycleExercises[uiState.exerciseIndex].duration)?.times(1000L) ?: 0L
+                if (currentTime <= 0) {
+                    currentTime = totalTime
+                }
+                isTimerRunning = false
+            }
         }
     }
 
@@ -153,15 +168,20 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                 .fillMaxWidth()
                 .padding(32.dp)
         ) {
-            Text(
-                text = if (uiState.cycleExercises.isEmpty()) "Exercise" else
-                    uiState.cycleExercises[uiState.exerciseIndex].exercise.name,
-                modifier = Modifier.fillMaxWidth(),
-                fontWeight = FontWeight.Bold,
-                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                lineHeight = MaterialTheme.typography.titleLarge.lineHeight,
-                textAlign = TextAlign.Center
-            )
+            if (uiState.cycleExercises.isEmpty() || uiState.isFetching) {
+                CircularProgressIndicator()
+            } else {
+                Text(
+                    text = if (uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else
+                        uiState.cycleExercises[uiState.exerciseIndex].exercise.name,
+                    modifier = Modifier.fillMaxWidth(),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    lineHeight = MaterialTheme.typography.titleLarge.lineHeight,
+                    textAlign = TextAlign.Center
+                )
+            }
+
         }
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -195,7 +215,18 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                 .padding(16.dp),
         ){
             Text(
-                text = if(uiState.cycles.isEmpty()) "Cycle" else uiState.cycles[uiState.cycleIndex].name,
+                text = if(uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else stringResource(R.string.repetitions) + ": " + uiState.cycleExercises[uiState.exerciseIndex].repetitions.toString(),
+                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+            )
+        }
+        Row (
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        ){
+            Text(
+                text = if(uiState.cycles.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else uiState.cycles[uiState.cycleIndex].name,
                 fontSize = MaterialTheme.typography.titleMedium.fontSize,
             )
         }
@@ -203,18 +234,22 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ){
-            //ExerciseCard(name = nextExerciseName.value, img = nextExerciseURL.value)
+            ExerciseCard(detail = if(uiState.cycleExercises.isEmpty()) {stringResource(R.string.loading)} else {uiState.cycleExercises[uiState.exerciseIndex].exercise.detail}, img = uiState.nextExerciseImage)
         }
         Row (
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(bottom = 50.dp),
+                .padding(bottom = 10.dp),
             verticalAlignment = Alignment.Bottom
         ){
-            Button(
+            /*Button(
                 onClick = {
-                    /* TODO */
+                    *//*  *//*
+                          currentTime = 0L
+                          viewModel.peekPreviousExerciseImage()
+                          viewModel.peekPreviousExerciseName()
+                          viewModel.previousIndex()
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (!clickedButton.value)
@@ -224,7 +259,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                 ),
                 elevation = ButtonDefaults.elevatedButtonElevation(),
                 modifier = Modifier.size(75.dp),
-                enabled = hasPrevious.value
+                enabled = viewModel.hasPrevious()
             ) {
                 Icon(
                     imageVector = Icons.Default.SkipPrevious,
@@ -232,8 +267,8 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                     tint = Color.Black,
                     modifier = Modifier.size(50.dp)
                 )
-            }
-            Spacer(modifier = Modifier.width(35.dp))
+            }*/
+            Spacer(modifier = Modifier.width(110.dp))
             Button(
                 onClick = {
                     if(currentTime <= 0L) {
@@ -269,9 +304,9 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             Button(
                 onClick = {
                     /* TODO */
-                          //current.value = nextExercise.value
-                          //nextExercise.value = viewModel.getNextExercise(routineId)
-                          //viewModel.getNextExerciseImage(nextExercise.value.exercise.id)
+                          currentTime = 0L
+                          viewModel.nextIndex()
+
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (!clickedButton.value)
@@ -281,7 +316,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                 ),
                 elevation = ButtonDefaults.elevatedButtonElevation(),
                 modifier = Modifier.size(75.dp),
-                enabled = hasNext.value
+                enabled = viewModel.hasNext()
             ) {
                 Icon(
                     imageVector = Icons.Default.SkipNext,

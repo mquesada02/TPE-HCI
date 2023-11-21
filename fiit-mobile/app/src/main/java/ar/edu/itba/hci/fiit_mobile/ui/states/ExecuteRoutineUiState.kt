@@ -13,6 +13,7 @@ data class ExecuteRoutineUiState(
     val exerciseIndex: Int = 0,
     val totalExercises: Int = 0,
 
+    val nextExerciseName: String = "",
     val nextExerciseImage: String = "",
 
     val isFetching: Boolean = false,
