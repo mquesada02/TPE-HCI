@@ -11,6 +11,7 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseI
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseInformation
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycleInformation
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycles
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkReview
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineInformation
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineMetadata
@@ -55,7 +56,7 @@ class RoutineDataSource(
         return "rookie"
     }
 
-    suspend fun addRoutine(name: String, detail: String, isPublic: Boolean, intensity: String, muscles: String, goals: String, material: String, imgUrl: String):NetworkRoutineContent{
+    suspend fun addRoutine(name: String, detail: String, isPublic: Boolean, intensity: String, muscles: ArrayList<String>, goals: ArrayList<String>, material: ArrayList<String>, imgUrl: String):NetworkRoutineContent{
         return handleApiResponse {
             apiRoutineService.addRoutine(NetworkRoutineInformation(name, detail, isPublic, intensityToDifficulty(intensity), null, NetworkRoutineMetadata(muscles, goals, material, imgUrl)))
         }
@@ -96,5 +97,9 @@ class RoutineDataSource(
     suspend fun getExerciseImg(exerciseId: Int): String{
         val getExerciseImgResponse = handleApiResponse { apiRoutineService.getExerciseImg(exerciseId) }
         return getExerciseImgResponse.content[0].url
+    }
+
+    suspend fun modifyReview(routineId : Int, info : NetworkReview){
+        handleApiResponse { apiRoutineService.modifyReview(routineId, info) }
     }
 }

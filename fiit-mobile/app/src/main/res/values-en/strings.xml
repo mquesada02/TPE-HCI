@@ -51,4 +51,8 @@
     <string name="loading">Loading...</string>
     <string name="repetitions">Repetitions</string>
     <string name="no_more_exercises">End of the cycle</string>
+    <string name="high_intensity">High intensity</string>
+    <string name="mid_intensity">Mid intensity</string>
+    <string name="low_intensity">Low intensity</string>
+    <string name="search">Search...</string>
 </resources>

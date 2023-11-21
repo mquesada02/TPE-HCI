@@ -9,7 +9,7 @@ data class NetworkRoutineContent (
     @SerializedName("id"         ) var id         : Int,
     @SerializedName("name"       ) var name       : String,
     @SerializedName("detail"     ) var detail     : String,
-    @SerializedName("date"       ) var date       : Int,
+    @SerializedName("date"       ) var date       : Long,
     @SerializedName("score"      ) var score      : Int,
     @SerializedName("isPublic"   ) var isPublic   : Boolean,
     @SerializedName("difficulty" ) var difficulty : String,
@@ -17,4 +17,15 @@ data class NetworkRoutineContent (
     @SerializedName("category"   ) var category   : NetworkRoutineCategory? = null,
     @SerializedName("metadata"   ) var metadata   : NetworkRoutineMetadata
 
-)
+){
+    fun matchesStringQuery(query: String): Boolean{
+        val matchingCombinations = listOf(
+            name,
+            user.username
+        )
+
+        return matchingCombinations.any{
+            it.contains(query, ignoreCase = true)
+        }
+    }
+}

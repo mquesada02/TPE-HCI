@@ -71,7 +71,7 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
            FiitmobileTheme {
                MenuCard(name = stringResource(R.string.SearchR),
                    iconType = Icons.Filled.Search,
-                   onClick = { onNavigateToScreen(Screen.SearcherScreen.route) })
+                   onClick = { onNavigateToScreen(Screen.SearchScreen.route) })
            }
 
            FiitmobileTheme {

@@ -14,6 +14,8 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseI
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseImageInformation
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseImages
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseInformation
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkReview
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkReviewContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineInformation
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
@@ -164,4 +166,12 @@ interface ApiRoutineService {
         @Path("routineId") routineId: Int,
         @Body duration: NetworkExecutionModification
     ): Response<NetworkExecutionContent>
+
+    //-----------REVIEWS-----------
+
+    @POST("reviews/{routineId}")
+    suspend fun modifyReview(
+        @Path("routineId") routineId: Int,
+        @Body info : NetworkReview
+    ) : Response<NetworkReviewContent>
 }

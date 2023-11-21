@@ -21,7 +21,9 @@ fun RoutinesScreen(onNavigateToScreen: (String) -> Unit){
         Row {
             Text( text = stringResource(R.string.MyRouts))
         }
-        // RoutineScroller(name = , viewModel = ) todo
+        /* En espera del orderBy button
+            RoutineScroller(name = , viewModel = ) todo
+        */
     }
 
 }

@@ -12,7 +12,9 @@ fun SearcherScreen(onNavigateToScreen: (String) -> Unit) {
         Row(){
             SearchByName()
         }
-        //RoutineScroller(name = , viewModel = ) todo
+        /* En espera del orderBy button
+            RoutineScroller(name = , viewModel = ) todo
+        */
     }
 
 }
