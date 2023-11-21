@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.rounded.Lock
@@ -31,8 +33,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Screen
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
@@ -51,6 +55,7 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         Row(
             modifier = Modifier
@@ -153,4 +158,11 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun Testttt(){
+    val navController = rememberNavController()
+    LoginScreen(onNavigateToScreen = {s -> navController.navigate(s)})
 }
