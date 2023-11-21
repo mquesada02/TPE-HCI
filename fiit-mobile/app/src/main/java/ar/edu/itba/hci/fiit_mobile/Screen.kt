@@ -1,7 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.Accessibility
 import androidx.compose.material.icons.filled.Close
@@ -24,4 +23,5 @@ sealed class Screen(val title: String, val icon: ImageVector, val route: String)
     object ExecuteRoutineScreen : Screen("ExecuteRoutine", Icons.Filled.Accessibility, "execute_routine")
     object RoutineScreen : Screen("Routine", Icons.Filled.AddTask , "routine")
     object SearchScreen : Screen("Searcher", Icons.Filled.Search, "seach")
+    object ProfileScreen : Screen("Profile", Icons.Filled.Person, "profile")
 }

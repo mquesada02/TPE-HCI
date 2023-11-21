@@ -52,7 +52,6 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun ExerciseCard(detail: String, img: String) {
-    println("Img: $img")
     Row(
         modifier = Modifier.padding(horizontal = 30.dp)
     ) {
@@ -68,13 +67,18 @@ fun ExerciseCard(detail: String, img: String) {
             Column(
                 verticalArrangement = Arrangement.Center
             ) {
-                AsyncImage(
-                    model = img,
-                    contentDescription = detail,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(CircleShape)
-                )
+                if(img.isNotEmpty()) {
+                    AsyncImage(
+                        model = img,
+                        contentDescription = detail,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(CircleShape)
+                    )
+                } else {
+                    CircularProgressIndicator()
+                }
+
             }
             Column(
                 verticalArrangement = Arrangement.Center
@@ -234,7 +238,12 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ){
-            ExerciseCard(detail = if(uiState.cycleExercises.isEmpty()) {stringResource(R.string.loading)} else {uiState.cycleExercises[uiState.exerciseIndex].exercise.detail}, img = uiState.nextExerciseImage)
+            if (uiState.isFetching) {
+                CircularProgressIndicator()
+            } else {
+                ExerciseCard(detail = if(uiState.cycleExercises.isEmpty()) {stringResource(R.string.loading)} else {uiState.cycleExercises[uiState.exerciseIndex].exercise.detail}, img = uiState.nextExerciseImage)
+            }
+
         }
         Row (
             horizontalArrangement = Arrangement.Center,

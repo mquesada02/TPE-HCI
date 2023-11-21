@@ -1,170 +1,133 @@
 package ar.edu.itba.hci.fiit_mobile.ui.views
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.ui.theme.FiitmobileTheme
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.TextFieldValue
-
-
-import ar.edu.itba.hci.fiit_mobile.ui.theme.Pink80
-
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
+import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
+import coil.compose.AsyncImage
 
 
 @Composable
-fun PerfilScreen() {
-    val username = remember { mutableStateOf("") }
-    val name = remember { mutableStateOf("") }
-    val surname = remember { mutableStateOf("") }
-    val description = remember { mutableStateOf("") }
-    val email = remember { mutableStateOf("") }
-    val birthdate= remember { mutableStateOf("") }
-    val weight = remember { mutableStateOf("") }
-    val height = remember { mutableStateOf("") }
+fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = viewModel(factory = getViewModelFactory())) {
 
+    var fetchedCurrentUser by remember { mutableStateOf(false) }
 
+    if (!fetchedCurrentUser) {
+        viewModel.getCurrentUser()
+        fetchedCurrentUser = true
+    }
 
+    val uiState = viewModel.uiState
+    val img = remember { mutableStateOf("https://i.imgur.com/Q6Wp95h.png") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Pink80)
+            .background(color = MaterialTheme.colorScheme.background)
+            .padding(horizontal = 16.dp)
     ) {
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(top = 8.dp, bottom = 16.dp),
+                .padding(top = 8.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Mi Perfil",
+                text = stringResource(R.string.profile),
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold
             )
         }
-
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
                 .padding(bottom = 16.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.fiit_logo),
-                contentDescription = null,
+            AsyncImage(
+                model = img.value,
+                contentDescription = "Profile Image",
                 modifier = Modifier
-                    .size(80.dp)
-                    .clip(shape = MaterialTheme.shapes.medium)
-                    .background(MaterialTheme.colorScheme.primary)
+                    .size(150.dp)
+                    .clip(CircleShape)
             )
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(top = 8.dp, bottom = 3.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text =name.value,
-                fontSize = 30.sp,
+            PerfilItem(stringResource(R.string.user), uiState.currentUser?.username?: "")
 
-                )
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(top = 2.dp, bottom = 10.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text =surname.value,
-                fontSize = 30.sp,
+            PerfilItem("Email", uiState.currentUser?.email?: "")
 
-                )
-        }
-
-
-
-
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(top = 20.dp, start = 25.dp)
-        ) {
-            PerfilItem("Descripción", description.value, onValueChange = { newValue ->
-
-                description.value = newValue
-            })
-
-            PerfilItem("Correo electrónico", email.value, onValueChange = { newValue ->
-
-                email.value = newValue
-            })
-
-            PerfilItem("Fecha de Nacimiento", birthdate.value, onValueChange = { newValue ->
-
-                birthdate.value = newValue
-            })
-
-
-
+            PerfilItem(stringResource(R.string.birthdate), uiState.currentUser?.birthdate?.toString() ?: "")
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(start = 25.dp, end = 25.dp),
+                    .padding(vertical = 16.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = "Peso:",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = weight.value, fontSize = 16.sp)
+                Column {
+                    Text(
+                        text = stringResource(R.string.weight) + ": ",
+                        fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = uiState.currentUser?.metadata?.weight.toString() ?: "",
+                        fontSize = MaterialTheme.typography.headlineSmall.fontSize
+                    )
+                }
                 Spacer(modifier = Modifier.width(16.dp))
-                Text(
-                    text = "Altura:",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = height.value, fontSize = 16.sp)
-            }
+                Column {
+                    Text(
+                        text = stringResource(R.string.height) + ": ",
+                        fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = uiState.currentUser?.metadata?.height.toString() ?: "",
+                        fontSize = MaterialTheme.typography.headlineSmall.fontSize
+                    )
+                }
 
+
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+        ) {
             Button(
-                onClick = {},//completar
+                onClick = { viewModel.logout(); onNavigateToLogin() },//completar
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .width(50.dp)
-                    .padding(top = 16.dp, bottom = 16.dp, start = 16.dp, end = 20.dp)
             ) {
-                Text(text = "Cerrar Sesión")
+                Text(text = stringResource(R.string.logout))
             }
         }
     }
@@ -176,27 +139,13 @@ fun PerfilScreen() {
 
 
 @Composable
-fun PerfilItem(label: String, value: String, onValueChange: (String) -> Unit) {
+fun PerfilItem(label: String, value: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .padding(vertical = 16.dp)
     ) {
-        Text(text = label, fontWeight = FontWeight.Bold)
-        BasicTextField(
-            value = value,
-            onValueChange = { newValue ->
-                onValueChange(newValue)
-            }
-
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PerfilPreview() {
-    FiitmobileTheme {
-        PerfilScreen()
+        Text(text = label, fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.headlineSmall.fontSize)
+        Text(text = value, fontSize = MaterialTheme.typography.headlineSmall.fontSize)
     }
 }

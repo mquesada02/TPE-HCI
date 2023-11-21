@@ -55,4 +55,7 @@
     <string name="mid_intensity">Intensidad media</string>
     <string name="low_intensity">Intensidad baja</string>
     <string name="search">Buscar...</string>
+    <string name="profile">Mi perfil</string>
+    <string name="description">Descripción</string>
+    <string name="logout">Cerrar sesión</string>
 </resources>

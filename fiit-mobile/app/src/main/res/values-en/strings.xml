@@ -55,4 +55,7 @@
     <string name="mid_intensity">Mid intensity</string>
     <string name="low_intensity">Low intensity</string>
     <string name="search">Search...</string>
+    <string name="profile">Profile</string>
+    <string name="description">Description</string>
+    <string name="logout">Logout</string>
 </resources>
