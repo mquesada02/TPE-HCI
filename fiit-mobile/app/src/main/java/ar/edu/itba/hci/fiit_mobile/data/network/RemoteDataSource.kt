@@ -36,6 +36,7 @@ abstract class RemoteDataSource {
                 getDetailsFromException(e)
             )
         } catch (e: Exception) {
+            println("Error ${e}")
             throw DataSourceException(
                 UNEXPECTED_ERROR_CODE,
                 "Unexpected error",

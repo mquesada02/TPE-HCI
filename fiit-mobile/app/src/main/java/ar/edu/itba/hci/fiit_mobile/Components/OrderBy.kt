@@ -20,8 +20,8 @@ fun orderByDifficulty (data : NetworkRoutines) : ArrayList<NetworkRoutineContent
     data.content.sortBy { it.difficulty }
     return data.content
 }
-@Composable
-fun orderByCategory (data : NetworkRoutines) : ArrayList<NetworkRoutineContent>{
-    data.content.sortBy { it.metadata.muscles }
-    return data.content
-}
+//@Composable
+//fun orderByCategory (data : NetworkRoutines) : ArrayList<NetworkRoutineContent>{
+//    data.content.sortBy { it.metadata.muscles }
+//    return data.content
+//}

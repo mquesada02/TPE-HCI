@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.itba.hci.fiit_mobile.data.DataSourceException
 import ar.edu.itba.hci.fiit_mobile.data.network.RoutineDataSource
+import ar.edu.itba.hci.fiit_mobile.data.network.UserDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkError
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkReview
 import ar.edu.itba.hci.fiit_mobile.ui.states.HomeUiState
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel (
     sessionManager: SessionManager,
-    //private val userDataSource: UserDataSource,
+    private val userDataSource: UserDataSource,
     private val routineDataSource: RoutineDataSource
 ) : ViewModel() {
     var uiState by mutableStateOf(HomeUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
@@ -34,6 +35,10 @@ class HomeViewModel (
     fun updateScore(id: Int, info : NetworkReview) = runOnViewModelScope(
         { routineDataSource.modifyReview(id, info)},
         {state, _ -> state.copy()}
+    )
+    fun getCurrentUser() = runOnViewModelScope(
+        { userDataSource.getCurrentUser() },
+        { state, response -> state.copy(currentUser = response) }
     )
 
     private fun <R> runOnViewModelScope(

@@ -40,6 +40,7 @@ fun SearchScreen(
         viewModel.getRoutines()
         fetchedRoutines = true
     }
+    println(viewModel.routines)
 
     Column(
         modifier = Modifier
@@ -47,7 +48,7 @@ fun SearchScreen(
             .padding(16.dp)
     ){
         TextField(
-            value = searchText,
+            value = viewModel.uiState.error.toString(),
             onValueChange = viewModel::onSearchTextChange,
             modifier = Modifier.fillMaxWidth(),
             placeholder = {Text(stringResource(R.string.search))}

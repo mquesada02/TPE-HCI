@@ -10,6 +10,7 @@ import ar.edu.itba.hci.fiit_mobile.data.network.UserDataSource
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.ExecuteRoutineViewModel
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.SearchViewModel
 
 class ViewModelFactory constructor(
     private val sessionManager: SessionManager,
@@ -29,9 +30,11 @@ class ViewModelFactory constructor(
             isAssignableFrom(LoginViewModel::class.java) ->
                 LoginViewModel(sessionManager, userDataSource)
             isAssignableFrom(HomeViewModel::class.java) ->
-                HomeViewModel(sessionManager, routineDataSource)
+                HomeViewModel(sessionManager, userDataSource ,routineDataSource)
             isAssignableFrom(ExecuteRoutineViewModel::class.java) ->
-                ExecuteRoutineViewModel(sessionManager, routineDataSource)
+                ExecuteRoutineViewModel(routineDataSource)
+            isAssignableFrom(SearchViewModel::class.java) ->
+                SearchViewModel(routineDataSource)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

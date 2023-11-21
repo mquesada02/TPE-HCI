@@ -56,7 +56,7 @@ class RoutineDataSource(
         return "rookie"
     }
 
-    suspend fun addRoutine(name: String, detail: String, isPublic: Boolean, intensity: String, muscles: String, goals: String, material: String, imgUrl: String):NetworkRoutineContent{
+    suspend fun addRoutine(name: String, detail: String, isPublic: Boolean, intensity: String, muscles: ArrayList<String>, goals: ArrayList<String>, material: ArrayList<String>, imgUrl: String):NetworkRoutineContent{
         return handleApiResponse {
             apiRoutineService.addRoutine(NetworkRoutineInformation(name, detail, isPublic, intensityToDifficulty(intensity), null, NetworkRoutineMetadata(muscles, goals, material, imgUrl)))
         }

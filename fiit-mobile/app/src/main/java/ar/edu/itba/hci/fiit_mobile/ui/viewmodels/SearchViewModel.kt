@@ -26,7 +26,6 @@ import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
 class SearchViewModel (
-    sessionManager: SessionManager,
     private val routineDataSource: RoutineDataSource
 ): ViewModel() {
     var uiState by mutableStateOf(SearchUiState())

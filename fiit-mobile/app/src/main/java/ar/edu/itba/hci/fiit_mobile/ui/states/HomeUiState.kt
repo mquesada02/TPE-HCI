@@ -3,12 +3,12 @@ package ar.edu.itba.hci.fiit_mobile.ui.states
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkError
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
-import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUserContent
 
 data class HomeUiState(
     val isAuthenticated: Boolean = false,
     val isFetching: Boolean = false,
-    val currentUser: NetworkUser? = null,
+    val currentUser: NetworkUserContent? = null,
     val routines: NetworkRoutines? = null,
     val currentRoutine : NetworkRoutineContent? = null,
     val favourites: NetworkRoutines? = null,
