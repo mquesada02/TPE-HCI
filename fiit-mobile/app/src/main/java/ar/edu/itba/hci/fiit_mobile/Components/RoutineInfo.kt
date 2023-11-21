@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
+import android.content.Intent
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.RatingBar
@@ -18,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,6 +43,14 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
     var isFav: Boolean = isFav(viewModel.uiState, data.id)
     val icon = if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
 
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    val context = LocalContext.current
+
     Column {
         Row(){
            /* val ratingBar: RatingBar = RatingBar(this).apply {
@@ -63,7 +73,9 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
             Text(text = intensityType)
         }
         Row(){
-            IconButton(onClick = { /* tiene q copiar el link todo */ }) {
+            IconButton(onClick = {
+                context.startActivity(shareIntent)
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Send,
                     contentDescription = "Localized description",
