@@ -23,7 +23,7 @@ fun TopAppBar(navController: NavController){
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {}, //no se necesita, pero no se puede eliminar todo
-                navigationIcon = {
+                navigationIcon = { if (navController.currentDestination?.route != Screen.HomeScreen.route)
                     IconButton(onClick = { navController.popBackStack().not() }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
