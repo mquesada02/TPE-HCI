@@ -3,6 +3,7 @@ package ar.edu.itba.hci.fiit_mobile.Components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarOutline
@@ -10,6 +11,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkReview
@@ -24,7 +26,7 @@ fun RatingBar(
     starsColor: Color = Color.Yellow,
     viewModel: HomeViewModel = viewModel(factory = getViewModelFactory()),
     id: Int,
-    review : String
+    size : Dp
 ) {
     Row {
         for (i in 1..maxRating) {
@@ -36,8 +38,9 @@ fun RatingBar(
                 else Color.Unspecified,
                 modifier = Modifier
                     .clickable { onRatingChanged(i);
-                        viewModel.updateScore(id, NetworkReview(i, review) ) }
+                        viewModel.updateScore(id, NetworkReview(i, "") ) }
                     .padding(4.dp)
+                    .size(size)
             )
         }
     }
