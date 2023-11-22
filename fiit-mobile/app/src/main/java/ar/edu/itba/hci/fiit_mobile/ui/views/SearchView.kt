@@ -1,13 +1,19 @@
 package ar.edu.itba.hci.fiit_mobile.ui.views
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.collectAsState
@@ -35,12 +41,21 @@ fun SearchScreen(
     val searchText by viewModel.searchText.collectAsState()
     val routines by viewModel.routines.collectAsState()
 
+    val uiState = viewModel.uiState
+
     var fetchedRoutines by remember { mutableStateOf(false) }
     if(!fetchedRoutines){
         viewModel.getRoutines()
         fetchedRoutines = true
     }
-    println(viewModel.routines)
+
+    var isExpanded by remember{
+        mutableStateOf(false)
+    }
+
+    var orderBy by remember {
+        mutableStateOf("")
+    }
 
     Column(
         modifier = Modifier
@@ -48,19 +63,63 @@ fun SearchScreen(
             .padding(16.dp)
     ){
         TextField(
-            value = viewModel.uiState.error.toString(),
+            value = searchText,
             onValueChange = viewModel::onSearchTextChange,
             modifier = Modifier.fillMaxWidth(),
             placeholder = {Text(stringResource(R.string.search))}
         )
-        if(viewModel.uiState.isLoading){
+
+        ExposedDropdownMenuBox(
+            expanded = isExpanded,
+            onExpandedChange = {isExpanded = it}
+        ) {
+            TextField(
+                value = orderBy,
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
+                },
+                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+                modifier = Modifier.menuAnchor()
+            )
+            ExposedDropdownMenu(
+                expanded = isExpanded, onDismissRequest = { isExpanded = false }
+            ) {
+                DropdownMenuItem(
+                    text = { stringResource(R.string.ddmenu_date) },
+                    onClick = { orderBy = "date" }
+                )
+                DropdownMenuItem(
+                    text = { stringResource(R.string.ddmenu_intensity) },
+                    onClick = { orderBy = "intensity" }
+                )
+                DropdownMenuItem(
+                    text = { stringResource(R.string.ddmenu_score) },
+                    onClick = { orderBy = "score" }
+                )
+                DropdownMenuItem(
+                    text = { stringResource(R.string.ddmenu_routinename) },
+                    onClick = { orderBy = "routine" }
+                )
+                DropdownMenuItem(
+                    text = { stringResource(R.string.ddmenu_username) },
+                    onClick = { orderBy = "user" }
+                )
+            }
+        }
+
+        if(uiState.isLoading){
+            if (routines.isNotEmpty()) {
+                viewModel.updateLoad()
+            }
             Box(modifier = Modifier.fillMaxSize()){
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
         } else {
-            RoutineScroller(name = "", routines = routines as ArrayList<NetworkRoutineContent>)
+            RoutineScroller(name = null, routines = routines as ArrayList<NetworkRoutineContent>)
         }
     }
 

@@ -16,7 +16,7 @@ data class NetworkUserContent (
     @SerializedName("avatarUrl"    ) var avatarUrl    : String?  = null,
     @SerializedName("metadata"     ) var metadata     : String?  = null,
     @SerializedName("date"         ) var date         : Long?     = null,
-    @SerializedName("lastActivity" ) var lastActivity : Int?     = null,
+    @SerializedName("lastActivity" ) var lastActivity : Long?     = null,
     @SerializedName("verified"     ) var verified     : Boolean? = null
 
 )

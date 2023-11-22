@@ -52,4 +52,9 @@
     <string name="mid_intensity">Mid intensity</string>
     <string name="low_intensity">Low intensity</string>
     <string name="search">Search...</string>
+    <string name="ddmenu_routinename">Routine name</string>
+    <string name="ddmenu_username">Username</string>
+    <string name="ddmenu_date">Creation date</string>
+    <string name="ddmenu_score">Score</string>
+    <string name="ddmenu_intensity">Intensity</string>
 </resources>

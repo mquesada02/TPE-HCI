@@ -10,6 +10,6 @@ data class NetworkUser (
     @SerializedName("gender"       ) var gender       : String? = null,
     @SerializedName("avatarUrl"    ) var avatarUrl    : String? = null,
     @SerializedName("date"         ) var date         : Long? = null,
-    @SerializedName("lastActivity" ) var lastActivity : Int?    = null
+    @SerializedName("lastActivity" ) var lastActivity : Long?    = null
 
 )
