@@ -38,6 +38,7 @@ import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
+    onNavigateToScreen: (String) -> Unit,
     viewModel: SearchViewModel = viewModel(factory = getViewModelFactory())
 ) {
     val searchText by viewModel.searchText.collectAsState()
@@ -140,10 +141,8 @@ fun SearchScreen(
                     )
                 }
             } else {
-                RoutineScroller(
-                    name = null,
-                    routines = routines as ArrayList<NetworkRoutineContent>
-                )
+                RoutineScroller(onNavigateToScreen = onNavigateToScreen, name = null, routines = routines as ArrayList<NetworkRoutineContent>)
+
             }
         }
     } else { //-------otro tamaño----------
@@ -224,10 +223,7 @@ fun SearchScreen(
                     )
                 }
             } else {
-                RoutineScroller(
-                    name = null,
-                    routines = routines as ArrayList<NetworkRoutineContent>
-                )
+                RoutineScroller(onNavigateToScreen = onNavigateToScreen, name = null, routines = routines as ArrayList<NetworkRoutineContent>)
             }
         }
     }
