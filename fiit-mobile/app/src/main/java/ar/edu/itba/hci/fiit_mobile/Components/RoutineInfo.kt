@@ -1,15 +1,8 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
-import android.os.Build
-import android.view.Gravity
-import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -146,14 +139,15 @@ fun dateToString(date: Long): String {
     return gregorianDate.format(DateTimeFormatter.ISO_DATE)
 }
 
-//@Preview
-//@Composable
-//fun test(){
-//    RoutineInfo(data = NetworkRoutineContent(
-//        id=0, name="test", detail="none", date=10,
-//        score=4, isPublic = false, difficulty = "Hard",
-//        user= NetworkUser(id=0, username = "Tester"), category = null,
-//        metadata = NetworkRoutineMetadata(goals="none", img="what",
-//            materials = "none", muscles = "eyes")
-//    ))
-//}
+@Preview
+@Composable
+fun test(){
+    val list = arrayListOf("Elemento 1", "Elemento 2", "Elemento 3")
+    RoutineInfo(data = NetworkRoutineContent(
+        id=0, name="test", detail="none", date=10,
+        score=4, isPublic = false, difficulty = "Hard",
+        user= NetworkUser(id=0, username = "Tester"), category = null,
+        metadata = NetworkRoutineMetadata(goals=list, img="what",
+            materials = list, muscles = list)
+    ))
+}
