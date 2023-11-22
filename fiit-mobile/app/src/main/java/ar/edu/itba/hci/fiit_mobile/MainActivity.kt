@@ -79,8 +79,8 @@ fun TestingPreview() {
         }
 
         Scaffold(
-            topBar = { if (showBars) TopAppBar(navController) },
-             bottomBar = { if (showBars) BottomBar(navController) },
+            topBar = { if (showBars) TopAppBar(navController)  },
+             bottomBar = { if (showBars) BottomBar(navController)  },
             modifier = Modifier.fillMaxSize(),
         ) {
             Box(
