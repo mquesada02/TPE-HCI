@@ -68,7 +68,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 fun TestingPreview() {
     FiitmobileTheme(dynamicColor = false) {
         val navController = rememberNavController()
-        /*var showBars by rememberSaveable { mutableStateOf(true) }
+        var showBars by rememberSaveable { mutableStateOf(true) }
         val navBackStackEntry by navController.currentBackStackEntryAsState()
 
         showBars = when (navBackStackEntry?.destination?.route) {
@@ -88,7 +88,7 @@ fun TestingPreview() {
             ) {
                 FIITNavHost(navController = navController)
             }
-        }*/
+        }
     }
 }
 
