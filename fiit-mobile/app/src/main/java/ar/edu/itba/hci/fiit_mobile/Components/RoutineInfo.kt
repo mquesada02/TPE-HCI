@@ -27,10 +27,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineMetadata
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
 import ar.edu.itba.hci.fiit_mobile.ui.states.HomeUiState
 import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
@@ -149,14 +152,15 @@ fun dateToString(date: Long): String {
     return SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date)
 }
 
-//@Preview
-//@Composable
-//fun test(){
-//    RoutineInfo(data = NetworkRoutineContent(
-//        id=0, name="test", detail="none", date=10,
-//        score=4, isPublic = false, difficulty = "Hard",
-//        user= NetworkUser(id=0, username = "Tester"), category = null,
-//        metadata = NetworkRoutineMetadata(goals="none", img="what",
-//            materials = "none", muscles = "eyes")
-//    ))
-//}
+@Preview
+@Composable
+fun test(){
+    val list = arrayListOf("Elemento 1", "Elemento 2", "Elemento 3")
+    RoutineInfo(data = NetworkRoutineContent(
+        id=0, name="test", detail="none", date=10,
+        score=4, isPublic = false, difficulty = "Hard",
+        user= NetworkUser(id=0, username = "Tester"), category = null,
+        metadata = NetworkRoutineMetadata(goals=list, img="what",
+            materials = list, muscles = list)
+    ))
+}
