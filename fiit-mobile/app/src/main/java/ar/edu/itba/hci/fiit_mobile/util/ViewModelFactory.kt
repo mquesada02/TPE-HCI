@@ -30,9 +30,9 @@ class ViewModelFactory constructor(
             isAssignableFrom(LoginViewModel::class.java) ->
                 LoginViewModel(sessionManager, userDataSource)
             isAssignableFrom(HomeViewModel::class.java) ->
-                HomeViewModel(sessionManager, routineDataSource)
+                HomeViewModel(sessionManager, userDataSource ,routineDataSource)
             isAssignableFrom(ExecuteRoutineViewModel::class.java) ->
-                ExecuteRoutineViewModel(sessionManager, routineDataSource)
+                ExecuteRoutineViewModel(routineDataSource)
             isAssignableFrom(SearchViewModel::class.java) ->
                 SearchViewModel(routineDataSource)
             else ->

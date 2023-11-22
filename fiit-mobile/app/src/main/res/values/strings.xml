@@ -48,6 +48,9 @@
     <string name="DataSourceException"></string>
     <string name="notDSException"></string>
     <string name="Empty">No se ha creado ninguna rutina.</string>
+    <string name="loading">Cargando...</string>
+    <string name="repetitions">Repeticiones</string>
+    <string name="no_more_exercises">Fin del ciclo</string>
     <string name="high_intensity">Intensidad alta</string>
     <string name="mid_intensity">Intensidad media</string>
     <string name="low_intensity">Intensidad baja</string>
@@ -57,4 +60,7 @@
     <string name="ddmenu_date">Fecha de creación</string>
     <string name="ddmenu_score">Puntuación</string>
     <string name="ddmenu_intensity">Intensidad</string>
+    <string name="profile">Mi perfil</string>
+    <string name="description">Descripción</string>
+    <string name="logout">Cerrar sesión</string>
 </resources>
