@@ -8,9 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Folder
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,8 +58,6 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
                fontWeight = FontWeight.Bold,
                color = MaterialTheme.colorScheme.primary,
                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-               modifier = Modifier
-                   .shadow(5.dp)
            )
        }
        Row(
@@ -89,24 +85,16 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
            horizontalArrangement = Arrangement.SpaceAround
        ) {
            FiitmobileTheme {
-               Button(
-                   onClick = { onNavigateToScreen(Screen.RoutinesScreen.route) }
-               ) {
-                   MenuCard(name = stringResource(R.string.MyRouts),
-                       iconType = Icons.Filled.MailOutline,
-                       onClick = {})
-               }
+               MenuCard(name = stringResource(R.string.MyRouts),
+                       iconType = Icons.Filled.Folder,
+                       onClick = { onNavigateToScreen(Screen.RoutinesScreen.route) })
+
 
            }
            FiitmobileTheme {
-               Button(
-                   onClick = { onNavigateToScreen(Screen.FavsScreen.route)  }
-               ) {
-                   MenuCard(name = stringResource(R.string.Favs),
+               MenuCard(name = stringResource(R.string.Favs),
                        iconType = Icons.Filled.Favorite,
-                       onClick = {})
-               }
-
+                       onClick = { onNavigateToScreen(Screen.FavsScreen.route) })
            }
        }
        RoutineCarrousel(stringResource(R.string.Featured), viewModel.uiState.routines)

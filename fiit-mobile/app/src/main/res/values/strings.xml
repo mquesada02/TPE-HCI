@@ -54,7 +54,15 @@
     <string name="high_intensity">Intensidad alta</string>
     <string name="mid_intensity">Intensidad media</string>
     <string name="low_intensity">Intensidad baja</string>
-    <string name="search">Buscar…</string>
+    <string name="search">Buscar...</string>
+    <string name="ddmenu_routinename">Nombre de rutina</string>
+    <string name="ddmenu_username">Nombre de usuario</string>
+    <string name="ddmenu_date">Fecha de creación</string>
+    <string name="ddmenu_score">Puntuación</string>
+    <string name="ddmenu_intensity">Intensidad</string>
+    <string name="profile">Mi perfil</string>
+    <string name="description">Descripción</string>
+    <string name="logout">Cerrar sesión</string>
     <string name="WarmUp">Entrada en calor</string>
     <string name="Exercise">Ejercitación</string>
     <string name="CoolDown">Enfriamiento</string>

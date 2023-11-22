@@ -2,6 +2,7 @@ package ar.edu.itba.hci.fiit_mobile.Components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -24,14 +25,16 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineCon
 @Composable
 fun RoutineScroller(
     modifier: Modifier = Modifier, //para pasarle el padding desde scaffold (?
-    name: String,
+    name: String? = null,
     routines: ArrayList<NetworkRoutineContent>
 ){
 
     Column (
         modifier = Modifier.padding(8.dp)
     ) {
-        Text(text = name)
+        if(name != null) {
+            Text(text = name)
+        }
         if(routines.isEmpty())
             Column(
                 verticalArrangement = Arrangement.Center
@@ -39,14 +42,29 @@ fun RoutineScroller(
                 Text(text = stringResource(R.string.Empty), fontSize = 14.sp)
             }
         else{
-            LazyVerticalGrid(columns = GridCells.Fixed(2),  state = rememberLazyGridState()){
-                items(
-                    count = routines.size,
-                    key = { index -> routines[index].id.toString() }
-                ) { index ->
-                     RoutineCard(routines[index])
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(minSize = 150.dp),
+                contentPadding = PaddingValues(
+                    start = 10.dp,
+                    top = 12.dp,
+                    end = 10.dp,
+                    bottom = 12.dp
+                ),
+                state = rememberLazyGridState(),
+                content = {
+                    items(routines.size){ index ->
+                        RoutineCard(data = routines[index])
+                    }
                 }
-            }
+            )
+//            {
+//                items(
+//                    count = routines.size,
+//                    key = { index -> routines[index].id.toString() }
+//                ) { index ->
+//                     RoutineCard(routines[index])
+//                }
+//            }
         }
     }
 }

@@ -2,6 +2,10 @@ package ar.edu.itba.hci.fiit_mobile.data.network.model.user
 
 import com.google.gson.annotations.SerializedName
 
+data class UserMetadata (
+    @SerializedName("weight") var weight: String? = null,
+    @SerializedName("height") var height: String? = null
+)
 
 data class NetworkUserContent (
 
@@ -14,9 +18,9 @@ data class NetworkUserContent (
     @SerializedName("email"        ) var email        : String?  = null,
     @SerializedName("phone"        ) var phone        : String?  = null,
     @SerializedName("avatarUrl"    ) var avatarUrl    : String?  = null,
-    @SerializedName("metadata"     ) var metadata     : String?  = null,
-    @SerializedName("date"         ) var date         : Long?     = null,
-    @SerializedName("lastActivity" ) var lastActivity : Int?     = null,
+    @SerializedName("metadata"     ) var metadata     : UserMetadata?  = null,
+    @SerializedName("date"         ) var date         : Long?     = 0L,
+    @SerializedName("lastActivity" ) var lastActivity : Long?     = null,
     @SerializedName("verified"     ) var verified     : Boolean? = null
 
 )

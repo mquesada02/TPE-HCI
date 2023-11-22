@@ -5,8 +5,9 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineCon
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 
 data class SearchUiState(
+    val routines: ArrayList<NetworkRoutineContent> = arrayListOf(),
     val isLoading: Boolean = false,
     val error: NetworkError? = null
 ){
-    val SearchUiState.hasError: Boolean get() = error != null
+    //val SearchUiState.hasError: Boolean get() = error != null
 }

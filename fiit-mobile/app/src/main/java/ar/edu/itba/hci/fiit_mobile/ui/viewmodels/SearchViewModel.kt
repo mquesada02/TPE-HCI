@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile.ui.viewmodels
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -68,6 +69,10 @@ class SearchViewModel (
         }
     }
 
+    fun updateLoad() {
+        uiState = uiState.copy(isLoading = false)
+    }
+
     private fun runOnViewModelScopeRoutines(
         block: suspend () -> ArrayList<NetworkRoutineContent>,
     ): Job = viewModelScope.launch {
@@ -77,10 +82,13 @@ class SearchViewModel (
         }.onSuccess { response ->
             _routines.value = response
             uiState = uiState.copy(isLoading = false)
+            println("successsss: $uiState")
         }.onFailure { e ->
             uiState = uiState.copy(isLoading = false, error = handleError(e))
+            println("errorrrr: $e")
         }
     }
+
 
     private fun handleError(e: Throwable): NetworkError {
         return if (e is DataSourceException) {
@@ -95,5 +103,7 @@ class SearchViewModel (
 
     fun getRoutines() = runOnViewModelScopeRoutines {
         routineDataSource.getRoutines().content
-    }
+    }.invokeOnCompletion { uiState = uiState.copy(isLoading = false) }
+
+
 }

@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -54,6 +56,7 @@ fun RoutineCard(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
 
     val navController = rememberNavController()
     val windowInfo = rememberWindowInfo()
+
     if(windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded) {
         Card(
             modifier = Modifier
@@ -61,9 +64,9 @@ fun RoutineCard(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
                     viewModel.uiState = viewModel.uiState.copy(currentRoutine = data)
                     navController.navigate(Screen.RoutinesScreen.route)
                 })
-                .width(120.dp)
-                .height(120.dp)
-                .background(MaterialTheme.colorScheme.background),
+                .aspectRatio(1f)
+                .background(MaterialTheme.colorScheme.background)
+                .padding(12.dp),
 
             ) {
             Column(
@@ -76,9 +79,9 @@ fun RoutineCard(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth() //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
-                        .height(50.dp)
+                        .fillMaxHeight(0.4f)
                 )
-                Text(text = data.name, fontSize = 14.sp, textAlign = TextAlign.Center)
+                Text(text = data.name, fontSize = 16.sp, textAlign = TextAlign.Center)
                 Row(
                     modifier = Modifier
                         .padding(bottom = 3.dp)
@@ -90,19 +93,22 @@ fun RoutineCard(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
                     Column(horizontalAlignment = Alignment.Start, modifier = Modifier.weight(1f)) {
                         Text(
                             text = difficultyToIntensity(difficulty = data.difficulty),
-                            fontSize = 10.sp
+                            fontSize = 13.sp
                         )
                     }
-                    Column(horizontalAlignment = Alignment.End, modifier = Modifier.width(20.dp)) {
+                    Column(
+                        horizontalAlignment = Alignment.End,
+                        modifier = Modifier.fillMaxWidth(0.2f)
+                    ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
                                 Icons.Filled.Star,
                                 contentDescription = "",
-                                modifier = Modifier.size(12.dp)
+                                modifier = Modifier.size(15.dp)
                             )
                             Text(
                                 text = "${data.score}",
-                                fontSize = 15.sp
+                                fontSize = 13.sp
                             )
                         }
                     }
@@ -110,16 +116,16 @@ fun RoutineCard(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
             }
         }
     }
-    else{
+    else{ //cambiar los datos todo
         Card(
             modifier = Modifier
                 .clickable(onClick = {
                     viewModel.uiState = viewModel.uiState.copy(currentRoutine = data)
                     navController.navigate(Screen.RoutinesScreen.route)
                 })
-                .width(275.dp)
-                .height(275.dp)
-                .background(MaterialTheme.colorScheme.background),
+                .aspectRatio(1f)
+                .background(MaterialTheme.colorScheme.background)
+                .padding(16.dp),
 
             ) {
             Column(
@@ -132,32 +138,41 @@ fun RoutineCard(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth() //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
-                        .height(145.dp)
+                        .fillMaxHeight(0.4f)
                 )
-                Text(text = data.name, fontSize = 35.sp, textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top=3.dp))
+                Text(text = data.name, fontSize = 30.sp, textAlign = TextAlign.Center)
                 Row(
                     modifier = Modifier
-                        .padding(bottom = 2.dp)
-                        .padding(top = 25.dp),
+                        .padding(bottom = 5.dp)
+                        .padding(start = 6.dp)
+                        .padding(end = 6.dp)
+                        .weight(0.15f),
                     verticalAlignment = Alignment.Bottom
                 ) {
-                    Text(
-                        text = difficultyToIntensity(difficulty = data.difficulty),
-                        fontSize = 30.sp
-                    )
-                    Icon(
-                        Icons.Filled.Star,
-                        contentDescription = "",
-                        modifier = Modifier.size(35.dp)
-                            .padding(start= 10.dp).padding(bottom = 5.dp)
-                    )
-                    Text(
-                        text = "${data.score}",
-                        fontSize = 30.sp
-                    )
+                    Column(horizontalAlignment = Alignment.Start, modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = difficultyToIntensity(difficulty = data.difficulty),
+                            fontSize = 21.sp
+                        )
+                    }
+                    Column(
+                        horizontalAlignment = Alignment.End,
+                        modifier = Modifier.fillMaxWidth(0.2f)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Filled.Star,
+                                contentDescription = "",
+                                modifier = Modifier.size(25.dp)
+                            )
+                            Text(
+                                text = "${data.score}",
+                                fontSize = 21.sp
+                            )
+                        }
                     }
                 }
             }
         }
     }
+}
