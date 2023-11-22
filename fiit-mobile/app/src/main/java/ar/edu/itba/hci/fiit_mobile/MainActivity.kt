@@ -25,6 +25,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.Components.BottomBar
@@ -107,11 +110,16 @@ fun TestingPreview() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldWithIcons(modifier: Modifier = Modifier, icon: ImageVector? = null, iconDesc: String? = null, label: String, placeholder: String, text: TextFieldValue, onValueChange: (TextFieldValue) -> Unit, keyboardOptions: KeyboardOptions = KeyboardOptions.Default, visualTransformation: VisualTransformation = VisualTransformation.None, errorRules: Boolean = false) {
+fun TextFieldWithIcons(modifier: Modifier = Modifier, icon: ImageVector? = null, iconDesc: String? = null,
+                       label: String, placeholder: String, text: TextFieldValue, onValueChange: (TextFieldValue) -> Unit,
+                       keyboardOptions: KeyboardOptions = KeyboardOptions.Default, visualTransformation: VisualTransformation = VisualTransformation.None,
+                       errorRules: Boolean = false)
+{
+
     return OutlinedTextField(
         value = text,
-        leadingIcon = {icon?.let { Icon(imageVector = icon, contentDescription = iconDesc) }},
         onValueChange = {onValueChange(it)},
+        leadingIcon = {icon?.let { Icon(imageVector = icon, contentDescription = iconDesc) }},
         label = { Text(text = label) },
         placeholder = { Text(text = placeholder) },
         modifier = modifier,
