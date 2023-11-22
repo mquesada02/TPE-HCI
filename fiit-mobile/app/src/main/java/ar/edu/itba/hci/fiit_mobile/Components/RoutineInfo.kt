@@ -29,10 +29,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineMetadata
+import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
 import ar.edu.itba.hci.fiit_mobile.ui.states.HomeUiState
 import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
