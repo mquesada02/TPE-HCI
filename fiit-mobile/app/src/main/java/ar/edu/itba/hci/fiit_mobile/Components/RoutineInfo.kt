@@ -1,8 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
 import android.content.Intent
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -38,9 +36,8 @@ import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 import coil.compose.AsyncImage
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.JulianFields
+import java.text.SimpleDateFormat
+import java.util.Date
 
 @Composable
 fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())){
@@ -148,9 +145,8 @@ fun dateToString(date: Long): String {
     if (date < 0) {
         throw IllegalArgumentException("Julian date cannot be negative")
     }
-
-    val gregorianDate = LocalDate.MIN.with(JulianFields.MODIFIED_JULIAN_DAY, date)
-    return gregorianDate.format(DateTimeFormatter.ISO_DATE)
+    val date = Date(date)
+    return SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date)
 }
 
 //@Preview
