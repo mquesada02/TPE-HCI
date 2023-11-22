@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
@@ -41,68 +42,79 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
 
     var data = viewModel.uiState.currentRoutine
 
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 16.dp),
-        horizontalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.Start
     ) {
-        Column {
-            if(data!=null){
-                Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Column {
+                    if(data!=null){
+                        Row(
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = data.name,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        Row {
+                            AsyncImage(
+                                model = data.metadata.img,
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.size(width = 100.dp, height = 100.dp),
+                            )
+                            //RoutineInfo(data = data!!)
+                        }
+
+                    } else {
+                        CircularProgressIndicator()
+                    }
+                }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = data.name,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-                Row {
-                    AsyncImage(
-                        model = data.metadata.img,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(width = 100.dp, height = 100.dp),
-                    )
-                    //RoutineInfo(data = data!!)
-                }
-                Row() {
-                    Card(){
-                        Text(text= stringResource(R.string.WarmUp))
-                        // for(){
-                        //   ExerciseDetailCard() todo
-                        // }
+                    ElevatedButton(onClick = {onNavigateToScreen("execute_routine/$routineId") }) {
+                        Text(AnnotatedString(text = stringResource(R.string.start)))
                     }
+                    RoutineInfo(data =data)
                 }
-                Row() {
-                    Card(){
-                        Text(text= stringResource(R.string.Exercise))
-                        // for(){
-                        //   ExerciseDetailCard() todo
-                        // }
-                    }
-                }
-                Row {
-                    Card(){
-                        Text(text= stringResource(R.string.CoolDown))
-                        // for(){
-                        //   ExerciseDetailCard() todo
-                        // }
-                    }
-                }
-            } else {
-                CircularProgressIndicator()
             }
-        }
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            ElevatedButton(onClick = {onNavigateToScreen("execute_routine/$routineId") }) {
-                Text(AnnotatedString(text = stringResource(R.string.start)))
+            Row() {
+                Card(){
+                    Text(text= stringResource(R.string.WarmUp))
+                    // for(){
+                    //   ExerciseDetailCard() todo
+                    // }
+                }
             }
-            RoutineInfo(data =data)
-        }
+            Row(
+            ) {
+                Card(){
+                    Text(text= stringResource(R.string.Exercise))
+                    // for(){
+                    //   ExerciseDetailCard() todo
+                    // }
+                }
+            }
+            Row {
+                Card(){
+                    Text(text= stringResource(R.string.CoolDown))
+                    // for(){
+                    //   ExerciseDetailCard() todo
+                    // }
+                }
+            }
+
+
 
     }
 

@@ -1,6 +1,5 @@
 package ar.edu.itba.hci.fiit_mobile.ui.viewmodels
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,9 +9,7 @@ import ar.edu.itba.hci.fiit_mobile.data.DataSourceException
 import ar.edu.itba.hci.fiit_mobile.data.network.RoutineDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkError
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
-import ar.edu.itba.hci.fiit_mobile.ui.states.LoginUiState
 import ar.edu.itba.hci.fiit_mobile.ui.states.SearchUiState
-import ar.edu.itba.hci.fiit_mobile.util.SessionManager
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +19,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
@@ -48,26 +44,12 @@ class SearchViewModel (
                 }
             }
         }
-        .onEach { uiState = uiState.copy(isLoading = true) }
+        .onEach { uiState = uiState.copy(isLoading = false) }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
             _routines.value
         )
-
-    private fun <R> runOnViewModelScope(
-        block: suspend () -> R,
-        updateState: (SearchUiState, R) -> SearchUiState
-    ): Job = viewModelScope.launch {
-        uiState = uiState.copy(isLoading = true, error = null)
-        runCatching {
-            block()
-        }.onSuccess { response ->
-            uiState = updateState(uiState, response).copy(isLoading = false)
-        }.onFailure { e ->
-            uiState = uiState.copy(isLoading = false, error = handleError(e))
-        }
-    }
 
     fun updateLoad() {
         uiState = uiState.copy(isLoading = false)
@@ -82,10 +64,8 @@ class SearchViewModel (
         }.onSuccess { response ->
             _routines.value = response
             uiState = uiState.copy(isLoading = false)
-            println("successsss: $uiState")
         }.onFailure { e ->
             uiState = uiState.copy(isLoading = false, error = handleError(e))
-            println("errorrrr: $e")
         }
     }
 
@@ -105,5 +85,24 @@ class SearchViewModel (
         routineDataSource.getRoutines().content
     }.invokeOnCompletion { uiState = uiState.copy(isLoading = false) }
 
-
+    fun orderRoutines(order:String) {
+        if(order == "date") {
+            _routines.value.sortBy { it.date }
+        }
+        if(order == "difficulty") {
+            _routines.value.sortByDescending { it.difficulty }
+        }
+        if(order == "score") {
+            _routines.value.sortByDescending { it.score }
+        }
+        if(order == "username") {
+            _routines.value.sortBy { it.user.username }
+        }
+        if(order == "routinename") {
+            _routines.value.sortBy { it.name }
+        }
+        println("holaaaaaaaa")
+        println(order)
+        println(_routines.value)
+    }
 }
