@@ -40,12 +40,25 @@ class MainActivity : ComponentActivity() {
         setContent {
             FiitmobileTheme {
                 val navController = rememberNavController()
+                var showBars by rememberSaveable { mutableStateOf(true) }
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+                showBars = when (navBackStackEntry?.destination?.route) {
+                    Screen.LoginScreen.route -> false
+                    Screen.RegisterScreen.route -> false
+                    Screen.ConfirmEmailScreen.route -> false
+                    else -> true
+                }
                 Scaffold(
-                    /* topBar = ,*/
-                    /* bottomBar = ,*/
-                    modifier = Modifier.fillMaxSize()
+                    topBar = { if (showBars) TopAppBar(navController)  },
+                    bottomBar = { if (showBars) BottomBar(navController)  },
+                    modifier = Modifier.fillMaxSize(),
                 ) {
-                    FIITNavHost(navController = navController)
+                    Box(
+                        modifier = Modifier.padding(it)
+                    ) {
+                        FIITNavHost(navController = navController)
+                    }
                 }
             }
         }
@@ -79,8 +92,8 @@ fun TestingPreview() {
         }
 
         Scaffold(
-            topBar = { if (showBars) TopAppBar(navController) },
-             bottomBar = { if (showBars) BottomBar(navController) },
+            topBar = { if (showBars) TopAppBar(navController)  },
+             bottomBar = { if (showBars) BottomBar(navController)  },
             modifier = Modifier.fillMaxSize(),
         ) {
             Box(

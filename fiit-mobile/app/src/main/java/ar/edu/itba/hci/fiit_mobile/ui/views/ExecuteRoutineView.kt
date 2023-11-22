@@ -170,7 +170,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(32.dp)
+                .padding(16.dp)
         ) {
             if (uiState.cycleExercises.isEmpty() || uiState.isFetching) {
                 CircularProgressIndicator()
@@ -191,7 +191,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(32.dp)
+                .padding(6.dp)
         ) {
             val color = MaterialTheme.colorScheme.secondary
             Canvas(
@@ -216,7 +216,6 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
         ){
             Text(
                 text = if(uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else stringResource(R.string.repetitions) + ": " + uiState.cycleExercises[uiState.exerciseIndex].repetitions.toString(),
@@ -227,7 +226,6 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
         ){
             Text(
                 text = if(uiState.cycles.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else uiState.cycles[uiState.cycleIndex].name,
@@ -236,7 +234,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
         }
         Row(
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(top = 6.dp)
         ){
             if (uiState.isFetching) {
                 CircularProgressIndicator()

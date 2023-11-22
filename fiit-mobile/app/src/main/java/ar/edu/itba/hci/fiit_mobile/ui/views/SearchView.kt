@@ -1,14 +1,10 @@
 package ar.edu.itba.hci.fiit_mobile.ui.views
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Box
-import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,6 +12,7 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +33,7 @@ import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
+    onNavigateToScreen: (String) -> Unit,
     viewModel: SearchViewModel = viewModel(factory = getViewModelFactory())
 ) {
     val searchText by viewModel.searchText.collectAsState()
@@ -60,7 +58,8 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ){
         TextField(
             value = searchText,
@@ -71,7 +70,8 @@ fun SearchScreen(
 
         ExposedDropdownMenuBox(
             expanded = isExpanded,
-            onExpandedChange = {isExpanded = it}
+            onExpandedChange = {isExpanded = it},
+            modifier = Modifier.padding(10.dp)
         ) {
             TextField(
                 value = orderBy,
@@ -119,7 +119,7 @@ fun SearchScreen(
                 )
             }
         } else {
-            RoutineScroller(name = null, routines = routines as ArrayList<NetworkRoutineContent>)
+            RoutineScroller(onNavigateToScreen = onNavigateToScreen, name = null, routines = routines as ArrayList<NetworkRoutineContent>)
         }
     }
 

@@ -10,6 +10,7 @@ data class HomeUiState(
     val isFetching: Boolean = false,
     val currentUser: NetworkUserContent? = null,
     val routines: NetworkRoutines? = null,
+    val currentRoutines: NetworkRoutines? = null,
     val currentRoutine : NetworkRoutineContent? = null,
     val favourites: NetworkRoutines? = null,
     val error: NetworkError? = null
