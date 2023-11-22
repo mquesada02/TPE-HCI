@@ -41,6 +41,16 @@ class HomeViewModel (
         { state, response -> state.copy(currentUser = response) }
     )
 
+    fun getRoutines() = runOnViewModelScope(
+        { routineDataSource.getRoutines() },
+        { state, response -> state.copy(routines = response) }
+    )
+
+    fun getFavourites() = runOnViewModelScope(
+        { routineDataSource.getFavs() },
+        { state, response -> state.copy(favourites = response) }
+    )
+
     private fun <R> runOnViewModelScope(
         block: suspend () -> R,
         updateState: (HomeUiState, R) -> HomeUiState
