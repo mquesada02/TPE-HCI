@@ -98,7 +98,7 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
 
                 Text(text = data.user.username, modifier = Modifier.padding(horizontal = 16.dp))
         }
-         // Text(dateToString(data.date)) //esta comentado porq mi date tdv es int todo
+        Text(dateToString(data.date))
         Row(){
             IconButton(onClick = {
                 context.startActivity(shareIntent)
@@ -144,7 +144,6 @@ fun isFav( ui : HomeUiState, id : Int): Boolean {
     return false
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun dateToString(date: Long): String {
     if (date < 0) {
         throw IllegalArgumentException("Julian date cannot be negative")
