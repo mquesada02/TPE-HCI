@@ -32,10 +32,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
+import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
@@ -78,6 +81,8 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
     val height = remember { mutableStateOf(TextFieldValue("")) }
     val validHeight = remember { mutableStateOf(true)}
     val heightOnValueChange = { hei: TextFieldValue -> height.value = hei; validHeight.value = height.value.text.isNotEmpty() && height.value.text.all { it.isDigit() } && height.value.text.toInt() > 0 && height.value.text.toInt() < 300}
+
+    val windowInfo = rememberWindowInfo()
 
     Column(
         verticalArrangement = Arrangement.Top,
