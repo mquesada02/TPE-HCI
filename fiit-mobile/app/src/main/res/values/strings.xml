@@ -66,4 +66,5 @@
     <string name="WarmUp">Entrada en calor</string>
     <string name="Exercise">Ejercitación</string>
     <string name="CoolDown">Enfriamiento</string>
+    <string name="order_by">Ordenar por</string>
 </resources>

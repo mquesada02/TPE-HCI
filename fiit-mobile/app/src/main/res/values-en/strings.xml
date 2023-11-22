@@ -66,4 +66,5 @@
     <string name="WarmUp">Warm-up</string>
     <string name="Exercise">Exercise</string>
     <string name="CoolDown">Cool-down</string>
+    <string name="order_by">Order by</string>
 </resources>
