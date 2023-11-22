@@ -69,5 +69,6 @@
     <string name="order_by">Ordenar por</string>
     <string name="Repetitions">Rep</string>
     <string name="Seconds">Seg</string>
+    <string name="remaining_series">Series restantes</string>
     <string name="Creator">Creador</string>
 </resources>

@@ -9,7 +9,6 @@ import ar.edu.itba.hci.fiit_mobile.data.DataSourceException
 import ar.edu.itba.hci.fiit_mobile.data.network.RoutineDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkError
 import ar.edu.itba.hci.fiit_mobile.ui.states.ExecuteRoutineUiState
-import ar.edu.itba.hci.fiit_mobile.util.SessionManager
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -24,6 +23,10 @@ class ExecuteRoutineViewModel(
         { routineDataSource.getRoutineCycles(routineId) },
         { state, response -> state.copy(cycles = response.content, totalCycles = response.totalCount)}
     )
+
+    fun switchFetch() {
+        uiState = uiState.copy(isFetching = !uiState.isFetching)
+    }
 
     fun getExercises(cycleId: Int) = runOnViewModelScope(
         { routineDataSource.getCycleExercises(cycleId) },
@@ -47,7 +50,12 @@ class ExecuteRoutineViewModel(
     fun nextIndex() {
         if (uiState.exerciseIndex >= uiState.totalExercises - 1) {
             uiState = uiState.copy(exerciseIndex = 0)
-            updateExercises()
+            if (uiState.cycles[uiState.cycleIndex].repetitions == 1) {
+                updateExercises()
+            } else {
+                uiState.cycles[uiState.cycleIndex].repetitions--
+            }
+
             //peekNextExerciseName()
             //peekNextExerciseImage()
         } else {
@@ -126,7 +134,7 @@ class ExecuteRoutineViewModel(
     )
 
     fun hasNext() : Boolean {
-        return (uiState.cycleIndex < uiState.totalCycles - 1) || (uiState.cycleIndex == uiState.totalCycles - 1 && uiState.exerciseIndex < uiState.totalExercises - 1)
+        return (uiState.cycleIndex < uiState.totalCycles - 1) || (uiState.cycleIndex == uiState.totalCycles - 1 && (uiState.exerciseIndex < uiState.totalExercises - 1 || uiState.cycles[uiState.cycleIndex].repetitions > 1))
     }
 
    /* fun hasPrevious() : Boolean {

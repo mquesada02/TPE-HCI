@@ -218,8 +218,18 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                 .fillMaxWidth()
         ){
             Text(
+                text = if(uiState.cycles.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else stringResource(R.string.remaining_series) + ": " + uiState.cycles[uiState.cycleIndex].repetitions,
+                fontSize = MaterialTheme.typography.titleSmall.fontSize,
+            )
+        }
+        Row (
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+        ){
+            Text(
                 text = if(uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else stringResource(R.string.repetitions) + ": " + uiState.cycleExercises[uiState.exerciseIndex].repetitions.toString(),
-                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontSize = MaterialTheme.typography.titleSmall.fontSize,
             )
         }
         Row (
@@ -229,7 +239,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
         ){
             Text(
                 text = if(uiState.cycles.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else uiState.cycles[uiState.cycleIndex].name,
-                fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                fontSize = MaterialTheme.typography.titleSmall.fontSize,
             )
         }
         Row(
@@ -312,7 +322,9 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                 onClick = {
                     /* TODO */
                           currentTime = 0L
+                          viewModel.switchFetch()
                           viewModel.nextIndex()
+                          viewModel.switchFetch()
 
                 },
                 colors = ButtonDefaults.buttonColors(
