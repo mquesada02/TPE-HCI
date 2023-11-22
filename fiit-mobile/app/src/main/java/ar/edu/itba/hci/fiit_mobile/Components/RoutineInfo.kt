@@ -79,7 +79,7 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
             )
             Text(data.user.username)
         }
-         // Text(dateToString(data.date)) //esta comentado porq mi date tdv es int todo
+        Text(dateToString(data.date))
         Row(){
             IconButton(onClick = { /* tiene q copiar el link todo */ }) {
                 Icon(
@@ -126,7 +126,6 @@ fun isFav( ui : HomeUiState, id : Int): Boolean {
     return false
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun dateToString(date: Long): String {
     if (date < 0) {
         throw IllegalArgumentException("Julian date cannot be negative")
