@@ -65,6 +65,11 @@ interface ApiRoutineService {
         @Path("routineId") routineId: Int
     ): Response<Unit>
 
+    @GET("users/current/routines")
+    suspend fun getCurrentRoutines(
+        @Query("size") size: Int? = 999,
+    ) : Response<NetworkRoutines>
+
     //------ROUTINE CYCLES---------------------------------------------
 
     @GET("routines/{routineId}/cycles")
@@ -148,12 +153,12 @@ interface ApiRoutineService {
     @POST("favourites/{routineId}")
     suspend fun addToFavourites(
         @Path("routineId") routineId: Int
-    )
+    ): Response<Unit>
 
     @DELETE("favourites/{routineId}")
     suspend fun RemoveFromFavourites(
         @Path("routineId") routineId: Int
-    )
+    ): Response<Unit>
 
     //------EXECUTIONS---------------------------------------------
     @GET("executions/{routineId}")

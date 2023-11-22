@@ -67,15 +67,17 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
            horizontalArrangement = Arrangement.SpaceAround
        ) {
            FiitmobileTheme {
-               MenuCard(name = stringResource(R.string.SearchR),
-                   iconType = Icons.Filled.Search,
-                   onClick = { onNavigateToScreen(Screen.SearchScreen.route) })
+               MenuCard(
+                   name = stringResource(R.string.SearchR),
+                   iconType = Icons.Filled.Search
+               ) { onNavigateToScreen(Screen.SearchScreen.route) }
            }
 
            FiitmobileTheme {
-               MenuCard(name = stringResource(R.string.CreateR),
-                   iconType = Icons.Filled.Add,
-                   onClick = { onNavigateToScreen(Screen.ErrorScreen.route) })
+               MenuCard(
+                   name = stringResource(R.string.CreateR),
+                   iconType = Icons.Filled.Add
+               ) { onNavigateToScreen(Screen.ErrorScreen.route) }
            }
        }
        Row(
@@ -85,27 +87,30 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
            horizontalArrangement = Arrangement.SpaceAround
        ) {
            FiitmobileTheme {
-               MenuCard(name = stringResource(R.string.MyRouts),
-                       iconType = Icons.Filled.Folder,
-                       onClick = { onNavigateToScreen(Screen.RoutinesScreen.route) })
+               MenuCard(
+                   name = stringResource(R.string.MyRouts),
+                       iconType = Icons.Filled.Folder
+               )  { onNavigateToScreen(Screen.RoutinesScreen.route) }
 
 
            }
            FiitmobileTheme {
-               MenuCard(name = stringResource(R.string.Favs),
-                       iconType = Icons.Filled.Favorite,
-                       onClick = { onNavigateToScreen(Screen.FavsScreen.route) })
+               MenuCard(
+                   name = stringResource(R.string.Favs),
+                       iconType = Icons.Filled.Favorite
+               ) { onNavigateToScreen(Screen.FavsScreen.route) }
            }
        }
-       RoutineCarrousel(stringResource(R.string.Featured), viewModel.uiState.routines)
+       RoutineCarrousel(onNavigateToScreen, stringResource(R.string.Featured), viewModel.uiState.routines)
    }
 }
 
 
 @Preview
 @Composable
-fun homePrev(){
+fun HomePrev(){
     val navController = rememberNavController()
 
     HomeScreen(onNavigateToScreen = {s -> navController.navigate(s)} )
 }
+

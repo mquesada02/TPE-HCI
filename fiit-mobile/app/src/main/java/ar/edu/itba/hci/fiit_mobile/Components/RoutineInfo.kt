@@ -1,14 +1,10 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
-import android.annotation.SuppressLint
-import android.icu.text.SimpleDateFormat
+import android.content.Intent
 import android.os.Build
-import android.view.Gravity
-import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,12 +20,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,8 +37,6 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineCon
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineMetadata
 import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
 import ar.edu.itba.hci.fiit_mobile.ui.states.HomeUiState
-import ar.edu.itba.hci.fiit_mobile.ui.states.canAddFav
-import ar.edu.itba.hci.fiit_mobile.ui.states.canDeleteFav
 import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
@@ -50,13 +46,35 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.JulianFields
 
 @Composable
-fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())){
+fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())){
+
+    if (data == null) {
+        return
+    }
+
+    var fetchedFavourites by remember { mutableStateOf(false) }
+
+    if (!fetchedFavourites) {
+        viewModel.getFavourites()
+        fetchedFavourites = true
+    }
 
     val intensityType = data.difficulty
     val score = data.score
-    var isFav: Boolean = isFav(viewModel.uiState, data.id)
+    var isFav by remember { mutableStateOf(isFav(viewModel.uiState, data.id)) }
     val icon = if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
     var myRating by remember { mutableIntStateOf(data.score) }
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    val context = LocalContext.current
+
+    if(viewModel.uiState.favourites?.content?.isNotEmpty() == true) {
+        isFav = isFav(viewModel.uiState, data.id)
+    }
 
     Column {
         Row(){
@@ -70,35 +88,39 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
                 modifier = Modifier.padding(end = 5.dp))
             Text(text = intensityType)
         }
-        Row(){
-            AsyncImage(
-                model = data.user.avatarUrl,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.height(40.dp).clip(CircleShape).size(10.dp)
-            )
-            Text(data.user.username)
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ){
+                AsyncImage(
+                    model = data.user.avatarUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.clip(CircleShape).size(40.dp).height(40.dp)
+                )
+
+
+                Text(text = data.user.username, modifier = Modifier.padding(horizontal = 16.dp))
         }
-         // Text(dateToString(data.date)) //esta comentado porq mi date tdv es int todo
+        Text(dateToString(data.date))
         Row(){
-            IconButton(onClick = { /* tiene q copiar el link todo */ }) {
+            IconButton(onClick = {
+                context.startActivity(shareIntent)
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Send,
                     contentDescription = "Localized description",
                     modifier = Modifier
                         .size(20.dp)
-                        .shadow(10.dp)
                 )
             }
             IconButton(onClick = {
-                if (isFav && viewModel.uiState.canAddFav) {
-                    viewModel.addFavs(data.id)
-                    isFav=isFav(viewModel.uiState, data.id)
-                }
-                if(viewModel.uiState.canDeleteFav){
-                    viewModel.removeFavs(data.id)
-                    isFav=isFav(viewModel.uiState, data.id)
-                }
+                    if (!isFav) {
+                        viewModel.addFavs(data.id)
+                    } else {
+                        viewModel.removeFavs(data.id)
+                    }
+                    viewModel.getFavourites()
+
             }) {
                 Icon(
                     imageVector = icon,
@@ -107,7 +129,6 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
                            else MaterialTheme.colorScheme.secondary,
                     modifier = Modifier
                         .size(30.dp)
-                        .shadow(10.dp)
                 )
             }
         }
@@ -116,8 +137,8 @@ fun RoutineInfo(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
 
 
 fun isFav( ui : HomeUiState, id : Int): Boolean {
-    if(ui.canGetAllFavourites){
-        for(i in ui.favourites?.content!!){
+    if(ui.canGetAllFavourites && ui.favourites?.content?.isNotEmpty() == true){
+        for(i in ui.favourites.content){
             if(id == i.id){
                 return true
             }
@@ -126,7 +147,6 @@ fun isFav( ui : HomeUiState, id : Int): Boolean {
     return false
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 fun dateToString(date: Long): String {
     if (date < 0) {
         throw IllegalArgumentException("Julian date cannot be negative")
@@ -136,14 +156,15 @@ fun dateToString(date: Long): String {
     return gregorianDate.format(DateTimeFormatter.ISO_DATE)
 }
 
-//@Preview
-//@Composable
-//fun test(){
-//    RoutineInfo(data = NetworkRoutineContent(
-//        id=0, name="test", detail="none", date=10,
-//        score=4, isPublic = false, difficulty = "Hard",
-//        user= NetworkUser(id=0, username = "Tester"), category = null,
-//        metadata = NetworkRoutineMetadata(goals="none", img="what",
-//            materials = "none", muscles = "eyes")
-//    ))
-//}
+@Preview
+@Composable
+fun test(){
+    val list = arrayListOf("Elemento 1", "Elemento 2", "Elemento 3")
+    RoutineInfo(data = NetworkRoutineContent(
+        id=0, name="test", detail="none", date=10,
+        score=4, isPublic = false, difficulty = "Hard",
+        user= NetworkUser(id=0, username = "Tester"), category = null,
+        metadata = NetworkRoutineMetadata(goals=list, img="what",
+            materials = list, muscles = list)
+    ))
+}

@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
@@ -24,6 +22,7 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineCon
 //no usar el vonstructor de viewModel, llamar al factory de viewModel
 @Composable
 fun RoutineScroller(
+    onNavigateToScreen: (String) -> Unit,
     modifier: Modifier = Modifier, //para pasarle el padding desde scaffold (?
     name: String? = null,
     routines: ArrayList<NetworkRoutineContent>
@@ -53,7 +52,7 @@ fun RoutineScroller(
                 state = rememberLazyGridState(),
                 content = {
                     items(routines.size){ index ->
-                        RoutineCard(data = routines[index])
+                        RoutineCard(onNavigateToScreen, data = routines[index])
                     }
                 }
             )
