@@ -153,12 +153,12 @@ interface ApiRoutineService {
     @POST("favourites/{routineId}")
     suspend fun addToFavourites(
         @Path("routineId") routineId: Int
-    )
+    ): Response<Unit>
 
     @DELETE("favourites/{routineId}")
     suspend fun RemoveFromFavourites(
         @Path("routineId") routineId: Int
-    )
+    ): Response<Unit>
 
     //------EXECUTIONS---------------------------------------------
     @GET("executions/{routineId}")
