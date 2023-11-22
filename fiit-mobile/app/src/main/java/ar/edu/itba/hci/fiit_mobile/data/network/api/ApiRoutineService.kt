@@ -65,6 +65,11 @@ interface ApiRoutineService {
         @Path("routineId") routineId: Int
     ): Response<Unit>
 
+    @GET("users/current/routines")
+    suspend fun getCurrentRoutines(
+        @Query("size") size: Int? = 999,
+    ) : Response<NetworkRoutines>
+
     //------ROUTINE CYCLES---------------------------------------------
 
     @GET("routines/{routineId}/cycles")

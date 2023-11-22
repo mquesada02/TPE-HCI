@@ -18,6 +18,7 @@ import ar.edu.itba.hci.fiit_mobile.ui.views.ExecuteRoutineScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.LoginScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.ProfileScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.RegisterScreen
+import ar.edu.itba.hci.fiit_mobile.ui.views.RoutineScreen
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
 @Composable
@@ -28,7 +29,7 @@ fun FIITNavHost(
     val auth = viewModel<LoginViewModel>(factory = getViewModelFactory()).uiState.isAuthenticated
     NavHost(
         navController = navController,
-        startDestination =  Screen.FavsScreen.route//if(!auth) startDestination else Screen.HomeScreen.route
+        startDestination = if(!auth) startDestination else Screen.HomeScreen.route
     ) {
         composable(Screen.LoginScreen.route) {
             LoginScreen(onNavigateToScreen = {s -> navController.popBackStack(Screen.RegisterScreen.route,true); navController.navigate(s) {
@@ -48,10 +49,13 @@ fun FIITNavHost(
             FavsScreen(onNavigateToScreen = {s -> navController.navigate(s)})
         }
         composable(Screen.SearchScreen.route){
-            SearchScreen()
+            SearchScreen(onNavigateToScreen = {s -> navController.navigate(s) })
         }
         composable(Screen.RoutinesScreen.route){
             RoutinesScreen(onNavigateToScreen = {s -> navController.navigate(s) })
+        }
+        composable(Screen.RoutineScreen.route, arguments = listOf(navArgument("id") { type = NavType.IntType})) {
+            route -> RoutineScreen(onNavigateToScreen = {s -> navController.navigate(s)}, routineId = route.arguments?.getInt("id") ?: 0)
         }
         composable(Screen.ExecuteRoutineScreen.route, arguments = listOf(navArgument("id") { type = NavType.IntType})) {
             route -> ExecuteRoutineScreen(route.arguments?.getInt("id") ?: 0)

@@ -10,6 +10,7 @@ import ar.edu.itba.hci.fiit_mobile.data.network.RoutineDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.UserDataSource
 import ar.edu.itba.hci.fiit_mobile.data.network.model.NetworkError
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkReview
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.ui.states.HomeUiState
 import ar.edu.itba.hci.fiit_mobile.util.SessionManager
 import kotlinx.coroutines.Job
@@ -45,6 +46,20 @@ class HomeViewModel (
         { routineDataSource.getRoutines() },
         { state, response -> state.copy(routines = response) }
     )
+
+    fun getRoutine(id: Int) = runOnViewModelScope(
+        { routineDataSource.getRoutineById(id) },
+        { state, response -> state.copy(currentRoutine = response) }
+    )
+
+    fun getCurrentRoutines() = runOnViewModelScope(
+        { routineDataSource.getCurrentRoutines() },
+        { state, response -> state.copy(currentRoutines = response) }
+    )
+
+    fun updateData(data: NetworkRoutineContent) {
+        uiState = uiState.copy(currentRoutine = data)
+    }
 
     fun getFavourites() = runOnViewModelScope(
         { routineDataSource.getFavs() },

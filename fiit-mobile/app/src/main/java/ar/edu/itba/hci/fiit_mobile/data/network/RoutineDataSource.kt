@@ -7,7 +7,6 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycl
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExercise
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseImageInformation
-import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseImages
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseInformation
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycleInformation
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycles
@@ -36,6 +35,10 @@ class RoutineDataSource(
     }
     suspend fun getRoutines(): NetworkRoutines{
         return handleApiResponse { apiRoutineService.getRoutines() }
+    }
+
+    suspend fun getCurrentRoutines(): NetworkRoutines{
+        return handleApiResponse { apiRoutineService.getCurrentRoutines() }
     }
 
     suspend fun getRoutines(categoryId: Int, userId: Int, difficulty: String, score: Int, orderBy: String): NetworkRoutines{

@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 
@@ -21,7 +20,7 @@ import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 //sino se estaria destruyendo y regenerando la informacion cada vez que se cambia el estado de la pagina
 //no usar el vonstructor de viewModel, llamar al factory de viewModel
 @Composable
-fun RoutineCarrousel(name : String, routines : NetworkRoutines?){
+fun RoutineCarrousel(onNavigateToScreen: (String) -> Unit, name : String, routines : NetworkRoutines?){
 
     Column (
         modifier = Modifier.padding(8.dp)
@@ -43,7 +42,7 @@ fun RoutineCarrousel(name : String, routines : NetworkRoutines?){
                     count = routines.size,
                     key = { index -> routines.content[index].id.toString() }
                 ) { index ->
-                    RoutineCard(routines.content[index])
+                    RoutineCard(onNavigateToScreen, routines.content[index])
                 }
             }
         }

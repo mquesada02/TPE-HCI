@@ -97,14 +97,14 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
                        onClick = { onNavigateToScreen(Screen.FavsScreen.route) })
            }
        }
-       RoutineCarrousel(stringResource(R.string.Featured), viewModel.uiState.routines)
+       RoutineCarrousel(onNavigateToScreen, stringResource(R.string.Featured), viewModel.uiState.routines)
    }
 }
 
 
 @Preview
 @Composable
-fun homePrev(){
+fun HomePrev(){
     val navController = rememberNavController()
 
     HomeScreen(onNavigateToScreen = {s -> navController.navigate(s)} )
