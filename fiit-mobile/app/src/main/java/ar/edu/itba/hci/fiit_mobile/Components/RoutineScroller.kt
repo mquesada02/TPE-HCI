@@ -43,7 +43,7 @@ fun RoutineScroller(
             }
         else{
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 150.dp),
+                columns = GridCells.Adaptive(minSize = 160.dp),
                 contentPadding = PaddingValues(
                     start = 10.dp,
                     top = 12.dp,

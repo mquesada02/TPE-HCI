@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -80,6 +82,7 @@ fun RoutineCard(data : NetworkRoutineContent, viewModel: HomeViewModel = viewMod
                     modifier = Modifier
                         .fillMaxWidth() //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
                         .fillMaxHeight(0.4f)
+                        .padding(bottom = 5.dp)
                 )
                 Text(text = data.name, fontSize = 16.sp, textAlign = TextAlign.Center)
                 Row(

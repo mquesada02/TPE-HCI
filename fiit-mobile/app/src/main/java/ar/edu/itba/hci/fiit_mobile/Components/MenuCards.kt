@@ -31,7 +31,7 @@ fun MenuCard(name: String, iconType : ImageVector, onClick: () -> Unit) {
         Card(
             colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
             modifier = Modifier.size(width = 150.dp, height = 150.dp),
-            shape = RoundedCornerShape(20.dp),
+            //shape = RoundedCornerShape(20.dp),
             onClick = { onClick() }
         ) {
             Box(

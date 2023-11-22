@@ -60,7 +60,8 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ){
         TextField(
             value = searchText,
@@ -71,7 +72,8 @@ fun SearchScreen(
 
         ExposedDropdownMenuBox(
             expanded = isExpanded,
-            onExpandedChange = {isExpanded = it}
+            onExpandedChange = {isExpanded = it},
+            modifier = Modifier.padding(10.dp)
         ) {
             TextField(
                 value = orderBy,
