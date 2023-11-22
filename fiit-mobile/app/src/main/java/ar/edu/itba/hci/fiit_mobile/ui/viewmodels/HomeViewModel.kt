@@ -28,6 +28,7 @@ class HomeViewModel (
         { state, _ -> state.copy() }
     )
 
+
     fun removeFavs(id: Int) = runOnViewModelScope(
         { routineDataSource.removeFromFavs(id) },
         { state, _ -> state.copy() }

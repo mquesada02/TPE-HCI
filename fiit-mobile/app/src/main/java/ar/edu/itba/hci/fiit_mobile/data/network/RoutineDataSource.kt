@@ -27,11 +27,11 @@ class RoutineDataSource(
     }
 
     suspend fun addToFavs(id : Int){
-        apiRoutineService.addToFavourites(id)
+        return handleApiResponse { apiRoutineService.addToFavourites(id) }
     }
 
     suspend fun removeFromFavs(id : Int) {
-        apiRoutineService.RemoveFromFavourites(id)
+        return handleApiResponse { apiRoutineService.RemoveFromFavourites(id) }
     }
     suspend fun getRoutines(): NetworkRoutines{
         return handleApiResponse { apiRoutineService.getRoutines() }

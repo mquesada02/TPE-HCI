@@ -1,7 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -26,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.Screen
 import ar.edu.itba.hci.fiit_mobile.WindowInfo
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
@@ -106,14 +104,10 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
     else{ //cambiar los datos todo
         Card(
             modifier = Modifier
-                .clickable(onClick = {
-                    viewModel.uiState = viewModel.uiState.copy(currentRoutine = data)
-                    onNavigateToScreen(Screen.RoutinesScreen.route)
-                })
                 .aspectRatio(1f)
                 .background(MaterialTheme.colorScheme.background)
                 .padding(16.dp),
-
+            onClick = { viewModel.updateData(data); onNavigateToScreen("routine/" + data.id.toString()) }
             ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),

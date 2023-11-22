@@ -58,9 +58,6 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
-                ElevatedButton(onClick = {onNavigateToScreen("execute_routine/$routineId") }) {
-                    Text(AnnotatedString(text = stringResource(R.string.start)))
-                }
                 Row {
                     AsyncImage(
                         model = data.metadata.img,
@@ -93,12 +90,20 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
                         //   ExerciseDetailCard() todo
                         // }
                     }
-                    RoutineInfo(data =data)
                 }
             } else {
                 CircularProgressIndicator()
             }
         }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            ElevatedButton(onClick = {onNavigateToScreen("execute_routine/$routineId") }) {
+                Text(AnnotatedString(text = stringResource(R.string.start)))
+            }
+            RoutineInfo(data =data)
+        }
+
     }
 
 }
