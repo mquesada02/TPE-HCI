@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Card
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,6 +17,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import ar.edu.itba.hci.fiit_mobile.Components.ExerciseDetailCard
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineInfo
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Screen
@@ -54,13 +56,28 @@ fun RoutineScreen( viewModel : HomeViewModel = viewModel(factory = getViewModelF
             }
         }
         Row() {
-            //Entrada en calor
+            Card(){
+                Text(text= stringResource(R.string.WarmUp))
+                // for(){
+                //   ExerciseDetailCard() todo
+                // }
+            }
         }
         Row() {
-            //Ejercitación
+            Card(){
+                Text(text= stringResource(R.string.Exercise))
+                // for(){
+                //   ExerciseDetailCard() todo
+                // }
+            }
         }
         Row() {
-            //Enfriamiento
+            Card(){
+                Text(text= stringResource(R.string.CoolDown))
+                // for(){
+                //   ExerciseDetailCard() todo
+                // }
+            }
         }
     }
 }

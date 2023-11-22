@@ -23,8 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.Components.MenuCard
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineCarrousel
 import ar.edu.itba.hci.fiit_mobile.R
@@ -112,3 +114,10 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
 }
 
 
+@Preview
+@Composable
+fun homePrev(){
+    val navController = rememberNavController()
+
+    HomeScreen(onNavigateToScreen = {s -> navController.navigate(s)} )
+}

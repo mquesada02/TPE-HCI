@@ -20,86 +20,165 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ar.edu.itba.hci.fiit_mobile.WindowInfo
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleExercise
+import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
 
-
-
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ExerciseDetailCard(exercise: NetworkExerciseContent, cycleContent: NetworkCycleContent) {
-    val keyboardController = LocalSoftwareKeyboardController.current
-
     val textColor = Color.Black
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .background(MaterialTheme.colorScheme.secondary),
-        shape = MaterialTheme.shapes.medium,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+    val windowInfo = rememberWindowInfo()
+    if(windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .background(MaterialTheme.colorScheme.secondary),
+            shape = MaterialTheme.shapes.medium,
         ) {
-            // Image
-            Image(
-                painter = rememberImagePainter(
-                    data = exercise.imgUrl,
-                    builder = {
-                        transformations(CircleCropTransformation())
-                    }
-                ),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(MaterialTheme.shapes.medium)
-            )
-
-            Spacer(modifier = Modifier.width(20.dp))
-
-            // Exercise Name
-            Text(
-                text = exercise.name,
-                color = textColor,
-                fontSize = 16.sp,
-                modifier = Modifier.padding(bottom = 4.dp)
-            )
-
-            Spacer(modifier = Modifier.width(20.dp))
-
-            // Repetitions and Seconds in the same Row
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 2.dp),
-                verticalArrangement = Arrangement.Center
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Repetitions
-                Text(
-                    text = cycleContent.repetitions?.toString() ?: "",
-                    color = textColor,
-                    fontSize = 12.sp,
+                // Image
+                Image(
+                    painter = rememberImagePainter(
+                        data = exercise.imgUrl,
+                        builder = {
+                            transformations(CircleCropTransformation())
+                        }
+                    ),
+                    contentDescription = null,
                     modifier = Modifier
-                        .padding(2.dp)
-                        .height(20.dp)
+                        .size(60.dp)
+                        .clip(MaterialTheme.shapes.medium)
                 )
 
-                // Seconds
+                Spacer(modifier = Modifier.width(20.dp))
+
+                // Exercise Name
                 Text(
-                    text =cycleContent.duration?.toString() ?: "",
+                    text = exercise.name,
                     color = textColor,
-                    fontSize = 12.sp,
-                    modifier = Modifier
-                        .padding(2.dp)
-                        .height(20.dp)
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(bottom = 4.dp)
                 )
+
+                Spacer(modifier = Modifier.width(20.dp))
+
+                // Repetitions and Seconds in the same Col
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 2.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    // Repetitions
+                    Text(
+                        text = cycleContent.repetitions?.toString() ?: "",
+                        color = textColor,
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .padding(2.dp)
+                            .height(20.dp)
+                    )
+
+                    // Seconds
+                    Text(
+                        text = cycleContent.duration?.toString() ?: "",
+                        color = textColor,
+                        fontSize = 15.sp,
+                        modifier = Modifier
+                            .padding(2.dp)
+                            .height(20.dp)
+                    )
+                }
             }
         }
     }
+    else{ //chequear todo
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp)
+                .background(MaterialTheme.colorScheme.secondary),
+            shape = MaterialTheme.shapes.medium,
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Image
+                Image(
+                    painter = rememberImagePainter(
+                        data = exercise.imgUrl,
+                        builder = {
+                            transformations(CircleCropTransformation())
+                        }
+                    ),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(85.dp)
+                        .clip(MaterialTheme.shapes.medium)
+                )
+
+                Spacer(modifier = Modifier.width(25.dp))
+
+                // Exercise Name
+                Text(
+                    text = exercise.name,
+                    color = textColor,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(bottom = 10.dp)
+                )
+
+                Spacer(modifier = Modifier.width(25.dp))
+
+                // Repetitions and Seconds in the same Row
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 5.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    // Repetitions
+                    Text(
+                        text = cycleContent.repetitions?.toString() ?: "",
+                        color = textColor,
+                        fontSize = 30.sp,
+                        modifier = Modifier
+                            .padding(2.dp)
+                            .height(20.dp)
+                    )
+
+                    // Seconds
+                    Text(
+                        text = cycleContent.duration?.toString() ?: "",
+                        color = textColor,
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .padding(5.dp)
+                            .height(35.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun prevEx(){
+
+    ExerciseDetailCard(exercise = NetworkExerciseContent(id=0, name="nose", detail="alguno", type="vemos"),
+        cycleContent = NetworkCycleContent(exercise = NetworkCycleExercise(id=0, name="nose", detail="apa", type="susi"
+        , date = 0, order=0 ))
+    )
 }

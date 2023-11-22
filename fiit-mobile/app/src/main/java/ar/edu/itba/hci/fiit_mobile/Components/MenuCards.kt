@@ -18,26 +18,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import ar.edu.itba.hci.fiit_mobile.WindowInfo
+import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
 
 @Composable
 fun MenuCard(name: String, iconType : ImageVector, onClick: () -> Unit) {
 
-    Card(
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
-        modifier = Modifier.size(width = 150.dp, height = 150.dp),
-        shape = RoundedCornerShape(20.dp)
-    ){
-        Box(
-            modifier = Modifier.fillMaxSize() .background(MaterialTheme.colorScheme.secondary),
-            contentAlignment = androidx.compose.ui.Alignment.Center
-        ) {
-            Column(
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(15.dp)
+    val windowInfo = rememberWindowInfo()
+    if(windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded){
+        Card(
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
+            modifier = Modifier.size(width = 150.dp, height = 150.dp),
+            shape = RoundedCornerShape(20.dp)
+        ){
+            Box(
+                modifier = Modifier.fillMaxSize() .background(MaterialTheme.colorScheme.secondary),
+                contentAlignment = androidx.compose.ui.Alignment.Center
             ) {
+                Column(
+                    verticalArrangement = Arrangement.Bottom,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(15.dp)
+                ) {
                     Icon(
                         imageVector = iconType,
                         contentDescription = "Icon",
@@ -46,12 +50,45 @@ fun MenuCard(name: String, iconType : ImageVector, onClick: () -> Unit) {
                             .padding(bottom = 25.dp)
                             .size(40.dp)
                     )
-                Text(
-                    text = name,
-                    color = MaterialTheme.colorScheme.secondary
-                )
+                    Text(
+                        text = name,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                }
             }
         }
     }
-
+    else{  //chequear tamaño todo
+        Card(
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
+            modifier = Modifier.size(width = 300.dp, height = 300.dp),
+            shape = RoundedCornerShape(25.dp)
+        ){
+            Box(
+                modifier = Modifier.fillMaxSize() .background(MaterialTheme.colorScheme.secondary),
+                contentAlignment = androidx.compose.ui.Alignment.Center
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Bottom,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(20.dp)
+                ) {
+                    Icon(
+                        imageVector = iconType,
+                        contentDescription = "Icon",
+                        tint = MaterialTheme.colorScheme.background,
+                        modifier = Modifier
+                            .padding(bottom = 40.dp)
+                            .size(60.dp)
+                    )
+                    Text(
+                        text = name,
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                }
+            }
+        }
+    }
 }
