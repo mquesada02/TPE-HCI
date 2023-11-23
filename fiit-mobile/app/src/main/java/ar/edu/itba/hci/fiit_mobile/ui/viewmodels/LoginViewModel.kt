@@ -58,6 +58,10 @@ class LoginViewModel(
         { state, response -> state.copy(currentUser = response) }
     )
 
+    fun updateStateError() {
+        uiState = uiState.copy(error = null)
+    }
+
     private fun <R> runOnViewModelScope(
         block: suspend () -> R,
         updateState: (LoginUiState, R) -> LoginUiState

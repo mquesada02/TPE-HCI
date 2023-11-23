@@ -15,9 +15,12 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -126,11 +130,38 @@ fun ProfileScreen(onNavigateToLogin: () -> Unit, viewModel: LoginViewModel = vie
             modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
             horizontalArrangement = Arrangement.Center,
         ) {
+            val showDialog = remember { mutableStateOf(false) }
+            val openDialog = { showDialog.value = true }
+            val closeDialog = { showDialog.value = false }
+
+            if (showDialog.value) {
+                AlertDialog(
+                    title = {Text(stringResource(R.string.confirm_logout))},
+                    text = {Text(stringResource(R.string.confirmation_logout))},
+                    onDismissRequest = { closeDialog() },
+                    confirmButton = {
+                        Button(
+                            onClick = {
+                            closeDialog()
+                            viewModel.logout()
+                        }
+                        ) {
+                            Text(stringResource(R.string.logout), color = MaterialTheme.colorScheme.error)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { closeDialog() }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    }
+                )
+            }
             Button(
-                onClick = { viewModel.logout() },//completar
-                modifier = Modifier
+                onClick = { openDialog() },
+                modifier = Modifier,
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
-                Text(text = stringResource(R.string.logout))
+                Text(text = stringResource(R.string.logout), color = Color.Black)
             }
         }
     }

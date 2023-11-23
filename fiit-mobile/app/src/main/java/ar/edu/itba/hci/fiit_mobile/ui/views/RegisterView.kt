@@ -4,12 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Face
@@ -18,12 +20,17 @@ import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,10 +39,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
+import ar.edu.itba.hci.fiit_mobile.PasswordTextField
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
 import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
@@ -83,6 +89,11 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
     val heightOnValueChange = { hei: TextFieldValue -> height.value = hei; validHeight.value = height.value.text.isNotEmpty() && height.value.text.all { it.isDigit() } && height.value.text.toInt() > 0 && height.value.text.toInt() < 300}
 
     val windowInfo = rememberWindowInfo()
+
+    var showSnackbar by remember { mutableStateOf(false) }
+    if (viewModel.uiState.error != null) {
+        showSnackbar = true
+    }
 
     Column(
         verticalArrangement = Arrangement.Top,
@@ -234,7 +245,7 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
         Row(
             horizontalArrangement = Arrangement.Center,
         ) {
-            TextFieldWithIcons(
+            PasswordTextField(
                 icon = Icons.Rounded.Lock,
                 iconDesc = "lockIcon",
                 label = stringResource(R.string.password),
@@ -268,7 +279,7 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
         Row(
             horizontalArrangement = Arrangement.Center,
         ) {
-            TextFieldWithIcons(
+            PasswordTextField(
                 icon = Icons.Rounded.Lock,
                 iconDesc = "lockIcon",
                 label = stringResource(R.string.confirm_password),
@@ -406,6 +417,7 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
+                    disabledContainerColor = MaterialTheme.colorScheme.surface,
                     contentColor = Color.Black
                 ),
                 enabled =
@@ -416,6 +428,37 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
                             !viewModel.uiState.isFetching
             ) {
                 Text(text = stringResource(R.string.register), color = Color.Black, fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleLarge.fontSize)
+            }
+        }
+    }
+    if(showSnackbar) {
+        Row(
+            modifier = Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Bottom,
+        ) {
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                color = MaterialTheme.colorScheme.error,
+                shadowElevation = 4.dp
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    Text(
+                        text = stringResource(R.string.error_register),
+                        modifier = Modifier.padding(16.dp),
+                        color = MaterialTheme.colorScheme.onError
+                    )
+                    IconButton(onClick = {viewModel.updateStateError(); showSnackbar = false}) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "Close",
+                            tint = MaterialTheme.colorScheme.onError
+                        )
+                    }
+                }
             }
         }
     }

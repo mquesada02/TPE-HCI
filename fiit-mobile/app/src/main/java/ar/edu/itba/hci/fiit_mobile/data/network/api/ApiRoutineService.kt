@@ -38,11 +38,15 @@ interface ApiRoutineService {
         @Query("userId") userId: Int? = null,
         @Query("difficulty") difficulty: String? = null, //rookie, beginner, intermediate, advanced, expert
         @Query("score") score: Int? = null,
-        @Query("orderBy") orderBy: String? = null //id, name, detail, date, score, difficulty, category, user
+        @Query("orderBy") orderBy: String? = null, //id, name, detail, date, score, difficulty, category, user
+        @Query("direction") direction: String? = null, //asc, desc
+        @Query("size") size: Int? = 999
     ): Response<NetworkRoutines>
 
     @GET("routines")
-    suspend fun getRoutines(): Response<NetworkRoutines>
+    suspend fun getRoutines(
+        @Query("size") size: Int? = 999
+    ): Response<NetworkRoutines>
 
     @POST("routines")
     suspend fun addRoutine(
@@ -148,7 +152,9 @@ interface ApiRoutineService {
 
     //------FAVOURITES---------------------------------------------
     @GET("favourites")
-    suspend fun getFavourites() : Response<NetworkRoutines>
+    suspend fun getFavourites(
+        @Query("size") size: Int? = 999,
+    ) : Response<NetworkRoutines>
 
     @POST("favourites/{routineId}")
     suspend fun addToFavourites(
@@ -175,8 +181,27 @@ interface ApiRoutineService {
     //-----------REVIEWS-----------
 
     @POST("reviews/{routineId}")
-    suspend fun modifyReview(
+    suspend fun addReview(
         @Path("routineId") routineId: Int,
         @Body info : NetworkReview
     ) : Response<NetworkReviewContent>
+
+    @GET("users/current/reviews")
+    suspend fun getCurrentUserReviews(
+        @Query("orderBy") orderBy: String = "date",
+        @Query("direction") direction: String = "desc"
+    ): Response<NetworkRoutines>
+
+    @GET("users/current/reviews")
+    suspend fun getRoutineReviews(
+        @Path("routineId") routineId: Int
+    ): Response<NetworkRoutines>
+
+    //------------EXECUTIONS ---------------
+    @GET("users/current/executions")
+    suspend fun getCurrentUserExecutions(
+        @Query("size") size: Int = 999,
+        @Query("orderBy") orderBy: String = "date",
+        @Query("direction") direction: String = "desc"
+    ): Response<NetworkExecution>
 }

@@ -3,12 +3,13 @@ package ar.edu.itba.hci.fiit_mobile.ui.views
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Card
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
@@ -23,24 +24,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
+import ar.edu.itba.hci.fiit_mobile.Components.ExerciseDetailCard
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineInfo
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.WindowInfo
-import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
-import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineMetadata
-import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycleContent
 import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
+import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.ExecuteRoutineViewModel
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 import coil.compose.AsyncImage
 
 @Composable
-fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewModel : HomeViewModel = viewModel(factory = getViewModelFactory()))
+fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewModel : HomeViewModel = viewModel(factory = getViewModelFactory()), xrViewModel: ExecuteRoutineViewModel = viewModel(factory = getViewModelFactory()))
 {
     var fetchedRoutine by remember { mutableStateOf(false) }
 
@@ -49,21 +48,48 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
         fetchedRoutine = true
     }
 
-    val list = arrayListOf<String>("uno", "dos")
-    var data = NetworkRoutineContent(id=0, name= "abs", detail="", date=0L,
-        score=3, isPublic = false, difficulty= "hard",
-        user= NetworkUser(id=0, username="yo"),
-        metadata= NetworkRoutineMetadata(muscles = list, goals = list, materials = list, img = "no hay")) //viewModel.uiState.currentRoutine todo
+    val uiState = xrViewModel.uiState
 
+    var fetchedCycles by remember { mutableStateOf(false) }
+    var fetchedExercises by remember { mutableStateOf(false) }
+
+    if (!fetchedCycles) {
+        xrViewModel.updateCycles(routineId)
+        fetchedCycles = true
+    }
+    if (uiState.cycles.isNotEmpty() && !fetchedExercises) {
+        xrViewModel.swapCycles()
+        xrViewModel.saveExercisesLoop()
+        fetchedExercises = true
+    }
+
+    var data = viewModel.uiState.currentRoutine
     val windowInfo = rememberWindowInfo()
     var fontSize = if (windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded){ 20.sp }  else{  45.sp }
-
-        Column(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 16.dp),
-        horizontalAlignment = Alignment.Start
+            .padding(top = 16.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if(data!=null) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = data.name,
+                    color = MaterialTheme.colorScheme.scrim,
+                    fontSize =
+                    if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){24.sp}
+                    else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {24.sp} else {30.sp}
+                )
+            }
+        } else {
+            Text("...")
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -80,59 +106,62 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
                             modifier = Modifier.size(width = 100.dp, height = 100.dp),
                         )
                     }
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Row(){
-                            ElevatedButton(onClick = {onNavigateToScreen("execute_routine/$routineId") }) {
-                                Text(AnnotatedString(text = stringResource(R.string.start)), fontSize = fontSize)
-                            }
-                            Spacer(modifier = Modifier.size(4.dp))
-                            Text(
-                                text = data.name,
-                                color = MaterialTheme.colorScheme.primary,
-                                fontSize = fontSize,
-                                modifier = Modifier.padding(top=5.dp)
-                            )
-                        }
-                        RoutineInfo(data = data)
-                    }
+
                 } else {
                     CircularProgressIndicator()
                 }
             }
-        }
-        Row() {
-            Card(){
-                Text(text= stringResource(R.string.WarmUp), fontSize = fontSize)
-                // for(){
-                //   ExerciseDetailCard() todo
-                // }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth(0.7f)
+            ) {
+                RoutineInfo(data =data)
             }
         }
-        Row(
-        ) {
-            Card(){
-                Text(text= stringResource(R.string.Exercise), fontSize = fontSize)
-                // for(){
-                //   ExerciseDetailCard() todo
-                // }
+        if(uiState.cycles.isEmpty()){
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ){
+                CircularProgressIndicator()
             }
-        }
-        Row {
-            Card(){
-                Text(text= stringResource(R.string.CoolDown), fontSize = fontSize)
-                // for(){
-                //   ExerciseDetailCard() todo
-                // }
+
+        }else {
+            Row() {
+                val cycleArray = arrayListOf<NetworkRoutineCycleContent>(uiState.cycles[0])
+                ExerciseDetailCard(cycles = cycleArray, uiState = uiState)
+            }
+            Row(
+            ) {
+                val cycleArray = arrayListOf<NetworkRoutineCycleContent>()
+                for(i in 1 until uiState.cycles.size - 1){
+                    cycleArray.add(uiState.cycles[i])
+                }
+                ExerciseDetailCard(cycles = cycleArray, uiState = uiState)
+            }
+            Row {
+                val cycleArray = arrayListOf<NetworkRoutineCycleContent>(uiState.cycles[uiState.cycles.size - 1])
+                ExerciseDetailCard(cycles = cycleArray, uiState = uiState)
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun Testrrttt(){
-    val navController = rememberNavController()
-    RoutineScreen(onNavigateToScreen = {s -> navController.navigate(s)}, routineId = 0)
+    Row(
+        modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.Bottom,
+        horizontalArrangement = Arrangement.End
+    ) {
+        ElevatedButton(
+            onClick = {
+                viewModel.addExecution(routineId)
+                onNavigateToScreen("execute_routine/$routineId")
+            },
+            modifier = Modifier
+                .fillMaxWidth(0.4f)
+                .padding(16.dp)
+        ) {
+            Text(AnnotatedString(text = stringResource(R.string.start)), color = MaterialTheme.colorScheme.scrim)
+        }
+    }
 }
