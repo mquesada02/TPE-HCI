@@ -10,6 +10,6 @@ data class NetworkExerciseContent (
     @SerializedName("detail"   ) var detail   : String,
     @SerializedName("type"     ) var type     : String,
     @SerializedName("date"     ) var date     : Long?    = null,
-    @SerializedName("metadata" ) var imgUrl : String? = null
+    @SerializedName("metadata" ) var metadata : String? = null
 
 )

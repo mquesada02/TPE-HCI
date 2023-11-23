@@ -180,6 +180,12 @@ interface ApiRoutineService {
         @Body info : NetworkReview
     ) : Response<NetworkReviewContent>
 
+    @GET("users/current/reviews")
+    suspend fun getCurrentUserReviews(
+        @Query("orderBy") orderBy: String = "date",
+        @Query("direction") direction: String = "desc"
+    ): Response<NetworkRoutines>
+
     //------------EXECUTIONS ---------------
     @GET("users/current/executions")
     suspend fun getCurrentUserExecutions(
@@ -188,5 +194,3 @@ interface ApiRoutineService {
         @Query("direction") direction: String = "desc"
     ): Response<NetworkExecution>
 }
-
-
