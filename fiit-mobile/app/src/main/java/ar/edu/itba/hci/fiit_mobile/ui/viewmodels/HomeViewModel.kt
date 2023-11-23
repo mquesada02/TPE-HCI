@@ -23,16 +23,30 @@ class HomeViewModel (
 ) : ViewModel() {
     var uiState by mutableStateOf(HomeUiState(isAuthenticated = sessionManager.loadAuthToken() != null))
 
-    fun addFavs(id: Int) = runOnViewModelScope(
-        { routineDataSource.addToFavs(id) },
-        { state, _ -> state.copy() }
-    )
+    fun addFavs(id: Int) : Job = viewModelScope.launch {
+        uiState = uiState.copy(isFetching = true, error = null)
+        runCatching {
+            routineDataSource.addToFavs(id)
+        }.onSuccess { response ->
+            uiState = uiState.copy(favourites = null, isFetching = false)
+            getFavourites()
+        }.onFailure { e ->
+            uiState = uiState.copy(isFetching = false, error = handleError(e))
+        }
+    }
 
+    fun removeFavs(id: Int) : Job = viewModelScope.launch {
+        uiState = uiState.copy(isFetching = true, error = null)
+        runCatching {
+            routineDataSource.removeFromFavs(id)
+        }.onSuccess { response ->
+            uiState = uiState.copy(favourites = null, isFetching = false)
+            getFavourites()
+        }.onFailure { e ->
+            uiState = uiState.copy(isFetching = false, error = handleError(e))
+        }
+    }
 
-    fun removeFavs(id: Int) = runOnViewModelScope(
-        { routineDataSource.removeFromFavs(id) },
-        { state, _ -> state.copy() }
-    )
 
     private fun callExecution(id: Int, userId: Int) = runOnViewModelScope(
         { routineDataSource.addExecution(id, userId) },
@@ -145,6 +159,10 @@ class HomeViewModel (
 
     fun updateData(data: NetworkRoutineContent) {
         uiState = uiState.copy(currentRoutine = data)
+    }
+
+    fun resetFavourites() {
+        uiState = uiState.copy(favourites = null)
     }
 
     fun getFavourites() = runOnViewModelScope(
