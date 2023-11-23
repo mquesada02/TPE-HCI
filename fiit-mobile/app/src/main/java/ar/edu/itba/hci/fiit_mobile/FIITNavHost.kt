@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile
 
+import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -8,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.LoginViewModel
 import ar.edu.itba.hci.fiit_mobile.ui.views.FavsScreen
 import ar.edu.itba.hci.fiit_mobile.ui.views.HomeScreen
@@ -29,7 +31,7 @@ fun FIITNavHost(
     val auth = viewModel<LoginViewModel>(factory = getViewModelFactory()).uiState.isAuthenticated
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route//if(!auth) startDestination else Screen.HomeScreen.route
+        startDestination = if(!auth) startDestination else Screen.HomeScreen.route
     ) {
         composable(Screen.LoginScreen.route) {
             LoginScreen(onNavigateToScreen = {s -> navController.popBackStack(Screen.RegisterScreen.route,true); navController.navigate(s) {
@@ -54,7 +56,12 @@ fun FIITNavHost(
         composable(Screen.RoutinesScreen.route){
             RoutinesScreen(onNavigateToScreen = {s -> navController.navigate(s) })
         }
-        composable(Screen.RoutineScreen.route, arguments = listOf(navArgument("id") { type = NavType.IntType})) {
+        composable(Screen.RoutineScreen.route, arguments = listOf(navArgument("id") { type = NavType.IntType}),
+            deepLinks = listOf(navDeepLink {
+                uriPattern = "https://www.fiit.com/routine/{id}"
+                action = Intent.ACTION_VIEW
+            })
+        ) {
             route -> RoutineScreen(onNavigateToScreen = {s -> navController.navigate(s)}, routineId = route.arguments?.getInt("id") ?: 0)
         }
         composable(Screen.ExecuteRoutineScreen.route, arguments = listOf(navArgument("id") { type = NavType.IntType})) {
