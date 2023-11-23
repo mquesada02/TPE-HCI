@@ -77,4 +77,6 @@
     <string name="check_routine">Mira esta rutina dentro de FIIT</string>
     <string name="share_qr">Compartir el código QR</string>
     <string name="remaining_time">Tiempo restante:</string>
+    <string name="error_login">Nombre de usuario o contraseña incorrecta</string>
+    <string name="error_register">Datos incorrectos</string>
 </resources>
