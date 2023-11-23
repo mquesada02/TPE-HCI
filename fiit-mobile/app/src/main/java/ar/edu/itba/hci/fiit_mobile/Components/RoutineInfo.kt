@@ -290,9 +290,10 @@ fun QRCodeDialog(showDialog: Boolean, link: String, onDismissRequest: () -> Unit
                     Text(
                         text = stringResource(R.string.share_qr),
                         style = TextStyle(
+                            color = Coloring.Black,
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold
-                        )
+                        ),
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))

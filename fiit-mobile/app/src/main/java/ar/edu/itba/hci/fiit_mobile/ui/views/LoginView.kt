@@ -45,6 +45,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.hci.fiit_mobile.PasswordTextField
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.Screen
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
@@ -131,7 +132,7 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
                 horizontalArrangement = Arrangement.Center,
             )
             {
-                TextFieldWithIcons(
+                PasswordTextField(
                     icon = Icons.Rounded.Lock,
                     iconDesc = "lockIcon",
                     label = stringResource(R.string.password),
@@ -277,6 +278,7 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
                     onClick = { viewModel.login(username.value.text, password.value.text) },
                     colors = ButtonDefaults.elevatedButtonColors(
                         containerColor = MaterialTheme.colorScheme.secondary,
+                        disabledContainerColor = MaterialTheme.colorScheme.surface,
                         contentColor = Color.Black,
                     ),
                     modifier = Modifier.padding(bottom = 20.dp),
