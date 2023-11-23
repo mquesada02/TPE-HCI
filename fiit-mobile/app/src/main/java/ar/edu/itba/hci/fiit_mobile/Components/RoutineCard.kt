@@ -163,10 +163,10 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
-                                Icons.Filled.Star,
-                                contentDescription = "",
+                                imageVector = Icons.Filled.Star,
+                                tint = MaterialTheme.colorScheme.scrim,
+                                contentDescription = "star icon",
                                 modifier = Modifier.size(25.dp),
-                                tint = MaterialTheme.colorScheme.scrim
                             )
                             Text(
                                 text = "${data.score}",
