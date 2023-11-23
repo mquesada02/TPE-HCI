@@ -179,4 +179,10 @@ interface ApiRoutineService {
         @Path("routineId") routineId: Int,
         @Body info : NetworkReview
     ) : Response<NetworkReviewContent>
+
+    @GET("users/current/reviews")
+    suspend fun getCurrentUserReviews(
+        @Query("orderBy") orderBy: String = "date",
+        @Query("direction") direction: String = "desc"
+    ): Response<NetworkRoutines>
 }

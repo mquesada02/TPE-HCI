@@ -16,6 +16,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiUserService {
     @GET("users")//PUEDE TENER PARAMETROS (habria que agregarlos)
@@ -71,5 +72,4 @@ interface ApiUserService {
     @GET("users/current/executions") //PUEDE TENER PARAMETROS (habria que agregarlos)
     suspend fun getCurrentUserExecutions():
             Response<NetworkExecution>
-
 }
