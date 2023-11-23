@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -74,8 +75,8 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
     if (!fetchedFavourites) {
         viewModel.getFavourites()
         fetchedFavourites = true
-    }
-    val intensityType = data.difficulty
+    }    
+    val intensityType = difficultyToIntensity(difficulty = data.difficulty)
     var isFav by remember { mutableStateOf(isFav(viewModel.uiState, data.id)) }
     val icon = if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
     val link = "https://www.fiit.com/routine/${data.id}"
@@ -108,15 +109,16 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                     onRatingChanged = { score = it },
                     starsColor = MaterialTheme.colorScheme.outline,
                     id = data.id,
-                    size=15.dp
+                    size=25.dp
                 )
             }
             Row() {
                 Text(
                     text = stringResource(R.string.intensity),
-                    modifier = Modifier.padding(end = 5.dp)
+                    modifier = Modifier.padding(end = 5.dp),
+                    fontSize = 20.sp
                 )
-                Text(text = intensityType)
+                Text(text = intensityType, fontSize = 20.sp)
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -133,7 +135,10 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                 Text(text = data.user.username, modifier = Modifier.padding(horizontal = 16.dp))
             }
             Text(dateToString(data.date))
-            Row() {
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 IconButton(onClick = {
                     context.startActivity(shareIntent)
                 }) {
@@ -141,17 +146,17 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                         imageVector = Icons.Default.Share,
                         contentDescription = "share",
                         modifier = Modifier
-                            .size(20.dp)
+                            .size(40.dp)
                     )
                 }
                 IconButton(onClick = {
                     showQR = true
-                }) {
+                }, modifier = Modifier.padding(10.dp)) {
                     Icon(
                         imageVector = Icons.Filled.QrCode2,
                         contentDescription = "QR description",
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(50.dp)
                     )
                 }
                 IconButton(onClick = {
@@ -167,7 +172,7 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                         imageVector = icon,
                         contentDescription = null,
                         modifier = Modifier
-                            .size(30.dp)
+                            .size(45.dp)
                     )
                 }
             }
@@ -187,11 +192,6 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                 )
             }
             Row() {
-                Text(
-                    text = stringResource(R.string.intensity),
-                    modifier = Modifier.padding(end = 5.dp),
-                    fontSize = 35.sp
-                )
                 Text(text = intensityType, fontSize=35.sp)
             }
             Row(
@@ -312,6 +312,14 @@ fun QRCodeDialog(showDialog: Boolean, link: String, onDismissRequest: () -> Unit
     }
 }
 
+
+@Composable
+private fun difficultyToIntensity(difficulty: String): String{
+    if(difficulty=="rookie") {return stringResource(R.string.low_intensity)}
+    if(difficulty=="intermediate") {return stringResource(R.string.mid_intensity)}
+    return stringResource(R.string.high_intensity)
+}
+
 fun isFav( ui : HomeUiState, id : Int): Boolean {
     if(ui.canGetAllFavourites && ui.favourites?.content?.isNotEmpty() == true){
         for(i in ui.favourites.content){
@@ -329,17 +337,4 @@ fun dateToString(date: Long): String {
     }
     val date = Date(date)
     return SimpleDateFormat("dd/MM/yyyy").format(date)
-}
-
-@Preview
-@Composable
-fun test(){
-    val list = arrayListOf("Elemento 1", "Elemento 2", "Elemento 3")
-    RoutineInfo(data = NetworkRoutineContent(
-        id=0, name="test", detail="none", date=10,
-        score=4, isPublic = false, difficulty = "Hard",
-        user= NetworkUser(id=0, username = "Tester"), category = null,
-        metadata = NetworkRoutineMetadata(goals=list, img="what",
-            materials = list, muscles = list)
-    ))
 }

@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,25 +23,36 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.hci.fiit_mobile.R
+import ar.edu.itba.hci.fiit_mobile.WindowInfo
 import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycleContent
+import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
 import ar.edu.itba.hci.fiit_mobile.ui.states.ExecuteRoutineUiState
 import coil.compose.AsyncImage
 
 
 @Composable
 fun ExerciseDetailCard(cycles: ArrayList<NetworkRoutineCycleContent>, uiState: ExecuteRoutineUiState){
+    val windowInfo = rememberWindowInfo()
     Card (
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
         ){
-        for(cycle in cycles){
+        for((i, cycle) in cycles.withIndex()){
+            if(i!=0){
+                Divider(modifier = Modifier.padding(bottom = 14.dp), color = MaterialTheme.colorScheme.onSurface)
+            }
             Column (
                 modifier = Modifier.fillMaxWidth()
             ){
-                Text(text = "${cycle.name}  -  Series: ${cycle.repetitions}", fontSize = 30.sp)
+                Text(text = "${cycle.name}  -  Series: ${cycle.repetitions}",
+                    fontSize =
+                    if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){22.sp}
+                    else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {25.sp} else {32.sp},
+                    color = MaterialTheme.colorScheme.scrim,
+                    modifier = Modifier.padding(start = 10.dp, top = 10.dp, end = 10.dp))
                 Exercise(exercises = uiState.exerciseMap[cycle.id] ?: arrayListOf(), uiState)
             }
         }
@@ -51,6 +63,9 @@ fun ExerciseDetailCard(cycles: ArrayList<NetworkRoutineCycleContent>, uiState: E
 fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineUiState){
     val sec = stringResource(R.string.Seconds)
     val rep = stringResource(R.string.Repetitions)
+
+    val windowInfo = rememberWindowInfo()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -64,7 +79,7 @@ fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineU
                     .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ){
-                Column(Modifier.weight(1/3f)){
+                Column(Modifier.weight(0.5f)){
                     AsyncImage(
                         model = uiState.imageMap[exercise.exercise.id],
                         contentDescription = "",
@@ -73,33 +88,45 @@ fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineU
                             .fillMaxWidth(0.9f) //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
                     )
                 }
-                Column(Modifier.weight(1/3f)){
-                    Text(text = exercise.exercise.name)
-                }
-                Column(Modifier.weight(1/3f)){
+                Column(Modifier.weight(0.5f)){
+                    Text(text = exercise.exercise.name,
+                            fontSize =
+                        if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){22.sp}
+                        else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {22.sp} else {28.sp},
+                        color = MaterialTheme.colorScheme.scrim,
+                        modifier = Modifier.padding(bottom = 15.dp))
+
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             Icons.Default.Replay,
-                            contentDescription = "",
-                            modifier = Modifier.size(15.dp)
+                            contentDescription = "repetitions icon",
+                            modifier = if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){Modifier.size(26.dp)}
+                            else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {Modifier.size(26.dp)} else {Modifier.size(32.dp)},
+                            tint = MaterialTheme.colorScheme.scrim
                         )
                         Text(
-                            text = "${exercise.repetitions}",
-                            fontSize = 25.sp
+                            text = "  ${exercise.repetitions} $rep",
+                            fontSize =
+                            if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){22.sp}
+                            else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {22.sp} else {28.sp},
+                            color = MaterialTheme.colorScheme.scrim,
                         )
-                        Text(text = rep, fontSize = 25.sp)
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             Icons.Default.Timer,
-                            contentDescription = "",
-                            modifier = Modifier.size(15.dp)
+                            contentDescription = "timer icon",
+                            modifier = if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){Modifier.size(26.dp)}
+                            else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {Modifier.size(26.dp)} else {Modifier.size(32.dp)},
+                            tint = MaterialTheme.colorScheme.scrim
                         )
                         Text(
-                            text = "${exercise.duration}",
-                            fontSize = 25.sp
+                            text = "  ${exercise.duration} $rep",
+                            fontSize =
+                            if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){22.sp}
+                            else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {22.sp} else {28.sp},
+                            color = MaterialTheme.colorScheme.scrim,
                         )
-                        Text(text = sec, fontSize = 25.sp)
                     }
                 }
             }
