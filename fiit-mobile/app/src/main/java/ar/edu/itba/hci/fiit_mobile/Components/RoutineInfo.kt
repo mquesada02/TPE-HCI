@@ -3,6 +3,8 @@ package ar.edu.itba.hci.fiit_mobile.Components
 import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,11 +32,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ar.edu.itba.hci.fiit_mobile.R
+import ar.edu.itba.hci.fiit_mobile.WindowInfo
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineMetadata
 import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
+import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
 import ar.edu.itba.hci.fiit_mobile.ui.states.HomeUiState
 import ar.edu.itba.hci.fiit_mobile.ui.states.canGetAllFavourites
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
@@ -49,16 +54,12 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
     if (data == null) {
         return
     }
-
     var fetchedFavourites by remember { mutableStateOf(false) }
-
     if (!fetchedFavourites) {
         viewModel.getFavourites()
         fetchedFavourites = true
     }
-
     val intensityType = data.difficulty
-    val score = data.score
     var isFav by remember { mutableStateOf(isFav(viewModel.uiState, data.id)) }
     val icon = if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
     var myRating by remember { mutableIntStateOf(data.score) }
@@ -69,49 +70,58 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
     }
     val shareIntent = Intent.createChooser(sendIntent, null)
     val context = LocalContext.current
-
     if(viewModel.uiState.favourites?.content?.isNotEmpty() == true) {
         isFav = isFav(viewModel.uiState, data.id)
     }
+    val windowInfo = rememberWindowInfo()
 
-    Column {
-        Row(){
-            RatingBar(maxRating = 5, currentRating = myRating,
-                onRatingChanged = {myRating = it}, starsColor =MaterialTheme.colorScheme.outline,
-                id = data.id, review = "")
-            Text( text = score.toString())
-        }
-        Row(){
-            Text(text =  stringResource(R.string.intensity),
-                modifier = Modifier.padding(end = 5.dp))
-            Text(text = intensityType)
-        }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ){
+    if (windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded) {
+        Column (horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()){
+            Row() {
+                RatingBar(
+                    maxRating = 5,
+                    currentRating = myRating,
+                    onRatingChanged = { myRating = it },
+                    starsColor = MaterialTheme.colorScheme.outline,
+                    id = data.id,
+                    size=15.dp
+                )
+            }
+            Row() {
+                Text(
+                    text = stringResource(R.string.intensity),
+                    modifier = Modifier.padding(end = 5.dp)
+                )
+                Text(text = intensityType)
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 AsyncImage(
                     model = data.user.avatarUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.clip(CircleShape).size(40.dp).height(40.dp)
-                )
-
-
-                Text(text = data.user.username, modifier = Modifier.padding(horizontal = 16.dp))
-        }
-        Text(dateToString(data.date))
-        Row(){
-            IconButton(onClick = {
-                context.startActivity(shareIntent)
-            }) {
-                Icon(
-                    imageVector = Icons.Filled.Share,
-                    contentDescription = "Localized description",
                     modifier = Modifier
-                        .size(20.dp)
+                        .clip(CircleShape)
+                        .size(40.dp)
+                        .height(40.dp)
                 )
+                Text(text = "${stringResource(R.string.Creator)}: ${data.user.username}", modifier = Modifier.padding(horizontal = 16.dp))
             }
-            IconButton(onClick = {
+            Text(dateToString(data.date))
+            Row() {
+                IconButton(onClick = {
+                    context.startActivity(shareIntent)
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Send,
+                        contentDescription = "Localized description",
+                        modifier = Modifier
+                            .size(20.dp)
+                    )
+                }
+                IconButton(onClick = {
                     if (!isFav) {
                         viewModel.addFavs(data.id)
                     } else {
@@ -119,13 +129,83 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                     }
                     viewModel.getFavourites()
 
-            }) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(30.dp)
+                }) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(30.dp)
+                    )
+                }
+            }
+        }
+    }
+    else{
+        Column(horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()) {
+            Row() {
+                RatingBar(
+                    maxRating = 5,
+                    currentRating = myRating,
+                    onRatingChanged = { myRating = it },
+                    starsColor = MaterialTheme.colorScheme.outline,
+                    id = data.id,
+                    size = 35.dp
                 )
+            }
+            Row() {
+                Text(
+                    text = stringResource(R.string.intensity),
+                    modifier = Modifier.padding(end = 5.dp),
+                    fontSize = 35.sp
+                )
+                Text(text = intensityType, fontSize=35.sp)
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                AsyncImage(
+                    model = data.user.avatarUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(40.dp)
+                        .height(40.dp)
+                )
+                Text(text = "${stringResource(R.string.Creator)}: ${data.user.username}", modifier = Modifier.padding(horizontal = 16.dp), fontSize=35.sp)
+            }
+            Text(dateToString(data.date), fontSize=35.sp)
+            Row() {
+                IconButton(onClick = {
+                    context.startActivity(shareIntent)
+                }) {
+                    Icon(
+                        imageVector = Icons.Filled.Send,
+                        contentDescription = "Localized description",
+                        modifier = Modifier
+                            .size(40.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.size(20.dp))
+                IconButton(onClick = {
+                    if (!isFav) {
+                        viewModel.addFavs(data.id)
+                    } else {
+                        viewModel.removeFavs(data.id)
+                    }
+                    viewModel.getFavourites()
+
+                }) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = if (isFav) MaterialTheme.colorScheme.primary
+                        else MaterialTheme.colorScheme.secondary,
+                        modifier = Modifier
+                            .size(40.dp)
+                    )
+                }
             }
         }
     }
@@ -148,7 +228,7 @@ fun dateToString(date: Long): String {
         throw IllegalArgumentException("Julian date cannot be negative")
     }
     val date = Date(date)
-    return SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date)
+    return SimpleDateFormat("dd/MM/yyyy").format(date)
 }
 
 @Preview
