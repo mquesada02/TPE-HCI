@@ -107,7 +107,7 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                         .size(40.dp)
                         .height(40.dp)
                 )
-                Text(text = "${stringResource(R.string.Creator)}: ${data.user.username}", modifier = Modifier.padding(horizontal = 16.dp))
+                Text(text = "${data.user.username}", modifier = Modifier.padding(horizontal = 16.dp))
             }
             Text(dateToString(data.date))
             Row() {
@@ -173,7 +173,7 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                         .size(40.dp)
                         .height(40.dp)
                 )
-                Text(text = "${stringResource(R.string.Creator)}: ${data.user.username}", modifier = Modifier.padding(horizontal = 16.dp), fontSize=35.sp)
+                Text(text = "${data.user.username}", modifier = Modifier.padding(horizontal = 16.dp), fontSize=35.sp)
             }
             Text(dateToString(data.date), fontSize=35.sp)
             Row() {
