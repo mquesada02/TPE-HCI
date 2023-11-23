@@ -150,7 +150,9 @@ interface ApiRoutineService {
 
     //------FAVOURITES---------------------------------------------
     @GET("favourites")
-    suspend fun getFavourites() : Response<NetworkRoutines>
+    suspend fun getFavourites(
+        @Query("size") size: Int? = 999,
+    ) : Response<NetworkRoutines>
 
     @POST("favourites/{routineId}")
     suspend fun addToFavourites(

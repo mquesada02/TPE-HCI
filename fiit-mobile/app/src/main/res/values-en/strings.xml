@@ -76,4 +76,7 @@
     <string name="search_button">Search</string>
     <string name="check_routine">Checkout this routine in FIIT</string>
     <string name="share_qr">Share QR code</string>
+    <string name="remaining_time">Remaining time:</string>
+    <string name="error_login">Invalid username or password</string>
+    <string name="error_register">Invalid data</string>
 </resources>

@@ -13,15 +13,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.ViewColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,7 +63,7 @@ fun ExerciseCard(detail: String, img: String) {
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.secondary)
                 .fillMaxWidth()
-                .height(150.dp)
+                .height(300.dp)
                 .padding(horizontal = 30.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -72,7 +76,7 @@ fun ExerciseCard(detail: String, img: String) {
                         model = img,
                         contentDescription = detail,
                         modifier = Modifier
-                            .size(100.dp)
+                            .size(150.dp)
                             .clip(CircleShape)
                     )
                 } else {
@@ -103,6 +107,8 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
     var fetchedCycles by remember { mutableStateOf(false) }
     var fetchedExercises by remember { mutableStateOf(false) }
     var fetchedNextExercise by remember { mutableStateOf(false) }
+
+    var defaultView by remember { mutableStateOf(true)}
 
     val uiState = viewModel.uiState
     if (!fetchedCycles) {
@@ -161,108 +167,191 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             }
         }
     }
-
-    Column(
-        verticalArrangement = Arrangement.Top,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.Center,
+        Column(
+            verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            if (uiState.cycleExercises.isEmpty() || uiState.isFetching) {
-                CircularProgressIndicator()
-            } else {
-                Text(
-                    text = if (uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else
-                        uiState.cycleExercises[uiState.exerciseIndex].exercise.name,
-                    modifier = Modifier.fillMaxWidth(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                    lineHeight = MaterialTheme.typography.titleLarge.lineHeight,
-                    textAlign = TextAlign.Center
-                )
-            }
-
-        }
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(6.dp)
-        ) {
-            val color = MaterialTheme.colorScheme.secondary
-            Canvas(
-                modifier = Modifier.size(100.dp), onDraw = {
-                    drawCircle(
-                        color = color,
-                        radius = 50.dp.toPx(),
-                    )
-                    drawText(
-                        textMeasurer = textMeasurer,
-                        text = textToDraw,
-                        style = style,
-                        topLeft = Offset(
-                            x = center.x - textLayoutResult.size.width / 2,
-                            y = center.y - textLayoutResult.size.height / 2,
-                        )
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                if (uiState.cycleExercises.isEmpty() || uiState.isFetching) {
+                    CircularProgressIndicator()
+                } else {
+                    Text(
+                        text = if (uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else
+                            uiState.cycleExercises[uiState.exerciseIndex].exercise.name,
+                        modifier = Modifier.fillMaxWidth(),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                        lineHeight = MaterialTheme.typography.titleLarge.lineHeight,
+                        textAlign = TextAlign.Center
                     )
                 }
-            )
-        }
-        Row (
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-        ){
-            Text(
-                text = if(uiState.cycles.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else stringResource(R.string.remaining_series) + ": " + uiState.cycles[uiState.cycleIndex].repetitions,
-                fontSize = MaterialTheme.typography.titleSmall.fontSize,
-            )
-        }
-        Row (
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-        ){
-            Text(
-                text = if(uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else stringResource(R.string.repetitions) + ": " + uiState.cycleExercises[uiState.exerciseIndex].repetitions.toString(),
-                fontSize = MaterialTheme.typography.titleSmall.fontSize,
-            )
-        }
-        Row (
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-        ){
-            Text(
-                text = if(uiState.cycles.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else uiState.cycles[uiState.cycleIndex].name,
-                fontSize = MaterialTheme.typography.titleSmall.fontSize,
-            )
-        }
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth().padding(top = 6.dp)
-        ){
-            if (uiState.isFetching) {
-                CircularProgressIndicator()
-            } else {
-                ExerciseCard(detail = if(uiState.cycleExercises.isEmpty()) {stringResource(R.string.loading)} else {uiState.cycleExercises[uiState.exerciseIndex].exercise.detail}, img = uiState.nextExerciseImage)
+
             }
+            if (defaultView) {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(6.dp)
+                ) {
+                    val color = MaterialTheme.colorScheme.secondary
+                    Canvas(
+                        modifier = Modifier.size(100.dp), onDraw = {
+                            drawCircle(
+                                color = color,
+                                radius = 50.dp.toPx(),
+                            )
+                            drawText(
+                                textMeasurer = textMeasurer,
+                                text = textToDraw,
+                                style = style,
+                                topLeft = Offset(
+                                    x = center.x - textLayoutResult.size.width / 2,
+                                    y = center.y - textLayoutResult.size.height / 2,
+                                )
+                            )
+                        }
+                    )
+                }
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 25.dp)
+                ) {
+                    Text(
+                        text = if (uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(
+                            R.string.loading
+                        ) else stringResource(R.string.repetitions) + ": " + uiState.cycleExercises[uiState.exerciseIndex].repetitions.toString(),
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    )
+                }
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 25.dp)
+                ) {
+                    Text(
+                        text = if (uiState.cycles.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else stringResource(
+                            R.string.remaining_series
+                        ) + ": " + uiState.cycles[uiState.cycleIndex].repetitions,
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    )
+                }
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 25.dp)
+                ) {
+                    Text(
+                        text = if (uiState.cycles.isEmpty() || uiState.isFetching) stringResource(R.string.loading) else uiState.cycles[uiState.cycleIndex].name,
+                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                    )
+                }
+                /*Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 6.dp)
+                ) {
+                    if (uiState.isFetching) {
+                        CircularProgressIndicator()
+                    } else {
+                        *//*ExerciseCard(
+                            detail = if (uiState.cycleExercises.isEmpty()) {
+                                stringResource(R.string.loading)
+                            } else {
+                                uiState.cycleExercises[uiState.exerciseIndex].exercise.detail
+                            }, img = uiState.nextExerciseImage
+                        )*//*
+                    }
+
+                }*/
+            } else {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = stringResource(R.string.remaining_time) + ": " + textToDraw)
+                    Text(text = if (uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(
+                        R.string.loading
+                    ) else stringResource(R.string.repetitions) + ": " + uiState.cycleExercises[uiState.exerciseIndex].repetitions.toString())
+                }
+                if (uiState.cycleExercises.isEmpty() || uiState.isFetching) {
+                    CircularProgressIndicator()
+                } else {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 25.dp)
+                    ) {
+                        AsyncImage(
+                            model = uiState.nextExerciseImage,
+                            contentDescription = "Exercise Image",
+                            modifier = Modifier
+                                .fillMaxWidth(0.7f)
+                                .padding(horizontal = 30.dp)
+                        )
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 10.dp)
+                    ) {
+                        Text(
+                            text = uiState.cycleExercises[uiState.exerciseIndex].exercise.detail,
+                            modifier = Modifier.fillMaxWidth(),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                            lineHeight = MaterialTheme.typography.headlineSmall.lineHeight,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(100.dp))
 
         }
-        Row (
-            horizontalArrangement = Arrangement.Center,
+    Row(
+        modifier = Modifier.fillMaxSize(),
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.Top
+    ) {
+        IconButton(
+            onClick = {defaultView = !defaultView},
             modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 10.dp),
-            verticalAlignment = Alignment.Bottom
-        ){
-            /*Button(
-                onClick = {
-                    *//*  *//*
+                .padding(16.dp)
+                .size(50.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.ViewColumn,
+                contentDescription = "Other View",
+                tint = Color.Black,
+                modifier = Modifier.size(50.dp)
+            )
+        }
+    }
+    Row (
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 10.dp),
+        verticalAlignment = Alignment.Bottom
+    ){
+        /*Button(
+            onClick = {
+                *//*  *//*
                           currentTime = 0L
                           viewModel.peekPreviousExerciseImage()
                           viewModel.peekPreviousExerciseName()
@@ -285,67 +374,66 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                     modifier = Modifier.size(50.dp)
                 )
             }*/
-            Spacer(modifier = Modifier.width(110.dp))
-            Button(
-                onClick = {
-                    if(currentTime <= 0L) {
-                        currentTime = totalTime
-                        isTimerRunning = true
-                    } else {
-                        isTimerRunning = !isTimerRunning
-                    }
-                    clickedButton.value = !clickedButton.value
+        Spacer(modifier = Modifier.width(110.dp))
+        Button(
+            onClick = {
+                if(currentTime <= 0L) {
+                    currentTime = totalTime
+                    isTimerRunning = true
+                } else {
+                    isTimerRunning = !isTimerRunning
+                }
+                clickedButton.value = !clickedButton.value
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor =
+                if (!clickedButton.value)
+                    MaterialTheme.colorScheme.background
+                else
+                    MaterialTheme.colorScheme.primary,
+            ),
+            elevation = ButtonDefaults.elevatedButtonElevation(),
+            modifier = Modifier.size(75.dp)
+        ) {
+            Icon(
+                imageVector = if (!isTimerRunning || currentTime <= 0L) {
+                    Icons.Default.PlayArrow
+                } else {
+                    Icons.Default.Pause
                 },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor =
-                    if (!clickedButton.value)
-                        MaterialTheme.colorScheme.background
-                    else
-                        MaterialTheme.colorScheme.primary,
-                ),
-                elevation = ButtonDefaults.elevatedButtonElevation(),
-                modifier = Modifier.size(75.dp)
-            ) {
-                Icon(
-                    imageVector = if (!isTimerRunning || currentTime <= 0L) {
-                        Icons.Default.PlayArrow
-                    } else {
-                        Icons.Default.Pause
-                    },
-                    contentDescription = "Play/Pause",
-                    tint = Color.Black,
-                    modifier = Modifier.size(50.dp)
-                )
-            }
-            Spacer(modifier = Modifier.width(35.dp))
-            Button(
-                onClick = {
-                    /* TODO */
-                          currentTime = 0L
-                          viewModel.switchFetch()
-                          viewModel.nextIndex()
-                          viewModel.switchFetch()
-
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (!clickedButton.value)
-                        MaterialTheme.colorScheme.background
-                    else
-                        MaterialTheme.colorScheme.primary,
-                ),
-                elevation = ButtonDefaults.elevatedButtonElevation(),
-                modifier = Modifier.size(75.dp),
-                enabled = viewModel.hasNext()
-            ) {
-                Icon(
-                    imageVector = Icons.Default.SkipNext,
-                    contentDescription = "SkipNext",
-                    tint = Color.Black,
-                    modifier = Modifier.size(50.dp)
-                )
-            }
-
+                contentDescription = "Play/Pause",
+                tint = Color.Black,
+                modifier = Modifier.size(50.dp)
+            )
         }
+        Spacer(modifier = Modifier.width(35.dp))
+        Button(
+            onClick = {
+                /* TODO */
+                currentTime = 0L
+                viewModel.switchFetch()
+                viewModel.nextIndex()
+                viewModel.switchFetch()
+
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = if (!clickedButton.value)
+                    MaterialTheme.colorScheme.background
+                else
+                    MaterialTheme.colorScheme.primary,
+            ),
+            elevation = ButtonDefaults.elevatedButtonElevation(),
+            modifier = Modifier.size(75.dp),
+            enabled = viewModel.hasNext()
+        ) {
+            Icon(
+                imageVector = Icons.Default.SkipNext,
+                contentDescription = "SkipNext",
+                tint = Color.Black,
+                modifier = Modifier.size(50.dp)
+            )
+        }
+
     }
 
 
