@@ -76,4 +76,5 @@
     <string name="search_button">Búsqueda</string>
     <string name="check_routine">Mira esta rutina dentro de FIIT</string>
     <string name="share_qr">Compartir el código QR</string>
+    <string name="remaining_time">Tiempo restante:</string>
 </resources>
