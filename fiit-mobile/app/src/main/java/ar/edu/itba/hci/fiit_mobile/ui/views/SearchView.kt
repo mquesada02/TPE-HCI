@@ -104,7 +104,7 @@ fun SearchScreen(
                     placeholder = {
                         Text(stringResource(R.string.order_by), color = Color.Black, modifier = Modifier.alpha(0.75f))
                     },
-                    colors = TextFieldDefaults.textFieldColors(containerColor= MaterialTheme.colorScheme.primary),
+                    colors = TextFieldDefaults.textFieldColors(containerColor= MaterialTheme.colorScheme.primary, textColor = Color.Black),
                     modifier = Modifier.menuAnchor()
                 )
                 ExposedDropdownMenu(

@@ -84,7 +84,7 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
                         .fillMaxHeight(0.5f)
                         .padding(bottom = 5.dp)
                 )
-                Text(text = data.name, fontSize = 16.sp, textAlign = TextAlign.Center)
+                Text(text = data.name, fontSize = 16.sp, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.scrim)
                 Row(
                     modifier = Modifier
                         .padding(bottom = 3.dp)
@@ -96,7 +96,8 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
                     Column(horizontalAlignment = Alignment.Start, modifier = Modifier.weight(1f)) {
                         Text(
                             text = difficultyToIntensity(difficulty = data.difficulty),
-                            fontSize = 13.sp
+                            fontSize = 13.sp,
+                            color = MaterialTheme.colorScheme.scrim
                         )
                     }
                     Column(
@@ -111,7 +112,8 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
                             )
                             Text(
                                 text = "${data.score}",
-                                fontSize = 13.sp
+                                fontSize = 13.sp,
+                                color = MaterialTheme.colorScheme.scrim
                             )
                         }
                     }
