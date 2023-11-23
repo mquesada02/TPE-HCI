@@ -3,6 +3,7 @@ package ar.edu.itba.hci.fiit_mobile.ui.views
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
@@ -49,90 +51,96 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
         fetchedRoutine = true
     }
 
-    val list = arrayListOf<String>("uno", "dos")
-    var data = NetworkRoutineContent(id=0, name= "abs", detail="", date=0L,
-        score=3, isPublic = false, difficulty= "hard",
-        user= NetworkUser(id=0, username="yo"),
-        metadata= NetworkRoutineMetadata(muscles = list, goals = list, materials = list, img = "no hay")) //viewModel.uiState.currentRoutine todo
-
+    var data = viewModel.uiState.currentRoutine
     val windowInfo = rememberWindowInfo()
     var fontSize = if (windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded){ 20.sp }  else{  45.sp }
-
-        Column(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 16.dp),
         horizontalAlignment = Alignment.Start
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Column {
-                if(data!=null){
-                    Row {
-                        AsyncImage(
-                            model = data.metadata.img,
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(width = 100.dp, height = 100.dp),
-                        )
-                    }
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Row(){
-                            ElevatedButton(onClick = {onNavigateToScreen("execute_routine/$routineId") }) {
-                                Text(AnnotatedString(text = stringResource(R.string.start)), fontSize = fontSize)
-                            }
-                            Spacer(modifier = Modifier.size(4.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Column {
+                    if(data!=null){
+                        Row(
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Text(
                                 text = data.name,
-                                color = MaterialTheme.colorScheme.primary,
-                                fontSize = fontSize,
-                                modifier = Modifier.padding(top=5.dp)
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
-                        RoutineInfo(data = data)
+                        Row {
+                            AsyncImage(
+                                model = data.metadata.img,
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.size(width = 100.dp, height = 100.dp),
+                            )
+                            //RoutineInfo(data = data!!)
+                        }
+
+                    } else {
+                        CircularProgressIndicator()
                     }
-                } else {
-                    CircularProgressIndicator()
+                }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth(0.7f)
+                ) {
+                    RoutineInfo(data =data)
                 }
             }
-        }
-        Row() {
-            Card(){
-                Text(text= stringResource(R.string.WarmUp), fontSize = fontSize)
-                // for(){
-                //   ExerciseDetailCard() todo
-                // }
+            Row() {
+                Card(){
+                    Text(text= stringResource(R.string.WarmUp))
+                    // for(){
+                    //   ExerciseDetailCard() todo
+                    // }
+                }
             }
-        }
-        Row(
-        ) {
-            Card(){
-                Text(text= stringResource(R.string.Exercise), fontSize = fontSize)
-                // for(){
-                //   ExerciseDetailCard() todo
-                // }
+            Row(
+            ) {
+                Card(){
+                    Text(text= stringResource(R.string.Exercise))
+                    // for(){
+                    //   ExerciseDetailCard() todo
+                    // }
+                }
             }
-        }
-        Row {
-            Card(){
-                Text(text= stringResource(R.string.CoolDown), fontSize = fontSize)
-                // for(){
-                //   ExerciseDetailCard() todo
-                // }
+            Row {
+                Card(){
+                    Text(text= stringResource(R.string.CoolDown))
+                    // for(){
+                    //   ExerciseDetailCard() todo
+                    // }
+                }
             }
-        }
-    }
-}
+            Row(
+                modifier = Modifier.fillMaxHeight().fillMaxWidth(),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.End
+            ) {
+                ElevatedButton(
+                    onClick = {
+                        viewModel.addExecution(routineId)
+                        onNavigateToScreen("execute_routine/$routineId")
+                    },
+                    modifier = Modifier.fillMaxWidth(0.4f).padding(16.dp)
+                ) {
+                    Text(AnnotatedString(text = stringResource(R.string.start)))
+                }
+            }
 
-@Preview
-@Composable
-fun Testrrttt(){
-    val navController = rememberNavController()
-    RoutineScreen(onNavigateToScreen = {s -> navController.navigate(s)}, routineId = 0)
+
+
+    }
+
 }

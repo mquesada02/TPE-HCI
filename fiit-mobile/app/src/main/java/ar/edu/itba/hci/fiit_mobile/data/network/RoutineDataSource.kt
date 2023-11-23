@@ -4,6 +4,9 @@ import ar.edu.itba.hci.fiit_mobile.data.network.api.ApiRoutineService
 import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycle
 import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleExerciseInformation
+import ar.edu.itba.hci.fiit_mobile.data.network.model.executions.NetworkExecution
+import ar.edu.itba.hci.fiit_mobile.data.network.model.executions.NetworkExecutionContent
+import ar.edu.itba.hci.fiit_mobile.data.network.model.executions.NetworkExecutionModification
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExercise
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseImageInformation
@@ -87,6 +90,18 @@ class RoutineDataSource(
 
     suspend fun getExercises(): NetworkExercise{
         return handleApiResponse { apiRoutineService.getExercises() }
+    }
+
+    suspend fun addExecution(routineId: Int, userId: Int): NetworkExecutionContent {
+        return handleApiResponse { apiRoutineService.addRoutineExecution(routineId, NetworkExecutionModification(userId,false)) }
+    }
+
+    suspend fun getExecutions(routineId: Int): NetworkExecution {
+        return handleApiResponse { apiRoutineService.getRoutineExecutions(routineId) }
+    }
+
+    suspend fun getCurrentExecutions(): NetworkExecution {
+        return handleApiResponse { apiRoutineService.getCurrentUserExecutions() }
     }
 
     suspend fun addExercise(name: String, detail: String, type: String, imgUrl: String): NetworkExerciseContent{

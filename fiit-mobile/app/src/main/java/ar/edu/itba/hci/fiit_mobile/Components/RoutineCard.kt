@@ -81,7 +81,7 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth() //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
-                        .fillMaxHeight(0.4f)
+                        .fillMaxHeight(0.5f)
                         .padding(bottom = 5.dp)
                 )
                 Text(text = data.name, fontSize = 16.sp, textAlign = TextAlign.Center)
@@ -123,9 +123,9 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
         Card(
             modifier = Modifier
                 .aspectRatio(1f)
-                .background(MaterialTheme.colorScheme.background)
-                .padding(16.dp),
-            onClick = { viewModel.updateData(data); onNavigateToScreen("routine/" + data.id.toString()) }
+                .padding(32.dp),
+            onClick = { viewModel.updateData(data); onNavigateToScreen("routine/" + data.id.toString()) },
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
             ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -137,9 +137,9 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth() //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
-                        .fillMaxHeight(0.4f)
+                        .fillMaxHeight(0.5f)
                 )
-                Text(text = data.name, fontSize = 30.sp, textAlign = TextAlign.Center)
+                Text(text = data.name, fontSize = 30.sp, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.scrim)
                 Row(
                     modifier = Modifier
                         .padding(bottom = 5.dp)
@@ -151,7 +151,8 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
                     Column(horizontalAlignment = Alignment.Start, modifier = Modifier.weight(1f)) {
                         Text(
                             text = difficultyToIntensity(difficulty = data.difficulty),
-                            fontSize = 21.sp
+                            fontSize = 21.sp,
+                            color = MaterialTheme.colorScheme.scrim
                         )
                     }
                     Column(
@@ -162,11 +163,13 @@ fun RoutineCard(onNavigateToScreen: (String) -> Unit, data : NetworkRoutineConte
                             Icon(
                                 Icons.Filled.Star,
                                 contentDescription = "",
-                                modifier = Modifier.size(25.dp)
+                                modifier = Modifier.size(25.dp),
+                                tint = MaterialTheme.colorScheme.scrim
                             )
                             Text(
                                 text = "${data.score}",
-                                fontSize = 21.sp
+                                fontSize = 21.sp,
+                                color = MaterialTheme.colorScheme.scrim
                             )
                         }
                     }
