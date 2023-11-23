@@ -71,8 +71,25 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
             .fillMaxSize()
             .padding(top = 16.dp)
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if(data!=null) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = data.name,
+                    color = MaterialTheme.colorScheme.scrim,
+                    fontSize =
+                    if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){24.sp}
+                    else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {24.sp} else {30.sp}
+                )
+            }
+        } else {
+            Text("...")
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,15 +98,6 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
         ) {
             Column {
                 if(data!=null){
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = data.name,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
                     Row {
                         AsyncImage(
                             model = data.metadata.img,
@@ -97,7 +105,6 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.size(width = 100.dp, height = 100.dp),
                         )
-                        //RoutineInfo(data = data!!)
                     }
 
                 } else {
@@ -112,7 +119,13 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
             }
         }
         if(uiState.cycles.isEmpty()){
-            CircularProgressIndicator()
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ){
+                CircularProgressIndicator()
+            }
+
         }else {
             Row() {
                 val cycleArray = arrayListOf<NetworkRoutineCycleContent>(uiState.cycles[0])
@@ -131,24 +144,24 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
                 ExerciseDetailCard(cycles = cycleArray, uiState = uiState)
             }
         }
-        Row(
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.Bottom,
+        horizontalArrangement = Arrangement.End
+    ) {
+        ElevatedButton(
+            onClick = {
+                viewModel.addExecution(routineId)
+                onNavigateToScreen("execute_routine/$routineId")
+            },
             modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.End
+                .fillMaxWidth(0.4f)
+                .padding(16.dp)
         ) {
-            ElevatedButton(
-                onClick = {
-                    viewModel.addExecution(routineId)
-                    onNavigateToScreen("execute_routine/$routineId")
-                },
-                modifier = Modifier
-                    .fillMaxWidth(0.4f)
-                    .padding(16.dp)
-            ) {
-                Text(AnnotatedString(text = stringResource(R.string.start)))
-            }
+            Text(AnnotatedString(text = stringResource(R.string.start)), color = MaterialTheme.colorScheme.scrim)
         }
     }
 }
