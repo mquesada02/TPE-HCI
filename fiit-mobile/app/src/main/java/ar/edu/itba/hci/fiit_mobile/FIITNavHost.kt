@@ -29,7 +29,7 @@ fun FIITNavHost(
     val auth = viewModel<LoginViewModel>(factory = getViewModelFactory()).uiState.isAuthenticated
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route//if(!auth) startDestination else Screen.HomeScreen.route
+        startDestination = if(!auth) startDestination else Screen.HomeScreen.route
     ) {
         composable(Screen.LoginScreen.route) {
             LoginScreen(onNavigateToScreen = {s -> navController.popBackStack(Screen.RegisterScreen.route,true); navController.navigate(s) {

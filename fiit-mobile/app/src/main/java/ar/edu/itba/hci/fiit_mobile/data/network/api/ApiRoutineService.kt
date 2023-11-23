@@ -175,7 +175,7 @@ interface ApiRoutineService {
     //-----------REVIEWS-----------
 
     @POST("reviews/{routineId}")
-    suspend fun modifyReview(
+    suspend fun addReview(
         @Path("routineId") routineId: Int,
         @Body info : NetworkReview
     ) : Response<NetworkReviewContent>
@@ -184,6 +184,11 @@ interface ApiRoutineService {
     suspend fun getCurrentUserReviews(
         @Query("orderBy") orderBy: String = "date",
         @Query("direction") direction: String = "desc"
+    ): Response<NetworkRoutines>
+
+    @GET("users/current/reviews")
+    suspend fun getRoutineReviews(
+        @Path("routineId") routineId: Int
     ): Response<NetworkRoutines>
 
     //------------EXECUTIONS ---------------

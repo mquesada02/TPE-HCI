@@ -117,7 +117,11 @@ class RoutineDataSource(
         return getExerciseImgResponse.content[0].url
     }
 
-    suspend fun modifyReview(routineId : Int, info : NetworkReview){
-        handleApiResponse { apiRoutineService.modifyReview(routineId, info) }
+    suspend fun addReview(routineId : Int, info : NetworkReview){
+        handleApiResponse { apiRoutineService.addReview(routineId, info) }
+    }
+
+    suspend fun getRoutineReviews(routineId: Int){
+        handleApiResponse { apiRoutineService.getRoutineReviews(routineId) }
     }
 }
