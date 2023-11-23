@@ -37,7 +37,7 @@ fun ExecutionCarrousel(onNavigateToScreen: (String) -> Unit, name : String, rout
                 Column(
                     verticalArrangement = Arrangement.Center
                 ){
-                    Text(text = stringResource(R.string.Empty),
+                    Text(text = stringResource(R.string.empty_executions),
                         fontSize = 14.sp)
                 }
         }

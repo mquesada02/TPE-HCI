@@ -74,19 +74,32 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
               )
        }
        Row(
+           modifier = Modifier.fillMaxWidth(),
            horizontalArrangement = Arrangement.Center,
            verticalAlignment = Alignment.CenterVertically
        ) {
            if (uiState.currentUser?.username != null) {
                Text(
-                   text = (stringResource(R.string.welcome) + " " + uiState.currentUser?.username),
+                   text = stringResource(R.string.welcome),
                    fontWeight = FontWeight.Bold,
-                   fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                   fontSize = MaterialTheme.typography.titleLarge.fontSize
                )
            } else {
                CircularProgressIndicator()
            }
-
+       }
+       Row(
+           modifier = Modifier.fillMaxWidth(),
+           horizontalArrangement = Arrangement.Center,
+           verticalAlignment = Alignment.CenterVertically
+       ) {
+           if (uiState.currentUser?.username != null) {
+               Text(
+                   text = uiState.currentUser?.username!!,
+                   fontWeight = FontWeight.Bold,
+                   fontSize = MaterialTheme.typography.titleLarge.fontSize
+               )
+           }
        }
        RoutineCarrousel(onNavigateToScreen, name = stringResource(R.string.Featured), routines = uiState.featured?.content)
        ExecutionCarrousel(onNavigateToScreen, stringResource(R.string.recent), uiState.recents)

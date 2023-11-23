@@ -44,7 +44,9 @@ interface ApiRoutineService {
     ): Response<NetworkRoutines>
 
     @GET("routines")
-    suspend fun getRoutines(): Response<NetworkRoutines>
+    suspend fun getRoutines(
+        @Query("size") size: Int? = 999
+    ): Response<NetworkRoutines>
 
     @POST("routines")
     suspend fun addRoutine(

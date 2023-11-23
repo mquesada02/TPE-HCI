@@ -37,7 +37,7 @@ class RoutineDataSource(
         return handleApiResponse { apiRoutineService.RemoveFromFavourites(id) }
     }
     suspend fun getRoutines(): NetworkRoutines{
-        return handleApiResponse { apiRoutineService.getRoutines() }
+        return handleApiResponse { apiRoutineService.getRoutines(999) }
     }
 
     suspend fun getCurrentRoutines(): NetworkRoutines{
