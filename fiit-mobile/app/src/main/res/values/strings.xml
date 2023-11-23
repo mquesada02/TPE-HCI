@@ -80,4 +80,7 @@
     <string name="error_login">Nombre de usuario o contraseña incorrecta</string>
     <string name="error_register">Datos incorrectos</string>
     <string name="empty_executions">No se ha ejecutado ninguna rutina recientemente</string>
+    <string name="confirm_logout">Confirmar cerrar sesión</string>
+    <string name="confirmation_logout">¿Desea cerrar sesión?</string>
+    <string name="cancel">Cancelar</string>
 </resources>

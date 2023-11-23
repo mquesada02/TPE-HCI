@@ -41,6 +41,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ar.edu.itba.hci.fiit_mobile.PasswordTextField
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.TextFieldWithIcons
 import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
@@ -244,7 +245,7 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
         Row(
             horizontalArrangement = Arrangement.Center,
         ) {
-            TextFieldWithIcons(
+            PasswordTextField(
                 icon = Icons.Rounded.Lock,
                 iconDesc = "lockIcon",
                 label = stringResource(R.string.password),
@@ -278,7 +279,7 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
         Row(
             horizontalArrangement = Arrangement.Center,
         ) {
-            TextFieldWithIcons(
+            PasswordTextField(
                 icon = Icons.Rounded.Lock,
                 iconDesc = "lockIcon",
                 label = stringResource(R.string.confirm_password),
@@ -416,6 +417,7 @@ fun RegisterScreen(onNavigateToConfirmEmailScreen : () -> Unit, viewModel: Login
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
                 colors = ButtonDefaults.elevatedButtonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
+                    disabledContainerColor = MaterialTheme.colorScheme.surface,
                     contentColor = Color.Black
                 ),
                 enabled =

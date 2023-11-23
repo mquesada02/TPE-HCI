@@ -80,4 +80,7 @@
     <string name="error_login">Invalid username or password</string>
     <string name="error_register">Invalid data</string>
     <string name="empty_executions">No executions were done recently</string>
+    <string name="confirm_logout">Confirm logout</string>
+    <string name="confirmation_logout">Are you sure you want to logout?</string>
+    <string name="cancel">Cancel</string>
 </resources>

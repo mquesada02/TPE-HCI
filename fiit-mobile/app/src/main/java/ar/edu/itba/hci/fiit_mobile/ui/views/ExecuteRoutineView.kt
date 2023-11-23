@@ -281,7 +281,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                     horizontalArrangement = Arrangement.SpaceAround,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(text = stringResource(R.string.remaining_time) + ": " + textToDraw)
+                    Text(text = stringResource(R.string.remaining_time) + " " + textToDraw)
                     Text(text = if (uiState.cycleExercises.isEmpty() || uiState.isFetching) stringResource(
                         R.string.loading
                     ) else stringResource(R.string.repetitions) + ": " + uiState.cycleExercises[uiState.exerciseIndex].repetitions.toString())
@@ -337,7 +337,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             Icon(
                 imageVector = Icons.Default.ViewColumn,
                 contentDescription = "Other View",
-                tint = Color.Black,
+                tint = MaterialTheme.colorScheme.scrim,
                 modifier = Modifier.size(50.dp)
             )
         }
@@ -390,7 +390,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                 if (!clickedButton.value)
                     MaterialTheme.colorScheme.background
                 else
-                    MaterialTheme.colorScheme.primary,
+                    MaterialTheme.colorScheme.surface,
             ),
             elevation = ButtonDefaults.elevatedButtonElevation(),
             modifier = Modifier.size(75.dp)
@@ -402,7 +402,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                     Icons.Default.Pause
                 },
                 contentDescription = "Play/Pause",
-                tint = Color.Black,
+                tint = MaterialTheme.colorScheme.scrim,
                 modifier = Modifier.size(50.dp)
             )
         }
@@ -420,7 +420,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
                 containerColor = if (!clickedButton.value)
                     MaterialTheme.colorScheme.background
                 else
-                    MaterialTheme.colorScheme.primary,
+                    MaterialTheme.colorScheme.surface,
             ),
             elevation = ButtonDefaults.elevatedButtonElevation(),
             modifier = Modifier.size(75.dp),
@@ -429,7 +429,7 @@ fun ExecuteRoutineScreen(routineId: Int, viewModel: ExecuteRoutineViewModel = vi
             Icon(
                 imageVector = Icons.Default.SkipNext,
                 contentDescription = "SkipNext",
-                tint = Color.Black,
+                tint = MaterialTheme.colorScheme.scrim,
                 modifier = Modifier.size(50.dp)
             )
         }
