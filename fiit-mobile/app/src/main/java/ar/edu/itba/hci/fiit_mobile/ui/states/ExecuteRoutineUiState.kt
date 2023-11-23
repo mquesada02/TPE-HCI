@@ -13,7 +13,7 @@ data class ExecuteRoutineUiState(
     val exerciseIndex: Int = 0,
     val totalExercises: Int = 0,
 
-
+    val exerciseMap: HashMap<Int, ArrayList<NetworkCycleContent>> = hashMapOf(),
     val imageMap: HashMap<Int, String> = hashMapOf(),
 
     val nextExerciseName: String = "",

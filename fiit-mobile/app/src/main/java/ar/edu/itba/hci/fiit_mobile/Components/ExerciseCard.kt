@@ -1,41 +1,35 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Replay
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ar.edu.itba.hci.fiit_mobile.WindowInfo
-import ar.edu.itba.hci.fiit_mobile.data.network.model.exercises.NetworkExerciseContent
-import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleContent
-import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleExercise
-import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
-import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
 import ar.edu.itba.hci.fiit_mobile.R
+import ar.edu.itba.hci.fiit_mobile.data.network.model.cycleExercises.NetworkCycleContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routineCycles.NetworkRoutineCycleContent
+import ar.edu.itba.hci.fiit_mobile.ui.states.ExecuteRoutineUiState
 import coil.compose.AsyncImage
 
 
 @Composable
-fun ExerciseCard(cycles: ArrayList<NetworkRoutineCycleContent>){
+fun ExerciseDetailCard(cycles: ArrayList<NetworkRoutineCycleContent>, uiState: ExecuteRoutineUiState){
     Card (
         modifier = Modifier
             .fillMaxWidth()
@@ -47,14 +41,14 @@ fun ExerciseCard(cycles: ArrayList<NetworkRoutineCycleContent>){
                 modifier = Modifier.fillMaxWidth()
             ){
                 Text(text = "${cycle.name}  -  Series: ${cycle.repetitions}", fontSize = 30.sp)
-
+                Exercise(exercises = uiState.exerciseMap[cycle.id] ?: arrayListOf(), uiState)
             }
         }
     }
 }
 
 @Composable
-fun Exercise(exercises: ArrayList<NetworkCycleContent>){
+fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineUiState){
     val sec = stringResource(R.string.Seconds)
     val rep = stringResource(R.string.Repetitions)
     Column(
@@ -72,7 +66,7 @@ fun Exercise(exercises: ArrayList<NetworkCycleContent>){
             ){
                 Column(Modifier.weight(1/3f)){
                     AsyncImage(
-                        model = "url de la imagen a -> llamar a get exercise img",
+                        model = uiState.imageMap[exercise.exercise.id],
                         contentDescription = "",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier

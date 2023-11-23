@@ -178,4 +178,37 @@ class ExecuteRoutineViewModel(
             NetworkError(null, e.message ?: "", null)
         }
     }
+
+    fun saveExercisesLoop(){
+        for(cycle in uiState.cycles){
+            saveExercises(cycle.id)
+        }
+    }
+
+    private fun saveExercises(cycleId: Int): Job = viewModelScope.launch {
+        uiState = uiState.copy(isFetching = true, error = null)
+        runCatching {
+            routineDataSource.getCycleExercises(cycleId)
+        }.onSuccess { response ->
+            uiState.exerciseMap[cycleId] = response.content
+            for(ncc in response.content){
+                saveImages(ncc.exercise.id)
+            }
+            uiState = uiState.copy(isFetching = false)
+        }.onFailure { e ->
+            uiState = uiState.copy(isFetching = false, error = handleError(e))
+        }
+    }
+
+    private fun saveImages(exerciseId: Int): Job = viewModelScope.launch {
+        uiState = uiState.copy(isFetching = true, error = null)
+        runCatching {
+            routineDataSource.getExerciseImg(exerciseId)
+        }.onSuccess { response ->
+            uiState.imageMap[exerciseId] = response
+            uiState = uiState.copy(isFetching = false)
+        }.onFailure { e ->
+            uiState = uiState.copy(isFetching = false, error = handleError(e))
+        }
+    }
 }
