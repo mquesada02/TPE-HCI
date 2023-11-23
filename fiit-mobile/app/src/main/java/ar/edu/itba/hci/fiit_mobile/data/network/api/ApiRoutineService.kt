@@ -179,4 +179,14 @@ interface ApiRoutineService {
         @Path("routineId") routineId: Int,
         @Body info : NetworkReview
     ) : Response<NetworkReviewContent>
+
+    //------------EXECUTIONS ---------------
+    @GET("users/current/executions")
+    suspend fun getCurrentUserExecutions(
+        @Query("size") size: Int = 999,
+        @Query("orderBy") orderBy: String = "date",
+        @Query("direction") direction: String = "desc"
+    ): Response<NetworkExecution>
 }
+
+

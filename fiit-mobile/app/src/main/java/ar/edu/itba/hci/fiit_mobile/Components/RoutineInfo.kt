@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -104,7 +105,7 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                 context.startActivity(shareIntent)
             }) {
                 Icon(
-                    imageVector = Icons.Filled.Send,
+                    imageVector = Icons.Filled.Share,
                     contentDescription = "Localized description",
                     modifier = Modifier
                         .size(20.dp)
@@ -122,8 +123,6 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    tint = if (isFav) MaterialTheme.colorScheme.primary
-                           else MaterialTheme.colorScheme.secondary,
                     modifier = Modifier
                         .size(30.dp)
                 )

@@ -1,9 +1,8 @@
 package ar.edu.itba.hci.fiit_mobile.data.network.api
 
+import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkEmail
 import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkEmailCode
-import ar.edu.itba.hci.fiit_mobile.data.network.model.executions.NetworkExecution
-import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutines
 import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUser
 import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUserContent
 import ar.edu.itba.hci.fiit_mobile.data.network.model.user.NetworkUserCredentials
@@ -67,9 +66,5 @@ interface ApiUserService {
     suspend fun getUserRoutines(
         @Path("userId") userId: Int
     ): Response<NetworkRoutines>
-
-    @GET("users/current/executions") //PUEDE TENER PARAMETROS (habria que agregarlos)
-    suspend fun getCurrentUserExecutions():
-            Response<NetworkExecution>
 
 }

@@ -70,4 +70,7 @@
     <string name="Repetitions">Rep</string>
     <string name="Seconds">Seg</string>
     <string name="remaining_series">Series restantes</string>
+    <string name="recent">Recientes</string>
+    <string name="home">Inicio</string>
+    <string name="search_button">Búsqueda</string>
 </resources>

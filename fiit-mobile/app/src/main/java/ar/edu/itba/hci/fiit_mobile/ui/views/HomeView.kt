@@ -5,11 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Folder
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,11 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import ar.edu.itba.hci.fiit_mobile.Components.MenuCard
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineCarrousel
 import ar.edu.itba.hci.fiit_mobile.R
-import ar.edu.itba.hci.fiit_mobile.Screen
-import ar.edu.itba.hci.fiit_mobile.ui.theme.FiitmobileTheme
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
 import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 
@@ -37,6 +29,7 @@ import ar.edu.itba.hci.fiit_mobile.util.getViewModelFactory
 fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = viewModel(factory = getViewModelFactory())) {
 
     var fetchedUser by remember { mutableStateOf(false) }
+    var fetchedExecutions by remember { mutableStateOf(false) }
 
     if(!fetchedUser) {
         viewModel.getCurrentUser()
@@ -45,8 +38,21 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
 
     val uiState = viewModel.uiState
 
+    /*if(uiState.currentUser != null && !fetchedExecutions) {
+        viewModel.executionsWithRoutines()
+        fetchedExecutions = true
+    }*/
+
+    if(!fetchedExecutions) {
+        viewModel.getCurrentExecutions()
+        fetchedExecutions = true
+    }
+
 
    Column(
+       modifier = Modifier
+           .fillMaxWidth()
+           .padding(top = 16.dp),
        horizontalAlignment = Alignment.CenterHorizontally
    ) {
        Row(
@@ -56,52 +62,10 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
            Text(
                text = (stringResource(R.string.welcome) + " " + uiState.currentUser?.username),
                fontWeight = FontWeight.Bold,
-               color = MaterialTheme.colorScheme.primary,
                fontSize = MaterialTheme.typography.titleLarge.fontSize,
            )
        }
-       Row(
-           modifier = Modifier
-               .fillMaxWidth()
-               .padding(20.dp),
-           horizontalArrangement = Arrangement.SpaceAround
-       ) {
-           FiitmobileTheme {
-               MenuCard(
-                   name = stringResource(R.string.SearchR),
-                   iconType = Icons.Filled.Search
-               ) { onNavigateToScreen(Screen.SearchScreen.route) }
-           }
-
-           FiitmobileTheme {
-               MenuCard(
-                   name = stringResource(R.string.CreateR),
-                   iconType = Icons.Filled.Add
-               ) { onNavigateToScreen(Screen.ErrorScreen.route) }
-           }
-       }
-       Row(
-           modifier = Modifier
-               .fillMaxWidth()
-               .padding(20.dp),
-           horizontalArrangement = Arrangement.SpaceAround
-       ) {
-           FiitmobileTheme {
-               MenuCard(
-                   name = stringResource(R.string.MyRouts),
-                       iconType = Icons.Filled.Folder
-               )  { onNavigateToScreen(Screen.RoutinesScreen.route) }
-
-
-           }
-           FiitmobileTheme {
-               MenuCard(
-                   name = stringResource(R.string.Favs),
-                       iconType = Icons.Filled.Favorite
-               ) { onNavigateToScreen(Screen.FavsScreen.route) }
-           }
-       }
-       RoutineCarrousel(onNavigateToScreen, stringResource(R.string.Featured), viewModel.uiState.routines)
+       RoutineCarrousel(onNavigateToScreen, stringResource(R.string.recent), uiState.recents)
    }
 }
 

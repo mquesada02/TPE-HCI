@@ -3,6 +3,7 @@ package ar.edu.itba.hci.fiit_mobile.ui.views
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -80,11 +81,9 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
                     }
                 }
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth(0.7f)
                 ) {
-                    ElevatedButton(onClick = {onNavigateToScreen("execute_routine/$routineId") }) {
-                        Text(AnnotatedString(text = stringResource(R.string.start)))
-                    }
                     RoutineInfo(data =data)
                 }
             }
@@ -111,6 +110,21 @@ fun RoutineScreen(onNavigateToScreen: (String) -> Unit, routineId: Int, viewMode
                     // for(){
                     //   ExerciseDetailCard() todo
                     // }
+                }
+            }
+            Row(
+                modifier = Modifier.fillMaxHeight().fillMaxWidth(),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.End
+            ) {
+                ElevatedButton(
+                    onClick = {
+                        viewModel.addExecution(routineId)
+                        onNavigateToScreen("execute_routine/$routineId")
+                    },
+                    modifier = Modifier.fillMaxWidth(0.4f).padding(16.dp)
+                ) {
+                    Text(AnnotatedString(text = stringResource(R.string.start)))
                 }
             }
 

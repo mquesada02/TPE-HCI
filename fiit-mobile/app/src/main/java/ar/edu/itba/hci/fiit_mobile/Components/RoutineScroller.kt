@@ -14,7 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.itba.hci.fiit_mobile.R
+import ar.edu.itba.hci.fiit_mobile.WindowInfo
 import ar.edu.itba.hci.fiit_mobile.data.network.model.routines.NetworkRoutineContent
+import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
 
 //importante! cuando se lo llama no pasarle como parametro viewModel = RoutinesViewModel
 //hacer viewModel = viewModel()
@@ -27,6 +29,8 @@ fun RoutineScroller(
     name: String? = null,
     routines: ArrayList<NetworkRoutineContent>
 ){
+
+    val windowInfo = rememberWindowInfo()
 
     Column (
         modifier = Modifier.padding(8.dp)
@@ -42,7 +46,7 @@ fun RoutineScroller(
             }
         else{
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 160.dp),
+                columns = GridCells.Adaptive(minSize = if (windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded) 160.dp else 275.dp),
                 contentPadding = PaddingValues(
                     start = 10.dp,
                     top = 12.dp,

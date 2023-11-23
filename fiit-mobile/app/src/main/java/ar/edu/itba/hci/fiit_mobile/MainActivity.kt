@@ -25,9 +25,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ar.edu.itba.hci.fiit_mobile.Components.BottomBar
@@ -44,6 +41,7 @@ class MainActivity : ComponentActivity() {
             FiitmobileTheme {
                 val navController = rememberNavController()
                 var showBars by rememberSaveable { mutableStateOf(true) }
+                var showBottomBar by rememberSaveable { mutableStateOf(true) }
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
 
                 showBars = when (navBackStackEntry?.destination?.route) {
@@ -52,9 +50,12 @@ class MainActivity : ComponentActivity() {
                     Screen.ConfirmEmailScreen.route -> false
                     else -> true
                 }
+
+                //showBottomBar = !navBackStackEntry?.destination?.route?.contains("execute_routine")!!
+
                 Scaffold(
                     topBar = { if (showBars) TopAppBar(navController)  },
-                    bottomBar = { if (showBars) BottomBar(navController)  },
+                    bottomBar = { if (showBars /*&& showBottomBar*/) BottomBar(navController)  },
                     modifier = Modifier.fillMaxSize(),
                 ) {
                     Box(

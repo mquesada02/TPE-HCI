@@ -23,6 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -81,7 +83,7 @@ fun SearchScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(6.dp),
-                placeholder = { Text(stringResource(R.string.search)) },
+                placeholder = { Text(stringResource(R.string.search), color = Color.Black, modifier = Modifier.alpha(0.75f)) },
                 colors = TextFieldDefaults.textFieldColors(containerColor= MaterialTheme.colorScheme.primary)
             )
 
@@ -100,7 +102,7 @@ fun SearchScreen(
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                     },
                     placeholder = {
-                        Text(stringResource(R.string.order_by))
+                        Text(stringResource(R.string.order_by), color = Color.Black, modifier = Modifier.alpha(0.75f))
                     },
                     colors = TextFieldDefaults.textFieldColors(containerColor= MaterialTheme.colorScheme.primary),
                     modifier = Modifier.menuAnchor()
