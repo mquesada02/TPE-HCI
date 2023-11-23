@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile.Components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -77,9 +78,10 @@ fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineU
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ){
-                Column(Modifier.weight(0.5f)){
+                Column(Modifier.weight(0.5f), horizontalAlignment = Alignment.CenterHorizontally){
                     AsyncImage(
                         model = uiState.imageMap[exercise.exercise.id],
                         contentDescription = "",
@@ -88,7 +90,7 @@ fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineU
                             .fillMaxWidth(0.9f) //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
                     )
                 }
-                Column(Modifier.weight(0.5f)){
+                Column(Modifier.weight(0.5f), horizontalAlignment = Alignment.CenterHorizontally){
                     Text(text = exercise.exercise.name,
                             fontSize =
                         if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){22.sp}
@@ -108,7 +110,7 @@ fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineU
                             text = "  ${exercise.repetitions} $rep",
                             fontSize =
                             if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){22.sp}
-                            else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {22.sp} else {28.sp},
+                            else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {22.sp} else {30.sp},
                             color = MaterialTheme.colorScheme.scrim,
                         )
                     }
@@ -124,7 +126,7 @@ fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineU
                             text = "  ${exercise.duration} $rep",
                             fontSize =
                             if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Compact){22.sp}
-                            else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {22.sp} else {28.sp},
+                            else if(windowInfo.screenWidthInfo is WindowInfo.WindowType.Medium) {22.sp} else {30.sp},
                             color = MaterialTheme.colorScheme.scrim,
                         )
                     }
