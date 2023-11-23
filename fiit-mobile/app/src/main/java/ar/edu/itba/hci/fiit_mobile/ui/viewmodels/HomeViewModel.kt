@@ -123,6 +123,11 @@ class HomeViewModel (
         { state, response -> state.copy(recents = response.content) }
     )
 
+    fun getFeatured() = runOnViewModelScope(
+        { routineDataSource.getFeatured() },
+        { state, response -> state.copy(featured = response) }
+    )
+
     fun getRoutines() = runOnViewModelScope(
         { routineDataSource.getRoutines() },
         { state, response -> state.copy(routines = response) }

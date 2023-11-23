@@ -38,7 +38,9 @@ interface ApiRoutineService {
         @Query("userId") userId: Int? = null,
         @Query("difficulty") difficulty: String? = null, //rookie, beginner, intermediate, advanced, expert
         @Query("score") score: Int? = null,
-        @Query("orderBy") orderBy: String? = null //id, name, detail, date, score, difficulty, category, user
+        @Query("orderBy") orderBy: String? = null, //id, name, detail, date, score, difficulty, category, user
+        @Query("direction") direction: String? = null, //asc, desc
+        @Query("size") size: Int? = 999
     ): Response<NetworkRoutines>
 
     @GET("routines")

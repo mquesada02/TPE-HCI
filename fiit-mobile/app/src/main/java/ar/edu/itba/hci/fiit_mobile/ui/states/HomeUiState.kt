@@ -18,6 +18,7 @@ data class HomeUiState(
     val error: NetworkError? = null,
     val ratings: NetworkRoutines? = null,
     val recents: ArrayList<NetworkExecutionContent> = arrayListOf(),
+    val featured: NetworkRoutines? = null
 )
 val HomeUiState.canGetAllFavourites: Boolean get() = isAuthenticated
 val HomeUiState.canGetAllRoutines: Boolean get() = isAuthenticated

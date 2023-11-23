@@ -48,6 +48,10 @@ class RoutineDataSource(
         return handleApiResponse { apiRoutineService.getRoutines(categoryId, userId, difficulty, score, orderBy) }
     }
 
+    suspend fun getFeatured() : NetworkRoutines {
+        return handleApiResponse { apiRoutineService.getRoutines(size= 5,orderBy = "score", direction = "desc") }
+    }
+
     suspend fun getRoutineById(routineId: Int): NetworkRoutineContent{
         return handleApiResponse { apiRoutineService.getRoutineById(routineId) }
     }

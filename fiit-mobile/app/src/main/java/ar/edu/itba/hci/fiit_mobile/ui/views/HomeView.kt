@@ -1,10 +1,13 @@
 package ar.edu.itba.hci.fiit_mobile.ui.views
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,12 +17,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
+import ar.edu.itba.hci.fiit_mobile.Components.ExecutionCarrousel
 import ar.edu.itba.hci.fiit_mobile.Components.RoutineCarrousel
 import ar.edu.itba.hci.fiit_mobile.R
 import ar.edu.itba.hci.fiit_mobile.ui.viewmodels.HomeViewModel
@@ -45,6 +48,7 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
 
     if(!fetchedExecutions) {
         viewModel.getCurrentExecutions()
+        viewModel.getFeatured()
         fetchedExecutions = true
     }
 
@@ -59,22 +63,31 @@ fun HomeScreen(onNavigateToScreen: (String) -> Unit, viewModel: HomeViewModel = 
            horizontalArrangement = Arrangement.Center,
            verticalAlignment = Alignment.CenterVertically
        ) {
-           Text(
-               text = (stringResource(R.string.welcome) + " " + uiState.currentUser?.username),
-               fontWeight = FontWeight.Bold,
-               fontSize = MaterialTheme.typography.titleLarge.fontSize,
-           )
+           Image(
+                painter = painterResource(R.drawable.fiit_logo),
+                contentDescription = null,
+                modifier = Modifier
+                     .size(150.dp)
+              )
        }
-       RoutineCarrousel(onNavigateToScreen, stringResource(R.string.recent), uiState.recents)
+       Row(
+           horizontalArrangement = Arrangement.Center,
+           verticalAlignment = Alignment.CenterVertically
+       ) {
+           if (uiState.currentUser?.username != null) {
+               Text(
+                   text = (stringResource(R.string.welcome) + " " + uiState.currentUser?.username),
+                   fontWeight = FontWeight.Bold,
+                   fontSize = MaterialTheme.typography.titleLarge.fontSize,
+               )
+           } else {
+               CircularProgressIndicator()
+           }
+
+       }
+       RoutineCarrousel(onNavigateToScreen, name = stringResource(R.string.Featured), routines = uiState.featured?.content)
+       ExecutionCarrousel(onNavigateToScreen, stringResource(R.string.recent), uiState.recents)
    }
 }
 
-
-@Preview
-@Composable
-fun HomePrev(){
-    val navController = rememberNavController()
-
-    HomeScreen(onNavigateToScreen = {s -> navController.navigate(s)} )
-}
 

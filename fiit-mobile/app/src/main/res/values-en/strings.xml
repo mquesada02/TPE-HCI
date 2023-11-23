@@ -41,7 +41,7 @@
     <string name="intensity">Intensity:  </string>
     <string name="Favs">Favourites</string>
     <string name="MyRouts">My routines</string>
-    <string name="Featured">Featrued:</string>
+    <string name="Featured">Featured:</string>
     <string name="Create">Create routine +</string>
     <string name="SearchR">Search routine</string>
     <string name="CreateR">Create routine</string>
@@ -71,7 +71,7 @@
     <string name="Seconds">Sec</string>
     <string name="Creator">Creator</string>
     <string name="remaining_series">Remaining series</string>
-    <string name="recent">Recent</string>
+    <string name="recent">Recent routines</string>
     <string name="home">Home</string>
     <string name="search_button">Search</string>
     <string name="check_routine">Checkout this routine in FIIT</string>
