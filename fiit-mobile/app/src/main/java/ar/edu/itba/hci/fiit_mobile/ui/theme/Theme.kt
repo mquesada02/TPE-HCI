@@ -39,7 +39,7 @@ private val LightColorScheme = lightColorScheme(
     onBackground = Color(0xFF000000),
     outlineVariant = Color(0xFF888880),
     outline = Color(0xFF000000),
-    scrim = Color(0xAA000000),
+    scrim = Color(0xDD000000),
     error = Color(0xFFE90000),
     onSurface = Color(0x22000000)
     /* Other default colors to override

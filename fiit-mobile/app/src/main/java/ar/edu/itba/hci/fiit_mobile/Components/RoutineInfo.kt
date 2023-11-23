@@ -106,17 +106,12 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                     maxRating = 5,
                     currentRating = score,
                     onRatingChanged = { score = it },
-                    starsColor = MaterialTheme.colorScheme.outline,
+                    starsColor = MaterialTheme.colorScheme.scrim,
                     id = data.id,
                     size=25.dp
                 )
             }
             Row() {
-                Text(
-                    text = stringResource(R.string.intensity),
-                    modifier = Modifier.padding(end = 5.dp),
-                    fontSize = 20.sp
-                )
                 Text(text = intensityType, fontSize = 20.sp)
             }
             Row(
