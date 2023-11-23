@@ -22,8 +22,11 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -60,6 +63,8 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
     }
     val windowInfo = rememberWindowInfo()
 
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -68,18 +73,20 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
             .verticalScroll(rememberScrollState())
     ) {
         if (windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.fiit_logo),
-                    contentDescription = "Logo",
+            if (windowInfo.screenHeightInfo !is WindowInfo.WindowType.Compact) {
+                Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                )
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.fiit_logo),
+                        contentDescription = "Logo",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                    )
+                }
             }
             Row(
                 modifier = Modifier
@@ -111,7 +118,8 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
             }
             Row(
                 horizontalArrangement = Arrangement.Center,
-            ) {
+            )
+            {
                 TextFieldWithIcons(
                     icon = Icons.Rounded.Lock,
                     iconDesc = "lockIcon",
@@ -154,8 +162,9 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
                     onClick = { viewModel.login(username.value.text, password.value.text) },
                     colors = ButtonDefaults.elevatedButtonColors(
                         containerColor = MaterialTheme.colorScheme.secondary,
-                        contentColor = Color.Black,
+                        contentColor = Color.Black
                     ),
+                    modifier = Modifier.padding(bottom = 20.dp),
                     enabled = username.value.text.isNotEmpty() && password.value.text.isNotEmpty() && !viewModel.uiState.isFetching,
                 ) {
                     Text(text = stringResource(R.string.login), color = Color.Black)
@@ -259,6 +268,7 @@ fun LoginScreen(onNavigateToScreen: (String) -> Unit, viewModel: LoginViewModel 
                         containerColor = MaterialTheme.colorScheme.secondary,
                         contentColor = Color.Black,
                     ),
+                    modifier = Modifier.padding(bottom = 20.dp),
                     enabled = username.value.text.isNotEmpty() && password.value.text.isNotEmpty() && !viewModel.uiState.isFetching,
                 ) {
                     Text(text = stringResource(R.string.login), color = Color.Black, fontSize = 50.sp)

@@ -49,7 +49,7 @@ fun BottomBar(navController: NavController){
     inMyRoutines = navController.currentDestination?.route == Screen.RoutinesScreen.route
     BottomAppBar(
                 containerColor = MaterialTheme.colorScheme.tertiary,
-                modifier = Modifier.height( if (windowInfo.screenHeightInfo is WindowInfo.WindowType.Compact) 30.dp else 80.dp),
+                modifier = Modifier.height( if (windowInfo.screenHeightInfo is WindowInfo.WindowType.Compact) 48.dp else 80.dp),
                 actions = {
                 Row(
                     modifier = Modifier

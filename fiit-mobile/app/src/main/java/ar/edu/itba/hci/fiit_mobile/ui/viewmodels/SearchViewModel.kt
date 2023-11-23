@@ -101,8 +101,5 @@ class SearchViewModel (
         if(order == "routinename") {
             _routines.value.sortBy { it.name }
         }
-        println("holaaaaaaaa")
-        println(order)
-        println(_routines.value)
     }
 }

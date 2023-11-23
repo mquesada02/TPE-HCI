@@ -78,8 +78,8 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
     val intensityType = data.difficulty
     var isFav by remember { mutableStateOf(isFav(viewModel.uiState, data.id)) }
     val icon = if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder
-    var myRating by remember { mutableIntStateOf(data.score) }
     val link = "https://www.fiit.com/routine/${data.id}"
+    var score by remember { mutableIntStateOf(data.score) }
     val sendIntent: Intent = Intent().apply {
         action = Intent.ACTION_SEND
         putExtra(Intent.EXTRA_TEXT, "${stringResource(R.string.check_routine)}: $link")
@@ -104,8 +104,8 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
             Row() {
                 RatingBar(
                     maxRating = 5,
-                    currentRating = myRating,
-                    onRatingChanged = { myRating = it },
+                    currentRating = score,
+                    onRatingChanged = { score = it },
                     starsColor = MaterialTheme.colorScheme.outline,
                     id = data.id,
                     size=15.dp
@@ -138,8 +138,8 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                     context.startActivity(shareIntent)
                 }) {
                     Icon(
-                        imageVector = Icons.Filled.Send,
-                        contentDescription = "Localized description",
+                        imageVector = Icons.Default.Share,
+                        contentDescription = "share",
                         modifier = Modifier
                             .size(20.dp)
                     )
@@ -179,8 +179,8 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
             Row() {
                 RatingBar(
                     maxRating = 5,
-                    currentRating = myRating,
-                    onRatingChanged = { myRating = it },
+                    currentRating = score,
+                    onRatingChanged = { score = it },
                     starsColor = MaterialTheme.colorScheme.outline,
                     id = data.id,
                     size = 35.dp
@@ -214,8 +214,8 @@ fun RoutineInfo(data : NetworkRoutineContent?, viewModel: HomeViewModel = viewMo
                     context.startActivity(shareIntent)
                 }) {
                     Icon(
-                        imageVector = Icons.Filled.Share,
-                        contentDescription = "Localized description",
+                        imageVector = Icons.Default.Share,
+                        contentDescription = "share icon",
                         modifier = Modifier
                             .size(40.dp)
                     )

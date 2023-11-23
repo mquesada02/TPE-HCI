@@ -110,9 +110,9 @@ class HomeViewModel (
 
 
     fun updateScore(id: Int, info : NetworkReview) = runOnViewModelScope(
-        { routineDataSource.modifyReview(id, info)},
+        { routineDataSource.addReview(id, info)},
         {state, _ -> state.copy()}
-    )
+    ) /*TODO*/
     fun getCurrentUser() = runOnViewModelScope(
         { userDataSource.getCurrentUser() },
         { state, response -> state.copy(currentUser = response) }
