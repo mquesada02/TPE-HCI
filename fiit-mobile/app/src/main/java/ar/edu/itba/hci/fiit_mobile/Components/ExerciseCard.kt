@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -82,13 +83,17 @@ fun Exercise(exercises: ArrayList<NetworkCycleContent>, uiState: ExecuteRoutineU
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 Column(Modifier.weight(0.5f), horizontalAlignment = Alignment.CenterHorizontally){
-                    AsyncImage(
-                        model = uiState.imageMap[exercise.exercise.id],
-                        contentDescription = "",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth(0.9f) //para  forma de circulo se puede agregar un size fijo y .clip(CircleShape)
-                    )
+                    if (uiState.imageMap[exercise.exercise.id] == null && uiState.isFetching) {
+                        CircularProgressIndicator()
+                    } else {
+                        AsyncImage(
+                            model = uiState.imageMap[exercise.exercise.id],
+                            contentDescription = "",
+                            contentScale = ContentScale.Crop,
+                            modifier = if(windowInfo.screenWidthInfo !is WindowInfo.WindowType.Expanded){Modifier.fillMaxWidth(0.9f)} else {Modifier.fillMaxWidth(0.65f)}
+                        )
+                    }
+
                 }
                 Column(Modifier.weight(0.5f), horizontalAlignment = Alignment.CenterHorizontally){
                     Text(text = exercise.exercise.name,
