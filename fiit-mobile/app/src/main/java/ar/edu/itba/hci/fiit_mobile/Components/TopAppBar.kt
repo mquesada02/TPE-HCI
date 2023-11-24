@@ -2,11 +2,14 @@ package ar.edu.itba.hci.fiit_mobile.Components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,7 +33,7 @@ import ar.edu.itba.hci.fiit_mobile.rememberWindowInfo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar(navController: NavController){
+fun TopAppBar(navController: NavController, themeChange: () -> Unit, darkMode: Boolean){
     val windowInfo = rememberWindowInfo()
 
     CenterAlignedTopAppBar(
@@ -61,13 +64,23 @@ fun TopAppBar(navController: NavController){
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.CenterEnd
                     ) {
-                        IconButton(onClick = { navController.popBackStack(Screen.HomeScreen.route, false);navController.navigate(Screen.ProfileScreen.route) }) {
-                            Icon(
-                                imageVector = Icons.Filled.Person,
-                                contentDescription = "Localized description",
-                                tint = Color.Black
-                            )
+                        Row{
+                            IconButton(onClick = { themeChange() }) {
+                                Icon(
+                                    imageVector = if (darkMode) Icons.Filled.LightMode else Icons.Filled.DarkMode,
+                                    contentDescription = "Localized description",
+                                    tint = Color.Black
+                                )
+                            }
+                            IconButton(onClick = { navController.popBackStack(Screen.HomeScreen.route, false);navController.navigate(Screen.ProfileScreen.route) }) {
+                                Icon(
+                                    imageVector = Icons.Filled.Person,
+                                    contentDescription = "Localized description",
+                                    tint = Color.Black
+                                )
+                            }
                         }
+
                     }
 
                 }

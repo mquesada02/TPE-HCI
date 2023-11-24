@@ -27,16 +27,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            /*buildConfigField("String", "API_BASE_URL",
-                "\"http://10.0.2.2:8080/api/\"")*/
             buildConfigField("String", "API_BASE_URL",
-                "\"http://192.168.1.10:8080/api/\"")
+                "\"http://10.0.2.2:8080/api/\"")
         }
         debug{
-            /*buildConfigField("String", "API_BASE_URL",
-                "\"http://10.0.2.2:8080/api/\"")*/
             buildConfigField("String", "API_BASE_URL",
-                "\"http://192.168.1.10:8080/api/\"")
+                "\"http://10.0.2.2:8080/api/\"")
         }
     }
     compileOptions {

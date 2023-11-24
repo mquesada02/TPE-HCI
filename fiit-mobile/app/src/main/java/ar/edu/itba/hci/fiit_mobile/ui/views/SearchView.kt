@@ -1,5 +1,6 @@
 package ar.edu.itba.hci.fiit_mobile.ui.views
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -108,11 +109,11 @@ fun SearchScreen(
                     modifier = Modifier.menuAnchor()
                 )
                 ExposedDropdownMenu(
-                    expanded = isExpanded, onDismissRequest = { isExpanded = false }
+                    expanded = isExpanded, onDismissRequest = { isExpanded = false }, modifier = Modifier.background(Color.White)
                 ) {
                     DropdownMenuItem(
                         text = { Text(text = date) },
-                        onClick = { orderBy=date; viewModel.orderRoutines("date"); isExpanded = false}
+                        onClick = { orderBy=date; viewModel.orderRoutines("date"); isExpanded = false},
                     )
                     DropdownMenuItem(
                         text = { Text(text = intensity) },
@@ -172,7 +173,7 @@ fun SearchScreen(
                     onExpandedChange = { isExpanded = it },
                     modifier = Modifier
                         .padding(6.dp)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
                 ) {
                     TextField(
                         value = orderBy,
@@ -188,7 +189,7 @@ fun SearchScreen(
                         modifier = Modifier.menuAnchor()
                     )
                     ExposedDropdownMenu(
-                        expanded = isExpanded, onDismissRequest = { isExpanded = false }
+                        expanded = isExpanded, onDismissRequest = { isExpanded = false }, modifier = Modifier.background(Color.White)
                     ) {
                         DropdownMenuItem(
                             text = { Text(text = date) },

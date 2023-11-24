@@ -44,7 +44,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            FiitmobileTheme {
+            var darkTheme by remember { mutableStateOf(false) }
+            FiitmobileTheme (darkTheme) {
                 val navController = rememberNavController()
                 var showBars by rememberSaveable { mutableStateOf(true) }
                 var showBottomBar by rememberSaveable { mutableStateOf(true) }
@@ -60,7 +61,7 @@ class MainActivity : ComponentActivity() {
                 //showBottomBar = !navBackStackEntry?.destination?.route?.contains("execute_routine")!!
 
                 Scaffold(
-                    topBar = { if (showBars) TopAppBar(navController)  },
+                    topBar = { if (showBars) TopAppBar(navController, themeChange = { darkTheme = !darkTheme }, darkMode = darkTheme)  },
                     bottomBar = { if (showBars /*&& showBottomBar*/) BottomBar(navController)  },
                     modifier = Modifier.fillMaxSize(),
                 ) {
@@ -89,7 +90,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true, name = "Testing")
 @Composable
 fun TestingPreview() {
-    FiitmobileTheme(dynamicColor = false) {
+    var darkTheme by remember { mutableStateOf(false) }
+    FiitmobileTheme(darkTheme, dynamicColor = false) {
         val navController = rememberNavController()
         var showBars by rememberSaveable { mutableStateOf(true) }
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -102,7 +104,7 @@ fun TestingPreview() {
         }
 
         Scaffold(
-            topBar = { if (showBars) TopAppBar(navController)  },
+            topBar = { if (showBars) TopAppBar(navController, themeChange = { darkTheme = !darkTheme }, darkMode = darkTheme)  },
              bottomBar = { if (showBars) BottomBar(navController)  },
             modifier = Modifier.fillMaxSize(),
         ) {
